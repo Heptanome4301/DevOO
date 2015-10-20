@@ -34,13 +34,13 @@ public class PlanXMLParser {
         Document document = docBuilder.parse(xml);
         Element racine = document.getDocumentElement();
         if (racine.getNodeName().equals("Reseau")) {
-           buildCityMap(racine, p);
+           construirePlan(racine, p);
         }
         else
         	throw new ExceptionXML("Document non conforme");
 	}
 	
-	private static void buildCityMap(Element root, Plan p) throws ExceptionXML {
+	private static void construirePlan(Element root, Plan p) throws ExceptionXML {
 		NodeList nodes = root.getElementsByTagName("Noeud");
 		for (int i = 0; i < nodes.getLength(); i++) {
 			parseAdresse((Element)nodes.item(i),p);

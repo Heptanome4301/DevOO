@@ -21,7 +21,6 @@ public class Main {
 				| ExceptionXML e) {
 			e.printStackTrace();
 		}
-		
 	}
 
 }
