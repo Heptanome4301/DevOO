@@ -13,15 +13,13 @@ public class OuvreurDeFichiersXML extends FileFilter {// Singleton
 		return instance;
 	}
 
- 	public File ouvre(boolean lecture) throws ExceptionXML{
+ 	public File ouvre() throws ExceptionXML{
  		int returnVal;
  		JFileChooser jFileChooserXML = new JFileChooser();
         jFileChooserXML.setFileFilter(this);
         jFileChooserXML.setFileSelectionMode(JFileChooser.FILES_ONLY);
-        if (lecture)
-         	returnVal = jFileChooserXML.showOpenDialog(null);
-        else
-         	returnVal = jFileChooserXML.showSaveDialog(null);
+        returnVal = jFileChooserXML.showOpenDialog(null);
+       
         if (returnVal != JFileChooser.APPROVE_OPTION) 
         	throw new ExceptionXML("Probleme a l'ouverture du fichier");
         return new File(jFileChooserXML.getSelectedFile().getAbsolutePath());

@@ -1,6 +1,9 @@
 package xml;
 
 import java.lang.String;
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.util.Locale;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,8 +15,10 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
+import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
+import modele.*;
 
 public class PlanXMLParser {
 	/**
@@ -23,30 +28,30 @@ public class PlanXMLParser {
 	 * @throws IOException
 	 * @throws ExceptionXML
 	 */
-	public static void charger() throws ParserConfigurationException, SAXException, IOException, ExceptionXML{
-		File xml = OuvreurDeFichiersXML.getInstance().ouvre(true);
+	public static void charger(Plan p) throws ParserConfigurationException, SAXException, IOException, ExceptionXML{
+		File xml = OuvreurDeFichiersXML.getInstance().ouvre();
         DocumentBuilder docBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();	
         Document document = docBuilder.parse(xml);
         Element racine = document.getDocumentElement();
         if (racine.getNodeName().equals("Reseau")) {
-           buildCityMap(racine);
+           buildCityMap(racine, p);
         }
         else
         	throw new ExceptionXML("Document non conforme");
 	}
 	
-	private static void buildCityMap(Element root) throws ExceptionXML {
+	private static void buildCityMap(Element root, Plan p) throws ExceptionXML {
 		NodeList nodes = root.getElementsByTagName("Noeud");
 		for (int i = 0; i < nodes.getLength(); i++) {
-			parseNode((Element)nodes.item(i));
+			parseAdresse((Element)nodes.item(i),p);
 		}
 		NodeList sections = root.getElementsByTagName("LeTronconSortant");
 		for (int i = 0; i < sections.getLength(); i++) {
-			parseSection((Element)sections.item(i));
+			parseTroncon((Element)sections.item(i), p);
 		}
 	}
 	
-	private static void parseNode(Element elt) throws ExceptionXML {
+	private static void parseAdresse(Element elt, Plan p) throws ExceptionXML {
 		int id, x, y;
 		id = Integer.parseInt(elt.getAttribute("id"));
 		x = Integer.parseInt(elt.getAttribute("x"));
@@ -55,19 +60,41 @@ public class PlanXMLParser {
 		if(x<0 || y<0 || id<0)
 			throw new ExceptionXML("Un des attributs est négatif!");
 		
-		System.out.println("Le noeud" + id +" a pour coordonnées ("+ x + "," + y + ")");
+		System.out.println("Le noeud " + id +" a pour coordonnées ("+ x + "," + y + ")");
+		p.ajouterAdresse(new Adresse(id,x,y));
+		
 	}
 	
-	private static void parseSection(Element elt) throws ExceptionXML {
-		int speed, length, destination;
-		String name;
-		speed = Integer.parseInt(elt.getAttribute("vitesse"));
-		length = Integer.parseInt(elt.getAttribute("longueur"));
-		destination = Integer.parseInt(elt.getAttribute("idNoeudDestination"));
-		name = elt.getAttribute("nomRue");
+	private static void parseTroncon(Element elt, Plan p) throws ExceptionXML {
+		NumberFormat format = NumberFormat.getInstance(Locale.FRANCE);
+	    Number speed, length;
 		
-		if(name == null || speed<0 || length<0 || destination<0)
+		double vitesse, longueur;
+		int destination;
+		Node parent = elt.getParentNode();
+		int parentId;
+		String nom;
+		
+		try {
+			speed = format.parse(elt.getAttribute("vitesse"));
+			length = format.parse(elt.getAttribute("longueur"));
+		} catch (ParseException e) {
+			e.printStackTrace();
+			speed = -1;
+			length = -1;
+		}
+		
+		vitesse = speed.doubleValue();
+		longueur = length.doubleValue();
+		destination = Integer.parseInt(elt.getAttribute("idNoeudDestination"));
+		parentId = Integer.parseInt(((Element)parent).getAttribute("id"));
+		nom = elt.getAttribute("nomRue");
+		
+		if(nom == null || vitesse<0 || longueur<0 || destination<0)
 			throw new ExceptionXML("Un des attributs est négatif!");
+		
+		Adresse depart = p.getAdresses().get(parentId);
+		depart.ajouterTroncon(new Troncon(nom, longueur, vitesse, p.getAdresses().get(destination)));
 		
 	}
 	
