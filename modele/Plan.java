@@ -2,6 +2,7 @@ package modele;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.TreeSet;
 
@@ -55,21 +56,22 @@ public class Plan {
 		Chemin res = new Chemin();
 		
 		int nbAdresses = adresses.size();
-		HashMap<Adresse, double> distMap = new HashMap();
-		TreeSet<Adresse> blanc = new TreeSet<Adresse>(new AdresseComparator());
+		HashMap<Adresse,Double> distMap = new HashMap<Adresse,Double>();
+		
+		TreeSet<Adresse> blanc = new TreeSet<Adresse>(new AdresseComparator(distMap));
 		ArrayList<Adresse> noir = new ArrayList<Adresse>();
 		
 		double min = 1000000000000.0;
-		int[] precedence = new int[nbAdresses];
-		precedence[a1.getId()] = a1.getId();
+		Adresse[] precedence = new Adresse[nbAdresses];
+		precedence[a1.getId()] = a1;
 		
 		//pour ne pas avoir la meme distance a l'entrepot
 		int k = 0;
 		for(Adresse ad : adresses){
-			ad.setDistanceEntrepot(1000000000000.0+(k++));
+			distMap.put(ad,1000000000000.0+(k++));
 			blanc.add(ad);
 		}
-		a1.setDistanceEntrepot(0.0);
+		distMap.put(a1, 0.0);
 		blanc.add(a1);
 		
 		while(!blanc.isEmpty()){
@@ -77,19 +79,19 @@ public class Plan {
 			
 			for(Troncon t : current.getTroncons()){
 				if(!noir.contains(t.getArrivee())){
-					double dureePrecedente = t.getArrivee().getDistanceEntrepot();
-					double dureeActuelle =  current.getDistanceEntrepot() + t.getDuree();
+					double dureePrecedente = distMap.get(t.getArrivee());
+					double dureeActuelle =  distMap.get(current) + t.getDuree();
 					
 					//Mise a jour de la distance
 					if(dureeActuelle < dureePrecedente && dureeActuelle < min){
-						t.getArrivee().setDistanceEntrepot(dureeActuelle);
+						distMap.put(t.getArrivee(), dureeActuelle);
 						
 						//Mise a jour du tas binaire
 						blanc.remove(t.getArrivee());
 						blanc.add(t.getArrivee());
 						
 						//Mise a jour du precedent
-						precedence[t.getArrivee().getId()] = current.getId();
+						precedence[t.getArrivee().getId()] = current;
 						
 						if(t.getArrivee() == a2){
 							min = dureeActuelle;
@@ -102,8 +104,23 @@ public class Plan {
 			noir.add(current);
 		}
 		
-		System.out.println("plus court chemin de longueur " + min);
-		System.out.println(precedence[1] + " précède 1");
+		Adresse arrivee = a2;
+		Adresse depart = precedence[a2.getId()];
+		
+		//On remonte le tableau de précédence pour construire le chemin
+		while(arrivee != depart){
+			//Ajouter le troncon au chemin
+			for(Troncon t : depart.getTroncons()){
+				if(t.getArrivee() == arrivee){
+					res.ajouterTroncon(t);
+					break;
+				}
+			}
+			
+			arrivee = depart;
+			depart = precedence[arrivee.getId()];
+		}
+		
 		return res;
 	}
 	
