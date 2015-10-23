@@ -7,6 +7,7 @@ public class Adresse {
 	private int id;
 	private int x;
 	private int y;
+	private double distanceEntrepot;
 	private ArrayList<Troncon> tronconsSortants;
 	
 	public Adresse(int id, int x, int y){
@@ -35,5 +36,13 @@ public class Adresse {
 	
 	public ArrayList<Troncon> getTroncons(){
 		return tronconsSortants;
+	}
+	
+	public double getDistanceEntrepot(){
+		return distanceEntrepot;
+	}
+	
+	public void setDistanceEntrepot(double d){
+		distanceEntrepot = d;
 	}
 }
