@@ -1,13 +1,14 @@
 package modele;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 public class Adresse {
 
 	private int id;
 	private int x;
 	private int y;
-	private ArrayList<Troncon> tronconsSortants;
+	private Collection<Troncon> tronconsSortants;
 	
 	public Adresse(int id, int x, int y){
 		this.id= id;
@@ -33,7 +34,7 @@ public class Adresse {
 		return y;
 	}
 	
-	public ArrayList<Troncon> getTroncons(){
+	public Collection<Troncon> getTroncons(){
 		return tronconsSortants;
 	}
 }

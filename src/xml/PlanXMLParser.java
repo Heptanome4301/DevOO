@@ -28,7 +28,7 @@ public class PlanXMLParser {
 	 * @throws IOException
 	 * @throws ExceptionXML
 	 */
-	public static void charger(Plan p) throws ParserConfigurationException, SAXException, IOException, ExceptionXML{
+	public static void chargerPlan(Plan p) throws ParserConfigurationException, SAXException, IOException, ExceptionXML{
 		File xml = OuvreurDeFichiersXML.getInstance().ouvre();
         DocumentBuilder docBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();	
         Document document = docBuilder.parse(xml);
@@ -93,9 +93,14 @@ public class PlanXMLParser {
 		if(nom == null || vitesse<0 || longueur<0 || destination<0)
 			throw new ExceptionXML("Un des attributs est négatif!");
 		
-		Adresse depart = p.getAdresses().get(parentId);
-		depart.ajouterTroncon(new Troncon(nom, longueur, vitesse, p.getAdresses().get(destination)));
+		Adresse depart = p.getAdresse(parentId);
+		depart.ajouterTroncon(new Troncon(nom, longueur, vitesse, p.getAdresse(destination)));
 		
+	}
+	
+	public static Tournee chargerLivraison(Plan p) throws ParserConfigurationException, SAXException, IOException, ExceptionXML{
+		//TO DO
+		return null;
 	}
 	
 	//A LAISSER EN COMMENTAIRE, C'EST BON POUR LE COPIE-COL... EUUUUUUH, L'INSPIRATION.

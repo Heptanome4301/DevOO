@@ -1,16 +1,22 @@
 package modele;
 
 import java.util.ArrayList;
+import java.util.Collection;
+
 
 public class Chemin {
 	
-	private ArrayList<Troncon> troncons;
+	private Collection<Troncon> troncons;
 	private double duree;
 	
 	public Chemin(){
 		troncons = new ArrayList<Troncon>();
 	}
 	
+	/**
+	 * s'il existe deja, ne pas l'ajouter
+	 * @param t
+	 */
 	public void ajouterTroncon(Troncon t){
 		troncons.add(t);
 		duree = duree+t.getDuree();
@@ -28,5 +34,9 @@ public class Chemin {
 	
 	public double getDuree(){
 		return duree;
+	}
+	
+	public Collection<Troncon> getTroncons() {
+		return troncons;
 	}
 }

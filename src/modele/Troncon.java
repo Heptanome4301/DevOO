@@ -12,7 +12,7 @@ public class Troncon {
 		this.nomRue = nomRue;
 		this.longueur = longueur;
 		this.vitesse = vitesse;
-		this.duree = longueur/vitesse;
+		if (vitesse > 0)  this.duree = longueur/vitesse;  else this.duree=0 ; 
 		this.arrivee = arrivee;
 	}
 	
