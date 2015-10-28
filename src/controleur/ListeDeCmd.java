@@ -16,14 +16,14 @@ public class ListeDeCmd {
 		position = listeCmd.size();
 	}
 	
-	public void undo() {
+	public void undo() throws Exception {
 		if(position>0)	{
 			listeCmd.get(position).undoCmd();
 			position--;
 		}
 	}
 	
-	public void redo() {
+	public void redo() throws Exception {
 		if(position<listeCmd.size()) {
 			listeCmd.get(position).doCmd();
 			position++;

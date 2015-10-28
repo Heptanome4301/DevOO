@@ -1,13 +1,16 @@
 package controleur;
 
-import controleur.ListeDeCmd;
+import modele.Livraison;
+import modele.Plan;
+import modele.Adresse;
 
 public interface Etat {
-	void undo(ListeDeCmd listeCmd);
-	void redo(ListeDeCmd listeCmd);
-/*	void clicNoeud(Noeud noeud);
-	Graph chargerPlan(File plan);
+	void undo(ListeDeCmd listeCmd) throws Exception;
+	void redo(ListeDeCmd listeCmd) throws Exception;
+	void clicNoeud(Adresse adresse,Plan plan, ListeDeCmd listeCmd);
+/*	Graph chargerPlan(File plan);
 	Graph chargerLivraisons(File livraisons);
 	Graph calculerTournee(); */
-	void genererFeuilleDeRoute();
+	void genererFeuilleDeRoute(String fichier);
+	void clicDroit();
 }

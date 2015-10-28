@@ -1,6 +1,6 @@
 package controleur;
 
 public interface Commande {
-	void doCmd();
-	void undoCmd();
+	void doCmd() throws Exception;
+	void undoCmd() throws Exception;
 }

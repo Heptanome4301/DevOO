@@ -1,5 +1,5 @@
 package controleur;
 
-public class EtatSupprimer extends EtatDefaut implements Etat {
+public class EtatSupprimer extends EtatIni {
 
 }

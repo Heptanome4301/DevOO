@@ -1,42 +1,62 @@
 package controleur;
 
 import java.io.IOException;
-
 import javax.xml.parsers.ParserConfigurationException;
-
 import org.xml.sax.SAXException;
-
 import xml.ExceptionXML;
+
+import modele.Adresse;
 import modele.Plan;
 import modele.Tournee;
 
 public class Controleur {
 	
 	private ListeDeCmd historique;
-	private Etat etatCourant;
+	private static Etat etatCourant;
 	private Plan plan;
 	private Tournee tournee;
-
+	
+	protected static final EtatIni etatIni = new EtatIni();
+	protected static final EtatAjouter1 etatAjouter1 = new EtatAjouter1();
+	protected static final EtatAjouter2 etatAjouter2 = new EtatAjouter2();
+	protected static final EtatTournee etatTournee = new EtatTournee();
+	protected static final EtatPlan etatPLan = new EtatPlan();
+	protected static final EtatLivraison etatLivraison = new EtatLivraison();
+	protected static final EtatSupprimer etatSupprimer = new EtatSupprimer();
+	
+	protected static void setEtatCourant(Etat etat) { etatCourant = etat; }
+	
 	public Tournee getTournee() {
 		return tournee;
 	}
 
 	public Controleur() {
 		historique = new ListeDeCmd();
-		etatCourant = new EtatDefaut();
+		etatCourant = etatIni;
 		plan = new Plan();
 		tournee = null;
 	}
 	
 	public void undo() {
-		etatCourant.undo(historique);
+		try {
+			etatCourant.undo(historique);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void redo() {
-		etatCourant.redo(historique);
+		try {
+			etatCourant.redo(historique);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
-	public void chargerPlan() {
+	/*
+	public Graph chargerPlan() {
 		//TODO
 		try {
 			plan.chargerPlan();
@@ -55,7 +75,7 @@ public class Controleur {
 		}
 	}
 	
-	public void chargerLivraisons() {
+	public Graph chargerLivraisons() {
 		try {
 			tournee = plan.chargerLivraison();
 		} catch (ParserConfigurationException | SAXException | IOException
@@ -65,24 +85,28 @@ public class Controleur {
 		}
 	}
 	
-	public void clicNoeud() {
-		//TODO
+	public Graph calculerTournee() {
+		
+	}
+	*/
+	public void clicNoeud(Adresse adresse, Tournee tournee, ListeDeCmd listeCmd) {
+		etatCourant.clicNoeud(adresse, plan, listeCmd);
 	}
 	
 	public void clicDroit() {
-		//TODO
+		etatCourant.clicDroit();
 	}
 	
 	public void ajouter() {
-		etatCourant = new EtatAjouter1();
+		etatCourant = etatAjouter1;
 	}
 	
 	public void supprimer() {
-		etatCourant = new EtatSupprimer();
+		etatCourant = etatSupprimer;
 	}
 	
-	public void genererFeuilleDeRoute() {
-		etatCourant.genererFeuilleDeRoute();
+	public void genererFeuilleDeRoute(String fichier) {
+		etatCourant.genererFeuilleDeRoute(fichier);
 		//prkoi pas tournee.feuilleDeRoute("out.txt");
 	}
 

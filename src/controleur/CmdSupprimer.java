@@ -1,21 +1,26 @@
 package controleur;
 
+import modele.Livraison;
+import modele.Tournee
+;
 public class CmdSupprimer implements Commande {
+	
+	private Tournee tournee;
+	private Livraison livraison;
 
-	public CmdSupprimer() {
-		// TODO Auto-generated constructor stub
+	public CmdSupprimer(Livraison livraison,Tournee tournee) {
+		this.tournee=tournee;
+		this.livraison=livraison;
 	}
 
 	@Override
-	public void doCmd() {
-		// TODO Auto-generated method stub
-
+	public void doCmd() throws Exception {
+		//TODO
 	}
 
 	@Override
-	public void undoCmd() {
-		// TODO Auto-generated method stub
-
+	public void undoCmd() throws Exception {
+		//TODO
 	}
 
 }
