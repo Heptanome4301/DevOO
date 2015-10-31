@@ -1,5 +1,6 @@
 package controleur;
 
+
 import java.io.IOException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -58,6 +59,7 @@ public class Controleur {
 	public void chargerLivraisons() {
 		try {
 			tournee = plan.chargerLivraison();
+			
 		} catch (ParserConfigurationException | SAXException | IOException
 				| ExceptionXML e) {
 			// TODO Auto-generated catch block
@@ -85,5 +87,6 @@ public class Controleur {
 		etatCourant.genererFeuilleDeRoute();
 		//prkoi pas tournee.feuilleDeRoute("out.txt");
 	}
+
 
 }

@@ -14,8 +14,8 @@ public class Livraison {
 	 * @param adresse
 	 * @param fenetreLivraison
 	 */
-	public Livraison(Date horaire,Adresse adresse,FenetreLivraison fenetreLivraison){
-		this.horaire = horaire;
+	public Livraison(Adresse adresse,FenetreLivraison fenetreLivraison){
+		this.horaire = null;
 		this.adresse = adresse;
 		this.fenetreLivraison = fenetreLivraison;
 	}
@@ -33,6 +33,11 @@ public class Livraison {
 
 	public FenetreLivraison getFenetreLivraison() {
 		return fenetreLivraison;
+	}
+
+
+	public void setHoraire(Date horaire) {
+		this.horaire = horaire;
 	}
 	
 	

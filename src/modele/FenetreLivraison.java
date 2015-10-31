@@ -1,32 +1,36 @@
 package modele;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 
 public class FenetreLivraison {
-	private Collection<Livraison> livraisons;
+	//private Collection<Livraison> livraisons;
 	private Date heureDebut;
 	private Date heureFin;
+	private int id;
 	
-	public FenetreLivraison(Date heureDebut,Date heureFin){
+	public FenetreLivraison(int id,Date heureDebut,Date heureFin){
 		this.heureDebut = heureDebut;
 		this.heureFin = heureFin;
-		this.livraisons = new ArrayList<Livraison>();
+		//this.livraisons = new ArrayList<Livraison>();
+		this.id = id;
 	}
 	
+	public int getId() {
+		return id;
+	}
+
 	/**
 	 * ajouter une livraison a la fenetre 
 	 * @param livraison
 	 * @throws Exception si livraison deja existante
 	 */
-	void ajouterLivraison(Livraison livraison) throws Exception{
-		this.livraisons.add(livraison);
-	}
+	//void ajouterLivraison(Livraison livraison) throws Exception{
+		//this.livraisons.add(livraison);
+	//}
 
-	public Collection<Livraison> getLivraisons() {
-		return livraisons;
-	}
+	//public Collection<Livraison> getLivraisons() {
+	//	return livraisons;
+	//}
 
 	public Date getHeureDebut() {
 		return heureDebut;

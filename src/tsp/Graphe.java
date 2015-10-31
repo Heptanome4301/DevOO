@@ -1,6 +1,7 @@
 package tsp;
 public interface Graphe {
 
+	
 	/**
 	 * @return le nombre de sommets de <code>this</code>
 	 */
