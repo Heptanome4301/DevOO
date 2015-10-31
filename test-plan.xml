@@ -1,4 +1,4 @@
-<Reseau>
+<Reseau> 
 	<Noeud id="0" x="23" y="12">
 		<LeTronconSortant vitesse="12" longueur="10" idNoeudDestination="1" nomRue="0=>1" /> 
 		<LeTronconSortant vitesse="12" longueur="24" idNoeudDestination="2" nomRue="0=>2" />
