@@ -1,0 +1,18 @@
+<Tournee Entrepot="0">
+	<Fenetre_livraison id="2" Hdebut="00" Hfin="00">
+		<Livraison idAdresse="3" />
+		<Livraison idAdresse="7" />
+		<Livraison idAdresse="1" />
+		<Livraison idAdresse="10" />
+		<Livraison idAdresse="8" />
+		<Livraison idAdresse="9" />
+	</Fenetre_livraison>
+	<Fenetre_livraison id="3" Hdebut="00" Hfin="00">
+		<Livraison idAdresse="1" />
+		<Livraison idAdresse="10" />
+	</Fenetre_livraison>
+	<Fenetre_livraison id="4" Hdebut="00" Hfin="00">
+		<Livraison idAdresse="8" />
+		<Livraison idAdresse="9" />
+	</Fenetre_livraison>
+</Tournee>
