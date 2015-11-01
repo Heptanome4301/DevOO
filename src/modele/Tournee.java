@@ -32,7 +32,7 @@ public class Tournee extends Observable{
 		this.entrepot = entrepot;
 		this.chemins = null;
 		this.Duree = 0;
-		this.fenetresLivraison = fenetresLivraison;
+		this.fenetresLivraison = /* sort */fenetresLivraison;
 	}
 	
 	/**
@@ -92,24 +92,35 @@ public class Tournee extends Observable{
 		return livraisonF;
 	}
 	
-	private Chemin[][] construireAllChemin(FenetreLivraison fenetreLivraison){
+	private Chemin[][] construireAllChemin(FenetreLivraison fenetreLivraison,Adresse adrssDepart){
+		Livraison premiere = new Livraison(adrssDepart,fenetreLivraison) ;
 		Set<Livraison> livraisons = getLivraison(fenetreLivraison);
-		int nb_sommet = livraisons.size();
+		if(livraisons.contains(premiere)) livraisons.remove(premiere);
+		
+		int nb_sommet = livraisons.size();nb_sommet++; 
 		Chemin[][] chemins = new Chemin[nb_sommet][nb_sommet];
-		int i=0,j=0;
+		
+		int i=1,j=1;
 		for(Livraison l : livraisons)
 		{	
-			j = 0;
+			j = 1;
 			for(Livraison ll : livraisons)
 			{
 				if (l==ll){
 					chemins[i][j] = null;
 				}else{
-					chemins[i][j] = plan.calculerChemin(ll.getAdresse(),l.getAdresse() );
+					chemins[i][j] = plan.calculerChemin(l.getAdresse(),ll.getAdresse() );
 				}
 				j++;	
 			}
 			i++;
+		}
+		chemins[0][0] = null;
+		j = 1;
+		for(Livraison ll:livraisons){
+			chemins[0][j] = plan.calculerChemin(premiere.getAdresse(),ll.getAdresse() );
+			chemins[j][0] = plan.calculerChemin(ll.getAdresse(),premiere.getAdresse() );
+			j++;
 		}
 		return chemins;
 	}
@@ -119,17 +130,17 @@ public class Tournee extends Observable{
 		this.chemins = new ArrayList<Chemin>();
 		
 		for(FenetreLivraison fl : fenetresLivraison){
-			ArrayList<Chemin> tmp = calculerTourneeFenetre(fl);
-			//if(chemins.size()>0){
-				//chemins.add(plan.calculerChemin(tmp.get(0).getDepart(),((ArrayList<Chemin>)chemins).get(0).getArrivee()));
-			//}
-			for(Chemin ch : tmp){
-				chemins.add(ch);
+			Adresse debutTournee = entrepot;
+			if( ! chemins.isEmpty()){//donc c'est pas la premiere fenetre
+				debutTournee = ((ArrayList<Chemin>)chemins).get(chemins.size()-1).getArrivee();
 			}
+			ArrayList<Chemin> tmp = calculerTourneeFenetre(debutTournee,fl);
+			
+			chemins.addAll(tmp);
+
 		}
 		
-		//chemins.add(plan.calculerChemin(((ArrayList<Chemin>)chemins).get(0).getArrivee(),this.entrepot));
-		//chemins.add(plan.calculerChemin(this.entrepot,((ArrayList<Chemin>)chemins).get(chemins.size()-1).getArrivee()));
+		chemins.add(plan.calculerChemin(((ArrayList<Chemin>)chemins).get(chemins.size()-1).getArrivee(),this.entrepot));
 		
 	}
 	
@@ -145,10 +156,10 @@ public class Tournee extends Observable{
 	 * @return 
 	 */
 	
-	public ArrayList<Chemin> calculerTourneeFenetre(FenetreLivraison fenetreLivraison){ 
+	public ArrayList<Chemin> calculerTourneeFenetre(Adresse addssDepart,FenetreLivraison fenetreLivraison){ 
 		int tpsLimite = 3000;
 		
-		Chemin[][] AllCheminsGraphe = construireAllChemin(fenetreLivraison) ;
+		Chemin[][] AllCheminsGraphe = construireAllChemin(fenetreLivraison,addssDepart) ;
 		Graphe graphe = construireGraphe(AllCheminsGraphe);
 		
 		TSP tsp = new TSP1();
@@ -240,6 +251,11 @@ public class Tournee extends Observable{
 				return fl;
 		}
 		return null;
+	}
+	
+	public FenetreLivraison getFenetreLivraisonIndx(int index) {
+		return ((ArrayList<FenetreLivraison>)fenetresLivraison).get(index);
+
 	}
 	
 

@@ -8,6 +8,18 @@ public class Livraison {
 	private FenetreLivraison fenetreLivraison;
 	
 	
+	@Override
+	public boolean equals(Object obj) {
+		if( obj!=null && obj instanceof Livraison ) {
+			return 
+			(((Livraison)obj).getAdresse().getId() == adresse.getId())
+			&&
+			(((Livraison)obj).getFenetreLivraison().getId() == fenetreLivraison.getId());
+		}
+		return false;
+	}
+	
+	
 	/**
 	 * appelée au chargement du fichier des livraison
 	 * @param horaire
