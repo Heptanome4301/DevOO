@@ -14,7 +14,7 @@
 		<LeTronconSortant vitesse="12" longueur="87" idNoeudDestination="3" nomRue="2=>3" /> 
 	</Noeud>
 	<Noeud id="3" x="23" y="12">
-		<LeTronconSortant vitesse="12" longueur="24" idNoeudDestination="4" nomRue="3=>4" />
+		<LeTronconSortant vitesse="12" longueur="24" idNoeudDestination="1" nomRue="3=>1" />
 	</Noeud>
 	<Noeud id="4" x="23" y="12">
 		<LeTronconSortant vitesse="12" longueur="33" idNoeudDestination="3" nomRue="4=>3" />
