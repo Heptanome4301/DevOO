@@ -2,6 +2,7 @@ package controleur;
 
 import modele.Adresse;
 import modele.Plan;
+import modele.Tournee;
 
 public class EtatIni implements Etat {
 
@@ -20,7 +21,7 @@ public class EtatIni implements Etat {
 	}
 
 	@Override
-	public void genererFeuilleDeRoute(String fichier) {
+	public void genererFeuilleDeRoute(String fichier,Tournee tournee) throws Exception {
 		// TODO Auto-generated method stub
 	}
 
@@ -31,7 +32,7 @@ public class EtatIni implements Etat {
 	}
 
 	@Override
-	public void clicNoeud(Adresse adresse, Plan plan, ListeDeCmd listeCmd) {
+	public void clicNoeud(Adresse adresse,Livraison livraison, Tournee tournee, ListeDeCmd listeCmd) {
 		// TODO Auto-generated method stub
 		
 	}
