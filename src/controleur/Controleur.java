@@ -55,42 +55,21 @@ public class Controleur {
 		}
 	}
 	
-	/*
-	public Graph chargerPlan() {
-		//TODO
-		try {
-			plan.chargerPlan();
-		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SAXException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ExceptionXML e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	
+	public Graph chargerPlan() throws Exception {
+		etatCourant.chargerPlan();
 	}
 	
-	public Graph chargerLivraisons() {
-		try {
-			tournee = plan.chargerLivraison();
-		} catch (ParserConfigurationException | SAXException | IOException
-				| ExceptionXML e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public Graph chargerLivraisons() throws Exception {
+		tournee=etatCourant.chargerLivraisons(plan);
 	}
 	
 	public Graph calculerTournee() {
-		
+		etatCourant.calculerTournee(tournee);
 	}
 	*/
-	public void clicNoeud(Adresse adresse, Tournee tournee, ListeDeCmd listeCmd) {
-		etatCourant.clicNoeud(adresse, plan, listeCmd);
+	public void clicNoeud(Adresse adresse,Livraison livraison, Tournee tournee, ListeDeCmd listeCmd) {
+		etatCourant.clicNoeud(adresse,livraison,tournee, listeCmd);
 	}
 	
 	public void clicDroit() {
@@ -106,8 +85,7 @@ public class Controleur {
 	}
 	
 	public void genererFeuilleDeRoute(String fichier) {
-		etatCourant.genererFeuilleDeRoute(fichier);
-		//prkoi pas tournee.feuilleDeRoute("out.txt");
+		etatCourant.genererFeuilleDeRoute(fichier,tournee);
 	}
 
 }
