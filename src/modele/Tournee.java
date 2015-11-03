@@ -20,11 +20,11 @@ public class Tournee extends Observable{
 	private Collection<FenetreLivraison> fenetresLivraison;
 	
 	/**
-	 * Une tournée contient la liste des livraisons.
-	 * Elle sotck également l'itinéraire de la tournée (une liste de chemin)
-	 * L'instance de tournée est crée par la classe plan, au chargement du
+	 * Une tournÃ©e contient la liste des livraisons.
+	 * Elle sotck Ã©galement l'itinÃ©raire de la tournÃ©e (une liste de chemin)
+	 * L'instance de tournÃ©e est crÃ©e par la classe plan, au chargement du
 	 * fichier des livraison.
-	 * La tournée est accessible par le contrôleur  
+	 * La tournÃ©e est accessible par le contrÃ´leur  
 	 */
 	public Tournee(Plan plan,Collection<Livraison> livraisons,Collection<FenetreLivraison> fenetresLivraison,Adresse entrepot){
 		this.plan = plan;
@@ -36,31 +36,31 @@ public class Tournee extends Observable{
 	}
 	
 	/**
-	 * Acces à l'itinéraire calculé
+	 * Acces Ã  l'itinÃ©raire calculÃ©
 	 * 
-	 * @return null si un appel à calculerTournee n'est pas fait auparavant
+	 * @return null si un appel Ã  calculerTournee n'est pas fait auparavant
 	 */
 	public Collection<Chemin> getItineraire(){
 		return chemins;
 	} 
 	
 	/**
-	 *  Génère les suites des instructions
-	 *  que le livreur doit suivre pour effectuer sa tournée 
-	 * @throws Exception si échec de création du fichier de sortie
-	 * (soit le path n'est pas valide, ou que le calcul de la tournée n'est pas fait)
+	 *  GÃ©nÃ¨re les suites des instructions
+	 *  que le livreur doit suivre pour effectuer sa tournÃ©e 
+	 * @throws Exception si Ã©chec de crÃ©ation du fichier de sortie
+	 * (soit le path n'est pas valide, ou que le calcul de la tournÃ©e n'est pas fait)
 	 * @param FichierDeSortie 
-	 * si un appel à calculerTournee n'est pas fait auparavant
-	 * le fichier ne sera pas créé et une exception est levée
+	 * si un appel Ã  calculerTournee n'est pas fait auparavant
+	 * le fichier ne sera pas crÃ©Ã© et une exception est levÃ©e
 	 */
 	public void feuilleDeRoute(String FichierDeSortie) throws Exception{}
 	
 	/**
-	 * Applée par this.calculerTournee
+	 * ApplÃ©e par this.calculerTournee
 	 *  Construction du graphe qui represente le cout des chemins 
-	 *  entre chaque couple de livraison à effectuer
-	 *  Pour se faire des appels à plan.calculerChemin sont effectués
-	 *  Ce graphe sera passé comme parametre à la classe TSP
+	 *  entre chaque couple de livraison Ã  effectuer
+	 *  Pour se faire des appels Ã  plan.calculerChemin sont effectuÃ©s
+	 *  Ce graphe sera passÃ© comme parametre Ã  la classe TSP
 	 *  i,j : le cout du chemin entre l'adresse de id i et l'adresse  de l'id j
 	 * @return un tableau de 2 dimensions representant les adresse
 	 * de livraison 
@@ -144,14 +144,14 @@ public class Tournee extends Observable{
 		
 	}
 	
-	/** pour une fentre donneé
-	 * Calcule la tournée qui passera par toutes les livraisons
-	 * Cette methode fait appel entre autre à construireGraphe()
+	/** pour une fentre donneÃ©
+	 * Calcule la tournÃ©e qui passera par toutes les livraisons
+	 * Cette methode fait appel entre autre Ã  construireGraphe()
 	 * puis TSP.chercherSolution
 	 * Le resultat est obtenue en faisant TSP.getSolution() 
-	 * ce resultat est "convertie" en chemin: faire appel à
+	 * ce resultat est "convertie" en chemin: faire appel Ã 
 	 * plan.calculerChemin()
-	 * Enfin il est stocké dans l'attribut chemins, et accessible
+	 * Enfin il est stockÃ© dans l'attribut chemins, et accessible
 	 * avec getIteneraire()
 	 * @return 
 	 */
@@ -181,7 +181,7 @@ public class Tournee extends Observable{
 	}
 	
 	/**
-	 *  Acces à la liste des livraisons à effecteur
+	 *  Acces Ã  la liste des livraisons Ã  effecteur
 	 *  (pour les afficher dans vue par exemple)
 	 * @return Collection de Livraison
 	 */
@@ -206,30 +206,30 @@ public class Tournee extends Observable{
 	}
 
 	/**
-	 * Modification de la tournée en lui ajoutant une
+	 * Modification de la tournÃ©e en lui ajoutant une
 	 * nouvelle livraison.
-	 * @param l la nouvelle livraison à ajouter
-	 * @throws Exception si la livraison est déja existante
+	 * @param l la nouvelle livraison Ã  ajouter
+	 * @throws Exception si la livraison est dÃ©ja existante
 	 * 
 	 * 
 	 */
-	//  ?? est ce que on doit recalculer automatiquement la tournée ??
-	public void ajouterLivraison(Livraison l) throws Exception{
+	//  ?? est ce que on doit recalculer automatiquement la tournÃ©e ??
+	public void ajouterLivraison(Livraison lAdd,Livraison lFollow) throws Exception{
 		this.notifyObservers(this);
 	}
 	
 	/**
-	 * Modification de la tournée en lui retirant une Livraison
+	 * Modification de la tournÃ©e en lui retirant une Livraison
 	 * @throws Exception si la livraison n'existe pas 
 	 */
-    //  ?? est ce que on doit recalculer automatiquement la tournée ??
+    //  ?? est ce que on doit recalculer automatiquement la tournÃ©e ??
 	public void supprimerLivraison(Livraison L) throws Exception {
 		this.notifyObservers(this);
 	}
 	
 	
 	/**
-	 * Modification de la tournée ...
+	 * Modification de la tournÃ©e ...
 	 * @throws Exception l1 == l2 ou pas contenu dans la liste des livraison 	
 	 */
 	public void echangerLivraison(Livraison l1,Livraison l2)throws Exception {
