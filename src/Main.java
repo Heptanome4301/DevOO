@@ -1,12 +1,10 @@
-<<<<<<< HEAD
+
 import java.io.File;
 
 import vue.GraphManager;
 import vue.InterfaceGraphique;
 import xml.OuvreurDeFichiersXML;
-=======
-import vue.Fenetre;
->>>>>>> 80730c3304feeeb7d131acee3dff61201ec2a241
+
 import modele.*;
 
 public class Main {
