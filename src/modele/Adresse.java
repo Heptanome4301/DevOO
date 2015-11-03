@@ -2,8 +2,9 @@ package modele;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Observable;
 
-public class Adresse {
+public class Adresse extends Observable {
 
 	private int id;
 	private int x;
@@ -19,6 +20,7 @@ public class Adresse {
 	
 	public void ajouterTroncon(Troncon t){
 		tronconsSortants.add(t);
+		notifyObservers(t);
 	}
 	
 	

@@ -6,6 +6,7 @@ public class Troncon {
 	private double longueur;
 	private double vitesse;
 	private double duree;
+	private Adresse depart;
 	private Adresse arrivee;
 	
 	public Troncon (String nomRue, double longueur, double vitesse, Adresse arrivee){
@@ -34,6 +35,10 @@ public class Troncon {
 	
 	public Adresse getArrivee(){
 		return arrivee;
+	}
+	
+	public Adresse getDepart(){
+		return depart;
 	}
 
 }
