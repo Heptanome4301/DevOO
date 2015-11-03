@@ -60,7 +60,7 @@ public class Controleur {
 	}
 	
 	
-	public Graphe chargerPlan(Plan plan)  {
+	public Graphe chargerPlan()  {
 		plan = new Plan();
 		tournee = null;
 		try {
@@ -73,7 +73,7 @@ public class Controleur {
 		//TODO
 	}
 	
-	public Graphe chargerLivraisons() throws Exception {
+	public Graphe chargerLivraisons() {
 		//tournee=etatCourant.chargerLivraisons(plan);
 		return null;
 		//TODO
