@@ -2,13 +2,22 @@ package modele;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Observable;
+import java.util.Set;
+
+import tsp.Graphe;
+import tsp.TSP;
+import tsp.TSP1;
+import tsp.GrapheComplet;
 
 public class Tournee extends Observable{
 	private Plan plan;
 	private Collection<Chemin> chemins;
 	private Collection<Livraison> livraisons;
 	private Adresse entrepot;
+	private int Duree;
+	private Collection<FenetreLivraison> fenetresLivraison;
 	
 	/**
 	 * Une tournée contient la liste des livraisons.
@@ -17,11 +26,13 @@ public class Tournee extends Observable{
 	 * fichier des livraison.
 	 * La tournée est accessible par le contrôleur  
 	 */
-	public Tournee(Plan plan,Collection<Livraison> livraisons,Adresse entrepot){
+	public Tournee(Plan plan,Collection<Livraison> livraisons,Collection<FenetreLivraison> fenetresLivraison,Adresse entrepot){
 		this.plan = plan;
 		this.livraisons = livraisons;
 		this.entrepot = entrepot;
 		this.chemins = null;
+		this.Duree = 0;
+		this.fenetresLivraison = /* sort */fenetresLivraison;
 	}
 	
 	/**
@@ -54,11 +65,86 @@ public class Tournee extends Observable{
 	 * @return un tableau de 2 dimensions representant les adresse
 	 * de livraison 
 	 */
-	private int[][] construireGraphe(){
-		return null;
+	private Graphe construireGraphe(Chemin[][] cheminsDuGraphe){
+		int nb_sommet = cheminsDuGraphe.length;
+		//double [][] res = new double[nb_sommet][nb_sommet];
+		int [][] res = new int[nb_sommet][nb_sommet];
+		for(int i=0;i<nb_sommet;i++){
+			for(int j=0;j<nb_sommet;j++){
+				if(cheminsDuGraphe[i][j]!=null)
+					res[i][j] = new Double(cheminsDuGraphe[i][j].getDuree()).intValue();
+				else 
+					res[i][j] = -1;
+			}
+		}
+		
+		return new GrapheComplet(res);
 	}
 	
-	/**
+	private Set<Livraison> getLivraison(FenetreLivraison fenetreLivraison){
+		Set<Livraison> livraisonF = new HashSet<Livraison>();
+		for(Livraison l: this.livraisons)
+		{
+			if((l.getFenetreLivraison()).equals(fenetreLivraison)){
+				livraisonF.add(l);
+			}
+		}
+		return livraisonF;
+	}
+	
+	private Chemin[][] construireAllChemin(FenetreLivraison fenetreLivraison,Adresse adrssDepart){
+		Livraison premiere = new Livraison(adrssDepart,fenetreLivraison) ;
+		Set<Livraison> livraisons = getLivraison(fenetreLivraison);
+		if(livraisons.contains(premiere)) livraisons.remove(premiere);
+		
+		int nb_sommet = livraisons.size();nb_sommet++; 
+		Chemin[][] chemins = new Chemin[nb_sommet][nb_sommet];
+		
+		int i=1,j=1;
+		for(Livraison l : livraisons)
+		{	
+			j = 1;
+			for(Livraison ll : livraisons)
+			{
+				if (l==ll){
+					chemins[i][j] = null;
+				}else{
+					chemins[i][j] = plan.calculerChemin(l.getAdresse(),ll.getAdresse() );
+				}
+				j++;	
+			}
+			i++;
+		}
+		chemins[0][0] = null;
+		j = 1;
+		for(Livraison ll:livraisons){
+			chemins[0][j] = plan.calculerChemin(premiere.getAdresse(),ll.getAdresse() );
+			chemins[j][0] = plan.calculerChemin(ll.getAdresse(),premiere.getAdresse() );
+			j++;
+		}
+		return chemins;
+	}
+	
+	public void calculerTournee(){
+		
+		this.chemins = new ArrayList<Chemin>();
+		
+		for(FenetreLivraison fl : fenetresLivraison){
+			Adresse debutTournee = entrepot;
+			if( ! chemins.isEmpty()){//donc c'est pas la premiere fenetre
+				debutTournee = ((ArrayList<Chemin>)chemins).get(chemins.size()-1).getArrivee();
+			}
+			ArrayList<Chemin> tmp = calculerTourneeFenetre(debutTournee,fl);
+			
+			chemins.addAll(tmp);
+
+		}
+		
+		chemins.add(plan.calculerChemin(((ArrayList<Chemin>)chemins).get(chemins.size()-1).getArrivee(),this.entrepot));
+		
+	}
+	
+	/** pour une fentre donneé
 	 * Calcule la tournée qui passera par toutes les livraisons
 	 * Cette methode fait appel entre autre à construireGraphe()
 	 * puis TSP.chercherSolution
@@ -67,15 +153,31 @@ public class Tournee extends Observable{
 	 * plan.calculerChemin()
 	 * Enfin il est stocké dans l'attribut chemins, et accessible
 	 * avec getIteneraire()
+	 * @return 
 	 */
-	public void calculerTournee(){ // TO DO
-		//TSP.chercherSolution(
-				construireGraphe() ;
-		//);
-		//TSP.getSolution() ;
-		chemins = new ArrayList<Chemin>();
-		chemins.add( plan.calculerChemin(null,null) ) ;
+	
+	public ArrayList<Chemin> calculerTourneeFenetre(Adresse addssDepart,FenetreLivraison fenetreLivraison){ 
+		int tpsLimite = 3000;
 		
+		Chemin[][] AllCheminsGraphe = construireAllChemin(fenetreLivraison,addssDepart) ;
+		Graphe graphe = construireGraphe(AllCheminsGraphe);
+		
+		TSP tsp = new TSP1();
+		tsp.chercheSolution(tpsLimite, graphe);
+		
+		this.Duree +=tsp.getCoutSolution();
+		ArrayList<Chemin> res = new ArrayList<Chemin>();
+		
+		int i,j,I,J;
+		for(j=1;j<graphe.getNbSommets();j++)
+		{
+			i = j-1;
+			I = tsp.getSolution(i);
+			J = tsp.getSolution(j);
+			//this.chemins.add(AllCheminsGraphe[I][J]);
+			res.add(AllCheminsGraphe[I][J]);
+		}
+		return res;
 	}
 	
 	/**
@@ -113,7 +215,7 @@ public class Tournee extends Observable{
 	 */
 	//  ?? est ce que on doit recalculer automatiquement la tournée ??
 	public void ajouterLivraison(Livraison l) throws Exception{
-		
+		this.notifyObservers(this);
 	}
 	
 	/**
@@ -121,16 +223,41 @@ public class Tournee extends Observable{
 	 * @throws Exception si la livraison n'existe pas 
 	 */
     //  ?? est ce que on doit recalculer automatiquement la tournée ??
-	public void supprimerLivraison(Livraison L) throws Exception {}
+	public void supprimerLivraison(Livraison L) throws Exception {
+		this.notifyObservers(this);
+	}
 	
 	
 	/**
 	 * Modification de la tournée ...
 	 * @throws Exception l1 == l2 ou pas contenu dans la liste des livraison 	
 	 */
-	public void echangerLivraison(Livraison l1,Livraison l2)throws Exception {}
+	public void echangerLivraison(Livraison l1,Livraison l2)throws Exception {
+		this.notifyObservers(this);
+	}
 	
 	
+	public int getDuree() {
+		return Duree;
+	}
+
+	public Collection<FenetreLivraison> getFenetresLivraison() {
+		return fenetresLivraison;
+	}
+
+	public FenetreLivraison getFenetreLivraison(int id) {
+		for (FenetreLivraison fl : fenetresLivraison) {
+			if (fl.getId() == id)
+				return fl;
+		}
+		return null;
+	}
 	
+	public FenetreLivraison getFenetreLivraisonIndx(int index) {
+		return ((ArrayList<FenetreLivraison>)fenetresLivraison).get(index);
+
+	}
+	
+
 	
 }

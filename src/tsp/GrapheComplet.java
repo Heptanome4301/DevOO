@@ -6,6 +6,11 @@ public class GrapheComplet implements Graphe {
 	int nbSommets;
 	int[][] cout;
 	
+	public GrapheComplet(int[][]cout){
+		this.nbSommets = cout.length;
+		this.cout = cout;
+	}
+	
 	/**
 	 * Cree un graphe complet dont les aretes ont un cout compris entre COUT_MIN et COUT_MAX
 	 * @param nbSommets

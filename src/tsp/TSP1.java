@@ -4,6 +4,10 @@ import java.util.Iterator;
 
 public class TSP1 extends TemplateTSP {
 
+	public TSP1(){
+		
+	}
+	
 	@Override
 	protected int bound(Integer sommetCourant, Collection<Integer> nonVus) {
 		return 0;
