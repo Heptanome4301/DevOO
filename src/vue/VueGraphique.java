@@ -21,6 +21,7 @@ public class VueGraphique extends JPanel implements Observer {
 		this.plan = plan;
 		this.fenetre = fenetre;
 		plan.addObserver(this);
+		display();
 	}
 	
 	@Override
@@ -40,7 +41,15 @@ public class VueGraphique extends JPanel implements Observer {
 
         if (element instanceof Adresse)
         {
-        	g.fillOval( ((Adresse) element).getX(), ((Adresse) element).getY(), 10, 10);
+        	
+        	Adresse adresse = (Adresse) element;
+        	g.fillOval(adresse.getX(), adresse.getY(), 10, 10);
+        	
+        } else if (element instanceof Troncon) {
+        	
+        	Troncon troncon = (Troncon) element;
+        	g.drawLine(troncon.getDepart().getX(), troncon.getDepart().getY(), troncon.getArrivee().getX(), troncon.getArrivee().getY());
+        	
         }
         // Draw a little square at where the mouse was clicked.
 //        for (Adresse adresse : adresses) {

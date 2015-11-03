@@ -1,10 +1,7 @@
 
 import java.io.File;
-
-import vue.GraphManager;
-import vue.InterfaceGraphique;
 import xml.OuvreurDeFichiersXML;
-
+import vue.Fenetre;
 import modele.*;
 
 public class Main {
@@ -26,17 +23,12 @@ public class Main {
 	 */
 	public static void main(String[] args) throws Exception {
 		Plan p = new Plan();
+				
+		Fenetre window = new Fenetre();
+		window.display();
+		// p.chargerPlan();
+		window.linkView(p);
 
-		GraphManager.getInstance().create();
-		GraphManager.getInstance().addNode("A", 0, 0);
-		GraphManager.getInstance().addNode("B", 0, 3);
-		GraphManager.getInstance().addNode("C", 3, 0);
-		GraphManager.getInstance().addEdge("AB", "A", "B");
-		GraphManager.getInstance().addEdge("AC", "A", "C");
-		GraphManager.getInstance().addEdge("BC", "B", "C");
-		InterfaceGraphique window = new InterfaceGraphique();
-		window.linkView(GraphManager.getInstance().getView());
-		window.frame.setVisible(true);
 		File xml = OuvreurDeFichiersXML.getInstance().ouvre();
 		p.chargerPlan(xml);
 

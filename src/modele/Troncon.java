@@ -37,5 +37,9 @@ public class Troncon {
 	public Adresse getArrivee(){
 		return arrivee;
 	}
+	
+	public Adresse getDepart(){
+		return depart;
+	}
 
 }
