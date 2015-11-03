@@ -40,16 +40,16 @@ public class VueGrapique extends JPanel implements Observer {
 
         if (element instanceof Adresse)
         {
-        	g.fillOval( ((Adresse) element).getX(), ((Adresse)adresse).getY(), 10, 10);
+        	g.fillOval( ((Adresse) element).getX(), ((Adresse)element).getY(), 10, 10);
         }
         // Draw a little square at where the mouse was clicked.
-        for (Adresse adresse : adresses) {
+        /*for (Adresse adresse : adresses) {
         	g.fillOval(adresse.getX(), adresse.getY(), 10, 10);
         	Collection<Troncon> troncons = adresse.getTroncons();
         	for (Troncon troncon : troncons) {
         		g.drawLine(adresse.getX(), adresse.getY(), troncon.getArrivee().getX(), troncon.getArrivee().getY());
         	}
-        }
+        }*/
         	
     }
 	

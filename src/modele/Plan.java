@@ -14,7 +14,7 @@ import org.xml.sax.SAXException;
 import xml.ExceptionXML;
 import xml.PlanXMLParser;
 
-public class Plan extends Observable {
+public class Plan extends Observable{
 	/**
 	 * La liste des adresses qui composent le plan
 	 */
@@ -123,7 +123,7 @@ public class Plan extends Observable {
 				distMap));
 		ArrayList<Adresse> noir = new ArrayList<Adresse>();
 
-		double min = 1000000000000.0; // Integer.MAX_VALUE; //??
+		double min = Integer.MAX_VALUE;
 		Adresse[] precedence = new Adresse[nbAdresses];
 		precedence[a1.getId()] = a1;
 
@@ -131,11 +131,10 @@ public class Plan extends Observable {
 		int k = 0;
 		for (Adresse ad : adresses) {
 			distMap.put(ad, 1000000000000.0 + (k++));
-			blanc.add(ad);
 		}
 		distMap.put(a1, 0.0);
 		blanc.add(a1);
-
+                
 		while (!blanc.isEmpty()) {
 			Adresse current = blanc.pollFirst();
 
@@ -149,8 +148,11 @@ public class Plan extends Observable {
 						distMap.put(t.getArrivee(), dureeActuelle);
 
 						// Mise a jour du tas binaire
-						blanc.remove(t.getArrivee());
-						blanc.add(t.getArrivee());
+                                        if(t.getArrivee() != a2){
+                                            blanc.remove(t.getArrivee());
+                                            blanc.add(t.getArrivee());
+                                        }
+						
 
 						// Mise a jour du precedent
 						precedence[t.getArrivee().getId()] = current;

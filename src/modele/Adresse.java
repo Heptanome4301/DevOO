@@ -11,30 +11,30 @@ public class Adresse {
 	private Collection<Troncon> tronconsSortants;
 	
 	public Adresse(int id, int x, int y){
-		this.id= id;
-		this.x = x;
-		this.y = y;
-		tronconsSortants = new ArrayList<Troncon>();
+            this.id= id;
+            this.x = x;
+            this.y = y;
+            tronconsSortants = new ArrayList<Troncon>();
 	}
 	
 	public void ajouterTroncon(Troncon t){
-		tronconsSortants.add(t);
+            tronconsSortants.add(t);
 	}
 	
 	
 	public int getId(){
-		return id;
+            return id;
 	}
 	
 	public int getX(){
-		return x;
+            return x;
 	}
 	
 	public int getY(){
-		return y;
+            return y;
 	}
 	
 	public Collection<Troncon> getTroncons(){
-		return tronconsSortants;
+            return tronconsSortants;
 	}
 }

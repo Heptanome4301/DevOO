@@ -24,9 +24,9 @@ public class Main {
 		Fenetre window = new Fenetre();
 		window.display();
 		p.chargerPlan();
-		window.linkView(p);
+		//window.linkView(p);
 
-        System.out.println("Chemin de id=3 ï¿½ id=1 (" + p.calculerChemin(p.getAdresse(3), p.getAdresse(1)) + ")");
+        System.out.println("Chemin de id=3 à id=1 (" + p.calculerChemin(p.getAdresse(3), p.getAdresse(1)) + ")");
         //System.out.println(p.calculerChemin(p.getAdresse(0), p.getAdresse(p.getAdresses().size()-1)));
 		//System.out.println("Verification : tps de 0 â€¡ 1 = " + p.getAdresses().get(0).getTroncons().get0).getDuree());
 		Tournee t = p.chargerLivraison();
