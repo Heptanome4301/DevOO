@@ -111,7 +111,7 @@ public class Fenetre {
 	}
 	
 	public void linkView(Plan plan) {
-		this.view = new VueGrapique(plan, this);
+		this.view = new VueGraphique(plan, this);
 		frame.getContentPane().add(view, "cell 1 1 1 11,grow");
 	}
 
