@@ -9,52 +9,49 @@ import modele.Tournee;
 public class EtatIni implements Etat {
 
 	public EtatIni() {
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void undo(ListeDeCmd listeCmd) throws Exception {
-		listeCmd.undo();
+		// Does nothing (or return exception?)
 	}
 
 	@Override
 	public void redo(ListeDeCmd listeCmd) throws Exception {
-		listeCmd.redo();
+		// Does nothing (or return exception?)
 	}
 
 	@Override
 	public void genererFeuilleDeRoute(String fichier,Tournee tournee) throws Exception {
-		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public void clicDroit() {
-		// TODO Auto-generated method stub
-		
+		// Does nothing	
 	}
 
 	@Override
-	public void clicNoeud(Adresse adresse,Livraison livraison, Tournee tournee, ListeDeCmd listeCmd) {
-		// TODO Auto-generated method stub
-		
+	public void clicNoeud(Adresse adresse,Plan plan, Tournee tournee, ListeDeCmd listeCmd) {
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public Graphe chargerPlan() throws Exception {
-		// TODO Auto-generated method stub
+	public Graphe chargerPlan(Plan plan) throws Exception {
+		plan.chargerPlan();
+		Controleur.setEtatCourant(Controleur.etatPlan);
 		return null;
+		//TODO
 	}
 
 	@Override
 	public Graphe chargerLivraisons(Plan plan) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public Graphe calculerTournee(Tournee tournee) {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException();
 	}
 
 }

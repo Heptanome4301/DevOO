@@ -1,8 +1,12 @@
+<<<<<<< HEAD
 import java.io.File;
 
 import vue.GraphManager;
 import vue.InterfaceGraphique;
 import xml.OuvreurDeFichiersXML;
+=======
+import vue.Fenetre;
+>>>>>>> 80730c3304feeeb7d131acee3dff61201ec2a241
 import modele.*;
 
 public class Main {
@@ -24,7 +28,7 @@ public class Main {
 	 */
 	public static void main(String[] args) throws Exception {
 		Plan p = new Plan();
-				
+
 		GraphManager.getInstance().create();
 		GraphManager.getInstance().addNode("A", 0, 0);
 		GraphManager.getInstance().addNode("B", 0, 3);
@@ -44,6 +48,7 @@ public class Main {
 		//System.out.println("Vérification : tps de 0 à 1 = " + p.getAdresses().get(0).getTroncons().get0).getDuree());
 		xml = OuvreurDeFichiersXML.getInstance().ouvre();
 		Tournee t = p.chargerLivraison(xml);
+
 		t.calculerTournee();
 		print_tournee(t);
 	}

@@ -5,11 +5,14 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JList;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+
+import modele.Plan;
 import net.miginfocom.swing.MigLayout;
 
 import org.graphstream.ui.swingViewer.ViewPanel;
@@ -17,7 +20,7 @@ import org.graphstream.ui.swingViewer.ViewPanel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class InterfaceGraphique {
+public class Fenetre {
 
 	public JFrame frame;
 	private JTextArea infoPoint;
@@ -31,52 +34,25 @@ public class InterfaceGraphique {
 	private JLabel labelDelivery;
 	private JLabel labelTour;
 	private JList<?> labelPointList;
-	private ViewPanel view;
+	private JPanel view;
 	private JTextField log;
 	private JLabel lblListeDesPoints;
 
 	private final String TITLE = "Livraison Simulator 2015";
 	private final Dimension MINIMUM_SIZE = new Dimension(800, 600);
 
-	// private int nbr;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					GraphManager.getInstance().create();
-					GraphManager.getInstance().addNode("A", 0, 0);
-					GraphManager.getInstance().addNode("B", 0, 3);
-					GraphManager.getInstance().addNode("C", 3, 0);
-					GraphManager.getInstance().addEdge("AB", "A", "B");
-					GraphManager.getInstance().addEdge("AC", "A", "C");
-					GraphManager.getInstance().addEdge("BC", "B", "C");
-					InterfaceGraphique window = new InterfaceGraphique();
-					window.linkView(GraphManager.getInstance().getView());
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
 	/**
 	 * Create the application.
 	 */
-	public InterfaceGraphique() {
+	public Fenetre() {
 		initialize();
-		initializeButton();
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		// nbr = 0;
+
 		frame = new JFrame(this.TITLE);
 		frame.setMinimumSize(this.MINIMUM_SIZE);
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -84,7 +60,7 @@ public class InterfaceGraphique {
 		frame.getContentPane().setLayout(
 				new MigLayout("", "[20%,grow][60%,grow][20%][10%]",
 						"[22.00][][][][][][][][][][grow][15%][]"));
-
+		
 		lblListeDesPoints = new JLabel("Liste des points de livraison");
 		frame.getContentPane().add(lblListeDesPoints,
 				"cell 0 0,alignx center,aligny center");
@@ -134,73 +110,9 @@ public class InterfaceGraphique {
 		frame.setVisible(true);
 	}
 	
-	private void initializeButton() {
-		loadPlanning.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				loadPlanning();
-			}
-		});
-		loadDeliveries.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				loadDeliveries();
-			}
-		});
-		computeTour.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				computeTour();
-			}
-		});
-		addDelivery.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				addDelivery();
-				// GraphManager.getInstance().addNode("" + nbr++);
-			}
-		});
-		removeDelivery.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				removeDelivery();
-			}
-		});
-		saveRoadMap.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				saveRoadMap();
-			}
-		});
-	}
-
-	public void linkView(ViewPanel view) {
-		this.view = view;
+	public void linkView(Plan plan) {
+		this.view = new VueGraphique(plan, this);
 		frame.getContentPane().add(view, "cell 1 1 1 11,grow");
-	}
-	
-	private void loadPlanning() {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	private void loadDeliveries() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	private void computeTour() {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	private void addDelivery() {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	private void removeDelivery() {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	private void saveRoadMap() {
-		// TODO Auto-generated method stub
-		
 	}
 
 }
