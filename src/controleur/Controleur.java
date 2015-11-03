@@ -60,12 +60,17 @@ public class Controleur {
 	}
 	
 	
-	public Graphe chargerPlan() throws Exception {
-		etatCourant.chargerPlan();
+	public Graphe chargerPlan() {
+		try {
+			etatCourant.chargerPlan();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return null;
 	}
 	
-	public Graphe chargerLivraisons() throws Exception {
+	public Graphe chargerLivraisons() {
 		//tournee=etatCourant.chargerLivraisons(plan);
 		return null;
 	}
