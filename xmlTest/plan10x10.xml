@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <Reseau>
 <Noeud id="0" x="63" y="100">
-<LeTronconSortant nomRue="v0" vitesse="3,900000" longueur="602,100000" idNoeudDestination="1"/>
-<LeTronconSortant nomRue="h0" vitesse="4,200000" longueur="729,000000" idNoeudDestination="10"/>
+<LeTronconSortant nomRue="0->1" vitesse="3,900000" longueur="602,100000" idNoeudDestination="1"/>
+<LeTronconSortant nomRue="0->10" vitesse="4,200000" longueur="729,000000" idNoeudDestination="10"/>
 </Noeud>
 <Noeud id="1" x="88" y="171">
 <LeTronconSortant nomRue="v0" vitesse="4,100000" longueur="602,100000" idNoeudDestination="0"/>

@@ -31,8 +31,8 @@ public class PlanXMLParser {
 	 * @throws IOException
 	 * @throws ExceptionXML
 	 */
-	public static void chargerPlan(Plan p) throws ParserConfigurationException, SAXException, IOException, ExceptionXML{
-		File xml = OuvreurDeFichiersXML.getInstance().ouvre();
+	public static void chargerPlan(Plan p,File xml) throws ParserConfigurationException, SAXException, IOException, ExceptionXML{ 
+		//xml = OuvreurDeFichiersXML.getInstance().ouvre();
         DocumentBuilder docBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();	
         Document document = docBuilder.parse(xml);
         Element racine = document.getDocumentElement();
@@ -97,15 +97,15 @@ public class PlanXMLParser {
 			throw new ExceptionXML("Un des attributs est négatif!");
 		
 		Adresse depart = p.getAdresse(parentId);
-		depart.ajouterTroncon(new Troncon(nom, longueur, vitesse, p.getAdresse(destination)));
+		depart.ajouterTroncon(new Troncon(nom, longueur, vitesse, depart , p.getAdresse(destination)));
 		
 	}
 	
 	
 
 	
-	public static Tournee chargerLivraison(Plan p) throws ParserConfigurationException, SAXException, IOException, ExceptionXML{
-		File xml = OuvreurDeFichiersXML.getInstance().ouvre();
+	public static Tournee chargerLivraison(Plan p,File xml ) throws ParserConfigurationException, SAXException, IOException, ExceptionXML{
+		//xml = OuvreurDeFichiersXML.getInstance().ouvre();
         DocumentBuilder docBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();	
         Document document = docBuilder.parse(xml);
         Element racine = document.getDocumentElement();

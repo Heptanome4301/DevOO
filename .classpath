@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry excluding="graphstream/" kind="src" path="src"/>
+	<classpathentry kind="src" path="tests"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
 	<classpathentry kind="lib" path="src/graphstream/gs-core-1.3.jar">
 		<attributes>
@@ -8,5 +9,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="miglayout15-swing.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
