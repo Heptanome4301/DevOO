@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<JourneeType>
+<Entrepot adresse="40"/>
+<PlagesHoraires>
+<Plage heureDebut="8:0:0" heureFin="12:0:0">
+<Livraisons>
+<Livraison id="1" client="611" adresse="13"/>
+<Livraison id="2" client="276" adresse="14"/>
+<Livraison id="3" client="300" adresse="68"/>
+<Livraison id="4" client="591" adresse="43"/>
+<Livraison id="5" client="156" adresse="98"/>
+<Livraison id="6" client="923" adresse="67"/>
+<Livraison id="7" client="68" adresse="73"/>
+<Livraison id="8" client="709" adresse="56"/>
+</Livraisons>
+</Plage>
+</PlagesHoraires>
+</JourneeType>
