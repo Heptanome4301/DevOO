@@ -31,17 +31,23 @@ public class PlanXMLParser {
 	 * @throws IOException
 	 * @throws ExceptionXML
 	 */
-	public static void chargerPlan(Plan p) throws ParserConfigurationException, SAXException, IOException, ExceptionXML{
-		File xml = OuvreurDeFichiersXML.getInstance().ouvre();
-        DocumentBuilder docBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();	
-        Document document = docBuilder.parse(xml);
-        Element racine = document.getDocumentElement();
-        if (racine.getNodeName().equals("Reseau")) {
-           construirePlan(racine, p);
+	public static boolean chargerPlan(Plan p){
+		File xml;
+        try {
+            xml = OuvreurDeFichiersXML.getInstance().ouvre();
+            DocumentBuilder docBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder(); 
+            Document document = docBuilder.parse(xml);
+            Element racine = document.getDocumentElement();
+            if (racine.getNodeName().equals("Reseau")) {
+               construirePlan(racine, p);
+            }
+            else
+                    throw new ExceptionXML("Document non conforme");
+        } catch (Exception ignored) {
+            return false;
         }
-        else
-        	throw new ExceptionXML("Document non conforme");
-	}
+        return true;
+    }
 	
 	private static void construirePlan(Element root, Plan p) throws ExceptionXML {
 		NodeList nodes = root.getElementsByTagName("Noeud");
