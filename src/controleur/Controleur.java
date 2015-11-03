@@ -25,7 +25,7 @@ public class Controleur {
 	protected static final EtatAjouter1 etatAjouter1 = new EtatAjouter1();
 	protected static final EtatAjouter2 etatAjouter2 = new EtatAjouter2();
 	protected static final EtatTournee etatTournee = new EtatTournee();
-	protected static final EtatPlan etatPLan = new EtatPlan();
+	protected static final EtatPlan etatPlan = new EtatPlan();
 	protected static final EtatLivraison etatLivraison = new EtatLivraison();
 	protected static final EtatSupprimer etatSupprimer = new EtatSupprimer();
 	
@@ -60,14 +60,23 @@ public class Controleur {
 	}
 	
 	
-	public Graphe chargerPlan() throws Exception {
-		etatCourant.chargerPlan();
+	public Graphe chargerPlan(Plan plan)  {
+		plan = new Plan();
+		tournee = null;
+		try {
+			etatCourant.chargerPlan(plan);
+		} catch (Exception e) {
+			//TODO signaler erreur a la vue
+			e.printStackTrace();
+		}
 		return null;
+		//TODO
 	}
 	
 	public Graphe chargerLivraisons() throws Exception {
 		//tournee=etatCourant.chargerLivraisons(plan);
 		return null;
+		//TODO
 	}
 	
 	public Graphe calculerTournee() {
@@ -75,8 +84,8 @@ public class Controleur {
 		return null;
 	}
 	
-	public void clicNoeud(Adresse adresse,Livraison livraison, Tournee tournee, ListeDeCmd listeCmd) {
-		etatCourant.clicNoeud(adresse,livraison,tournee, listeCmd);
+	public void clicNoeud(Adresse adresse, Plan plan,Tournee tournee, ListeDeCmd listeCmd) {
+		etatCourant.clicNoeud(adresse,plan,tournee, listeCmd);
 	}
 	
 	public void clicDroit() {
@@ -84,11 +93,16 @@ public class Controleur {
 	}
 	
 	public void ajouter() {
-		etatCourant = etatAjouter1;
+		if(etatCourant == etatTournee) {
+			etatCourant = etatAjouter1;
+		}
+		
 	}
 	
 	public void supprimer() {
-		etatCourant = etatSupprimer;
+		if(etatCourant == etatTournee) {
+			etatCourant = etatSupprimer;	
+		}
 	}
 	
 	public void genererFeuilleDeRoute(String fichier) throws Exception {
