@@ -1,5 +1,6 @@
 package modele;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -49,9 +50,9 @@ public class Plan extends Observable{
 	 * @throws Exception
 	 *             En cas d'erreur dans le fichier XML
 	 */
-	public void chargerPlan() throws ParserConfigurationException,
+	public void chargerPlan(File xml) throws ParserConfigurationException,
 			SAXException, IOException, ExceptionXML {
-		PlanXMLParser.chargerPlan(this);
+		PlanXMLParser.chargerPlan(this,xml);
 		//completerTraconsManquants();
 		afficherPlan();
 	}
@@ -83,7 +84,7 @@ public class Plan extends Observable{
 				}
 				if (trouve == false) {
 					a.ajouterTroncon(new Troncon(a.getId() + "->" + b.getId(),
-							a.getId() * b.getId(), 1, b));
+							a.getId() * b.getId(), 1, a,b));
 				}
 			}
 		}
@@ -97,9 +98,9 @@ public class Plan extends Observable{
 	 *             En cas d'erreur dans le fichier XML
 	 * @return la tournee correspendante, et initialise l'attribut tourne
 	 */
-	public Tournee chargerLivraison() throws ParserConfigurationException,
+	public Tournee chargerLivraison(File xml) throws ParserConfigurationException,
 			SAXException, IOException, ExceptionXML {
-		tournee = PlanXMLParser.chargerLivraison(this);
+		tournee = PlanXMLParser.chargerLivraison(this,xml);
 		return tournee;
 	}
 

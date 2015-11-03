@@ -34,7 +34,7 @@ public class Fenetre {
 	private JLabel labelDelivery;
 	private JLabel labelTour;
 	private JList<?> labelPointList;
-	private JPanel view;
+	private VueGraphique view;
 	private JTextField log;
 	private JLabel lblListeDesPoints;
 
@@ -111,8 +111,9 @@ public class Fenetre {
 	}
 	
 	public void linkView(Plan plan) {
-		this.view = new VueGrapique(plan, this);
+		this.view = new VueGraphique(plan, this);
 		frame.getContentPane().add(view, "cell 1 1 1 11,grow");
+		view.display();
 	}
 
 }

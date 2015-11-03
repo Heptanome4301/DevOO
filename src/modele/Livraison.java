@@ -14,14 +14,14 @@ public class Livraison {
 	}
 
 
-	@Override
+	/*@Override
 	public boolean equals(Object obj) {
 		if( obj!=null && obj instanceof Livraison ) {
-			return getId() == ((Livraison)obj).getId();
+			return getId() == ((Livraison)obj).getId() ;
 
 		}
 		return false;
-	}
+	} */
 	
 	
 	/**
@@ -36,6 +36,50 @@ public class Livraison {
 		this.adresse = adresse;
 		this.fenetreLivraison = fenetreLivraison;
 		this.id = id;
+	}
+
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((adresse == null) ? 0 : adresse.hashCode());
+		result = prime
+				* result
+				+ ((fenetreLivraison == null) ? 0 : fenetreLivraison.hashCode());
+		result = prime * result + ((horaire == null) ? 0 : horaire.hashCode());
+		result = prime * result + id;
+		return result;
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Livraison other = (Livraison) obj;
+		if (adresse == null) {
+			if (other.adresse != null)
+				return false;
+		} else if (!adresse.equals(other.adresse))
+			return false;
+		if (fenetreLivraison == null) {
+			if (other.fenetreLivraison != null)
+				return false;
+		} else if (!fenetreLivraison.equals(other.fenetreLivraison))
+			return false;
+		if (horaire == null) {
+			if (other.horaire != null)
+				return false;
+		} else if (!horaire.equals(other.horaire))
+			return false;
+		if (id != other.id)
+			return false;
+		return true;
 	}
 
 
