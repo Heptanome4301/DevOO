@@ -258,6 +258,15 @@ public class Tournee extends Observable{
 
 	}
 	
+	public Livraison getLivraison(Adresse a){
+		for(Livraison l:livraisons){
+			if(l.getAdresse() .equals(a) ){
+				return l;
+			}
+		}
+		return null;
+	}
+	
 
 	
 }
