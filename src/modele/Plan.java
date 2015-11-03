@@ -52,7 +52,7 @@ public class Plan extends Observable {
 	public void chargerPlan() throws ParserConfigurationException,
 			SAXException, IOException, ExceptionXML {
 		PlanXMLParser.chargerPlan(this);
-		completerTraconsManquants();
+		//completerTraconsManquants();
 		afficherPlan();
 	}
 

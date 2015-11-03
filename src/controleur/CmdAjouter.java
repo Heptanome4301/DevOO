@@ -1,9 +1,18 @@
 package controleur;
 
-public class CmdAjouter implements Commande {
+import modele.Adresse;
+import modele.Tournee;
 
-	public CmdAjouter() {
-		// TODO Auto-generated constructor stub
+public class CmdAjouter implements Commande {
+	
+	Tournee tournee;
+	Adresse addAdresse;
+	Adresse followAdresse;
+
+	public CmdAjouter(Tournee tournee, Adresse addAdresse, Adresse followAdresse) {
+		this.tournee=tournee;
+		this.followAdresse=followAdresse;
+		this.addAdresse=addAdresse;
 	}
 
 	@Override

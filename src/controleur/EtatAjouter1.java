@@ -11,14 +11,14 @@ public class EtatAjouter1 extends EtatIni {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public void clicNoeud(Adresse adresse, Livraison livraison,Tournee tournee, ListeDeCmd listeCmd) {
+	public void clicNoeud(Adresse adresse,Tournee tournee, ListeDeCmd listeCmd) {
 		Controleur.etatAjouter2.setAdresse(adresse);
 		Controleur.setEtatCourant(Controleur.etatAjouter2);
 	}
 	
 	public void clicDroit() {
 		// action = annuler
-		Controleur.setEtatCourant(Controleur.etatIni);
+		Controleur.setEtatCourant(Controleur.etatTournee);
 	}
 
 }

@@ -15,6 +15,7 @@ public class CmdSupprimer implements Commande {
 
 	@Override
 	public void doCmd() throws Exception {
+		tournee.supprimerLivraison(livraison);
 		//TODO
 	}
 

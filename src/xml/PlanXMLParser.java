@@ -102,19 +102,7 @@ public class PlanXMLParser {
 	}
 	
 	
-	
-	public static Tournee chargerLivraisonX(Plan p) throws ParserConfigurationException, SAXException, IOException, ExceptionXML{
-		//TO DO
-		Collection<Livraison> livraisons = new ArrayList<Livraison>();
-		Collection<FenetreLivraison> fenetresLivraison = new ArrayList<FenetreLivraison>();
-		FenetreLivraison f1 = new FenetreLivraison(0,null, null);
-		FenetreLivraison f2 = new FenetreLivraison(1,null, null);
-		fenetresLivraison.add(f1);
-		fenetresLivraison.add(f2);
-		livraisons.add(new Livraison(p.getAdresse(2),f1));
-		livraisons.add(new Livraison(p.getAdresse(1),f1));
-		return new Tournee(p,livraisons,fenetresLivraison,p.getAdresse(0));
-	}
+
 	
 	public static Tournee chargerLivraison(Plan p) throws ParserConfigurationException, SAXException, IOException, ExceptionXML{
 		File xml = OuvreurDeFichiersXML.getInstance().ouvre();
@@ -123,7 +111,7 @@ public class PlanXMLParser {
         Element racine = document.getDocumentElement();
         
         Tournee tournee = null  ;
-        if (racine.getNodeName().equals("Tournee")) {
+        if (racine.getNodeName().equals("JourneeType")) {
             tournee = construireTournee(racine, p);
          }
          else
@@ -133,14 +121,14 @@ public class PlanXMLParser {
 	}
 	
 	private static Tournee construireTournee(Element root, Plan p) throws ExceptionXML {
-		int idEntropot = Integer.parseInt(root.getAttribute("Entrepot"));
+		int idEntropot = parseEntrepot(root); 
 		Adresse entropot = p.getAdresse(idEntropot);
 		if(entropot == null) 
-			throw new ExceptionXML("l'id du l'enropt est invalide");
+			throw new ExceptionXML("l'id du l'entrepot est invalide");
 		else
 			System.out.println("Entrepot := " + entropot.getId() );
 		
-		NodeList nodes = root.getElementsByTagName("Fenetre_livraison");
+		NodeList nodes = root.getElementsByTagName("Plage");
 		ArrayList<FenetreLivraison> fenetresLivraison = new ArrayList<FenetreLivraison>(); 
 		for (int i = 0; i < nodes.getLength(); i++) {
 			fenetresLivraison.add(parseFenetre_livraison((Element)nodes.item(i)));
@@ -149,59 +137,80 @@ public class PlanXMLParser {
 		NodeList sections = root.getElementsByTagName("Livraison");
 		ArrayList<Livraison> livraisons = new ArrayList<Livraison>();
 		for (int i = 0; i < sections.getLength(); i++) {
-			livraisons.add(parseLivraison((Element)sections.item(i), p,fenetresLivraison ));
+			Livraison l = parseLivraison((Element)sections.item(i), p,fenetresLivraison );
+			if(livraisons.contains(l)) throw new ExceptionXML("Fichier invalide : deux livraisons avec deux id identique");
+			livraisons.add(l);
 		}
 		
 		return new Tournee(p,livraisons,fenetresLivraison,entropot);
 	}
 	
+	private static int parseEntrepot(Element root) throws ExceptionXML{
+		NodeList nodes = root.getElementsByTagName("Entrepot");
+		if(nodes.getLength() <1 ) throw new ExceptionXML("L'adresse de l'entrepot est manquante");
+		Element elt = (Element)nodes.item(0);
+		return Integer.parseInt(elt.getAttribute("adresse"));
+	
+	}
+
 	private static FenetreLivraison parseFenetre_livraison(Element elt) throws ExceptionXML {
-		int id, Hdebut, Hfin;
-		id = Integer.parseInt(elt.getAttribute("id"));
-		Hdebut = Integer.parseInt(elt.getAttribute("Hdebut"));
-		Hfin = Integer.parseInt(elt.getAttribute("Hfin"));
 		
-		if(Hdebut<0 || Hfin<0 || id<0 || Hfin<Hdebut)
+		String Hdebut, Hfin;
+		//id = Integer.parseInt(elt.getAttribute("id"));
+		Hdebut = elt.getAttribute("heureDebut");
+		Hfin = elt.getAttribute("heureFin");
+		
+	
+		Date debut = paseDate(Hdebut);
+		Date fin = paseDate(Hdebut);
+		
+		if( debut.after(fin) )
 			throw new ExceptionXML("Un des attributs est négatif!");
 		
-		Date debut = new Date(Hdebut);
-		Date fin = new Date(Hfin);
-		
-		System.out.println("La fenetre de livraison " + id +" := ["+ Hdebut + "," + Hfin + "]");
+		System.out.println("La fenetre de livraison := ["+ Hdebut + "," + Hfin + "]");
 		
 		
-		return new FenetreLivraison(id,debut, fin);
+		return new FenetreLivraison(debut, fin);
 	}
 	
-	private static Livraison parseLivraison(Element elt, Plan p, ArrayList<FenetreLivraison> fenetresLivraison) throws ExceptionXML {
-		int idAdresse ;
-		idAdresse = Integer.parseInt(elt.getAttribute("idAdresse"));
+	private static Date paseDate(String hdebut) throws ExceptionXML {
+		// TODO Auto-generated method stub
+		String[] hDebutSplitted = hdebut.split(":");
+		try{
+			int heure = Integer.parseInt(hDebutSplitted[0]);
+			int minute = Integer.parseInt(hDebutSplitted[1]);
+			int seconde = Integer.parseInt(hDebutSplitted[2]);
+			int annee = 2015,mois = 1, jour = 1;
+			Date dateDebut = new Date(annee, mois, jour, heure, minute, seconde);
+			return dateDebut;
+		} catch(Exception e){
+			throw new ExceptionXML("La fenetre horaire n'est pas correctement formée");
+		}
 		
-		if(idAdresse<0)
+	}
+
+	private static Livraison parseLivraison(Element elt, Plan p, ArrayList<FenetreLivraison> fenetresLivraison) throws ExceptionXML {
+		int idAdresse ,id;
+		idAdresse = Integer.parseInt(elt.getAttribute("adresse"));
+		id = Integer.parseInt(elt.getAttribute("id"));
+		
+		if(idAdresse<0 || id < 0 )
 			throw new ExceptionXML("Un des attributs est négatif!");
 		
 		Adresse adresse = p.getAdresse(idAdresse);
 		if(adresse == null )
 			throw new ExceptionXML("Adresse de livraison invalide");
 		
-		Element elmtFenetreLiv = (Element) elt.getParentNode();
-		int idFenetreLivraision = Integer.parseInt(elmtFenetreLiv.getAttribute("id"));
+		Element elmtFenetreLiv = (Element) elt.getParentNode().getParentNode();
+		FenetreLivraison fenetrelivraison = parseFenetre_livraison(elmtFenetreLiv);
 		
-		FenetreLivraison fenetreLivraison = getFenetre(fenetresLivraison,idFenetreLivraision);
-		if(fenetreLivraison == null)
-			throw new ExceptionXML("Livraison dont idAdresse = "+idAdresse+" a une Fenetre livraison invalide");	
 		
-		System.out.println("Livraison à l'adresse id=" + idAdresse +" fenetreLivraison id= "+idFenetreLivraision );
+		System.out.println("Livraison à l'adresse id=" + idAdresse +" fenetreLivraison id= "+fenetrelivraison.getHeureDebut());
 		
-		return new Livraison(adresse,fenetreLivraison);
+		return new Livraison(id,adresse,fenetrelivraison);
 		
 	}
 	
-	private static FenetreLivraison getFenetre(Collection<FenetreLivraison> fenetresLivraison,int id){
-		for(FenetreLivraison fl :  fenetresLivraison)
-			if(fl.getId() == id) return fl;
-		return null;
-	}
 
 	
 	

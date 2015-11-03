@@ -2,7 +2,7 @@ package controleur;
 
 import modele.Adresse;
 import modele.Livraison;
-import modele.Plan;
+import modele.Tournee;
 
 public class EtatAjouter2 extends EtatIni {
 
@@ -17,8 +17,13 @@ public class EtatAjouter2 extends EtatIni {
 		this.adresse=adresse;
 	}
 	
-	public void clicNoeud(Adresse adresse, Plan plan, ListeDeCmd listeCmd) {
+	public void clicNoeud(Adresse adresse,Tournee tournee, ListeDeCmd listeCmd) {
 		//TODO
+	}
+	
+	public void clicDroit() {
+		adresse=null;
+		Controleur.setEtatCourant(Controleur.etatTournee);
 	}
 
 }

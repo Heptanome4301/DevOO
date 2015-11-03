@@ -93,7 +93,7 @@ public class Tournee extends Observable{
 	}
 	
 	private Chemin[][] construireAllChemin(FenetreLivraison fenetreLivraison,Adresse adrssDepart){
-		Livraison premiere = new Livraison(adrssDepart,fenetreLivraison) ;
+		Livraison premiere =getLivraison(adrssDepart);
 		Set<Livraison> livraisons = getLivraison(fenetreLivraison);
 		if(livraisons.contains(premiere)) livraisons.remove(premiere);
 		
@@ -185,9 +185,7 @@ public class Tournee extends Observable{
 	 *  (pour les afficher dans vue par exemple)
 	 * @return Collection de Livraison
 	 */
-	public Collection<Livraison> getLivraison(){
-		return livraisons;
-	}
+
 	
 	public Collection<Livraison> getLivraisons() {
 		return livraisons;
@@ -215,7 +213,9 @@ public class Tournee extends Observable{
 	 */
 	//  ?? est ce que on doit recalculer automatiquement la tournée ??
 	public void ajouterLivraison(Livraison lAdd,Livraison lFollow) throws Exception{
-		this.notifyObservers(this);
+		//this.notifyObservers(this);
+		//Adresse 
+		
 	}
 	
 	/**
@@ -245,17 +245,20 @@ public class Tournee extends Observable{
 		return fenetresLivraison;
 	}
 
-	public FenetreLivraison getFenetreLivraison(int id) {
-		for (FenetreLivraison fl : fenetresLivraison) {
-			if (fl.getId() == id)
-				return fl;
-		}
-		return null;
-	}
+
 	
 	public FenetreLivraison getFenetreLivraisonIndx(int index) {
 		return ((ArrayList<FenetreLivraison>)fenetresLivraison).get(index);
 
+	}
+	
+	public Livraison getLivraison(Adresse a){
+		for(Livraison l:livraisons){
+			if(l.getAdresse() .equals(a) ){
+				return l;
+			}
+		}
+		return null;
 	}
 	
 

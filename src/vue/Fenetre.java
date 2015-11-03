@@ -22,7 +22,7 @@ import java.awt.event.ActionEvent;
 
 public class Fenetre {
 
-	private JFrame frame;
+	public JFrame frame;
 	private JTextArea infoPoint;
 	private JButton loadPlanning;
 	private JButton loadDeliveries;
