@@ -1,11 +1,16 @@
 package controleur;
 
-import java.io.IOException;
-import javax.xml.parsers.ParserConfigurationException;
-import org.xml.sax.SAXException;
-import xml.ExceptionXML;
 
+import java.io.IOException;
+
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
+
+import tsp.Graphe;
+import xml.ExceptionXML;
 import modele.Adresse;
+import modele.Livraison;
 import modele.Plan;
 import modele.Tournee;
 
@@ -50,24 +55,26 @@ public class Controleur {
 		try {
 			etatCourant.redo(historique);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
+		} 
 	}
 	
 	
-	public Graph chargerPlan() throws Exception {
+	public Graphe chargerPlan() throws Exception {
 		etatCourant.chargerPlan();
+		return null;
 	}
 	
-	public Graph chargerLivraisons() throws Exception {
-		tournee=etatCourant.chargerLivraisons(plan);
+	public Graphe chargerLivraisons() throws Exception {
+		//tournee=etatCourant.chargerLivraisons(plan);
+		return null;
 	}
 	
-	public Graph calculerTournee() {
+	public Graphe calculerTournee() {
 		etatCourant.calculerTournee(tournee);
+		return null;
 	}
-	*/
+	
 	public void clicNoeud(Adresse adresse,Livraison livraison, Tournee tournee, ListeDeCmd listeCmd) {
 		etatCourant.clicNoeud(adresse,livraison,tournee, listeCmd);
 	}
@@ -84,8 +91,9 @@ public class Controleur {
 		etatCourant = etatSupprimer;
 	}
 	
-	public void genererFeuilleDeRoute(String fichier) {
+	public void genererFeuilleDeRoute(String fichier) throws Exception {
 		etatCourant.genererFeuilleDeRoute(fichier,tournee);
 	}
+
 
 }

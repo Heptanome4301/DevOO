@@ -8,9 +8,12 @@ public class Chemin {
 	
 	private Collection<Troncon> troncons;
 	private double duree;
+	private Adresse depart,arrivee;
 	
-	public Chemin(){
+	public Chemin(Adresse depart, Adresse arrivee){
 		troncons = new ArrayList<Troncon>();
+		this.depart = depart;
+		this.arrivee = arrivee;
 	}
 	
 	/**
@@ -26,7 +29,8 @@ public class Chemin {
 		String res = new String();
 		
 		for(Troncon t : troncons){
-			res+=t.getNomRue() + " ";
+			//res+=t.getNomRue() + " ";
+			res = t.getNomRue() + " " + res;
 		}
 		
 		return res;
@@ -38,5 +42,13 @@ public class Chemin {
 	
 	public Collection<Troncon> getTroncons() {
 		return troncons;
+	}
+
+	public Adresse getDepart() {
+		return depart;
+	}
+
+	public Adresse getArrivee() {
+		return arrivee;
 	}
 }
