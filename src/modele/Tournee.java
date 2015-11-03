@@ -94,6 +94,11 @@ public class Tournee extends Observable{
 	
 	private Chemin[][] construireAllChemin(FenetreLivraison fenetreLivraison,Adresse adrssDepart){
 		Livraison premiere =getLivraison(adrssDepart);
+		if(premiere == null){
+			System.err.println(adrssDepart.equals(entrepot));
+			System.err.println("Livraison associer a l'adresse "+adrssDepart.getId()+" de la fenetre"+fenetreLivraison.getHeureDebut()+" est null");
+			premiere =new Livraison(-1, adrssDepart, fenetreLivraison);
+		}
 		Set<Livraison> livraisons = getLivraison(fenetreLivraison);
 		if(livraisons.contains(premiere)) livraisons.remove(premiere);
 		
@@ -254,12 +259,13 @@ public class Tournee extends Observable{
 	
 	public Livraison getLivraison(Adresse a){
 		for(Livraison l:livraisons){
-			if(l.getAdresse() .equals(a) ){
+			if(l.getAdresse().getId() == a.getId() ){
 				return l;
 			}
 		}
 		return null;
 	}
+	
 	
 
 	
