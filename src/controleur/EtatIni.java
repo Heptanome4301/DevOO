@@ -1,8 +1,10 @@
 package controleur;
 
 import tsp.Graphe;
+
+import java.io.File;
+
 import modele.Adresse;
-import modele.Livraison;
 import modele.Plan;
 import modele.Tournee;
 
@@ -37,15 +39,15 @@ public class EtatIni implements Etat {
 	}
 
 	@Override
-	public Graphe chargerPlan(Plan plan) throws Exception {
-		plan.chargerPlan();
+	public Graphe chargerPlan(Plan plan, File file) throws Exception {
+		plan.chargerPlan(file);
 		Controleur.setEtatCourant(Controleur.etatPlan);
 		return null;
 		//TODO
 	}
 
 	@Override
-	public Graphe chargerLivraisons(Plan plan) throws Exception {
+	public Tournee chargerLivraisons(Plan plan,File file) throws Exception {
 		throw new UnsupportedOperationException();
 	}
 

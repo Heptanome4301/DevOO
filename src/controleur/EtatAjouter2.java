@@ -17,10 +17,14 @@ public class EtatAjouter2 extends EtatIni {
 		this.adresse=adresse;
 	}
 	
-	public void clicNoeud(Adresse adresse,Tournee tournee, ListeDeCmd listeCmd) {
-		//TODO
+	public void clicNoeud(Adresse followAdresse,Tournee tournee, ListeDeCmd listeCmd) throws Exception {
+		CmdAjouter cmd = new CmdAjouter(tournee, adresse, followAdresse);
+		listeCmd.ajoute(cmd);
+		cmd.doCmd();
+		Controleur.setEtatCourant(Controleur.etatTournee);
 	}
 	
+	// annuler l'ajout
 	public void clicDroit() {
 		adresse=null;
 		Controleur.setEtatCourant(Controleur.etatTournee);

@@ -1,6 +1,7 @@
 package controleur;
 
 
+import java.io.File;
 import java.io.IOException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -28,6 +29,8 @@ public class Controleur {
 	protected static final EtatPlan etatPlan = new EtatPlan();
 	protected static final EtatLivraison etatLivraison = new EtatLivraison();
 	protected static final EtatSupprimer etatSupprimer = new EtatSupprimer();
+	protected static final EtatEchanger1 etatEchanger1 = new EtatEchanger1();
+	protected static final EtatEchanger2 etatEchanger2 = new EtatEchanger2();
 	
 	protected static void setEtatCourant(Etat etat) { etatCourant = etat; }
 	
@@ -42,6 +45,9 @@ public class Controleur {
 		tournee = null;
 	}
 	
+	/**
+	 * Annule la dernière modification effectuée sur la tournée (ajout, suppression ou échange de livraisons)
+	 */
 	public void undo() {
 		try {
 			etatCourant.undo(historique);
@@ -50,7 +56,9 @@ public class Controleur {
 			e.printStackTrace();
 		}
 	}
-	
+	/**
+	 * Réeffectue la dernière action annulée
+	 */
 	public void redo() {
 		try {
 			etatCourant.redo(historique);
@@ -64,7 +72,7 @@ public class Controleur {
 		plan = new Plan();
 		tournee = null;
 		try {
-			etatCourant.chargerPlan(plan);
+			etatCourant.chargerPlan(plan,null);
 		} catch (Exception e) {
 			//TODO signaler erreur a la vue
 			e.printStackTrace();
@@ -74,7 +82,12 @@ public class Controleur {
 	}
 	
 	public Graphe chargerLivraisons() {
-		//tournee=etatCourant.chargerLivraisons(plan);
+		try {
+			tournee=etatCourant.chargerLivraisons(plan,null);
+		}
+		catch(Exception e) {
+			//TODO
+		}
 		return null;
 		//TODO
 	}
@@ -85,7 +98,12 @@ public class Controleur {
 	}
 	
 	public void clicNoeud(Adresse adresse, Plan plan,Tournee tournee, ListeDeCmd listeCmd) {
-		etatCourant.clicNoeud(adresse,plan,tournee, listeCmd);
+		try {
+			etatCourant.clicNoeud(adresse,plan,tournee, listeCmd);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void clicDroit() {
@@ -102,6 +120,12 @@ public class Controleur {
 	public void supprimer() {
 		if(etatCourant == etatTournee) {
 			etatCourant = etatSupprimer;	
+		}
+	}
+	
+	public void echanger() {
+		if(etatCourant == etatTournee) {
+			etatCourant = etatEchanger;
 		}
 	}
 	
