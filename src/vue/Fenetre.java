@@ -1,30 +1,27 @@
 package vue;
 
+import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JList;
-import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
+import controleur.Controleur;
 import modele.Plan;
 import net.miginfocom.swing.MigLayout;
 
-import org.graphstream.ui.swingViewer.ViewPanel;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import javax.swing.JSlider;
 
 public class Fenetre {
 
 	public JFrame frame;
 	private JTextArea infoPoint;
-	private JButton loadPlanning;
+	private JButton loadPlan;
 	private JButton loadDeliveries;
 	private JButton computeTour;
 	private JButton addDelivery;
@@ -35,17 +32,31 @@ public class Fenetre {
 	private JLabel labelTour;
 	private JList<?> labelPointList;
 	private VueGraphique view;
+	private JScrollPane scrollPanel;
 	private JTextField log;
 	private JLabel lblListeDesPoints;
+	
+	private EcouterDeBoutons ecouterBoutons;
 
 	private final String TITLE = "Livraison Simulator 2015";
 	private final Dimension MINIMUM_SIZE = new Dimension(800, 600);
+	private JSlider zoom;
+	private JLabel lblZoom;
 
 	/**
 	 * Create the application.
 	 */
-	public Fenetre() {
+	public Fenetre(Controleur c, Plan p) {
 		initialize();
+		ajouterView(p);
+		initializeListeners(c);
+	}
+	
+	private void initializeListeners(Controleur c) {
+		this.ecouterBoutons = new EcouterDeBoutons(c);
+		loadPlan.addActionListener(ecouterBoutons);
+		zoom.addChangeListener(new ZoomListener(view));
+
 	}
 
 	/**
@@ -64,6 +75,17 @@ public class Fenetre {
 		lblListeDesPoints = new JLabel("Liste des points de livraison");
 		frame.getContentPane().add(lblListeDesPoints,
 				"cell 0 0,alignx center,aligny center");
+		
+		lblZoom = new JLabel("Zoom");
+		frame.getContentPane().add(lblZoom, "flowx,cell 1 0,alignx right");
+		
+		zoom = new JSlider();
+		zoom.setValue(100);
+		zoom.setMinimum(10);
+		zoom.setMaximum(200);
+		zoom.setPaintLabels(true);
+		
+		frame.getContentPane().add(zoom, "cell 1 0,alignx right");
 
 		labelPointList = new JList<String>();
 		frame.getContentPane().add(labelPointList, "cell 0 1 1 10,grow");
@@ -72,8 +94,8 @@ public class Fenetre {
 		labelTour.setHorizontalAlignment(SwingConstants.CENTER);
 		frame.getContentPane().add(labelTour, "cell 2 0 2 1,growx");
 
-		loadPlanning = new JButton("Charger un plan");
-		frame.getContentPane().add(loadPlanning, "cell 2 1 2 1,growx");
+		loadPlan = new JButton("Charger un plan");
+		frame.getContentPane().add(loadPlan, "cell 2 1 2 1,growx");
 
 		loadDeliveries = new JButton("Charger des livraisons");
 		frame.getContentPane().add(loadDeliveries, "cell 2 2 2 1,growx");
@@ -104,16 +126,21 @@ public class Fenetre {
 		log.setEditable(false);
 		frame.getContentPane().add(log, "cell 0 12 4 1,growx");
 		log.setColumns(10);
-	}
-
-	public void display() {
+		
 		frame.setVisible(true);
 	}
-	
-	public void linkView(Plan plan) {
+
+	private void ajouterView(Plan plan) {
 		this.view = new VueGraphique(plan, this);
-		frame.getContentPane().add(view, "cell 1 1 1 11,grow");
-		view.display();
+		this.view.setBackground(Color.white);
+		
+//		view.setPreferredSize(new Dimension(1000,1000));
+		
+		scrollPanel = new JScrollPane(view); 
+
+//		scrollPanel.setViewportView(view);
+		
+		frame.getContentPane().add(scrollPanel, "cell 1 1 1 11,grow");
 	}
 
 }

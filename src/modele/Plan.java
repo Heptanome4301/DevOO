@@ -15,7 +15,7 @@ import org.xml.sax.SAXException;
 import xml.ExceptionXML;
 import xml.PlanXMLParser;
 
-public class Plan extends Observable{
+public class Plan extends Observable {
 	/**
 	 * La liste des adresses qui composent le plan
 	 */
@@ -24,7 +24,7 @@ public class Plan extends Observable{
 	private Tournee tournee;
 
 	/**
-	 * Le constructeur de la classe Plan ne prend pas de paramètres. Appelé par
+	 * Le constructeur de la classe Plan ne prend pas de paramï¿½tres. Appelï¿½ par
 	 * le controleur
 	 */
 	public Plan() {
@@ -33,18 +33,19 @@ public class Plan extends Observable{
 	}
 
 	/**
-	 * Ajoute une adresse à la liste d'adresse
+	 * Ajoute une adresse ï¿½ la liste d'adresse
 	 * 
 	 * @param a
-	 *            l'adresse à ajouter
+	 *            l'adresse ï¿½ ajouter
 	 */
 	public void ajouterAdresse(Adresse a) {
 		adresses.add(a);
-		this.notifyObservers(this);
+		this.setChanged();
+		this.notifyObservers(a); // Pour l'instant on n'utilise pas "a"
 	}
 
 	/**
-	 * Appelée par le controleur le nom du fichier à charger est déja connu par
+	 * Appelï¿½e par le controleur le nom du fichier ï¿½ charger est dï¿½ja connu par
 	 * la classe PlanXMLParser (OuvreurDeFichier qui le fait)
 	 * 
 	 * @throws Exception
@@ -52,21 +53,29 @@ public class Plan extends Observable{
 	 */
 	public void chargerPlan(File xml) throws ParserConfigurationException,
 			SAXException, IOException, ExceptionXML {
-		PlanXMLParser.chargerPlan(this,xml);
-		//completerTraconsManquants();
-		afficherPlan();
+		PlanXMLParser.chargerPlan(this, xml);
+		// completerTraconsManquants();
+		// afficherPlan();
+	}
+
+	public void chargerPlan() throws ParserConfigurationException,
+			SAXException, IOException, ExceptionXML {
+		this.clear();
+		PlanXMLParser.chargerPlan(this);
+		// completerTraconsManquants();
+		// afficherPlan();
 	}
 
 	private void afficherPlan() {
-		for (Adresse a : adresses) {
-			System.out.print(a.getId()+" :");
-			Collection<Troncon> tronconsSortantDeA = a.getTroncons();
-			for (Troncon t : tronconsSortantDeA) {
-				System.out.print(" "+t.getArrivee().getId());
-		
-			}
-			System.out.println();
-		}
+		// for (Adresse a : adresses) {
+		// System.out.print(a.getId()+" :");
+		// Collection<Troncon> tronconsSortantDeA = a.getTroncons();
+		// for (Troncon t : tronconsSortantDeA) {
+		// System.out.print(" "+t.getArrivee().getId());
+		//
+		// }
+		// System.out.println();
+		// }
 
 	}
 
@@ -74,48 +83,50 @@ public class Plan extends Observable{
 		for (Adresse a : adresses) {
 			Collection<Troncon> tronconsSortantDeA = a.getTroncons();
 			for (Adresse b : adresses) {
-				if(a==b) continue;
+				if (a == b)
+					continue;
 				boolean trouve = false;
 				for (Troncon t : tronconsSortantDeA) {
-					if (t.getArrivee() == b){
+					if (t.getArrivee() == b) {
 						trouve = true;
 						break;
 					}
 				}
 				if (trouve == false) {
 					a.ajouterTroncon(new Troncon(a.getId() + "->" + b.getId(),
-							a.getId() * b.getId(), 1, a,b));
+							a.getId() * b.getId(), 1, a, b));
 				}
 			}
 		}
 	}
 
 	/**
-	 * Appelée par le controleur le nom du fichier à charger est déja connu par
+	 * Appelï¿½e par le controleur le nom du fichier ï¿½ charger est dï¿½ja connu par
 	 * la classe PlanXMLParser (OuvreurDeFichier qui le fait)
 	 * 
 	 * @throws Exception
 	 *             En cas d'erreur dans le fichier XML
 	 * @return la tournee correspendante, et initialise l'attribut tourne
 	 */
-	public Tournee chargerLivraison(File xml) throws ParserConfigurationException,
-			SAXException, IOException, ExceptionXML {
-		tournee = PlanXMLParser.chargerLivraison(this,xml);
+	public Tournee chargerLivraison(File xml)
+			throws ParserConfigurationException, SAXException, IOException,
+			ExceptionXML {
+		tournee = PlanXMLParser.chargerLivraison(this, xml);
 		return tournee;
 	}
 
 	/**
-	 * Appelée sourtout par la classe Tournee Calculer le plus court chemin
+	 * Appelï¿½e sourtout par la classe Tournee Calculer le plus court chemin
 	 * entre deux adresses
 	 * 
 	 * @param a1
-	 *            l'adresse de départ
+	 *            l'adresse de dï¿½part
 	 * @param a2
-	 *            l'adresse d'arrivée
+	 *            l'adresse d'arrivï¿½e
 	 * @return chemin le plus court chemin entre les deux adresses
 	 */
 	public Chemin calculerChemin(Adresse a1, Adresse a2) {
-		Chemin res = new Chemin(a1,a2);
+		Chemin res = new Chemin(a1, a2);
 
 		int nbAdresses = adresses.size();
 		HashMap<Adresse, Double> distMap = new HashMap<Adresse, Double>();
@@ -135,7 +146,7 @@ public class Plan extends Observable{
 		}
 		distMap.put(a1, 0.0);
 		blanc.add(a1);
-                
+
 		while (!blanc.isEmpty()) {
 			Adresse current = blanc.pollFirst();
 
@@ -149,11 +160,10 @@ public class Plan extends Observable{
 						distMap.put(t.getArrivee(), dureeActuelle);
 
 						// Mise a jour du tas binaire
-                                        if(t.getArrivee() != a2){
-                                            blanc.remove(t.getArrivee());
-                                            blanc.add(t.getArrivee());
-                                        }
-						
+						if (t.getArrivee() != a2) {
+							blanc.remove(t.getArrivee());
+							blanc.add(t.getArrivee());
+						}
 
 						// Mise a jour du precedent
 						precedence[t.getArrivee().getId()] = current;
@@ -165,15 +175,15 @@ public class Plan extends Observable{
 				}
 			}
 
-			// Sommet visté
+			// Sommet vistï¿½
 			noir.add(current);
 		}
 
 		Adresse arrivee = a2;
 		Adresse depart = precedence[a2.getId()];
 
-		// On remonte le tableau de précédence pour construire le chemin
-		while (depart!=null && arrivee != depart) {
+		// On remonte le tableau de prï¿½cï¿½dence pour construire le chemin
+		while (depart != null && arrivee != depart) {
 			// Ajouter le troncon au chemin
 			for (Troncon t : depart.getTroncons()) {
 				if (t.getArrivee() == arrivee) {
@@ -207,6 +217,10 @@ public class Plan extends Observable{
 				return a;
 		}
 		return null;
+	}
+	
+	private void clear() {
+		adresses.clear();
 	}
 
 }

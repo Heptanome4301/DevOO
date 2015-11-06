@@ -42,6 +42,18 @@ public class PlanXMLParser {
         else
         	throw new ExceptionXML("Document non conforme");
 	}
+
+	public static void chargerPlan(Plan p) throws ParserConfigurationException, SAXException, IOException, ExceptionXML{ 
+		File xml = OuvreurDeFichiersXML.getInstance().ouvre();
+		DocumentBuilder docBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();	
+		Document document = docBuilder.parse(xml);
+		Element racine = document.getDocumentElement();
+		if (racine.getNodeName().equals("Reseau")) {
+			construirePlan(racine, p);
+		}
+		else
+			throw new ExceptionXML("Document non conforme");
+	}
 	
 	private static void construirePlan(Element root, Plan p) throws ExceptionXML {
 		NodeList nodes = root.getElementsByTagName("Noeud");
@@ -61,9 +73,9 @@ public class PlanXMLParser {
 		y = Integer.parseInt(elt.getAttribute("y"));
 		
 		if(x<0 || y<0 || id<0)
-			throw new ExceptionXML("Un des attributs est négatif!");
+			throw new ExceptionXML("Un des attributs est nï¿½gatif!");
 		
-		System.out.println("Le noeud " + id +" a pour coordonnées ("+ x + "," + y + ")");
+		// System.out.println("Le noeud " + id +" a pour coordonnï¿½es ("+ x + "," + y + ")");
 		p.ajouterAdresse(new Adresse(id,x,y));
 		
 	}
@@ -94,7 +106,7 @@ public class PlanXMLParser {
 		nom = elt.getAttribute("nomRue");
 		
 		if(nom == null || vitesse<0 || longueur<0 || destination<0)
-			throw new ExceptionXML("Un des attributs est négatif!");
+			throw new ExceptionXML("Un des attributs est nï¿½gatif!");
 		
 		Adresse depart = p.getAdresse(parentId);
 		depart.ajouterTroncon(new Troncon(nom, longueur, vitesse, depart , p.getAdresse(destination)));
@@ -165,7 +177,7 @@ public class PlanXMLParser {
 		Date fin = paseDate(Hdebut);
 		
 		if( debut.after(fin) )
-			throw new ExceptionXML("Un des attributs est négatif!");
+			throw new ExceptionXML("Un des attributs est nï¿½gatif!");
 		
 		System.out.println("La fenetre de livraison := ["+ Hdebut + "," + Hfin + "]");
 		
@@ -184,7 +196,7 @@ public class PlanXMLParser {
 			Date dateDebut = new Date(annee, mois, jour, heure, minute, seconde);
 			return dateDebut;
 		} catch(Exception e){
-			throw new ExceptionXML("La fenetre horaire n'est pas correctement formée");
+			throw new ExceptionXML("La fenetre horaire n'est pas correctement formï¿½e");
 		}
 		
 	}
@@ -195,7 +207,7 @@ public class PlanXMLParser {
 		id = Integer.parseInt(elt.getAttribute("id"));
 		
 		if(idAdresse<0 || id < 0 )
-			throw new ExceptionXML("Un des attributs est négatif!");
+			throw new ExceptionXML("Un des attributs est nï¿½gatif!");
 		
 		Adresse adresse = p.getAdresse(idAdresse);
 		if(adresse == null )
@@ -205,7 +217,7 @@ public class PlanXMLParser {
 		FenetreLivraison fenetrelivraison = parseFenetre_livraison(elmtFenetreLiv);
 		
 		
-		System.out.println("Livraison à l'adresse id=" + idAdresse +" fenetreLivraison id= "+fenetrelivraison.getHeureDebut());
+		System.out.println("Livraison ï¿½ l'adresse id=" + idAdresse +" fenetreLivraison id= "+fenetrelivraison.getHeureDebut());
 		
 		return new Livraison(id,adresse,fenetrelivraison);
 		

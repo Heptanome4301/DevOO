@@ -1,16 +1,9 @@
 package controleur;
 
 
-import java.io.IOException;
-
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.xml.sax.SAXException;
-
 import tsp.Graphe;
-import xml.ExceptionXML;
+import vue.Fenetre;
 import modele.Adresse;
-import modele.Livraison;
 import modele.Plan;
 import modele.Tournee;
 
@@ -20,6 +13,7 @@ public class Controleur {
 	private static Etat etatCourant;
 	private Plan plan;
 	private Tournee tournee;
+	private Fenetre fenetre;
 	
 	protected static final EtatIni etatIni = new EtatIni();
 	protected static final EtatAjouter1 etatAjouter1 = new EtatAjouter1();
@@ -31,15 +25,13 @@ public class Controleur {
 	
 	protected static void setEtatCourant(Etat etat) { etatCourant = etat; }
 	
-	public Tournee getTournee() {
-		return tournee;
-	}
 
 	public Controleur() {
-		historique = new ListeDeCmd();
-		etatCourant = etatIni;
-		plan = new Plan();
-		tournee = null;
+		this.historique = new ListeDeCmd();
+		this.etatCourant = etatIni;
+		this.plan = new Plan();
+		this.fenetre = new Fenetre(this, plan);
+		this.tournee = null;
 	}
 	
 	public void undo() {
@@ -61,7 +53,7 @@ public class Controleur {
 	
 	
 	public Graphe chargerPlan()  {
-		plan = new Plan();
+		// plan = new Plan();
 		tournee = null;
 		try {
 			etatCourant.chargerPlan(plan);
@@ -109,5 +101,8 @@ public class Controleur {
 		etatCourant.genererFeuilleDeRoute(fichier,tournee);
 	}
 
+	public Tournee getTournee() {
+		return tournee;
+	}
 
 }

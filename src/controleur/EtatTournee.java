@@ -12,7 +12,7 @@ public class EtatTournee extends EtatIni {
 
 	public Graphe chargerLivraisons(Plan plan) throws Exception {
 		// TODO Auto-generated method stub
-		plan.chargerLivraison();
+//		plan.chargerLivraison();
 		Controleur.setEtatCourant(Controleur.etatLivraison);
 		return null;
 	}

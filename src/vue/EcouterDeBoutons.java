@@ -2,11 +2,18 @@ package vue;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import controleur.Controleur;
 
 public class EcouterDeBoutons implements ActionListener {
 	private Controleur controleur;
+	
+	private final String CHARGER_PLAN = "Charger un plan";
+	private final String CHARGER_LIVRAISONS = "Charger des livraisons";
+	private final String CALCULER_TOURNEE = "Calculer une tournée";
+	private final String AJOUTER_LIVRAISONS = "Ajouter une livraison";
+	private final String SUPPRIMER_LIVRAISON = "Supprimer une livraison";
+	private final String INVERSER_LIVRAISONS = "Inverser deux livraisons";
+	private final String SAUVEGARDER_FEUILLE_DE_ROUTE = "Sauvegarder le feuille de route";
 	
 	public EcouterDeBoutons(Controleur c)
 	{
@@ -16,27 +23,29 @@ public class EcouterDeBoutons implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
+		System.out.println(e.getActionCommand());
+		
 		switch (e.getActionCommand()) {
 		
-		case "Charger un plan":
+		case CHARGER_PLAN:
 			controleur.chargerPlan();
 			break;
-		case "Charger des livraisons":
+		case CHARGER_LIVRAISONS:
 			controleur.chargerLivraisons();
 			break;
-		case "Calculer une tournée":
+		case CALCULER_TOURNEE:
 			controleur.getTournee();
 			break;
-		case "Ajouter une livraison":
+		case AJOUTER_LIVRAISONS:
 			controleur.ajouter();
 			break;
-		case "Supprimer une livraison":
+		case SUPPRIMER_LIVRAISON:
 			controleur.supprimer();
 			break;
-		case "Inverser deux livraisons":
+		case INVERSER_LIVRAISONS:
 			controleur.ajouter();
 			break;
-		case "Sauvegarder le feuille de route":
+		case SAUVEGARDER_FEUILLE_DE_ROUTE:
 			// controleur.genererFeuilleDeRoute(fichier);
 			break;
 		}
