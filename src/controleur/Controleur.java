@@ -119,7 +119,7 @@ public class Controleur {
 	
 	public void echanger() {
 		if(etatCourant == etatTournee) {
-			etatCourant = etatEchanger;
+			//etatCourant = etatEchanger;
 		}
 	}
 	
