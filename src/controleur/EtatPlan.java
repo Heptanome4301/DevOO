@@ -12,9 +12,9 @@ public class EtatPlan extends EtatIni {
 	}
 
 	public Tournee chargerLivraisons(Plan plan, File file) throws Exception {
-		plan.chargerLivraison(file);
+		Tournee resultat = plan.chargerLivraison(file);
 		Controleur.setEtatCourant(Controleur.etatLivraison);
-		return null;
+		return resultat;
 	}
 	
 }

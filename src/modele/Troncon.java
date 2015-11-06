@@ -15,7 +15,7 @@ public class Troncon {
 		if (vitesse > 0)  this.duree = longueur/vitesse;  else this.duree=0 ; 
 		this.arrivee = arrivee;
 		this.depart = depart;
-		this.nomRue = depart.getId()+"->"+arrivee.getId();//nomRue;
+		this.nomRue = nomRue;
 	}
 	
 	public String getNomRue(){

@@ -53,7 +53,30 @@ public class Tournee extends Observable{
 	 * si un appel à calculerTournee n'est pas fait auparavant
 	 * le fichier ne sera pas créé et une exception est levée
 	 */
-	public void feuilleDeRoute(String FichierDeSortie) throws Exception{}
+    public void feuilleDeRoute(String FichierDeSortie) throws Exception{
+        Collection<Chemin> itineraire = this.getItineraire();
+        int i = 1;
+        System.out.println("Votre tournee est la suivante : ");
+        for(Chemin chemin : itineraire){
+            System.out.print("Livraison " + i++);
+            System.out.print(" Depart : ");
+            System.out.print(chemin.getDepart().getId());
+            System.out.print(" Arrive : ");
+            System.out.print(chemin.getArrivee().getId());
+            System.out.println(" Itineraire : ");
+            
+            Collection<Troncon> troncons = chemin.getTroncons();
+            for(Troncon t : troncons){
+                System.out.print(" De : ");
+                System.out.print(t.getDepart().getId());
+                System.out.print(" A : ");
+                System.out.print(t.getArrivee().getId());
+                System.out.print(" Par : ");
+                System.out.println(t.getNomRue());
+            }
+            System.out.println();
+        }
+    }
 	
 	/**
 	 * Applée par this.calculerTournee
@@ -131,7 +154,7 @@ public class Tournee extends Observable{
 	}
 	
 	public void calculerTournee(){
-		
+		System.out.println("Cacul de la tourn�e...");
 		this.chemins = new ArrayList<Chemin>();
 		
 		for(FenetreLivraison fl : fenetresLivraison){
@@ -146,6 +169,7 @@ public class Tournee extends Observable{
 		}
 		
 		chemins.add(plan.calculerChemin(((ArrayList<Chemin>)chemins).get(chemins.size()-1).getArrivee(),this.entrepot));
+                System.out.println("Tournee calcul�e");
 		
 	}
 	

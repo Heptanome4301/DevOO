@@ -168,7 +168,7 @@ public class XMLParser {
 		if( debut.after(fin) )
 			throw new ExceptionXML(ExceptionXML.PLAGE_HORAIRE_INVALIDE);
 		
-		System.out.println("La fenetre de livraison := ["+ Hdebut + "," + Hfin + "]");
+		//System.out.println("La fenetre de livraison := ["+ Hdebut + "," + Hfin + "]");
 		
 		
 		return new FenetreLivraison(debut, fin);
@@ -206,7 +206,7 @@ public class XMLParser {
 		FenetreLivraison fenetrelivraison = parseFenetre_livraison(elmtFenetreLiv);
 		
 		
-		System.out.println("Livraison � l'adresse id=" + idAdresse +" fenetreLivraison id= "+fenetrelivraison.getHeureDebut());
+		//System.out.println("Livraison � l'adresse id=" + idAdresse +" fenetreLivraison id= "+fenetrelivraison.getHeureDebut());
 		
 		return new Livraison(id,adresse,fenetrelivraison);
 		

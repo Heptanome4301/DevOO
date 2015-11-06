@@ -86,7 +86,7 @@ public class Controleur {
 	    tournee = null;
 	    try {
 	            xml = OuvreurDeFichiersXML.getInstance().ouvre();
-	            etatCourant.chargerLivraisons(plan,xml);
+	            tournee = etatCourant.chargerLivraisons(plan,xml);
 	    } catch (Exception e) {
 	            //TODO signaler erreur a la vue
 	            e.printStackTrace();
@@ -132,9 +132,13 @@ public class Controleur {
 		}
 	}
 	
-	public void genererFeuilleDeRoute(String fichier) throws Exception {
-		etatCourant.genererFeuilleDeRoute(fichier,tournee);
-	}
+	public void genererFeuilleDeRoute(String fichier){
+            try {
+                etatCourant.genererFeuilleDeRoute(fichier, tournee);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
 	public Tournee getTournee() {
 		return tournee;
