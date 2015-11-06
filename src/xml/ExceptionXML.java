@@ -17,7 +17,9 @@ public class ExceptionXML extends Exception {
 	public static final String ADRESSE_INVALIDE = "Une des adresse de livraison spécifiée est invalide";
 	public static final String ID_ENTREPOT_INVALIDE = "L'id de l'entrepot est invalide";
 	public static final String ADRESSE_INACCESSILE = "Le plan contient une plusieur adresses innaccesibles, celle ci on été retirées";
-	
+	public static final String DEPART_TRONCON_INEXISTANT = "Un tronçon du plan part d'une adresse inexistante, il n'a pas été ajouté au plan";
+	public static final String ARRIVEE_TRONCON_INEXISTANTE = "Un troncon du plan arrive vers une adresse inexistante, il n'a pas été ajouté au plan";
+
 	public ExceptionXML(String message) {
 		super(message);
 	}
