@@ -13,17 +13,17 @@ import tsp.GrapheComplet;
 
 public class Tournee extends Observable{
 	private Plan plan;
-	private Collection<Chemin> chemins;
+	private ArrayList<Chemin> chemins;
 	private Collection<Livraison> livraisons;
 	private Adresse entrepot;
 	private int Duree;
 	private Collection<FenetreLivraison> fenetresLivraison;
 	
 	/**
-	 * Une tournée contient la liste des livraisons.
-	 * Elle sotck également l'itinéraire de la tournée (une liste de chemin)
-	 * L'instance de tournée est crée par la classe plan, au chargement du
-	 * fichier des livraison.
+	 * Une tournée contient la liste des livraisons non ordonnée.
+	 * Elle stocke également l'itinéraire de la tournée (une liste de chemins)
+	 * L'instance de tournée est créée par la classe Plan, au chargement du
+	 * fichier des livraisons.
 	 * La tournée est accessible par le contrôleur  
 	 */
 	public Tournee(Plan plan,Collection<Livraison> livraisons,Collection<FenetreLivraison> fenetresLivraison,Adresse entrepot){
@@ -81,6 +81,28 @@ public class Tournee extends Observable{
 		return new GrapheComplet(res);
 	}
 	
+	private Chemin getCheminFromArrivee(Adresse arrivee) {
+		if(arrivee!=null){
+			for(Chemin chemin : chemins) {
+				if(chemin.getArrivee().equals(arrivee)) {
+					return chemin;
+				}
+			}
+		}
+		return null;
+	}
+	
+	private Chemin getCheminFromDepart(Adresse depart) {
+		if(depart!=null){
+			for(Chemin chemin : chemins) {
+				if(chemin.getDepart().equals(depart)) {
+					return chemin;
+				}
+			}
+		}
+		return null;
+	}
+
 	private Set<Livraison> getLivraison(FenetreLivraison fenetreLivraison){
 		Set<Livraison> livraisonF = new HashSet<Livraison>();
 		for(Livraison l: this.livraisons)
@@ -208,37 +230,105 @@ public class Tournee extends Observable{
 		return entrepot;
 	}
 
-	/**
-	 * Modification de la tournée en lui ajoutant une
-	 * nouvelle livraison.
-	 * @param l la nouvelle livraison à ajouter
-	 * @throws Exception si la livraison est déja existante
-	 * 
-	 * 
-	 */
-	//  ?? est ce que on doit recalculer automatiquement la tournée ??
-	public void ajouterLivraison(Livraison lAdd,Livraison lFollow) throws Exception{
-		//this.notifyObservers(this);
-		//Adresse 
-		
+/**
+ * Modification de la tournée en lui ajoutant une nouvelle livraison.
+ * Si les deux livraisons sont égales, ajoute la livraison à ajouter à la fin de la tournée 
+ * @param lAdd
+ * @param lFollow
+ */
+	public void ajouterLivraison(Livraison lAdd,Livraison lFollow) {
+		if(!lAdd.equals(lFollow)) {
+			Adresse adresseAdd = lAdd.getAdresse();
+			Adresse adresseFollow = lFollow.getAdresse();
+			Chemin cheminToRemove = getCheminFromArrivee(adresseFollow);
+			Chemin chemin1 = plan.calculerChemin(cheminToRemove.getDepart(),adresseAdd);
+			Chemin chemin2 = plan.calculerChemin(adresseAdd, adresseFollow);
+			for(int i=0;i<chemins.size();i++) {
+				if((chemins.get(i)).equals(cheminToRemove)) {
+					chemins.add(i, chemin1);
+					chemins.add(i+1, chemin2);
+				}
+			}
+			chemins.remove(cheminToRemove);
+			livraisons.add(lAdd);
+			//TODO calculer nouvelles dates
+		}
+		else {
+			Adresse lastAdresse = chemins.get(chemins.size()).getArrivee();
+			Chemin chemin = plan.calculerChemin(lastAdresse, lAdd.getAdresse());
+			chemins.add(chemins.size(),chemin);
+			livraisons.add(lAdd);
+			//TODO nouvelles dates
+		}
+				
 	}
 	
 	/**
 	 * Modification de la tournée en lui retirant une Livraison
-	 * @throws Exception si la livraison n'existe pas 
+	 *  
 	 */
-    //  ?? est ce que on doit recalculer automatiquement la tournée ??
-	public void supprimerLivraison(Livraison L) throws Exception {
+	public void supprimerLivraison(Livraison L)  {
 		this.notifyObservers(this);
+		if(livraisons.contains(L)) {
+			Chemin chemin1 = getCheminFromArrivee(L.getAdresse());
+			Chemin chemin2 = getCheminFromDepart(L.getAdresse());
+			if(chemin1 != null && chemin2 != null) {
+				Chemin newChemin = plan.calculerChemin(chemin1.getDepart(), chemin2.getArrivee());
+				for(int i=0;i<chemins.size();i++) {
+					if((chemins.get(i)).equals(chemin2)) {
+						chemins.add(i, newChemin);
+					}
+				}
+				chemins.remove(chemin1);
+				chemins.remove(chemin2);
+				livraisons.remove(L);
+				//TODO nouvelles dates
+			}
+			
+		}
 	}
 	
 	
-	/**
-	 * Modification de la tournée ...
-	 * @throws Exception l1 == l2 ou pas contenu dans la liste des livraison 	
-	 */
-	public void echangerLivraison(Livraison l1,Livraison l2)throws Exception {
+	
+
+/**
+ * Echange l'ordre de passage de deux livraisons et racalcule les heures de passages
+ * Ne fait rien si les deux livraisons sont les mêmes
+ * @param l1
+ * @param l2
+ */
+	public void echangerLivraison(Livraison l1,Livraison l2) {
 		this.notifyObservers(this);
+		if(livraisons.contains(l1) && livraisons.contains(l2) && !l1.equals(l2)) {
+			Chemin cheminRm1A = getCheminFromArrivee(l1.getAdresse());
+			Chemin cheminRm1D = getCheminFromDepart(l1.getAdresse());
+			Chemin cheminRm2A = getCheminFromArrivee(l2.getAdresse());
+			Chemin cheminRm2D = getCheminFromDepart(l2.getAdresse());
+			
+			Chemin cheminAdd1A = plan.calculerChemin(cheminRm1A.getDepart(),l2.getAdresse());
+			Chemin cheminAdd1D = plan.calculerChemin(l2.getAdresse(),cheminRm1D.getDepart());
+			Chemin cheminAdd2A = plan.calculerChemin(cheminRm2A.getDepart(),l1.getAdresse());
+			Chemin cheminAdd2D = plan.calculerChemin(l1.getAdresse(),cheminRm2D.getDepart());
+			
+			for(int i=0;i<chemins.size();i++) {
+				if(chemins.get(i).equals(cheminRm1A)) {
+					chemins.add(i, cheminAdd1A);
+					chemins.add(i+1, cheminAdd1D);
+				}
+				if(chemins.get(i).equals(cheminRm2A)) {
+					chemins.add(i, cheminAdd2A);
+					chemins.add(i+1, cheminAdd2D);
+				}
+			}
+			chemins.remove(cheminRm1A);
+			chemins.remove(cheminRm1D);
+			chemins.remove(cheminRm2A);
+			chemins.remove(cheminRm2D);
+			//TODO nouvelles dates
+		}
+		
+		
+		
 	}
 	
 	
