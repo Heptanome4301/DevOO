@@ -22,9 +22,7 @@ public class EcouterDeBoutons implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
-		System.out.println(e.getActionCommand());
-		
+				
 		switch (e.getActionCommand()) {
 		
 		case CHARGER_PLAN:
