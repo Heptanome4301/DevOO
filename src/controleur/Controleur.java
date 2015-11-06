@@ -97,16 +97,17 @@ public class Controleur {
 
 
 	public Graphe chargerLivraisons() {
-		File xml = null;
-		try {
-			xml = OuvreurDeFichiersXML.getInstance().ouvre();
-			tournee=etatCourant.chargerLivraisons(plan,xml);
-		}
-		catch(Exception e) {
-			//TODO
-		}
-		return null;
-		//TODO
+	    File xml ;
+	    tournee = null;
+	    try {
+	            xml = OuvreurDeFichiersXML.getInstance().ouvre();
+	            etatCourant.chargerLivraisons(plan,xml);
+	    } catch (Exception e) {
+	            //TODO signaler erreur a la vue
+	            e.printStackTrace();
+	    }
+	    return null;
+	    //TODO
 	}
 	
 	public Graphe calculerTournee() {
@@ -152,6 +153,13 @@ public class Controleur {
 
 	public Tournee getTournee() {
 		return tournee;
+	}
+
+
+	public Plan getPlan() {
+		// TODO Auto-generated method stub
+		return this.plan;
+		
 	}
 
 }
