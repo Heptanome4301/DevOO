@@ -3,6 +3,12 @@ package modele;
 import java.util.Date;
 
 public class FenetreLivraison {
+	@Override
+	public String toString() {
+		return "FenetreLivraison [heureDebut=" + heureDebut + ", heureFin="
+				+ heureFin + "]";
+	}
+
 	//private Collection<Livraison> livraisons;
 	private Date heureDebut;
 	private Date heureFin;

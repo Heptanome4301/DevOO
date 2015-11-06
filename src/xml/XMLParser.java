@@ -62,6 +62,7 @@ public class XMLParser {
 		
 		if(x<0 || y<0 || id<0)
 			throw new ExceptionXML(ExceptionXML.ATTRIBUT_NEGATIF);
+
 		
 		System.out.println("Le noeud " + id +" a pour coordonn�es ("+ x + "," + y + ")");
 		p.ajouterAdresse(new Adresse(id,x,y));
@@ -94,7 +95,9 @@ public class XMLParser {
 		nom = elt.getAttribute("nomRue");
 		
 		if(nom == null || vitesse<0 || longueur<0 || destination<0)
+
 			throw new ExceptionXML(ExceptionXML.ATTRIBUT_NEGATIF);
+
 		
 		Adresse depart = p.getAdresse(parentId);
 		depart.ajouterTroncon(new Troncon(nom, longueur, vitesse, depart, p.getAdresse(destination)));
@@ -164,10 +167,11 @@ public class XMLParser {
 		
 	
 		Date debut = paseDate(Hdebut);
-		Date fin = paseDate(Hdebut);
+		Date fin = paseDate(Hfin);
 		
 		if( debut.after(fin) )
 			throw new ExceptionXML(ExceptionXML.PLAGE_HORAIRE_INVALIDE);
+
 		
 		//System.out.println("La fenetre de livraison := ["+ Hdebut + "," + Hfin + "]");
 		
@@ -186,7 +190,9 @@ public class XMLParser {
 			Date dateDebut = new Date(annee, mois, jour, heure, minute, seconde);
 			return dateDebut;
 		} catch(Exception e){
+
 			throw new ExceptionXML(ExceptionXML.PLAGE_HORAIRE_INVALIDE);
+
 		}
 		
 	}
@@ -197,7 +203,9 @@ public class XMLParser {
 		id = Integer.parseInt(elt.getAttribute("id"));
 		
 		if(idAdresse<0 || id < 0 )
+
 			throw new ExceptionXML(ExceptionXML.ATTRIBUT_NEGATIF);
+
 		
 		Adresse adresse = p.getAdresse(idAdresse);
 		if(adresse == null )
@@ -207,7 +215,9 @@ public class XMLParser {
 		FenetreLivraison fenetrelivraison = parseFenetre_livraison(elmtFenetreLiv);
 		
 		
-		//System.out.println("Livraison � l'adresse id=" + idAdresse +" fenetreLivraison id= "+fenetrelivraison.getHeureDebut());
+
+		System.out.println("Livraison � l'adresse id=" + idAdresse +" fenetreLivraison id= "+fenetrelivraison.getHeureDebut());
+
 		
 		return new Livraison(id,adresse,fenetrelivraison);
 		

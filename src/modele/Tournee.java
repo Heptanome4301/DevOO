@@ -1,12 +1,15 @@
 package modele;
 
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Observable;
 import java.util.Set;
@@ -20,11 +23,11 @@ import tsp.GrapheComplet;
 
 public class Tournee extends Observable{
 	private Plan plan;
-	private Collection<Chemin> chemins;
+	private ArrayList<Chemin> chemins;
 	private Collection<Livraison> livraisons;
 	private Adresse entrepot;
 	private int Duree;
-	private Collection<FenetreLivraison> fenetresLivraison;
+	private ArrayList<FenetreLivraison> fenetresLivraison;
 	
 	/**
 	 * Une tournée contient la liste des livraisons.
@@ -33,13 +36,13 @@ public class Tournee extends Observable{
 	 * fichier des livraison.
 	 * La tournée est accessible par le contrôleur  
 	 */
-	public Tournee(Plan plan,Collection<Livraison> livraisons,Collection<FenetreLivraison> fenetresLivraison,Adresse entrepot){
+	public Tournee(Plan plan,Collection<Livraison> livraisons,ArrayList<FenetreLivraison> fenetresLivraison,Adresse entrepot){
 		this.plan = plan;
 		this.livraisons = livraisons;
 		this.entrepot = entrepot;
 		this.chemins = null;
 		this.Duree = 0;
-		this.fenetresLivraison = /* sort */fenetresLivraison;
+		this.fenetresLivraison = /* sort */fenetresLivraison; // <-------
 	}
 	
 	/**
@@ -181,7 +184,7 @@ public class Tournee extends Observable{
 	}
 	
 	public void calculerTournee(){
-		System.out.println("Cacul de la tourn�e...");
+		System.out.println("Cacul de la tourn�e...");
 		this.chemins = new ArrayList<Chemin>();
 		
 		for(FenetreLivraison fl : fenetresLivraison){
@@ -196,9 +199,52 @@ public class Tournee extends Observable{
 		}
 		
 		chemins.add(plan.calculerChemin(((ArrayList<Chemin>)chemins).get(chemins.size()-1).getArrivee(),this.entrepot));
-                System.out.println("Tournee calcul�e");
+                System.out.println("Tournee calcul�e");
+		
+		calculerLesDurees( 0 ); 
+	}
+	
+	// indice dans chemins du premier chemin à partir dulequel
+	// il faut calculer/recalculer les durees
+	private void calculerLesDurees(int indiceDepart){
+		Date horaire = null ;
+		Chemin PremierChemin = chemins.get(indiceDepart);
+		if(PremierChemin.getDepart() .equals(entrepot)){
+			horaire = fenetresLivraison.get(0).getHeureDebut();
+		} else {
+			horaire = getLivraison(PremierChemin.getDepart()).getHoraire();
+		}
+		
+		
+		for(int i=indiceDepart; i < chemins.size()-1 ; i++ ){
+			Chemin chemin = chemins.get(i);
+			Livraison l = getLivraison(chemin.getArrivee());
+
+			horaire =  addSecondsHoraire(horaire,chemin.getDuree());
+ 
+	        if (horaire.before(l.getFenetreLivraison().getHeureDebut()))  {
+	        	horaire = l.getFenetreLivraison().getHeureDebut();
+	        }
+	        	
+			l.setHoraire(horaire); 
+			
+			l.positionnerRetard() ; // positionner le retard s'il existe
+		}
+		
+		this.Duree =  (int) (addSecondsHoraire(horaire , chemins.get(chemins.size()-1).getDuree()).getTime()/ 1000 - fenetresLivraison.get(0).getHeureDebut().getTime()/1000);
+		System.out.println("verif "+ addSecondsHoraire(fenetresLivraison.get(0).getHeureDebut() , Duree)) ;
+		System.out.println("duree retour à la base (min) "+ chemins.get(chemins.size()-1).getDuree()/60);
 		
 	}
+	
+	
+	private Date addSecondsHoraire(Date horaire,int seconds ){
+		Calendar cal = Calendar.getInstance();
+        cal.setTime(horaire);
+        cal.add(Calendar.SECOND, seconds);
+        return cal.getTime();
+	}
+	
 	
 	/** pour une fentre donneé
 	 * Calcule la tournée qui passera par toutes les livraisons
@@ -221,7 +267,7 @@ public class Tournee extends Observable{
 		TSP tsp = new TSP1();
 		tsp.chercheSolution(tpsLimite, graphe);
 		
-		this.Duree +=tsp.getCoutSolution();
+		//this.Duree +=tsp.getCoutSolution();
 		ArrayList<Chemin> res = new ArrayList<Chemin>();
 		
 		int i,j,I,J;

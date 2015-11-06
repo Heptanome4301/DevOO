@@ -7,7 +7,7 @@ import java.util.Collection;
 public class Chemin {
 	
 	private Collection<Troncon> troncons;
-	private double duree;
+	private int duree;
 	private Adresse depart,arrivee;
 	
 	public Chemin(Adresse depart, Adresse arrivee){
@@ -36,7 +36,7 @@ public class Chemin {
 		return res;
 	}
 	
-	public double getDuree(){
+	public int getDuree(){
 		return duree;
 	}
 	

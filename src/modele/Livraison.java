@@ -3,10 +3,13 @@ package modele;
 import java.util.Date;
 
 public class Livraison {
+
+
 	private Date horaire;
 	private Adresse adresse;
 	private FenetreLivraison fenetreLivraison;
 	private int id;
+	private boolean isRetard;
 	
 	
 	public int getId() {
@@ -25,7 +28,7 @@ public class Livraison {
 	
 	
 	/**
-	 * appelée au chargement du fichier des livraison
+	 * appelï¿½e au chargement du fichier des livraison
 	 * @param id 
 	 * @param horaire
 	 * @param adresse
@@ -36,6 +39,7 @@ public class Livraison {
 		this.adresse = adresse;
 		this.fenetreLivraison = fenetreLivraison;
 		this.id = id;
+		this.isRetard = false;
 	}
 
 
@@ -101,7 +105,25 @@ public class Livraison {
 	public void setHoraire(Date horaire) {
 		this.horaire = horaire;
 	}
+
+
+	public boolean isRetard() {
+		return isRetard;
+	}
 	
+	public void positionnerRetard() {
+		if (horaire.after(getFenetreLivraison().getHeureFin()))  {
+        	isRetard = true;
+        }
+	}
+	
+	
+	@Override
+	public String toString() {
+		return "Livraison [horaire=" + horaire + ", adresse=" + adresse.getId()
+				+ ", fenetreLivraison=" + fenetreLivraison + ", id=" + id
+				+ ", isRetard=" + isRetard + "]";
+	}
 	
 	
 	
