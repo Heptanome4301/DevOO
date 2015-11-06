@@ -1,10 +1,17 @@
 package modele;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Observable;
 import java.util.Set;
+
+import java.util.Stack;
 
 import tsp.Graphe;
 import tsp.TSP;
@@ -53,28 +60,48 @@ public class Tournee extends Observable{
 	 * si un appel à calculerTournee n'est pas fait auparavant
 	 * le fichier ne sera pas créé et une exception est levée
 	 */
-    public void feuilleDeRoute(String FichierDeSortie) throws Exception{
-        Collection<Chemin> itineraire = this.getItineraire();
-        int i = 1;
-        System.out.println("Votre tournee est la suivante : ");
-        for(Chemin chemin : itineraire){
-            System.out.print("Livraison " + i++);
-            System.out.print(" Depart : ");
-            System.out.print(chemin.getDepart().getId());
-            System.out.print(" Arrive : ");
-            System.out.print(chemin.getArrivee().getId());
-            System.out.println(" Itineraire : ");
+    public void feuilleDeRoute(String fichier) throws Exception{
+        try
+        {
+            Stack<String> stack = new Stack<String>();
             
-            Collection<Troncon> troncons = chemin.getTroncons();
-            for(Troncon t : troncons){
-                System.out.print(" De : ");
-                System.out.print(t.getDepart().getId());
-                System.out.print(" A : ");
-                System.out.print(t.getArrivee().getId());
-                System.out.print(" Par : ");
-                System.out.println(t.getNomRue());
+            PrintWriter pw = new PrintWriter (new BufferedWriter (new FileWriter (fichier)));
+         
+            Collection<Chemin> itineraire = this.getItineraire();
+            int i = 1;
+            pw.println("Votre tournee est la suivante : ");
+            for(Chemin chemin : itineraire){
+                pw.print("Livraison " + i++);
+                pw.print(" Depart : ");
+                pw.print(chemin.getDepart().getId());
+                pw.print(" Arrivee : ");
+                pw.print(chemin.getArrivee().getId());
+                pw.println(" Itineraire : ");
+                
+                Collection<Troncon> troncons = chemin.getTroncons();
+                for(Troncon t : troncons){
+                    stack.push(t.getNomRue());
+                    stack.push(Integer.toString(t.getArrivee().getId()));
+                    stack.push(Integer.toString(t.getDepart().getId()));
+                }
+                
+                while(stack.size() >= 3){
+                    pw.print(" De : ");
+                    pw.print(stack.pop());
+                    pw.print(" A : ");
+                    pw.print(stack.pop());
+                    pw.print(" Par : ");
+                    pw.println(stack.pop());
+                }
+                pw.println();
             }
-            System.out.println();
+            
+         
+            pw.close();
+        }
+        catch (IOException exception)
+        {
+            System.out.println ("Erreur lors de la lecture : " + exception.getMessage());
         }
     }
 	
