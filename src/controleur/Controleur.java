@@ -8,6 +8,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
 
 import tsp.Graphe;
+import util.Constants;
 import vue.Fenetre;
 import xml.OuvreurDeFichiersXML;
 import modele.Adresse;
@@ -76,11 +77,26 @@ public class Controleur {
 		} catch (Exception e) {
 			//TODO signaler erreur a la vue
 			e.printStackTrace();
+		} finally {
+			this.calculEchelle();
 		}
 		return null;
 		//TODO
 	}
 	
+	private void calculEchelle() {
+		double echelle1 = (double) fenetre.getSizeView().getWidth() / (plan.getXMax() + Constants.RAYON_NOEUD);
+		double echelle2 = (double) fenetre.getSizeView().getHeight() / (plan.getYMax() + Constants.RAYON_NOEUD);
+		if ( echelle1 < echelle2)
+		{
+			fenetre.setEchelle(echelle1);	
+		} else {
+			fenetre.setEchelle(echelle2);
+		}
+				
+	}
+
+
 	public Graphe chargerLivraisons() {
 	    File xml ;
 	    tournee = null;

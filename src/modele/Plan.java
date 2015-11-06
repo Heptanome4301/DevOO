@@ -2,11 +2,7 @@ package modele;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Observable;
-import java.util.TreeSet;
+import java.util.*;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -236,6 +232,45 @@ public class Plan extends Observable {
 	public int getYMax() {
 		return YMax;
 	}
+
+	private void verifierPlan() throws ExceptionXML{
+		verifierAdresses();
+		//todo verifierTroncon
+	}
+
+	private void verifierAdresses() throws ExceptionXML{
+		boolean adresseIsolee = false;
+		for(Adresse a : adresses){
+			if(!aTronconEntrant(a)){ //l'adresse a est isolée
+				adresses.remove(a); //on retire cette adresse du plan
+				adresseIsolee = true;
+			}
+			if(adresseIsolee){
+				throw new ExceptionXML(ExceptionXML.ADRESSE_INACCESSILE);
+			}
+		}
+	}
+
+	private boolean aTronconEntrant(Adresse a){
+		ArrayList<Troncon> listeTroncons = getTroncons();
+		for(Troncon t : listeTroncons){
+			if(a.equals(t.getArrivee())){ //l'adresse a a au moins un troncon entrant
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private ArrayList<Troncon> getTroncons(){
+		ArrayList<Troncon> listeTroncons = new ArrayList<>();
+		for(Adresse a : adresses){
+			for(Troncon t : a.getTroncons()){
+				listeTroncons.add(t);
+			}
+		}
+		return listeTroncons;
+	}
+
 
 
 }
