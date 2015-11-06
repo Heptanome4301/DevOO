@@ -1,7 +1,9 @@
 package controleur;
 
+import java.io.File;
+
 import modele.Plan;
-import tsp.Graphe;
+import modele.Tournee;
 
 public class EtatPlan extends EtatIni {
 
@@ -9,9 +11,10 @@ public class EtatPlan extends EtatIni {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Graphe chargerLivraisons(Plan plan) throws Exception {
+	public Tournee chargerLivraisons(Plan plan, File file) throws Exception {
 		// TODO Auto-generated method stub
 //		plan.chargerLivraison();
+		// plan.chargerLivraison(file);
 		Controleur.setEtatCourant(Controleur.etatLivraison);
 		return null;
 	}

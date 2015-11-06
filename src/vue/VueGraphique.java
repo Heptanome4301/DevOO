@@ -18,7 +18,7 @@ public class VueGraphique extends JPanel implements Observer {
 	 * 
 	 */
 	private final int RAYON_NOEUD = 10;
-	private double ECHELLE = 1;
+	private double echelle = 1;
 	
 	private int maxLargeur;
 	private int maxHauteur;
@@ -47,7 +47,7 @@ public class VueGraphique extends JPanel implements Observer {
 		for (Adresse a : this.plan.getAdresses()) {
 			g.setColor(Color.gray);
 			for (Troncon t : a.getTroncons()) {
-	        	g.drawLine( (int) (t.getDepart().getX() * ECHELLE), (int) (t.getDepart().getY() * ECHELLE), (int) (t.getArrivee().getX() * ECHELLE), (int) (t.getArrivee().getY() * ECHELLE));
+	        	g.drawLine( (int) (t.getDepart().getX() * echelle), (int) (t.getDepart().getY() * echelle), (int) (t.getArrivee().getX() * echelle), (int) (t.getArrivee().getY() * echelle));
 			}
 			
 //			if (a.getX() > this.maxLargeur)
@@ -60,9 +60,9 @@ public class VueGraphique extends JPanel implements Observer {
 //			}
 			
 			
-		    g.fillOval( (int) ((a.getX() - RAYON_NOEUD/2) * ECHELLE), (int) ((a.getY() - RAYON_NOEUD/2) *  ECHELLE), (int) (RAYON_NOEUD * ECHELLE), (int) (RAYON_NOEUD * ECHELLE));
+		    g.fillOval( (int) ((a.getX() - RAYON_NOEUD/2) * echelle), (int) ((a.getY() - RAYON_NOEUD/2) *  echelle), (int) (RAYON_NOEUD * echelle), (int) (RAYON_NOEUD * echelle));
 		    g.setColor(Color.black);
-		    g.drawOval( (int) ((a.getX() - RAYON_NOEUD/2) * ECHELLE), (int) ((a.getY() - RAYON_NOEUD/2) * ECHELLE), (int) (RAYON_NOEUD * ECHELLE), (int) (RAYON_NOEUD * ECHELLE));
+		    g.drawOval( (int) ((a.getX() - RAYON_NOEUD/2) * echelle), (int) ((a.getY() - RAYON_NOEUD/2) * echelle), (int) (RAYON_NOEUD * echelle), (int) (RAYON_NOEUD * echelle));
 		    
 		}
 		
@@ -71,6 +71,6 @@ public class VueGraphique extends JPanel implements Observer {
     }
 
 	public void setZoom(double value) {
-		this.ECHELLE = value;
+		this.echelle = value;
 	}
 }
