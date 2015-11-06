@@ -76,11 +76,26 @@ public class Controleur {
 		} catch (Exception e) {
 			//TODO signaler erreur a la vue
 			e.printStackTrace();
+		} finally {
+			this.calculEchelle();
 		}
 		return null;
 		//TODO
 	}
 	
+	private void calculEchelle() {
+		double echelle1;
+		double echelle2;
+		if ( echelle1 = (double) fenetre.getSizeView().getWidth() / plan.getXMax() > (echelle2 = (double) fenetre.getSizeView().getHeight() / plan.getYMax() ))
+		{
+			fenetre.setEchelle(echelle1);	
+		} else {
+			fenetre.setEchelle(echelle2);
+		}
+			
+	}
+
+
 	public Graphe chargerLivraisons() {
 		File xml = null;
 		try {
