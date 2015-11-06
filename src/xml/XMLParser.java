@@ -94,7 +94,7 @@ public class XMLParser {
 		nom = elt.getAttribute("nomRue");
 		
 		if(nom == null || vitesse<0 || longueur<0 || destination<0)
-			throw new ExceptionXML("Un des attributs est n�gatif!");
+			throw new ExceptionXML(ExceptionXML.ATTRIBUT_NEGATIF);
 		
 		Adresse depart = p.getAdresse(parentId);
 		depart.ajouterTroncon(new Troncon(nom, longueur, vitesse, depart , p.getAdresse(destination)));
@@ -124,7 +124,7 @@ public class XMLParser {
 		int idEntropot = parseEntrepot(root); 
 		Adresse entropot = p.getAdresse(idEntropot);
 		if(entropot == null) 
-			throw new ExceptionXML("l'id du l'entrepot est invalide");
+			throw new ExceptionXML(ExceptionXML.ID_ENTREPOT_INVALIDE);
 		else
 			System.out.println("Entrepot := " + entropot.getId() );
 		

@@ -15,7 +15,8 @@ public class ExceptionXML extends Exception {
 	public static final String PLUSIEUR_ENTREPOTS = "Le fichier contient plusieurs coordonnées pour l'entrepot";
 	public static final String PLAGE_HORAIRE_INVALIDE = "Une des plages horaires spécifiées est mal formée";
 	public static final String ADRESSE_INVALIDE = "Une des adresse de livraison spécifiée est invalide";
-
+	public static final String ID_ENTREPOT_INVALIDE = "L'id de l'entrepot est invalide";
+	
 	public ExceptionXML(String message) {
 		super(message);
 	}
