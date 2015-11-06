@@ -23,6 +23,9 @@ public class Plan extends Observable {
 
 	private Tournee tournee;
 
+	private int XMax;
+	private int YMax;
+
 	/**
 	 * Le constructeur de la classe Plan ne prend pas de param�tres. Appel� par
 	 * le controleur
@@ -54,8 +57,8 @@ public class Plan extends Observable {
 	public void chargerPlan(File xml) throws ParserConfigurationException,
 			SAXException, IOException, ExceptionXML {
 		XMLParser.chargerPlan(this, xml);
-		// completerTraconsManquants();
-		// afficherPlan();
+
+		initXMaxYMax();
 	}
 
 
@@ -215,5 +218,24 @@ public class Plan extends Observable {
 	private void clear() {
 		adresses.clear();
 	}
+	
+	private void initXMaxYMax() {
+		XMax = -1 ;
+		YMax = -1 ;
+		for(Adresse a : adresses) {
+			if(a.getX()> XMax) XMax = a.getX();
+			if(a.getY()> YMax) YMax = a.getY();
+		}
+	}
+	
+	
+	public int getXMax() {
+		return XMax;
+	}
+
+	public int getYMax() {
+		return YMax;
+	}
+
 
 }

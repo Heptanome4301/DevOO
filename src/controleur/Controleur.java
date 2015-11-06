@@ -139,4 +139,11 @@ public class Controleur {
 		return tournee;
 	}
 
+
+	public Plan getPlan() {
+		// TODO Auto-generated method stub
+		return this.plan;
+		
+	}
+
 }
