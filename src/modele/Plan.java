@@ -242,12 +242,11 @@ public class Plan extends Observable {
 		boolean adresseIsolee = false;
 		for(Adresse a : adresses){
 			if(!aTronconEntrant(a)){ //l'adresse a est isolée
-				adresses.remove(a); //on retire cette adresse du plan
 				adresseIsolee = true;
 			}
-			if(adresseIsolee){
-				throw new ExceptionXML(ExceptionXML.ADRESSE_INACCESSILE);
-			}
+		}
+		if(adresseIsolee){
+			throw new ExceptionXML(ExceptionXML.ADRESSE_INACCESSIBLE);
 		}
 	}
 
@@ -263,18 +262,12 @@ public class Plan extends Observable {
 
 	private void verifierTroncon() throws ExceptionXML{
 		boolean tronconVersNull = false;
-		ArrayList<Troncon> tronconARetirer = new ArrayList<>();
 		for(Adresse a : adresses){
 			for (Troncon t : a.getTroncons()){
 				if(t.getArrivee() == null){
-					tronconARetirer.add(t); //Le troncon pointe vers une adresse qui n'existe pas, on enlève ce troncon
 					tronconVersNull = true;
 				}
 			}
-			for(Troncon aRetirer : tronconARetirer){
-				a.retirerTroncon(aRetirer);
-			}
-			tronconARetirer.clear();
 		}
 		if(tronconVersNull){
 			throw new ExceptionXML(ExceptionXML.ARRIVEE_TRONCON_INEXISTANTE);
