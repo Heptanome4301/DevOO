@@ -2,10 +2,14 @@ package controleur;
 
 import java.io.File;
 import java.io.IOException;
+
 import javax.xml.parsers.ParserConfigurationException;
+
 import org.xml.sax.SAXException;
+
 import tsp.Graphe;
 import vue.Fenetre;
+import xml.OuvreurDeFichiersXML;
 import modele.Adresse;
 import modele.Plan;
 import modele.Tournee;
@@ -64,9 +68,11 @@ public class Controleur {
 	
 	public Graphe chargerPlan()  {
 		// plan = new Plan();
+		File xml ;
 		tournee = null;
 		try {
-			etatCourant.chargerPlan(plan,null);
+			xml = OuvreurDeFichiersXML.getInstance().ouvre();
+			etatCourant.chargerPlan(plan,xml);
 		} catch (Exception e) {
 			//TODO signaler erreur a la vue
 			e.printStackTrace();
@@ -76,8 +82,10 @@ public class Controleur {
 	}
 	
 	public Graphe chargerLivraisons() {
+		File xml = null;
 		try {
-			tournee=etatCourant.chargerLivraisons(plan,null);
+			 xml = OuvreurDeFichiersXML.getInstance().ouvre();
+			tournee=etatCourant.chargerLivraisons(plan,xml);
 		}
 		catch(Exception e) {
 			//TODO
@@ -119,7 +127,7 @@ public class Controleur {
 	
 	public void echanger() {
 		if(etatCourant == etatTournee) {
-			etatCourant = etatEchanger;
+			//etatCourant = etatEchanger;
 		}
 	}
 	

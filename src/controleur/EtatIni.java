@@ -34,7 +34,7 @@ public class EtatIni implements Etat {
 	}
 
 	@Override
-	public void clicNoeud(Adresse adresse,Plan plan, Tournee tournee, ListeDeCmd listeCmd) {
+	public void clicNoeud(Adresse adresse,Plan plan, Tournee tournee, ListeDeCmd listeCmd) throws Exception {
 		throw new UnsupportedOperationException();
 	}
 
