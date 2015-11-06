@@ -263,13 +263,18 @@ public class Plan extends Observable {
 
 	private void verifierTroncon() throws ExceptionXML{
 		boolean tronconVersNull = false;
+		ArrayList<Troncon> tronconARetirer = new ArrayList<>();
 		for(Adresse a : adresses){
 			for (Troncon t : a.getTroncons()){
 				if(t.getArrivee() == null){
-					a.retirerTroncon(t); //Le troncon pointe vers une adresse qui n'existe pas, on enlève ce troncon
+					tronconARetirer.add(t); //Le troncon pointe vers une adresse qui n'existe pas, on enlève ce troncon
 					tronconVersNull = true;
 				}
 			}
+			for(Troncon aRetirer : tronconARetirer){
+				a.retirerTroncon(aRetirer);
+			}
+			tronconARetirer.clear();
 		}
 		if(tronconVersNull){
 			throw new ExceptionXML(ExceptionXML.ARRIVEE_TRONCON_INEXISTANTE);

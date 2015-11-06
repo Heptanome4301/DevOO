@@ -97,11 +97,8 @@ public class XMLParser {
 			throw new ExceptionXML(ExceptionXML.ATTRIBUT_NEGATIF);
 		
 		Adresse depart = p.getAdresse(parentId);
-		if(!(depart == null)) {
-			depart.ajouterTroncon(new Troncon(nom, longueur, vitesse, depart, p.getAdresse(destination)));
-		} else {
-			throw new ExceptionXML(ExceptionXML.DEPART_TRONCON_INEXISTANT);
-		}
+		depart.ajouterTroncon(new Troncon(nom, longueur, vitesse, depart, p.getAdresse(destination)));
+
 		
 	}
 	
