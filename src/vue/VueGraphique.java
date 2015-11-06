@@ -35,6 +35,7 @@ public class VueGraphique extends JPanel implements Observer {
 	public void update(Observable o, Object arg) {
 
 		if ( o instanceof Plan ) {
+//			this.echelle = getEchelle();
 			this.repaint();
 		}
 	}
@@ -43,7 +44,7 @@ public class VueGraphique extends JPanel implements Observer {
 		Graphics2D g2d = (Graphics2D) g;
 
 		super.paintComponent(g);
-
+				
 		for (Adresse a : this.plan.getAdresses()) {
 			g.setColor(Color.gray);
 			for (Troncon t : a.getTroncons()) {

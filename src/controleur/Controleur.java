@@ -67,7 +67,7 @@ public class Controleur {
 	
 	
 	public Graphe chargerPlan()  {
-		// plan = new Plan();
+		plan.clear();
 		File xml ;
 		tournee = null;
 		try {

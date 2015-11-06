@@ -55,6 +55,12 @@ public class Fenetre {
 	private void initializeListeners(Controleur c) {
 		this.ecouterBoutons = new EcouterDeBoutons(c);
 		loadPlan.addActionListener(ecouterBoutons);
+		loadDeliveries.addActionListener(ecouterBoutons);
+		computeTour.addActionListener(ecouterBoutons);
+		addDelivery.addActionListener(ecouterBoutons);
+		removeDelivery.addActionListener(ecouterBoutons);
+		swapDelivery.addActionListener(ecouterBoutons);
+		saveRoadMap.addActionListener(ecouterBoutons);
 		zoom.addChangeListener(new ZoomListener(view));
 
 	}
