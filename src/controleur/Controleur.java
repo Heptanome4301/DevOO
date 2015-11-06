@@ -84,7 +84,7 @@ public class Controleur {
 	public Graphe chargerLivraisons() {
 		File xml = null;
 		try {
-			 xml = OuvreurDeFichiersXML.getInstance().ouvre();
+			xml = OuvreurDeFichiersXML.getInstance().ouvre();
 			tournee=etatCourant.chargerLivraisons(plan,xml);
 		}
 		catch(Exception e) {

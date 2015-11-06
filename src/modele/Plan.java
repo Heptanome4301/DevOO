@@ -58,13 +58,6 @@ public class Plan extends Observable {
 		// afficherPlan();
 	}
 
-	public void chargerPlan() throws ParserConfigurationException,
-			SAXException, IOException, ExceptionXML {
-		this.clear();
-		XMLParser.chargerPlan(this);
-		// completerTraconsManquants();
-		// afficherPlan();
-	}
 
 	private void afficherPlan() {
 		// for (Adresse a : adresses) {
