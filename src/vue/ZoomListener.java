@@ -17,7 +17,7 @@ public class ZoomListener implements ChangeListener {
 			// TODO Auto-generated method stub
 			JSlider source = (JSlider) e.getSource();
 	        if (!source.getValueIsAdjusting()) {
-	            view.setZoom(source.getValue() / 100.);
+//	            view.setEchelle(source.getValue() / 100.);
 	            view.repaint();
 	        }    
 		}

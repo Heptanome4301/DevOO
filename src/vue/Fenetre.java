@@ -148,5 +148,13 @@ public class Fenetre {
 		
 		frame.getContentPane().add(scrollPanel, "cell 1 1 1 11,grow");
 	}
+	
+	public Dimension getSizeView() {
+		return this.view.getSize();
+	}
+
+	public void setEchelle(double echelle) {
+		this.view.setEchelle(echelle);	
+	}
 
 }

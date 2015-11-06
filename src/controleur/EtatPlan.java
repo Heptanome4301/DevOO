@@ -12,11 +12,9 @@ public class EtatPlan extends EtatIni {
 	}
 
 	public Tournee chargerLivraisons(Plan plan, File file) throws Exception {
-		// TODO Auto-generated method stub
-//		plan.chargerLivraison();
-		// plan.chargerLivraison(file);
+		Tournee resultat = plan.chargerLivraison(file);
 		Controleur.setEtatCourant(Controleur.etatLivraison);
-		return null;
+		return resultat;
 	}
 	
 }

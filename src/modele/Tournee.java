@@ -1,6 +1,11 @@
 package modele;
 
-import java.awt.List;
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
@@ -8,6 +13,8 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Observable;
 import java.util.Set;
+
+import java.util.Stack;
 
 import tsp.Graphe;
 import tsp.TSP;
@@ -56,7 +63,50 @@ public class Tournee extends Observable{
 	 * si un appel à calculerTournee n'est pas fait auparavant
 	 * le fichier ne sera pas créé et une exception est levée
 	 */
-	public void feuilleDeRoute(String FichierDeSortie) throws Exception{}
+    public void feuilleDeRoute(String fichier) throws Exception{
+        try
+        {
+            Stack<String> stack = new Stack<String>();
+            
+            PrintWriter pw = new PrintWriter (new BufferedWriter (new FileWriter (fichier)));
+         
+            Collection<Chemin> itineraire = this.getItineraire();
+            int i = 1;
+            pw.println("Votre tournee est la suivante : ");
+            for(Chemin chemin : itineraire){
+                pw.print("Livraison " + i++);
+                pw.print(" Depart : ");
+                pw.print(chemin.getDepart().getId());
+                pw.print(" Arrivee : ");
+                pw.print(chemin.getArrivee().getId());
+                pw.println(" Itineraire : ");
+                
+                Collection<Troncon> troncons = chemin.getTroncons();
+                for(Troncon t : troncons){
+                    stack.push(t.getNomRue());
+                    stack.push(Integer.toString(t.getArrivee().getId()));
+                    stack.push(Integer.toString(t.getDepart().getId()));
+                }
+                
+                while(stack.size() >= 3){
+                    pw.print(" De : ");
+                    pw.print(stack.pop());
+                    pw.print(" A : ");
+                    pw.print(stack.pop());
+                    pw.print(" Par : ");
+                    pw.println(stack.pop());
+                }
+                pw.println();
+            }
+            
+         
+            pw.close();
+        }
+        catch (IOException exception)
+        {
+            System.out.println ("Erreur lors de la lecture : " + exception.getMessage());
+        }
+    }
 	
 	/**
 	 * Applée par this.calculerTournee
@@ -134,7 +184,7 @@ public class Tournee extends Observable{
 	}
 	
 	public void calculerTournee(){
-		
+		System.out.println("Cacul de la tourn�e...");
 		this.chemins = new ArrayList<Chemin>();
 		
 		for(FenetreLivraison fl : fenetresLivraison){
@@ -149,6 +199,7 @@ public class Tournee extends Observable{
 		}
 		
 		chemins.add(plan.calculerChemin(((ArrayList<Chemin>)chemins).get(chemins.size()-1).getArrivee(),this.entrepot));
+                System.out.println("Tournee calcul�e");
 		
 		calculerLesDurees( 0 ); 
 	}
