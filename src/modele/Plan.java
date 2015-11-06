@@ -13,7 +13,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
 
 import xml.ExceptionXML;
-import xml.PlanXMLParser;
+import xml.XMLParser;
 
 public class Plan extends Observable {
 	/**
@@ -53,7 +53,7 @@ public class Plan extends Observable {
 	 */
 	public void chargerPlan(File xml) throws ParserConfigurationException,
 			SAXException, IOException, ExceptionXML {
-		PlanXMLParser.chargerPlan(this, xml);
+		XMLParser.chargerPlan(this, xml);
 		// completerTraconsManquants();
 		// afficherPlan();
 	}
@@ -61,7 +61,7 @@ public class Plan extends Observable {
 	public void chargerPlan() throws ParserConfigurationException,
 			SAXException, IOException, ExceptionXML {
 		this.clear();
-		PlanXMLParser.chargerPlan(this);
+		XMLParser.chargerPlan(this);
 		// completerTraconsManquants();
 		// afficherPlan();
 	}
@@ -111,7 +111,7 @@ public class Plan extends Observable {
 	public Tournee chargerLivraison(File xml)
 			throws ParserConfigurationException, SAXException, IOException,
 			ExceptionXML {
-		tournee = PlanXMLParser.chargerLivraison(this, xml);
+		tournee = XMLParser.chargerLivraison(this, xml);
 		return tournee;
 	}
 
