@@ -36,7 +36,8 @@ public class Fenetre {
 	private JTextField log;
 	private JLabel lblListeDesPoints;
 	
-	private EcouterDeBoutons ecouterBoutons;
+	private EcouteurDeBoutons ecouteurBoutons;
+	private EcouteurDeSouris ecouteurSouris;
 
 	private final String TITLE = "Livraison Simulator 2015";
 	private final Dimension MINIMUM_SIZE = new Dimension(800, 600);
@@ -53,8 +54,16 @@ public class Fenetre {
 	}
 	
 	private void initializeListeners(Controleur c) {
-		this.ecouterBoutons = new EcouterDeBoutons(c);
-		loadPlan.addActionListener(ecouterBoutons);
+		this.ecouteurBoutons = new EcouteurDeBoutons(c);
+		this.ecouteurSouris = new EcouteurDeSouris(c, view, this);
+		
+		loadPlan.addActionListener(ecouteurBoutons);
+		loadDeliveries.addActionListener(ecouteurBoutons);
+		computeTour.addActionListener(ecouteurBoutons);
+		addDelivery.addActionListener(ecouteurBoutons);
+		removeDelivery.addActionListener(ecouteurBoutons);
+		swapDelivery.addActionListener(ecouteurBoutons);
+		saveRoadMap.addActionListener(ecouteurBoutons);
 		zoom.addChangeListener(new ZoomListener(view));
 
 	}
@@ -141,6 +150,23 @@ public class Fenetre {
 //		scrollPanel.setViewportView(view);
 		
 		frame.getContentPane().add(scrollPanel, "cell 1 1 1 11,grow");
+	}
+	
+	public Dimension getSizeView() {
+		return this.view.getSize();
+	}
+
+	public void setEchelle(double echelle) {
+		this.view.setEchelle(echelle);	
+	}
+	
+	public void ecrireLog(String texte) {
+		log.setText(texte);
+	}
+	
+	public void ecrireLog(String texte, Color color) {
+		log.setForeground(color);
+		log.setText(texte);
 	}
 
 }

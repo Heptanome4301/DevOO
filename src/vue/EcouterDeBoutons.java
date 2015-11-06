@@ -22,9 +22,7 @@ public class EcouterDeBoutons implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
-		System.out.println(e.getActionCommand());
-		
+				
 		switch (e.getActionCommand()) {
 		
 		case CHARGER_PLAN:
@@ -34,7 +32,7 @@ public class EcouterDeBoutons implements ActionListener {
 			controleur.chargerLivraisons();
 			break;
 		case CALCULER_TOURNEE:
-			controleur.getTournee();
+			controleur.calculerTournee();
 			break;
 		case AJOUTER_LIVRAISONS:
 			controleur.ajouter();
@@ -46,7 +44,7 @@ public class EcouterDeBoutons implements ActionListener {
 			controleur.ajouter();
 			break;
 		case SAUVEGARDER_FEUILLE_DE_ROUTE:
-			// controleur.genererFeuilleDeRoute(fichier);
+			controleur.genererFeuilleDeRoute("balescouilles.txt");
 			break;
 		}
 		

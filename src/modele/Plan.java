@@ -2,11 +2,7 @@ package modele;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Observable;
-import java.util.TreeSet;
+import java.util.*;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -22,6 +18,9 @@ public class Plan extends Observable {
 	private Collection<Adresse> adresses;
 
 	private Tournee tournee;
+
+	private int XMax;
+	private int YMax;
 
 	/**
 	 * Le constructeur de la classe Plan ne prend pas de param�tres. Appel� par
@@ -54,8 +53,8 @@ public class Plan extends Observable {
 	public void chargerPlan(File xml) throws ParserConfigurationException,
 			SAXException, IOException, ExceptionXML {
 		XMLParser.chargerPlan(this, xml);
-		// completerTraconsManquants();
-		// afficherPlan();
+		verifierPlan();
+		initXMaxYMax();
 	}
 
 
@@ -72,7 +71,7 @@ public class Plan extends Observable {
 
 	}
 
-	private void completerTraconsManquants() {
+	private void completerTronconsManquants() {
 		for (Adresse a : adresses) {
 			Collection<Troncon> tronconsSortantDeA = a.getTroncons();
 			for (Adresse b : adresses) {
@@ -212,8 +211,85 @@ public class Plan extends Observable {
 		return null;
 	}
 	
-	private void clear() {
+	public void clear() {
 		adresses.clear();
 	}
+	
+	private void initXMaxYMax() {
+		XMax = -1 ;
+		YMax = -1 ;
+		for(Adresse a : adresses) {
+			if(a.getX()> XMax) XMax = a.getX();
+			if(a.getY()> YMax) YMax = a.getY();
+		}
+	}
+	
+	
+	public int getXMax() {
+		return XMax;
+	}
+
+	public int getYMax() {
+		return YMax;
+	}
+
+	private void verifierPlan() throws ExceptionXML{
+		verifierAdresses();
+		verifierTroncon();
+	}
+
+	private void verifierAdresses() throws ExceptionXML{
+		boolean adresseIsolee = false;
+		for(Adresse a : adresses){
+			if(!aTronconEntrant(a)){ //l'adresse a est isolée
+				adresses.remove(a); //on retire cette adresse du plan
+				adresseIsolee = true;
+			}
+			if(adresseIsolee){
+				throw new ExceptionXML(ExceptionXML.ADRESSE_INACCESSILE);
+			}
+		}
+	}
+
+	private boolean aTronconEntrant(Adresse a){
+		ArrayList<Troncon> listeTroncons = getTroncons();
+		for(Troncon t : listeTroncons){
+			if(a.equals(t.getArrivee())){ //l'adresse a a au moins un troncon entrant
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private void verifierTroncon() throws ExceptionXML{
+		boolean tronconVersNull = false;
+		ArrayList<Troncon> tronconARetirer = new ArrayList<>();
+		for(Adresse a : adresses){
+			for (Troncon t : a.getTroncons()){
+				if(t.getArrivee() == null){
+					tronconARetirer.add(t); //Le troncon pointe vers une adresse qui n'existe pas, on enlève ce troncon
+					tronconVersNull = true;
+				}
+			}
+			for(Troncon aRetirer : tronconARetirer){
+				a.retirerTroncon(aRetirer);
+			}
+			tronconARetirer.clear();
+		}
+		if(tronconVersNull){
+			throw new ExceptionXML(ExceptionXML.ARRIVEE_TRONCON_INEXISTANTE);
+		}
+	}
+	private ArrayList<Troncon> getTroncons(){
+		ArrayList<Troncon> listeTroncons = new ArrayList<>();
+		for(Adresse a : adresses){
+			for(Troncon t : a.getTroncons()){
+				listeTroncons.add(t);
+			}
+		}
+		return listeTroncons;
+	}
+
+
 
 }

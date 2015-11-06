@@ -21,7 +21,7 @@ public class EtatLivraison extends EtatIni {
 	
 	public Tournee chargerLivraisons(Plan plan,File file) throws Exception {
 		// TODO Auto-generated method stub
-//		plan.chargerLivraison();
+		//plan.chargerLivraison();
 		// plan.chargerLivraison(file);
 		Controleur.setEtatCourant(Controleur.etatLivraison);
 		return null;

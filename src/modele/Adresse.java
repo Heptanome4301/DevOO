@@ -44,6 +44,11 @@ public class Adresse extends Observable {
 		tronconsSortants.add(t);
 		notifyObservers(t);
 	}
+
+	protected void retirerTroncon(Troncon t){
+		tronconsSortants.remove(t);
+		notifyObservers(t);
+	}
 	
 	
 	public int getId(){
