@@ -8,6 +8,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
 
 import tsp.Graphe;
+import util.Constants;
 import vue.Fenetre;
 import xml.OuvreurDeFichiersXML;
 import modele.Adresse;
@@ -84,15 +85,15 @@ public class Controleur {
 	}
 	
 	private void calculEchelle() {
-		double echelle1;
-		double echelle2;
-		if ( echelle1 = (double) fenetre.getSizeView().getWidth() / plan.getXMax() > (echelle2 = (double) fenetre.getSizeView().getHeight() / plan.getYMax() ))
+		double echelle1 = (double) fenetre.getSizeView().getWidth() / (plan.getXMax() + Constants.RAYON_NOEUD);
+		double echelle2 = (double) fenetre.getSizeView().getHeight() / (plan.getYMax() + Constants.RAYON_NOEUD);
+		if ( echelle1 < echelle2)
 		{
 			fenetre.setEchelle(echelle1);	
 		} else {
 			fenetre.setEchelle(echelle2);
 		}
-			
+				
 	}
 
 
