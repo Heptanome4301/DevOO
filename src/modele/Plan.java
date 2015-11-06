@@ -53,7 +53,7 @@ public class Plan extends Observable {
 	public void chargerPlan(File xml) throws ParserConfigurationException,
 			SAXException, IOException, ExceptionXML {
 		XMLParser.chargerPlan(this, xml);
-
+		verifierPlan();
 		initXMaxYMax();
 	}
 
@@ -71,7 +71,7 @@ public class Plan extends Observable {
 
 	}
 
-	private void completerTraconsManquants() {
+	private void completerTronconsManquants() {
 		for (Adresse a : adresses) {
 			Collection<Troncon> tronconsSortantDeA = a.getTroncons();
 			for (Adresse b : adresses) {
@@ -235,7 +235,7 @@ public class Plan extends Observable {
 
 	private void verifierPlan() throws ExceptionXML{
 		verifierAdresses();
-		//todo verifierTroncon
+		verifierTroncon();
 	}
 
 	private void verifierAdresses() throws ExceptionXML{
@@ -261,6 +261,20 @@ public class Plan extends Observable {
 		return false;
 	}
 
+	private void verifierTroncon() throws ExceptionXML{
+		boolean tronconVersNull = false;
+		for(Adresse a : adresses){
+			for (Troncon t : a.getTroncons()){
+				if(t.getArrivee() == null){
+					a.retirerTroncon(t); //Le troncon pointe vers une adresse qui n'existe pas, on enlève ce troncon
+					tronconVersNull = true;
+				}
+			}
+		}
+		if(tronconVersNull){
+			throw new ExceptionXML(ExceptionXML.ARRIVEE_TRONCON_INEXISTANTE);
+		}
+	}
 	private ArrayList<Troncon> getTroncons(){
 		ArrayList<Troncon> listeTroncons = new ArrayList<>();
 		for(Adresse a : adresses){
