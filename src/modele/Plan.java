@@ -215,7 +215,7 @@ public class Plan extends Observable {
 		return null;
 	}
 	
-	private void clear() {
+	public void clear() {
 		adresses.clear();
 	}
 	
