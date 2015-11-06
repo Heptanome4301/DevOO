@@ -16,10 +16,11 @@ public class EtatEchanger2 extends EtatIni {
 			this.adresse1=adresse;
 		}
 		
-		public void clicNoeud(Adresse adresse2,Tournee tournee, ListeDeCmd listeCmd) throws Exception{
-			CmdEchanger cmd= new CmdEchanger(adresse1, adresse2, tournee);
+		public void clicNoeud(Adresse adresse2,Tournee tournee, ListeDeCmd listeCmd) {
+			/*CmdEchanger cmd= new CmdEchanger(adresse1, adresse2, tournee);
 			listeCmd.ajoute(cmd);
-			cmd.doCmd();
+			cmd.doCmd();*/
+			//TODO
 			Controleur.setEtatCourant(Controleur.etatTournee);
 		}
 		

@@ -264,8 +264,8 @@ public class Tournee extends Observable{
 	}
 	
 	/**
-	 * Modification de la tournée en lui retirant une Livraison
-	 *  
+	 * Supprime la livraison et recalcule les heures de passage
+	 * @param L
 	 */
 	public void supprimerLivraison(Livraison L)  {
 		this.notifyObservers(this);

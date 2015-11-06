@@ -1,29 +1,27 @@
 package controleur;
 
-import modele.Adresse;
+import modele.Livraison;
 import modele.Tournee;
 
 public class CmdEchanger implements Commande {
 	
-	private Adresse adresse1, adresse2;
+	private Livraison livraison1, livraison2;
 	private Tournee tournee;
 	
-	public CmdEchanger(Adresse adresse1, Adresse adresse2, Tournee tournee) {
-		this.adresse1=adresse1;
-		this.adresse2=adresse2;
+	public CmdEchanger(Livraison livraison1, Livraison livraison2, Tournee tournee) {
+		this.livraison1=livraison1;
+		this.livraison2=livraison2;
 		this.tournee=tournee;
 	}
 
 	@Override
-	public void doCmd() throws Exception {
-		// TODO Auto-generated method stub
-
+	public void doCmd() {
+		tournee.echangerLivraison(livraison1, livraison2);
 	}
 
 	@Override
-	public void undoCmd() throws Exception {
-		// TODO Auto-generated method stub
-
+	public void undoCmd() {
+		tournee.echangerLivraison(livraison1, livraison2);
 	}
 
 }

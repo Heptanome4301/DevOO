@@ -6,22 +6,23 @@ import modele.Tournee
 public class CmdSupprimer implements Commande {
 	
 	private Tournee tournee;
-	private Livraison livraison;
+	private Livraison livraisonAdd;
+	private Livraison livraisonFollow;
 
-	public CmdSupprimer(Livraison livraison,Tournee tournee) {
+	public CmdSupprimer(Livraison livraisonAdd, Livraison livraisonFollow, Tournee tournee) {
 		this.tournee=tournee;
-		this.livraison=livraison;
+		this.livraisonAdd=livraisonAdd;
+		this.livraisonFollow=livraisonFollow;
 	}
 
 	@Override
-	public void doCmd() throws Exception {
-		tournee.supprimerLivraison(livraison);
-		//TODO
+	public void doCmd() {
+		tournee.supprimerLivraison(livraisonAdd);
 	}
 
 	@Override
-	public void undoCmd() throws Exception {
-		//TODO
+	public void undoCmd() {
+		tournee.ajouterLivraison(livraisonAdd, livraisonFollow);
 	}
 
 }

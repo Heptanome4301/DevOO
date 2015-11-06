@@ -1,30 +1,28 @@
 package controleur;
 
-import modele.Adresse;
+import modele.Livraison;
 import modele.Tournee;
 
 public class CmdAjouter implements Commande {
 	
 	Tournee tournee;
-	Adresse addAdresse;
-	Adresse followAdresse;
+	Livraison livraisonAdd;
+	Livraison livraisonFollow;
 
-	public CmdAjouter(Tournee tournee, Adresse addAdresse, Adresse followAdresse) {
+	public CmdAjouter(Tournee tournee, Livraison lAdd, Livraison lFollow) {
 		this.tournee=tournee;
-		this.followAdresse=followAdresse;
-		this.addAdresse=addAdresse;
+		this.livraisonFollow=lFollow;
+		this.livraisonAdd=lAdd;
 	}
 
 	@Override
 	public void doCmd() {
-		// TODO Auto-generated method stub
-
+		tournee.ajouterLivraison(livraisonAdd, livraisonFollow);
 	}
 
 	@Override
 	public void undoCmd() {
-		// TODO Auto-generated method stub
-
+		tournee.supprimerLivraison(livraisonAdd);
 	}
 
 }
