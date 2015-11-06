@@ -40,7 +40,7 @@ public class XMLParser {
            construirePlan(racine, p);
         }
         else
-        	throw new ExceptionXML("Document non conforme");
+        	throw new ExceptionXML(ExceptionXML.DOCUMENT_NON_CONFORME);
 	}
 	
 	private static void construirePlan(Element root, Plan p) throws ExceptionXML {
@@ -61,9 +61,9 @@ public class XMLParser {
 		y = Integer.parseInt(elt.getAttribute("y"));
 		
 		if(x<0 || y<0 || id<0)
-			throw new ExceptionXML("Un des attributs est négatif!");
+			throw new ExceptionXML(ExceptionXML.ATTRIBUT_NEGATIF);
 		
-		System.out.println("Le noeud " + id +" a pour coordonnées ("+ x + "," + y + ")");
+		System.out.println("Le noeud " + id +" a pour coordonnï¿½es ("+ x + "," + y + ")");
 		p.ajouterAdresse(new Adresse(id,x,y));
 		
 	}
@@ -94,7 +94,7 @@ public class XMLParser {
 		nom = elt.getAttribute("nomRue");
 		
 		if(nom == null || vitesse<0 || longueur<0 || destination<0)
-			throw new ExceptionXML("Un des attributs est négatif!");
+			throw new ExceptionXML("Un des attributs est nï¿½gatif!");
 		
 		Adresse depart = p.getAdresse(parentId);
 		depart.ajouterTroncon(new Troncon(nom, longueur, vitesse, depart , p.getAdresse(destination)));
@@ -115,7 +115,7 @@ public class XMLParser {
             tournee = construireTournee(racine, p);
          }
          else
-         	throw new ExceptionXML("Document non conforme");
+         	throw new ExceptionXML(ExceptionXML.DOCUMENT_NON_CONFORME);
         
 		return tournee;
 	}
@@ -138,7 +138,7 @@ public class XMLParser {
 		ArrayList<Livraison> livraisons = new ArrayList<Livraison>();
 		for (int i = 0; i < sections.getLength(); i++) {
 			Livraison l = parseLivraison((Element)sections.item(i), p,fenetresLivraison );
-			if(livraisons.contains(l)) throw new ExceptionXML("Fichier invalide : deux livraisons avec deux id identique");
+			if(livraisons.contains(l)) throw new ExceptionXML(ExceptionXML.ID_IDENTIQUES);
 			livraisons.add(l);
 		}
 		
@@ -147,7 +147,8 @@ public class XMLParser {
 	
 	private static int parseEntrepot(Element root) throws ExceptionXML{
 		NodeList nodes = root.getElementsByTagName("Entrepot");
-		if(nodes.getLength() <1 ) throw new ExceptionXML("L'adresse de l'entrepot est manquante");
+		if(nodes.getLength() < 1 ) throw new ExceptionXML(ExceptionXML.ENTREPOT_MANQUANT);
+		if(nodes.getLength() > 1) throw new ExceptionXML(ExceptionXML.PLUSIEUR_ENTREPOTS);
 		Element elt = (Element)nodes.item(0);
 		return Integer.parseInt(elt.getAttribute("adresse"));
 	
@@ -165,7 +166,7 @@ public class XMLParser {
 		Date fin = paseDate(Hdebut);
 		
 		if( debut.after(fin) )
-			throw new ExceptionXML("Un des attributs est négatif!");
+			throw new ExceptionXML(ExceptionXML.PLAGE_HORAIRE_INVALIDE);
 		
 		System.out.println("La fenetre de livraison := ["+ Hdebut + "," + Hfin + "]");
 		
@@ -184,7 +185,7 @@ public class XMLParser {
 			Date dateDebut = new Date(annee, mois, jour, heure, minute, seconde);
 			return dateDebut;
 		} catch(Exception e){
-			throw new ExceptionXML("La fenetre horaire n'est pas correctement formée");
+			throw new ExceptionXML(ExceptionXML.PLAGE_HORAIRE_INVALIDE);
 		}
 		
 	}
@@ -195,17 +196,17 @@ public class XMLParser {
 		id = Integer.parseInt(elt.getAttribute("id"));
 		
 		if(idAdresse<0 || id < 0 )
-			throw new ExceptionXML("Un des attributs est négatif!");
+			throw new ExceptionXML(ExceptionXML.ATTRIBUT_NEGATIF);
 		
 		Adresse adresse = p.getAdresse(idAdresse);
 		if(adresse == null )
-			throw new ExceptionXML("Adresse de livraison invalide");
+			throw new ExceptionXML(ExceptionXML.ADRESSE_INVALIDE);
 		
 		Element elmtFenetreLiv = (Element) elt.getParentNode().getParentNode();
 		FenetreLivraison fenetrelivraison = parseFenetre_livraison(elmtFenetreLiv);
 		
 		
-		System.out.println("Livraison à l'adresse id=" + idAdresse +" fenetreLivraison id= "+fenetrelivraison.getHeureDebut());
+		System.out.println("Livraison ï¿½ l'adresse id=" + idAdresse +" fenetreLivraison id= "+fenetrelivraison.getHeureDebut());
 		
 		return new Livraison(id,adresse,fenetrelivraison);
 		
