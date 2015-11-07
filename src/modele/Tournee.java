@@ -242,9 +242,9 @@ public class Tournee extends Observable{
 		}
 		
 		chemins.add(plan.calculerChemin(((ArrayList<Chemin>)chemins).get(chemins.size()-1).getArrivee(),this.entrepot));
-                System.out.println("Tournee calcul�e");
-		
+                
 		calculerLesDurees( 0 ); 
+		System.out.println("Tournee calcul�e");
 	}
 	
 	// indice dans chemins du premier chemin à partir dulequel
@@ -361,14 +361,17 @@ public class Tournee extends Observable{
 			Chemin cheminToRemove = getCheminFromArrivee(adresseFollow);
 			Chemin chemin1 = plan.calculerChemin(cheminToRemove.getDepart(),adresseAdd);
 			Chemin chemin2 = plan.calculerChemin(adresseAdd, adresseFollow);
-			for(int i=0;i<chemins.size();i++) {
+			int i;
+			for(i=0;i<chemins.size();i++) {
 				if((chemins.get(i)).equals(cheminToRemove)) {
 					chemins.add(i, chemin1);
 					chemins.add(i+1, chemin2);
+					break;
 				}
 			}
 			chemins.remove(cheminToRemove);
 			livraisons.add(lAdd);
+			calculerLesDurees( i ); // recalcule les durées à partir de ce chmin
 			//TODO calculer nouvelles dates
 		}
 		else {
@@ -392,7 +395,8 @@ public class Tournee extends Observable{
 			Chemin chemin2 = getCheminFromDepart(L.getAdresse());
 			if(chemin1 != null && chemin2 != null) {
 				Chemin newChemin = plan.calculerChemin(chemin1.getDepart(), chemin2.getArrivee());
-				for(int i=0;i<chemins.size();i++) {
+				int i;
+				for(i=0;i<chemins.size();i++) {
 					if((chemins.get(i)).equals(chemin2)) {
 						chemins.add(i, newChemin);
 					}
@@ -400,6 +404,7 @@ public class Tournee extends Observable{
 				chemins.remove(chemin1);
 				chemins.remove(chemin2);
 				livraisons.remove(L);
+				calculerLesDurees( i ); // recalcule les durées à partir de ce chmin
 				//TODO nouvelles dates
 			}
 			
@@ -427,7 +432,7 @@ public class Tournee extends Observable{
 			Chemin cheminAdd1D = plan.calculerChemin(l2.getAdresse(),cheminRm1D.getDepart());
 			Chemin cheminAdd2A = plan.calculerChemin(cheminRm2A.getDepart(),l1.getAdresse());
 			Chemin cheminAdd2D = plan.calculerChemin(l1.getAdresse(),cheminRm2D.getDepart());
-			
+			int indice_premier_chemin_ajoute = 0;
 			for(int i=0;i<chemins.size();i++) {
 				if(chemins.get(i).equals(cheminRm1A)) {
 					chemins.add(i, cheminAdd1A);
@@ -436,12 +441,14 @@ public class Tournee extends Observable{
 				if(chemins.get(i).equals(cheminRm2A)) {
 					chemins.add(i, cheminAdd2A);
 					chemins.add(i+1, cheminAdd2D);
+					indice_premier_chemin_ajoute = i;
 				}
 			}
 			chemins.remove(cheminRm1A);
 			chemins.remove(cheminRm1D);
 			chemins.remove(cheminRm2A);
 			chemins.remove(cheminRm2D);
+			calculerLesDurees( indice_premier_chemin_ajoute );
 			//TODO nouvelles dates
 		}
 		
