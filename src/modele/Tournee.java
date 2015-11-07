@@ -42,7 +42,28 @@ public class Tournee extends Observable{
 		this.entrepot = entrepot;
 		this.chemins = null;
 		this.Duree = 0;
-		this.fenetresLivraison = /* sort */fenetresLivraison; // <-------
+		this.fenetresLivraison = sortFenetreLivraison(fenetresLivraison);
+	
+	}
+	
+	
+	private ArrayList<FenetreLivraison>sortFenetreLivraison(ArrayList<FenetreLivraison> fenetresLivraison){
+		int size = fenetresLivraison.size();
+		for(int i=0;i<size;i++){
+			int min_fenetre = i;
+			for(int j=i+1;j<size;j++){
+				if(fenetresLivraison.get(j).getHeureDebut().before(fenetresLivraison.get(min_fenetre).getHeureDebut())){
+					min_fenetre = j;
+				}
+			}
+			if(min_fenetre!=i){
+				FenetreLivraison min = fenetresLivraison.get(min_fenetre);
+				fenetresLivraison.set(min_fenetre, fenetresLivraison.get(i));
+				fenetresLivraison.set(i, min);
+			}
+			
+		}
+		return fenetresLivraison;
 	}
 	
 	/**
