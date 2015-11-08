@@ -4,6 +4,7 @@ import java.io.File;
 
 import modele.Plan;
 import modele.Tournee;
+import vue.Fenetre;
 
 public class EtatTournee extends EtatIni {
 
@@ -11,7 +12,7 @@ public class EtatTournee extends EtatIni {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Tournee chargerLivraisons(Plan plan,File file) throws Exception {
+	public Tournee chargerLivraisons(Fenetre fenetre, Plan plan, File file){
 		// TODO Auto-generated method stub
 //		plan.chargerLivraison();
 		// plan.chargerLivraison(file);
@@ -19,16 +20,28 @@ public class EtatTournee extends EtatIni {
 		return null;
 	}
 	
-	public void genererFeuilleDeRoute(String fichier,Tournee tournee) throws Exception {
-		tournee.feuilleDeRoute(fichier);
+	public void genererFeuilleDeRoute(Fenetre fenetre, String fichier,Tournee tournee){
+		try {
+			tournee.feuilleDeRoute(fichier);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
-	public void undo(ListeDeCmd listeCmd) throws Exception {
-		listeCmd.undo();
+	public void undo(Fenetre fenetre, ListeDeCmd listeCmd){
+		try {
+			listeCmd.undo();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
-	public void redo(ListeDeCmd listeCmd) throws Exception {
-		listeCmd.redo();
+	public void redo(Fenetre fenetre, ListeDeCmd listeCmd){
+		try {
+			listeCmd.redo();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 }

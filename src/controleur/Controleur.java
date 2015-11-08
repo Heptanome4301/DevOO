@@ -10,6 +10,7 @@ import org.xml.sax.SAXException;
 import tsp.Graphe;
 import util.Constants;
 import vue.Fenetre;
+import xml.ExceptionXML;
 import xml.OuvreurDeFichiersXML;
 import modele.Adresse;
 import modele.Plan;
@@ -48,22 +49,13 @@ public class Controleur {
 	 * Annule la dernière modification effectuée sur la tournée (ajout, suppression ou échange de livraisons)
 	 */
 	public void undo() {
-		try {
-			etatCourant.undo(historique);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			etatCourant.undo(fenetre, historique);
 	}
 	/**
 	 * Réeffectue la dernière action annulée
 	 */
 	public void redo() {
-		try {
-			etatCourant.redo(historique);
-		} catch (Exception e) {
-
-		} 
+			etatCourant.redo(fenetre, historique);
 	}
 	
 	
@@ -73,7 +65,7 @@ public class Controleur {
 		tournee = null;
 		try {
 			xml = OuvreurDeFichiersXML.getInstance().ouvre();
-			etatCourant.chargerPlan(plan,xml);
+			etatCourant.chargerPlan(fenetre, plan,xml);
 		} catch (Exception e) {
 			//TODO signaler erreur a la vue
 			e.printStackTrace();
@@ -100,29 +92,24 @@ public class Controleur {
 	public Graphe chargerLivraisons() {
 	    File xml ;
 	    tournee = null;
-	    try {
-	            xml = OuvreurDeFichiersXML.getInstance().ouvre();
-	            tournee = etatCourant.chargerLivraisons(plan,xml);
-	    } catch (Exception e) {
-	            //TODO signaler erreur a la vue
-	            e.printStackTrace();
-	    }
+		try {
+			xml = OuvreurDeFichiersXML.getInstance().ouvre();
+			tournee = etatCourant.chargerLivraisons(fenetre, plan,xml);
+
+		} catch (ExceptionXML exceptionXML) {
+			exceptionXML.printStackTrace();
+		}
 	    return null;
 	    //TODO
 	}
 	
 	public Graphe calculerTournee() {
-		etatCourant.calculerTournee(tournee);
+		etatCourant.calculerTournee(fenetre, tournee);
 		return null;
 	}
 	
 	public void clicNoeud(Adresse adresse, Plan plan,Tournee tournee, ListeDeCmd listeCmd) {
-		try {
-			etatCourant.clicNoeud(adresse,plan,tournee, listeCmd);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			etatCourant.clicNoeud(fenetre, adresse,plan,tournee, listeCmd);
 	}
 	
 	public void clicDroit() {
@@ -149,11 +136,7 @@ public class Controleur {
 	}
 	
 	public void genererFeuilleDeRoute(String fichier){
-            try {
-                etatCourant.genererFeuilleDeRoute(fichier, tournee);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+                etatCourant.genererFeuilleDeRoute(fenetre, fichier, tournee);
         }
 
 	public Tournee getTournee() {
