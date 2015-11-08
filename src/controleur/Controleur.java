@@ -2,9 +2,9 @@ package controleur;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.StreamCorruptedException;
 
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileFilter;
+import javax.swing.*;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.xml.sax.SAXException;
@@ -12,6 +12,7 @@ import org.xml.sax.SAXException;
 import tsp.Graphe;
 import util.Constants;
 import vue.Fenetre;
+import xml.ExceptionXML;
 import xml.OuvreurDeFichiersXML;
 import modele.Adresse;
 import modele.Livraison;
@@ -48,25 +49,16 @@ public class Controleur {
 	}
 	
 	/**
-	 * Annule la dernière modification effectuée sur la tournée (ajout, suppression ou échange de livraisons)
+	 * Annule la derni�re modification effectu�e sur la tourn�e (ajout, suppression ou �change de livraisons)
 	 */
 	public void undo() {
-		try {
-			etatCourant.undo(historique);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			etatCourant.undo(fenetre, historique);
 	}
 	/**
-	 * Réeffectue la dernière action annulée
+	 * R�effectue la derni�re action annul�e
 	 */
 	public void redo() {
-		try {
-			etatCourant.redo(historique);
-		} catch (Exception e) {
-
-		} 
+			etatCourant.redo(fenetre, historique);
 	}
 	
 	
@@ -76,7 +68,7 @@ public class Controleur {
 		tournee = null;
 		try {
 			xml = OuvreurDeFichiersXML.getInstance().ouvre();
-			etatCourant.chargerPlan(plan,xml);
+			etatCourant.chargerPlan(fenetre, plan,xml);
 		} catch (Exception e) {
 			//TODO signaler erreur a la vue
 			e.printStackTrace();
@@ -103,30 +95,27 @@ public class Controleur {
 	public Graphe chargerLivraisons() {
 	    File xml ;
 	    tournee = null;
+
 	    try {
 	            xml = OuvreurDeFichiersXML.getInstance().ouvre();
-	            tournee = etatCourant.chargerLivraisons(plan,xml);
+	            tournee = etatCourant.chargerLivraisons(fenetre,plan,xml);
 	            fenetre.setTournee(tournee);
-	    } catch (Exception e) {
+	    } catch (ExceptionXML exceptionXML) {
 	            //TODO signaler erreur a la vue
-	            e.printStackTrace();
+	    		exceptionXML.printStackTrace();
 	    }
+
 	    return null;
 	    //TODO
 	}
 	
 	public Graphe calculerTournee() {
-		etatCourant.calculerTournee(tournee);
+		etatCourant.calculerTournee(fenetre, tournee);
 		return null;
 	}
 	
 	public void clicNoeud(Adresse adresse, Plan plan,Tournee tournee, ListeDeCmd listeCmd) {
-		try {
-			etatCourant.clicNoeud(adresse,plan,tournee, listeCmd);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			etatCourant.clicNoeud(fenetre, adresse,plan,tournee, listeCmd);
 	}
 	
 	public void clicDroit() {
@@ -151,53 +140,21 @@ public class Controleur {
 			//etatCourant = etatEchanger;
 		}
 	}
-	
-	
-	public String getFileSave() throws Exception{
-		
- 		int returnVal;
- 		JFileChooser jFileChooserXML = new JFileChooser();
-        jFileChooserXML.setFileFilter(new FileFilter() {
-			
-			@Override
-			public String getDescription() {
-				return "Fichier TXT";
-			}
-			
-			@Override
-			public boolean accept(File f) {
-				if (f == null) return false;
-		    	if (f.isDirectory()) return true;
-		    	String extension = getExtension(f);
-		    	if (extension == null) return false;
-		    	return extension.contentEquals("txt");
-			}
-			
-			private String getExtension(File f) {
-			    String filename = f.getName();
-			    int i = filename.lastIndexOf('.');
-			    if (i>0 && i<filename.length()-1) 
-			    	return filename.substring(i+1).toLowerCase();
-			    return null;
-		   }
-		});
-        jFileChooserXML.setFileSelectionMode(JFileChooser.FILES_ONLY);
-        returnVal = jFileChooserXML.showOpenDialog(null);
-       
-        if (returnVal != JFileChooser.APPROVE_OPTION) 
-        	throw new Exception("Probleme a l'ouverture du fichier");
-        return jFileChooserXML.getSelectedFile().getAbsolutePath();
-		
+
+	private String obtenirFichier(){
+		JFileChooser fc = new JFileChooser();
+		int result = fc.showSaveDialog(null);
+		String fichier = "";
+		if(result == JFileChooser.APPROVE_OPTION){
+			fichier = fc.getSelectedFile().getAbsolutePath();
+		}
+		return fichier;
+		//todo v�rifier si on apelle le filechooser dans le controlleur ou la vue
 	}
-	
-	
 	public void genererFeuilleDeRoute(){
-            try {
-            	String fichier = getFileSave();
-                etatCourant.genererFeuilleDeRoute(fichier, tournee);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+		String fichier;
+		if(!(fichier = obtenirFichier()).equals("")) // si un fichir a �t� selectionn�
+                etatCourant.genererFeuilleDeRoute(fenetre, fichier, tournee);
         }
 
 	public Tournee getTournee() {

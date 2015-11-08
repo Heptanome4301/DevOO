@@ -3,6 +3,7 @@ package controleur;
 import modele.Adresse;
 import modele.Livraison;
 import modele.Tournee;
+import vue.Fenetre;
 
 public class EtatAjouter2 extends EtatIni {
 
@@ -17,7 +18,7 @@ public class EtatAjouter2 extends EtatIni {
 		this.adresse=adresse;
 	}
 	
-	public void clicNoeud(Adresse followAdresse,Tournee tournee, ListeDeCmd listeCmd) {
+	public void clicNoeud(Fenetre fenetre, Adresse followAdresse, Tournee tournee, ListeDeCmd listeCmd) {
 		//TODO
 		/*CmdAjouter cmd = new CmdAjouter(tournee, adresse, followAdresse);
 		listeCmd.ajoute(cmd);

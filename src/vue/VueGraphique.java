@@ -108,14 +108,20 @@ public class VueGraphique extends JPanel implements Observer {
 	}
 
 	public int getAdresseByXY(int x, int y) {
+		int res = -1;
 		for (AdresseVue adresse : adressesVue) {
 			if ( adresse.containsClick(x, y)) {
-				adresseSelectionne = adresse;
+				if(adresse == adresseSelectionne)
+					adresseSelectionne = null;
+				else{ 
+					adresseSelectionne = adresse;
+					res = adresse.getId();
+				}
 				this.repaint();
-				return adresse.getId();
+				break;
 			}
 		}
-		return -1;
+		return res;
 	}
 
 	public void setEchelle(double value) {

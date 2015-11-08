@@ -176,7 +176,7 @@ public class Plan extends Observable {
 		Adresse depart = precedence[a2.getId()];
 
 		// On remonte le tableau de pr�c�dence pour construire le chemin
-		while (depart != null && arrivee != depart) {
+		while (arrivee != depart) {
 			// Ajouter le troncon au chemin
 			for (Troncon t : depart.getTroncons()) {
 				if (t.getArrivee().equals(arrivee)) {
