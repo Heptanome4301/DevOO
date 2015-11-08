@@ -13,7 +13,9 @@ import java.util.Observer;
 import javax.swing.JPanel;
 
 import modele.Adresse;
+import modele.Livraison;
 import modele.Plan;
+import modele.Tournee;
 import modele.Troncon;
 import util.Constants;
 
@@ -28,20 +30,25 @@ public class VueGraphique extends JPanel implements Observer {
 
 	private ArrayList<AdresseVue> adressesVue;
 	private AdresseVue adresseSelectionne;
-	
+
 	private Plan plan;
+	private Tournee tournee;
 
 	public VueGraphique(Plan plan, Fenetre fenetre) {
 		super();
 		this.plan = plan;
 		plan.addObserver(this);
-		adressesVue = new ArrayList();
+		adressesVue = new ArrayList<AdresseVue>();
 	}
 
 	@Override
 	public void update(Observable o, Object arg) {
 
 		if (o instanceof Plan) {
+			this.repaint();
+		}
+
+		if (o instanceof Tournee) {
 			this.repaint();
 		}
 	}
@@ -58,28 +65,50 @@ public class VueGraphique extends JPanel implements Observer {
 						(int) (t.getDepart().getY() * echelle + Constants.MARGIN_VUE_GRAPHE),
 						(int) (t.getArrivee().getX() * echelle + Constants.MARGIN_VUE_GRAPHE),
 						(int) (t.getArrivee().getY() * echelle + Constants.MARGIN_VUE_GRAPHE));
+
 			}
 
 			AdresseVue adresse = new AdresseVue(
 					(int) ((a.getX() - Constants.RAYON_NOEUD) * echelle + Constants.MARGIN_VUE_GRAPHE),
 					(int) ((a.getY() - Constants.RAYON_NOEUD) * echelle + Constants.MARGIN_VUE_GRAPHE),
 					(int) (Constants.RAYON_NOEUD * 2 * echelle),
-					(int) (Constants.RAYON_NOEUD * 2 * echelle),
-					a.getId());
+					(int) (Constants.RAYON_NOEUD * 2 * echelle), a.getId());
 
 			adressesVue.add(adresse);
 
 			g2D.fill(adresse);
 			g2D.setColor(Color.black);
 			g2D.draw(adresse);
-			
-			if (adresseSelectionne != null)
-			{
-				g2D.setColor(Color.yellow);
-				g2D.fill(adresseSelectionne);				
-			}
-			
 
+			if (adresseSelectionne != null) {
+				g2D.setColor(Color.yellow);
+				g2D.fill(adresseSelectionne);
+			}
+
+			if (a.estAssocierAvecLivraison()) {
+				g2D.setColor(Color.blue);
+				g2D.fill(adresse);
+
+			}
+			if (tournee != null && a.equals(tournee.getEntrepot())) {
+				g2D.setColor(Color.red);
+				g2D.fill(adresse);
+			}
+		}
+		for (Adresse a : this.plan.getAdresses()) {
+			if (tournee != null) { // afficher l'itenéraire s'il est calculé
+				g2D.setColor(Color.gray);
+				for (Troncon t : a.getTroncons()) {
+					if (tournee.isDansTrournee(t)) {
+						g2D.setColor(Color.blue);
+						g2D.drawLine(
+								(int) (t.getDepart().getX() * echelle + Constants.MARGIN_VUE_GRAPHE),
+								(int) (t.getDepart().getY() * echelle + Constants.MARGIN_VUE_GRAPHE),
+								(int) (t.getArrivee().getX() * echelle + Constants.MARGIN_VUE_GRAPHE),
+								(int) (t.getArrivee().getY() * echelle + Constants.MARGIN_VUE_GRAPHE));
+					}
+				}
+			}
 		}
 
 		// this.getParent().setPreferredSize(new Dimension(this.maxLargeur,
@@ -88,17 +117,29 @@ public class VueGraphique extends JPanel implements Observer {
 	}
 
 	public int getAdresseByXY(int x, int y) {
+		int res = -1;
 		for (AdresseVue adresse : adressesVue) {
-			if ( adresse.containsClick(x, y)) {
-				adresseSelectionne = adresse;
+			if (adresse.containsClick(x, y)) {
+				if (adresse == adresseSelectionne)
+					adresseSelectionne = null;
+				else {
+					adresseSelectionne = adresse;
+					res = adresse.getId();
+				}
 				this.repaint();
-				return adresse.getId();
+				break;
 			}
 		}
-		return -1;
+		return res;
 	}
 
 	public void setEchelle(double value) {
 		this.echelle = value;
+	}
+
+	protected void setTournee(Tournee tournee) {
+		this.tournee = tournee;
+		tournee.addObserver(this);
+
 	}
 }

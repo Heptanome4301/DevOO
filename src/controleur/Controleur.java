@@ -1,6 +1,7 @@
 package controleur;
 
 import modele.Adresse;
+import modele.Livraison;
 import modele.Plan;
 import modele.Tournee;
 import tsp.Graphe;
@@ -139,7 +140,7 @@ public class Controleur {
 
 	public void afficheInfos(int idAdresse) {
 		if (idAdresse < 0) {
-			// ERROR
+			fenetre.ecrireInfos("");
 		} else {
 			Adresse a = plan.getAdresse(idAdresse);
 			fenetre.ecrireInfos(a.toString());

@@ -3,11 +3,13 @@ package vue;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Insets;
+import java.util.Observer;
 
 import javax.swing.*;
 
 import controleur.Controleur;
 import modele.Plan;
+import modele.Tournee;
 import net.miginfocom.swing.MigLayout;
 
 import util.Constants;
@@ -39,6 +41,7 @@ public class Fenetre {
 	private final Color ERROR_COLOR = Color.RED;
 	private JSlider zoom;
 	private JLabel lblZoom;
+	private Tournee tournee;
 
 	/**
 	 * Create the application.
@@ -48,6 +51,7 @@ public class Fenetre {
 		ajouterView(p);
 		initializeListeners(c);
 	}
+
 	
 	private void initializeListeners(Controleur c) {
 		this.ecouteurBoutons = new EcouteurDeBoutons(c);
@@ -127,7 +131,7 @@ public class Fenetre {
 		infoPoint.setMargin(new Insets(Constants.MARGIN_TEXTE_PANEL, Constants.MARGIN_TEXTE_PANEL, Constants.MARGIN_TEXTE_PANEL, Constants.MARGIN_TEXTE_PANEL));
 		frame.getContentPane().add(infoPoint, "cell 0 11,grow");
 
-		saveRoadMap = new JButton("Sauvegarder le feuille de route");
+		saveRoadMap = new JButton("Sauvegarder la feuille de route");
 		frame.getContentPane().add(saveRoadMap, "cell 2 11 2 1,growx");
 
 		log = new JTextField();
@@ -170,6 +174,12 @@ public class Fenetre {
 	
 	public void ecrireInfos(String texte) {
 		infoPoint.setText(texte);
+	}
+
+	public void setTournee(Tournee tournee) {
+		this.tournee = tournee;
+		this.view.setTournee(tournee);
+		
 	}
 
 	public void signalerErreur(String texteErreur){

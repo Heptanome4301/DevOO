@@ -51,4 +51,8 @@ public class Chemin {
 	public Adresse getArrivee() {
 		return arrivee;
 	}
+
+	public boolean contient(Troncon t) {
+		return troncons.contains(t);
+	}
 }

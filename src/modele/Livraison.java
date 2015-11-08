@@ -4,44 +4,39 @@ import java.util.Date;
 
 public class Livraison {
 
-
 	private Date horaire;
 	private Adresse adresse;
 	private FenetreLivraison fenetreLivraison;
 	private int id;
 	private boolean isRetard;
-	
-	
+
 	public int getId() {
 		return id;
 	}
 
+	/*
+	 * @Override public boolean equals(Object obj) { if( obj!=null && obj
+	 * instanceof Livraison ) { return getId() == ((Livraison)obj).getId() ;
+	 * 
+	 * } return false; }
+	 */
 
-	/*@Override
-	public boolean equals(Object obj) {
-		if( obj!=null && obj instanceof Livraison ) {
-			return getId() == ((Livraison)obj).getId() ;
-
-		}
-		return false;
-	} */
-	
-	
 	/**
 	 * appel�e au chargement du fichier des livraison
-	 * @param id 
+	 * 
+	 * @param id
 	 * @param horaire
 	 * @param adresse
 	 * @param fenetreLivraison
 	 */
-	public Livraison(int id, Adresse adresse,FenetreLivraison fenetreLivraison){
+	public Livraison(int id, Adresse adresse, FenetreLivraison fenetreLivraison) {
 		this.horaire = null;
 		this.adresse = adresse;
 		this.fenetreLivraison = fenetreLivraison;
 		this.id = id;
 		this.isRetard = false;
+		adresse.setLivraison(this);
 	}
-
 
 	@Override
 	public int hashCode() {
@@ -55,7 +50,6 @@ public class Livraison {
 		result = prime * result + id;
 		return result;
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -86,45 +80,48 @@ public class Livraison {
 		return true;
 	}
 
-
 	public Date getHoraire() {
 		return horaire;
 	}
-
 
 	public Adresse getAdresse() {
 		return adresse;
 	}
 
-
 	public FenetreLivraison getFenetreLivraison() {
 		return fenetreLivraison;
 	}
-
 
 	public void setHoraire(Date horaire) {
 		this.horaire = horaire;
 	}
 
-
 	public boolean isRetard() {
 		return isRetard;
 	}
-	
+
 	public void positionnerRetard() {
-		if (horaire.after(getFenetreLivraison().getHeureFin()))  {
-        	isRetard = true;
-        }
+		if (horaire.after(getFenetreLivraison().getHeureFin())) {
+			isRetard = true;
+		}
 	}
-	
-	
+
 	@Override
 	public String toString() {
-		return "Livraison [horaire=" + horaire + ", adresse=" + adresse.getId()
-				+ ", fenetreLivraison=" + fenetreLivraison + ", id=" + id
-				+ ", isRetard=" + isRetard + "]";
+		/*
+		 * return "Livraison [horaire=" + horaire + ", adresse=" +
+		 * adresse.getId() + ", fenetreLivraison=" + fenetreLivraison + ", id="
+		 * + id + ", isRetard=" + isRetard + "]";
+		 */
+		String res = "Livraison id=" + id + "\nhoraire=";
+		String Strhoraire = "";
+		if (horaire == null)
+			Strhoraire= "(pas encore calculé)";
+		else
+			Strhoraire = horaire.getHours()+":"+horaire.getMinutes()+":"+horaire.getSeconds();
+		res += Strhoraire + "\nisRetard=" + isRetard;
+		
+		return res;
 	}
-	
-	
-	
+
 }

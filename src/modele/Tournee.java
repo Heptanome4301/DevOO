@@ -223,6 +223,10 @@ public class Tournee extends Observable{
 			chemins[j][0] = plan.calculerChemin(ll.getAdresse(),premiere.getAdresse() );
 			j++;
 		}
+		if(premiere.getId()<0) {
+			premiere.getAdresse().setLivraison(null);
+			livraisons.remove(premiere);
+		}
 		return chemins;
 	}
 	
@@ -244,6 +248,8 @@ public class Tournee extends Observable{
 		chemins.add(plan.calculerChemin(((ArrayList<Chemin>)chemins).get(chemins.size()-1).getArrivee(),this.entrepot));
                 
 		calculerLesDurees( 0 ); 
+		this.setChanged();
+		this.notifyObservers();
 		System.out.println("Tournee calculée : Durée totale " + getDuree());
 	}
 	
@@ -307,7 +313,7 @@ public class Tournee extends Observable{
 		Chemin[][] AllCheminsGraphe = construireAllChemin(fenetreLivraison,addssDepart) ;
 		Graphe graphe = construireGraphe(AllCheminsGraphe);
 		
-		TSP tsp = new TSP2();
+		TSP tsp = new TSP1();
 		tsp.chercheSolution(tpsLimite, graphe);
 		
 		//this.Duree +=tsp.getCoutSolution();
@@ -481,7 +487,14 @@ public class Tournee extends Observable{
 		return null;
 	}
 	
-	
+	public boolean isDansTrournee(Troncon t){
+		if(chemins != null){
+			for(Chemin ch : chemins){
+				if(ch.contient(t)) return true;
+			}
+		}
+		return false;
+	}
 
 	
 }
