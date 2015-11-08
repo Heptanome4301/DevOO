@@ -3,6 +3,8 @@ package controleur;
 import java.io.File;
 import java.io.IOException;
 
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileFilter;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.xml.sax.SAXException;
@@ -36,10 +38,10 @@ public class Controleur {
 	protected static void setEtatCourant(Etat etat) { etatCourant = etat; }
 	
 
-	public Controleur() {
+	public Controleur(Plan plan) {
 		this.historique = new ListeDeCmd();
 		this.etatCourant = etatIni;
-		this.plan = new Plan();
+		this.plan = plan;
 		this.fenetre = new Fenetre(this, plan);
 		this.tournee = null;
 	}
@@ -148,8 +150,48 @@ public class Controleur {
 		}
 	}
 	
-	public void genererFeuilleDeRoute(String fichier){
+	
+	public String getFileSave() throws Exception{
+		
+ 		int returnVal;
+ 		JFileChooser jFileChooserXML = new JFileChooser();
+        jFileChooserXML.setFileFilter(new FileFilter() {
+			
+			@Override
+			public String getDescription() {
+				return "Fichier TXT";
+			}
+			
+			@Override
+			public boolean accept(File f) {
+				if (f == null) return false;
+		    	if (f.isDirectory()) return true;
+		    	String extension = getExtension(f);
+		    	if (extension == null) return false;
+		    	return extension.contentEquals("txt");
+			}
+			
+			private String getExtension(File f) {
+			    String filename = f.getName();
+			    int i = filename.lastIndexOf('.');
+			    if (i>0 && i<filename.length()-1) 
+			    	return filename.substring(i+1).toLowerCase();
+			    return null;
+		   }
+		});
+        jFileChooserXML.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        returnVal = jFileChooserXML.showOpenDialog(null);
+       
+        if (returnVal != JFileChooser.APPROVE_OPTION) 
+        	throw new Exception("Probleme a l'ouverture du fichier");
+        return jFileChooserXML.getSelectedFile().getAbsolutePath();
+		
+	}
+	
+	
+	public void genererFeuilleDeRoute(){
             try {
+            	String fichier = getFileSave();
                 etatCourant.genererFeuilleDeRoute(fichier, tournee);
             } catch (Exception e) {
                 e.printStackTrace();

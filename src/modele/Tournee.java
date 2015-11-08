@@ -191,8 +191,8 @@ public class Tournee extends Observable{
 	private Chemin[][] construireAllChemin(FenetreLivraison fenetreLivraison,Adresse adrssDepart){
 		Livraison premiere =getLivraison(adrssDepart);
 		if(premiere == null){
-			System.err.println(adrssDepart.equals(entrepot));
-			System.err.println("Livraison associer a l'adresse "+adrssDepart.getId()+" de la fenetre"+fenetreLivraison.getHeureDebut()+" est null");
+			//System.err.println(adrssDepart.equals(entrepot));
+			//System.err.println("Livraison associer a l'adresse "+adrssDepart.getId()+" de la fenetre"+fenetreLivraison.getHeureDebut()+" est null");
 			premiere =new Livraison(-1, adrssDepart, fenetreLivraison);
 		}
 		Set<Livraison> livraisons = getLivraison(fenetreLivraison);
