@@ -131,7 +131,7 @@ public class Fenetre {
 		infoPoint.setMargin(new Insets(Constants.MARGIN_TEXTE_PANEL, Constants.MARGIN_TEXTE_PANEL, Constants.MARGIN_TEXTE_PANEL, Constants.MARGIN_TEXTE_PANEL));
 		frame.getContentPane().add(infoPoint, "cell 0 11,grow");
 
-		saveRoadMap = new JButton("Sauvegarder le feuille de route");
+		saveRoadMap = new JButton("Sauvegarder la feuille de route");
 		frame.getContentPane().add(saveRoadMap, "cell 2 11 2 1,growx");
 
 		log = new JTextField();
