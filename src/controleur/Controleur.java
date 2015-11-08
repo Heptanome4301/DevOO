@@ -85,8 +85,8 @@ public class Controleur {
 	}
 	
 	private void calculEchelle() {
-		double echelle1 = (double) fenetre.getSizeView().getWidth() / (plan.getXMax() + Constants.RAYON_NOEUD);
-		double echelle2 = (double) fenetre.getSizeView().getHeight() / (plan.getYMax() + Constants.RAYON_NOEUD);
+		double echelle1 = ( (double) fenetre.getSizeView().getWidth() - 2 * Constants.MARGIN_VUE_GRAPHE ) / (plan.getXMax() + Constants.RAYON_NOEUD);
+		double echelle2 = ( (double) fenetre.getSizeView().getHeight() - 2 * Constants.MARGIN_VUE_GRAPHE ) / (plan.getYMax() + Constants.RAYON_NOEUD);
 		if ( echelle1 < echelle2)
 		{
 			fenetre.setEchelle(echelle1);	
@@ -165,6 +165,16 @@ public class Controleur {
 		// TODO Auto-generated method stub
 		return this.plan;
 		
+	}
+
+
+	public void afficheInfos(int idAdresse) {
+		if (idAdresse < 0) {
+			// ERROR
+		} else {
+			Adresse a = plan.getAdresse(idAdresse);
+			fenetre.ecrireInfos(a.toString());
+		}
 	}
 
 }
