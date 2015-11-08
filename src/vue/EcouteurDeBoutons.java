@@ -44,7 +44,7 @@ public class EcouteurDeBoutons implements ActionListener {
 			controleur.ajouter();
 			break;
 		case SAUVEGARDER_FEUILLE_DE_ROUTE:
-			// controleur.genererFeuilleDeRoute(fichier);
+			controleur.genererFeuilleDeRoute();
 			break;
 		}
 		
