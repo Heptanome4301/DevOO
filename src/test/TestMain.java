@@ -17,7 +17,8 @@ public class TestMain {
 	
 	public static void main(String[] args) {
 		
-		Controleur c = new Controleur();		
+		Controleur c = new Controleur(new Plan());
+		
 	}
 
 

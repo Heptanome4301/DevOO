@@ -7,6 +7,12 @@ import java.util.Observable;
 public class Adresse extends Observable {
 
 	@Override
+	public String toString() {
+		return "Adresse " + id + "\r\n"
+				+ "x=" + x + ", y=" + y;
+	}
+
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -32,38 +38,37 @@ public class Adresse extends Observable {
 	private int x;
 	private int y;
 	private Collection<Troncon> tronconsSortants;
-	
-	public Adresse(int id, int x, int y){
-		this.id= id;
+
+	public Adresse(int id, int x, int y) {
+		this.id = id;
 		this.x = x;
 		this.y = y;
 		tronconsSortants = new ArrayList<Troncon>();
 	}
-	
-	public void ajouterTroncon(Troncon t){
+
+	public void ajouterTroncon(Troncon t) {
 		tronconsSortants.add(t);
 		notifyObservers(t);
 	}
 
-	protected void retirerTroncon(Troncon t){
+	protected void retirerTroncon(Troncon t) {
 		tronconsSortants.remove(t);
 		notifyObservers(t);
 	}
-	
-	
-	public int getId(){
+
+	public int getId() {
 		return id;
 	}
-	
-	public int getX(){
+
+	public int getX() {
 		return x;
 	}
-	
-	public int getY(){
+
+	public int getY() {
 		return y;
 	}
-	
-	public Collection<Troncon> getTroncons(){
+
+	public Collection<Troncon> getTroncons() {
 		return tronconsSortants;
 	}
 }

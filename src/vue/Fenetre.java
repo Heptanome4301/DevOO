@@ -2,11 +2,14 @@ package vue;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Insets;
+
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
+import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -16,6 +19,8 @@ import modele.Plan;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.JSlider;
+
+import util.Constants;
 
 public class Fenetre {
 
@@ -37,7 +42,7 @@ public class Fenetre {
 	private JLabel lblListeDesPoints;
 	
 	private EcouteurDeBoutons ecouteurBoutons;
-	//private EcouteurDeSouris ecouteurSouris;
+	private EcouteurDeSouris ecouteurSouris;
 
 	private final String TITLE = "Livraison Simulator 2015";
 	private final Dimension MINIMUM_SIZE = new Dimension(800, 600);
@@ -55,8 +60,8 @@ public class Fenetre {
 	
 	private void initializeListeners(Controleur c) {
 		this.ecouteurBoutons = new EcouteurDeBoutons(c);
-		//this.ecouteurSouris = new EcouteurDeSouris(c, view, this);
-		
+		this.ecouteurSouris = new EcouteurDeSouris(c, view, this);
+				
 		loadPlan.addActionListener(ecouteurBoutons);
 		loadDeliveries.addActionListener(ecouteurBoutons);
 		computeTour.addActionListener(ecouteurBoutons);
@@ -64,8 +69,10 @@ public class Fenetre {
 		removeDelivery.addActionListener(ecouteurBoutons);
 		swapDelivery.addActionListener(ecouteurBoutons);
 		saveRoadMap.addActionListener(ecouteurBoutons);
-		zoom.addChangeListener(new ZoomListener(view));
 
+		view.addMouseListener(ecouteurSouris);
+		
+//		zoom.addChangeListener(new ZoomListener(view));
 	}
 
 	/**
@@ -99,7 +106,7 @@ public class Fenetre {
 		labelPointList = new JList<String>();
 		frame.getContentPane().add(labelPointList, "cell 0 1 1 10,grow");
 
-		labelTour = new JLabel("CrÃ©er une tournÃ©e");
+		labelTour = new JLabel("Créer une tournée");
 		labelTour.setHorizontalAlignment(SwingConstants.CENTER);
 		frame.getContentPane().add(labelTour, "cell 2 0 2 1,growx");
 
@@ -109,10 +116,10 @@ public class Fenetre {
 		loadDeliveries = new JButton("Charger des livraisons");
 		frame.getContentPane().add(loadDeliveries, "cell 2 2 2 1,growx");
 
-		computeTour = new JButton("Calculer une tournÃ©e");
+		computeTour = new JButton("Calculer une tournée");
 		frame.getContentPane().add(computeTour, "cell 2 3 2 1,growx");
 
-		labelDelivery = new JLabel("Modifier une tournÃ©e");
+		labelDelivery = new JLabel("Modifier une tournée");
 		labelDelivery.setHorizontalAlignment(SwingConstants.CENTER);
 		frame.getContentPane().add(labelDelivery, "cell 2 5 2 1,growx");
 
@@ -126,6 +133,7 @@ public class Fenetre {
 		frame.getContentPane().add(swapDelivery, "cell 2 8 2 1,growx");
 
 		infoPoint = new JTextArea();
+		infoPoint.setMargin(new Insets(Constants.MARGIN_TEXTE_PANEL, Constants.MARGIN_TEXTE_PANEL, Constants.MARGIN_TEXTE_PANEL, Constants.MARGIN_TEXTE_PANEL));
 		frame.getContentPane().add(infoPoint, "cell 0 11,grow");
 
 		saveRoadMap = new JButton("Sauvegarder le feuille de route");
@@ -167,6 +175,10 @@ public class Fenetre {
 	public void ecrireLog(String texte, Color color) {
 		log.setForeground(color);
 		log.setText(texte);
+	}
+	
+	public void ecrireInfos(String texte) {
+		infoPoint.setText(texte);
 	}
 
 }
