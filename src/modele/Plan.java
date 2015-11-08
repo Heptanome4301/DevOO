@@ -123,52 +123,49 @@ public class Plan extends Observable {
 		int nbAdresses = adresses.size();
 		HashMap<Adresse, Double> distMap = new HashMap<Adresse, Double>();
 
-		TreeSet<Adresse> blanc = new TreeSet<Adresse>(new AdresseComparator(
-				distMap));
+		TreeSet<Adresse> blanc = new TreeSet<Adresse>(new AdresseComparator(distMap));
 		ArrayList<Adresse> noir = new ArrayList<Adresse>();
 
-		double min = Integer.MAX_VALUE;
+		double min = Double.MAX_VALUE;
 		Adresse[] precedence = new Adresse[nbAdresses];
 		precedence[a1.getId()] = a1;
 
 		// pour ne pas avoir la meme distance a l'entrepot
 		int k = 0;
 		for (Adresse ad : adresses) {
-			distMap.put(ad, 1000000000000.0 + (k++));
+			distMap.put(ad, Double.MAX_VALUE - (k++));
 		}
 		distMap.put(a1, 0.0);
 		blanc.add(a1);
 
 		while (!blanc.isEmpty()) {
 			Adresse current = blanc.pollFirst();
-
+                        
 			for (Troncon t : current.getTroncons()) {
 				if (!noir.contains(t.getArrivee())) {
 					double dureePrecedente = distMap.get(t.getArrivee());
 					double dureeActuelle = distMap.get(current) + t.getDuree();
-
+                                        
 					// Mise a jour de la distance
 					if (dureeActuelle < dureePrecedente && dureeActuelle < min) {
 						distMap.put(t.getArrivee(), dureeActuelle);
 
 						// Mise a jour du tas binaire
-						if (t.getArrivee() != a2) {
-							blanc.remove(t.getArrivee());
-							blanc.add(t.getArrivee());
-						}
+						if (t.getArrivee() != a2)
+                                                    blanc.add(t.getArrivee());
+                                                else
+                                                    min = dureeActuelle;
 
 						// Mise a jour du precedent
 						precedence[t.getArrivee().getId()] = current;
-
-						if (t.getArrivee() == a2) {
-							min = dureeActuelle;
-						}
+                                                //System.out.println("Precedence["+t.getArrivee().getId()+"] = "+current.getId());
 					}
 				}
 			}
 
-			// Sommet vistï¿½
+			// Sommet visité
 			noir.add(current);
+                        
 		}
 
 		Adresse arrivee = a2;
@@ -178,7 +175,7 @@ public class Plan extends Observable {
 		while (depart != null && arrivee != depart) {
 			// Ajouter le troncon au chemin
 			for (Troncon t : depart.getTroncons()) {
-				if (t.getArrivee() == arrivee) {
+				if (t.getArrivee().equals(arrivee)) {
 					res.ajouterTroncon(t);
 					break;
 				}
