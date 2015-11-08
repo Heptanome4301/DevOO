@@ -2,7 +2,9 @@ package controleur;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.StreamCorruptedException;
 
+import javax.swing.*;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.xml.sax.SAXException;
@@ -134,8 +136,20 @@ public class Controleur {
 			//etatCourant = etatEchanger;
 		}
 	}
-	
-	public void genererFeuilleDeRoute(String fichier){
+
+	private String obtenirFichier(){
+		JFileChooser fc = new JFileChooser();
+		int result = fc.showSaveDialog(null);
+		String fichier = "";
+		if(result == JFileChooser.APPROVE_OPTION){
+			fichier = fc.getSelectedFile().getAbsolutePath();
+		}
+		return fichier;
+		//todo vérifier si on apelle le filechooser dans le controlleur ou la vue
+	}
+	public void genererFeuilleDeRoute(){
+		String fichier;
+		if(!(fichier = obtenirFichier()).equals("")) // si un fichir a été selectionné
                 etatCourant.genererFeuilleDeRoute(fenetre, fichier, tournee);
         }
 

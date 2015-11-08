@@ -176,7 +176,7 @@ public class Fenetre {
 		this.ecrireLog(texteErreur, ERROR_COLOR);
 		JOptionPane.showMessageDialog(null,
 				texteErreur,
-				"Erreur au chargement du plan",
+				"Erreur",
 				JOptionPane.ERROR_MESSAGE);
 	}
 

@@ -67,12 +67,14 @@ public class EtatIni implements Etat {
 
 	@Override
 	public Tournee chargerLivraisons(Fenetre fenetre, Plan plan,File file){
-		throw new UnsupportedOperationException();
+		fenetre.signalerErreur("Il faut charger un plan avant de pouvoir charger des livraisons");
+		return null;
 	}
 
 	@Override
 	public Graphe calculerTournee(Fenetre fenetre, Tournee tournee) {
-		throw new UnsupportedOperationException();
+		fenetre.signalerErreur("Il faut d'abord charger un plan et des livraisons avant de pouvoir calculer la tournée");
+		return null;
 	}
 
 }

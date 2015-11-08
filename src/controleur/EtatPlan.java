@@ -21,16 +21,16 @@ public class EtatPlan extends EtatIni {
 		Tournee resultat = null;
 		try {
 			resultat = plan.chargerLivraison(file);
+			Controleur.setEtatCourant(Controleur.etatLivraison);
 		} catch (ParserConfigurationException e) {
 			e.printStackTrace();
 		} catch (SAXException e) {
-			e.printStackTrace();
+			fenetre.signalerErreur("Fichier xml mal formé.");
 		} catch (IOException e) {
-			e.printStackTrace();
+			fenetre.signalerErreur("Erreur à la lecture du fichier");
 		} catch (ExceptionXML exceptionXML) {
-			exceptionXML.printStackTrace();
+			fenetre.signalerErreur(exceptionXML.getMessage());
 		}
-		Controleur.setEtatCourant(Controleur.etatLivraison);
 		return resultat;
 	}
 	
