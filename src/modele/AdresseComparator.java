@@ -21,7 +21,11 @@ public class AdresseComparator implements Comparator<Adresse> {
 			return -1;
 		else if (val1-val2 > 0.0)
 			return 1;
-		else
-			return 0;
+                else{
+                    if(a1.getId()<a2.getId())
+                        return -1;
+                    else
+                        return 1;
+                }
 	}
 }

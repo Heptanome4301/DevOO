@@ -97,7 +97,7 @@ public class Fenetre {
 		labelPointList = new JList<String>();
 		frame.getContentPane().add(labelPointList, "cell 0 1 1 10,grow");
 
-		labelTour = new JLabel("CrÃ©er une tournÃ©e");
+		labelTour = new JLabel("Créer une tournée");
 		labelTour.setHorizontalAlignment(SwingConstants.CENTER);
 		frame.getContentPane().add(labelTour, "cell 2 0 2 1,growx");
 
@@ -107,10 +107,10 @@ public class Fenetre {
 		loadDeliveries = new JButton("Charger des livraisons");
 		frame.getContentPane().add(loadDeliveries, "cell 2 2 2 1,growx");
 
-		computeTour = new JButton("Calculer une tournÃ©e");
+		computeTour = new JButton("Calculer une tournée");
 		frame.getContentPane().add(computeTour, "cell 2 3 2 1,growx");
 
-		labelDelivery = new JLabel("Modifier une tournÃ©e");
+		labelDelivery = new JLabel("Modifier une tournée");
 		labelDelivery.setHorizontalAlignment(SwingConstants.CENTER);
 		frame.getContentPane().add(labelDelivery, "cell 2 5 2 1,growx");
 

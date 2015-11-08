@@ -20,6 +20,7 @@ import tsp.Graphe;
 import tsp.TSP;
 import tsp.TSP1;
 import tsp.GrapheComplet;
+import tsp.TSP2;
 
 public class Tournee extends Observable{
 	private Plan plan;
@@ -109,7 +110,7 @@ public class Tournee extends Observable{
                     stack.push(Integer.toString(t.getDepart().getId()));
                 }
                 
-                while(stack.size() >= 3){
+                while(!stack.isEmpty()){
                     pw.print(" De : ");
                     pw.print(stack.pop());
                     pw.print(" A : ");
@@ -244,7 +245,7 @@ public class Tournee extends Observable{
 		chemins.add(plan.calculerChemin(((ArrayList<Chemin>)chemins).get(chemins.size()-1).getArrivee(),this.entrepot));
                 
 		calculerLesDurees( 0 ); 
-		System.out.println("Tournee calcul�e");
+		System.out.println("Tournee calculée : Durée totale " + getDuree());
 	}
 	
 	// indice dans chemins du premier chemin à partir dulequel
@@ -307,7 +308,7 @@ public class Tournee extends Observable{
 		Chemin[][] AllCheminsGraphe = construireAllChemin(fenetreLivraison,addssDepart) ;
 		Graphe graphe = construireGraphe(AllCheminsGraphe);
 		
-		TSP tsp = new TSP1();
+		TSP tsp = new TSP2();
 		tsp.chercheSolution(tpsLimite, graphe);
 		
 		//this.Duree +=tsp.getCoutSolution();
