@@ -97,7 +97,7 @@ public class Fenetre {
 		labelPointList = new JList<String>();
 		frame.getContentPane().add(labelPointList, "cell 0 1 1 10,grow");
 
-		labelTour = new JLabel("Créer une tournée");
+		labelTour = new JLabel("Crï¿½er une tournï¿½e");
 		labelTour.setHorizontalAlignment(SwingConstants.CENTER);
 		frame.getContentPane().add(labelTour, "cell 2 0 2 1,growx");
 
@@ -107,10 +107,10 @@ public class Fenetre {
 		loadDeliveries = new JButton("Charger des livraisons");
 		frame.getContentPane().add(loadDeliveries, "cell 2 2 2 1,growx");
 
-		computeTour = new JButton("Calculer une tournée");
+		computeTour = new JButton("Calculer une tournï¿½e");
 		frame.getContentPane().add(computeTour, "cell 2 3 2 1,growx");
 
-		labelDelivery = new JLabel("Modifier une tournée");
+		labelDelivery = new JLabel("Modifier une tournï¿½e");
 		labelDelivery.setHorizontalAlignment(SwingConstants.CENTER);
 		frame.getContentPane().add(labelDelivery, "cell 2 5 2 1,growx");
 
@@ -178,6 +178,14 @@ public class Fenetre {
 				texteErreur,
 				"Erreur",
 				JOptionPane.ERROR_MESSAGE);
+	}
+
+	public boolean confirmerSuppression(){
+		int result = JOptionPane.showConfirmDialog(null,
+				"Etes vous sur de vouloir supprimer cette livraison",
+				"Supprimer?",
+				JOptionPane.CANCEL_OPTION);
+		return result == 0;
 	}
 
 }

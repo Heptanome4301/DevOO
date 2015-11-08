@@ -3,21 +3,28 @@ package controleur;
 import modele.Adresse;
 import modele.Plan;
 import modele.Tournee;
+import util.Constants;
+import vue.Fenetre;
 
-public class EtatSupprimer extends EtatIni {
+public class EtatSupprimer extends EtatTournee {
 
-	
-	/*public void clicNoeud(Adresse adresse,Plan plan,Tournee tournee, ListeDeCmd listeCmd) throws Exception {
-		//TODO
-		CmdSupprimer cmd = null;
+	@Override
+	public void clicNoeud(Fenetre fenetre, Adresse adresse, Plan plan, Tournee tournee, ListeDeCmd listeCmd) {
+		if(fenetre.confirmerSuppression()) {
+			//TODO
+		/*CmdSupprimer cmd = null;
 		listeCmd.ajoute(cmd);
-		cmd.doCmd();
+		cmd.doCmd();*/
+		}
 		Controleur.setEtatCourant(Controleur.etatTournee);
-	}*/
+		fenetre.ecrireLog(Constants.LOGS_DEFAULT);
+
+	}
 	
-	public void clicDroit() {
+	public void clicDroit(Fenetre fenetre) {
 		// action = annuler
 		Controleur.setEtatCourant(Controleur.etatTournee);
+		fenetre.ecrireLog(Constants.LOGS_DEFAULT);
 	}
 	
 	

@@ -81,7 +81,6 @@ public class Tournee extends Observable{
 	 *  que le livreur doit suivre pour effectuer sa tournée 
 	 * @throws Exception si échec de création du fichier de sortie
 	 * (soit le path n'est pas valide, ou que le calcul de la tournée n'est pas fait)
-	 * @param FichierDeSortie 
 	 * si un appel à calculerTournee n'est pas fait auparavant
 	 * le fichier ne sera pas créé et une exception est levée
 	 */
@@ -227,7 +226,7 @@ public class Tournee extends Observable{
 		return chemins;
 	}
 	
-	public void calculerTournee(){
+	public void calculerTournee(){ //todo prévoir que les profs peuvent être des trolls : cul de sac
 		System.out.println("Cacul de la tourn�e...");
 		this.chemins = new ArrayList<Chemin>();
 		

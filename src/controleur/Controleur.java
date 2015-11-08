@@ -1,22 +1,13 @@
 package controleur;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.StreamCorruptedException;
-
-import javax.swing.*;
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.xml.sax.SAXException;
-
-import tsp.Graphe;
-import util.Constants;
-import vue.Fenetre;
-import xml.ExceptionXML;
-import xml.OuvreurDeFichiersXML;
 import modele.Adresse;
 import modele.Plan;
 import modele.Tournee;
+import tsp.Graphe;
+import util.Constants;
+import vue.Fenetre;
+
+import javax.swing.*;
 
 public class Controleur {
 	
@@ -41,20 +32,20 @@ public class Controleur {
 
 	public Controleur() {
 		this.historique = new ListeDeCmd();
-		this.etatCourant = etatIni;
+		Controleur.etatCourant = etatIni;
 		this.plan = new Plan();
 		this.fenetre = new Fenetre(this, plan);
 		this.tournee = null;
 	}
 	
 	/**
-	 * Annule la dernière modification effectuée sur la tournée (ajout, suppression ou échange de livraisons)
+	 * Annule la derniï¿½re modification effectuï¿½e sur la tournï¿½e (ajout, suppression ou ï¿½change de livraisons)
 	 */
 	public void undo() {
 			etatCourant.undo(fenetre, historique);
 	}
 	/**
-	 * Réeffectue la dernière action annulée
+	 * Rï¿½effectue la derniï¿½re action annulï¿½e
 	 */
 	public void redo() {
 			etatCourant.redo(fenetre, historique);
@@ -63,19 +54,14 @@ public class Controleur {
 	
 	public Graphe chargerPlan()  {
 		plan.clear();
-		File xml ;
 		tournee = null;
-		try {
-			xml = OuvreurDeFichiersXML.getInstance().ouvre();
-			etatCourant.chargerPlan(fenetre, plan,xml);
-		} catch (Exception e) {
-			//TODO signaler erreur a la vue
-			e.printStackTrace();
-		} finally {
-			this.calculEchelle();
-		}
+
+		etatCourant.chargerPlan(fenetre, plan);
+
+		this.calculEchelle();
+
 		return null;
-		//TODO
+		//fixme pourquoi Ã§a doit renvoyer un graphe??
 	}
 	
 	private void calculEchelle() {
@@ -92,17 +78,10 @@ public class Controleur {
 
 
 	public Graphe chargerLivraisons() {
-	    File xml ;
 	    tournee = null;
-		try {
-			xml = OuvreurDeFichiersXML.getInstance().ouvre();
-			tournee = etatCourant.chargerLivraisons(fenetre, plan,xml);
-
-		} catch (ExceptionXML exceptionXML) {
-			exceptionXML.printStackTrace();
-		}
+		tournee = etatCourant.chargerLivraisons(fenetre, plan);
 	    return null;
-	    //TODO
+	    //TODO why?
 	}
 	
 	public Graphe calculerTournee() {
@@ -110,31 +89,24 @@ public class Controleur {
 		return null;
 	}
 	
-	public void clicNoeud(Adresse adresse, Plan plan,Tournee tournee, ListeDeCmd listeCmd) {
-			etatCourant.clicNoeud(fenetre, adresse,plan,tournee, listeCmd);
+	public void clicNoeud(int idAdresse) {
+			etatCourant.clicNoeud(fenetre, plan.getAdresse(idAdresse),plan,tournee, historique);
 	}
 	
 	public void clicDroit() {
-		etatCourant.clicDroit();
+		etatCourant.clicDroit(fenetre);
 	}
 	
 	public void ajouter() {
-		if(etatCourant == etatTournee) {
-			etatCourant = etatAjouter1;
-		}
-		
+		etatCourant.ajouter(fenetre);
 	}
 	
 	public void supprimer() {
-		if(etatCourant == etatTournee) {
-			etatCourant = etatSupprimer;	
-		}
+		etatCourant.supprimer(fenetre);
 	}
 	
 	public void echanger() {
-		if(etatCourant == etatTournee) {
-			//etatCourant = etatEchanger;
-		}
+		etatCourant.echanger(fenetre);
 	}
 
 	private String obtenirFichier(){
@@ -145,11 +117,11 @@ public class Controleur {
 			fichier = fc.getSelectedFile().getAbsolutePath();
 		}
 		return fichier;
-		//todo vérifier si on apelle le filechooser dans le controlleur ou la vue
+		//todo vï¿½rifier si on apelle le filechooser dans le controlleur ou la vue
 	}
 	public void genererFeuilleDeRoute(){
 		String fichier;
-		if(!(fichier = obtenirFichier()).equals("")) // si un fichir a été selectionné
+		if(!(fichier = obtenirFichier()).equals("")) // si un fichir a ï¿½tï¿½ selectionnï¿½
                 etatCourant.genererFeuilleDeRoute(fenetre, fichier, tournee);
         }
 
