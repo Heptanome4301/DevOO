@@ -64,7 +64,7 @@ public class XMLParser {
 			throw new ExceptionXML(ExceptionXML.ATTRIBUT_NEGATIF);
 
 		
-		System.out.println("Le noeud " + id +" a pour coordonn�es ("+ x + "," + y + ")");
+		//System.out.println("Le noeud " + id +" a pour coordonn�es ("+ x + "," + y + ")");
 		p.ajouterAdresse(new Adresse(id,x,y));
 		
 	}
@@ -166,8 +166,8 @@ public class XMLParser {
 		Hfin = elt.getAttribute("heureFin");
 		
 	
-		Date debut = paseDate(Hdebut);
-		Date fin = paseDate(Hfin);
+		Date debut = parseDate(Hdebut);
+		Date fin = parseDate(Hfin);
 		
 		if( debut.after(fin) )
 			throw new ExceptionXML(ExceptionXML.PLAGE_HORAIRE_INVALIDE);
@@ -179,7 +179,7 @@ public class XMLParser {
 		return new FenetreLivraison(debut, fin);
 	}
 	
-	private static Date paseDate(String hdebut) throws ExceptionXML {
+	private static Date parseDate(String hdebut) throws ExceptionXML {
 		// TODO Auto-generated method stub
 		String[] hDebutSplitted = hdebut.split(":");
 		try{
@@ -216,63 +216,10 @@ public class XMLParser {
 		
 		
 
-		System.out.println("Livraison � l'adresse id=" + idAdresse +" fenetreLivraison id= "+fenetrelivraison.getHeureDebut());
+		//System.out.println("Livraison � l'adresse id=" + idAdresse +" fenetreLivraison id= "+fenetrelivraison.getHeureDebut());
 
 		
 		return new Livraison(id,adresse,fenetrelivraison);
 		
 	}
-	
-
-	
-	
-	//A LAISSER EN COMMENTAIRE, C'EST BON POUR LE COPIE-COL... EUUUUUUH, L'INSPIRATION.
-	
-	
-    /*private static void construireAPartirDeDOMXML(Element noeudDOMRacine) throws ExceptionXML, NumberFormatException{
-    	int hauteur = Integer.parseInt(noeudDOMRacine.getAttribute("hauteur"));
-        if (hauteur <= 0)
-        	throw new ExceptionXML("Erreur lors de la lecture du fichier : La hauteur du plan doit etre positive");
-        int largeur = Integer.parseInt(noeudDOMRacine.getAttribute("largeur"));
-        if (largeur <= 0)
-        	throw new ExceptionXML("Erreur lors de la lecture du fichier : La largeur du plan doit etre positive");
-       	plan.reset(largeur,hauteur);
-       	NodeList listeCercles = noeudDOMRacine.getElementsByTagName("cercle");
-       	for (int i = 0; i < listeCercles.getLength(); i++) {
-        	plan.ajoute(creeCercle((Element) listeCercles.item(i)));
-       	}
-       	NodeList listeRectangles = noeudDOMRacine.getElementsByTagName("rectangle");
-       	for (int i = 0; i < listeRectangles.getLength(); i++) {
-          	plan.ajoute(creeRectangle((Element) listeRectangles.item(i)));
-       	}
-    }
-    
-    private static Cercle creeCercle(Element elt) throws ExceptionXML{
-   		int x = Integer.parseInt(elt.getAttribute("x"));
-   		int y = Integer.parseInt(elt.getAttribute("y"));
-   		Point p = PointFactory.creePoint(x, y);
-   		if (p == null)
-   			throw new ExceptionXML("Erreur lors de la lecture du fichier : Coordonnees d'un point en dehors du plan");
-   		int rayon = Integer.parseInt(elt.getAttribute("rayon"));
-   		if (rayon <= 0)
-   			throw new ExceptionXML("Erreur lors de la lecture du fichier : Cercle de rayon negatif ou nul");
-   		return new Cercle(p, rayon);
-    }
-    
-    private static Rectangle creeRectangle(Element elt) throws ExceptionXML{
-   		int x = Integer.parseInt(elt.getAttribute("x"));
-   		int y = Integer.parseInt(elt.getAttribute("y"));
-   		Point p = PointFactory.creePoint(x, y);
-   		if (p == null)
-   			throw new ExceptionXML("Erreur lors de la lecture du fichier : Coordonnees d'un point en dehors du plan");
-      	int largeurRectangle = Integer.parseInt(elt.getAttribute("largeur"));
-   		if (largeurRectangle <= 0)
-   			throw new ExceptionXML("Erreur lors de la lecture du fichier : Rectangle de largeur negative ou nulle");
-      	int hauteurRectangle = Integer.parseInt(elt.getAttribute("hauteur"));
-   		if (hauteurRectangle <= 0)
-   			throw new ExceptionXML("Erreur lors de la lecture du fichier : Rectangle de hauteur negative ou nulle");
-   		return new Rectangle(p, largeurRectangle, hauteurRectangle);
-    }*/
-    
- 
 }

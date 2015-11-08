@@ -42,6 +42,9 @@ public class EtatIni implements Etat {
 	public Graphe chargerPlan(Plan plan, File file) throws Exception {
 		plan.chargerPlan(file);
 		Controleur.setEtatCourant(Controleur.etatPlan);
+                
+                plan.calculerChemin(plan.getAdresse(309), plan.getAdresse(257));
+                
 		return null;
 		//TODO
 	}

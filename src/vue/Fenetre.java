@@ -37,7 +37,7 @@ public class Fenetre {
 	private JLabel lblListeDesPoints;
 	
 	private EcouteurDeBoutons ecouteurBoutons;
-	private EcouteurDeSouris ecouteurSouris;
+	//private EcouteurDeSouris ecouteurSouris;
 
 	private final String TITLE = "Livraison Simulator 2015";
 	private final Dimension MINIMUM_SIZE = new Dimension(800, 600);
@@ -55,7 +55,7 @@ public class Fenetre {
 	
 	private void initializeListeners(Controleur c) {
 		this.ecouteurBoutons = new EcouteurDeBoutons(c);
-		this.ecouteurSouris = new EcouteurDeSouris(c, view, this);
+		//this.ecouteurSouris = new EcouteurDeSouris(c, view, this);
 		
 		loadPlan.addActionListener(ecouteurBoutons);
 		loadDeliveries.addActionListener(ecouteurBoutons);
