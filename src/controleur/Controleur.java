@@ -81,6 +81,7 @@ public class Controleur {
 			e.printStackTrace();
 		} finally {
 			this.calculEchelle();
+                        //System.out.println("Plan chargé.");
 		}
 		return null;
 		//TODO
@@ -109,12 +110,14 @@ public class Controleur {
 	            //TODO signaler erreur a la vue
 	            e.printStackTrace();
 	    }
+            //System.out.println("Livraisons chargées.");
 	    return null;
 	    //TODO
 	}
 	
 	public Graphe calculerTournee() {
 		etatCourant.calculerTournee(tournee);
+                //System.out.println("Tournée calculée");
 		return null;
 	}
 	
@@ -155,7 +158,7 @@ public class Controleur {
 		
  		int returnVal;
  		JFileChooser jFileChooserXML = new JFileChooser();
-        jFileChooserXML.setFileFilter(new FileFilter() {
+                jFileChooserXML.setFileFilter(new FileFilter() {
 			
 			@Override
 			public String getDescription() {

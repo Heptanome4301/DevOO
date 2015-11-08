@@ -32,7 +32,7 @@ public class EcouteurDeBoutons implements ActionListener {
 			controleur.chargerLivraisons();
 			break;
 		case CALCULER_TOURNEE:
-			controleur.getTournee();
+			controleur.calculerTournee();
 			break;
 		case AJOUTER_LIVRAISONS:
 			controleur.ajouter();
