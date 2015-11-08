@@ -2,6 +2,31 @@ package modele;
 
 public class Troncon {
 	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((arrivee == null) ? 0 : arrivee.hashCode());
+		result = prime * result + ((depart == null) ? 0 : depart.hashCode());
+		result = prime * result + ((nomRue == null) ? 0 : nomRue.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if(obj == null ) 
+			return false; 
+		if(obj.getClass() != getClass())
+			return false;
+		
+		Troncon other = (Troncon) obj;
+		
+		return getArrivee().getId() == other.getArrivee().getId()
+			&& getDepart().getId() == other.getDepart().getId()
+			&& getNomRue() == other.getNomRue();
+		
+	}
+
 	private String nomRue;
 	private double longueur;
 	private double vitesse;
