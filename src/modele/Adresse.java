@@ -6,10 +6,37 @@ import java.util.Observable;
 
 public class Adresse extends Observable {
 
+	private int id;
+	private int x;
+	private int y;
+	private Livraison livraison;
+	private Collection<Troncon> tronconsSortants;
+	
+	protected void setLivraison(Livraison l){
+		this.livraison = l;
+	}
+	
+	public boolean estAssocierAvecLivraison(){
+		return livraison != null;
+	}
+	
+	public Adresse(int id, int x, int y) {
+		this.id = id;
+		this.x = x;
+		this.y = y;
+		tronconsSortants = new ArrayList<Troncon>();
+		livraison = null;
+	}
+	
+	
 	@Override
 	public String toString() {
-		return "Adresse " + id + "\r\n"
+		String res = "Adresse " + id + "\r\n"
 				+ "x=" + x + ", y=" + y;
+		if(estAssocierAvecLivraison() ){
+			res += "\n"+livraison;
+		}
+		return res;
 	}
 
 	@Override
@@ -34,17 +61,9 @@ public class Adresse extends Observable {
 		return true;
 	}
 
-	private int id;
-	private int x;
-	private int y;
-	private Collection<Troncon> tronconsSortants;
 
-	public Adresse(int id, int x, int y) {
-		this.id = id;
-		this.x = x;
-		this.y = y;
-		tronconsSortants = new ArrayList<Troncon>();
-	}
+
+
 
 	public void ajouterTroncon(Troncon t) {
 		tronconsSortants.add(t);

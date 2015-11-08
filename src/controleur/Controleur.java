@@ -14,6 +14,7 @@ import util.Constants;
 import vue.Fenetre;
 import xml.OuvreurDeFichiersXML;
 import modele.Adresse;
+import modele.Livraison;
 import modele.Plan;
 import modele.Tournee;
 
@@ -105,6 +106,7 @@ public class Controleur {
 	    try {
 	            xml = OuvreurDeFichiersXML.getInstance().ouvre();
 	            tournee = etatCourant.chargerLivraisons(plan,xml);
+	            fenetre.setTournee(tournee);
 	    } catch (Exception e) {
 	            //TODO signaler erreur a la vue
 	            e.printStackTrace();

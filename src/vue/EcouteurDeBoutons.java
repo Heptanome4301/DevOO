@@ -9,7 +9,7 @@ public class EcouteurDeBoutons implements ActionListener {
 	
 	private final String CHARGER_PLAN = "Charger un plan";
 	private final String CHARGER_LIVRAISONS = "Charger des livraisons";
-	private final String CALCULER_TOURNEE = "Calculer une tournée";
+	private final String CALCULER_TOURNEE = "Calculer une tournï¿½e";
 	private final String AJOUTER_LIVRAISONS = "Ajouter une livraison";
 	private final String SUPPRIMER_LIVRAISON = "Supprimer une livraison";
 	private final String INVERSER_LIVRAISONS = "Inverser deux livraisons";
@@ -32,7 +32,7 @@ public class EcouteurDeBoutons implements ActionListener {
 			controleur.chargerLivraisons();
 			break;
 		case CALCULER_TOURNEE:
-			controleur.getTournee();
+			controleur.calculerTournee();
 			break;
 		case AJOUTER_LIVRAISONS:
 			controleur.ajouter();

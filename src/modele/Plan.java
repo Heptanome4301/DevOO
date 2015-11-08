@@ -39,8 +39,8 @@ public class Plan extends Observable {
 	 */
 	public void ajouterAdresse(Adresse a) {
 		adresses.add(a);
-		this.setChanged();
-		this.notifyObservers(a); // Pour l'instant on n'utilise pas "a"
+		//this.setChanged();
+		//this.notifyObservers(a); // Pour l'instant on n'utilise pas "a"
 	}
 
 	/**
@@ -55,6 +55,8 @@ public class Plan extends Observable {
 		XMLParser.chargerPlan(this, xml);
 		verifierPlan();
 		initXMaxYMax();
+		this.setChanged();
+		this.notifyObservers();
 	}
 
 
@@ -104,6 +106,8 @@ public class Plan extends Observable {
 			throws ParserConfigurationException, SAXException, IOException,
 			ExceptionXML {
 		tournee = XMLParser.chargerLivraison(this, xml);
+		this.setChanged();
+		this.notifyObservers();
 		return tournee;
 	}
 
@@ -163,7 +167,7 @@ public class Plan extends Observable {
 				}
 			}
 
-			// Sommet visité
+			// Sommet visitï¿½
 			noir.add(current);
                         
 		}
@@ -278,6 +282,10 @@ public class Plan extends Observable {
 			}
 		}
 		return listeTroncons;
+	}
+
+	public Tournee getTournee() {
+		return tournee;
 	}
 
 

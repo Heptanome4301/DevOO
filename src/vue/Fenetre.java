@@ -3,6 +3,7 @@ package vue;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Insets;
+import java.util.Observer;
 
 import javax.swing.JFrame;
 import javax.swing.JList;
@@ -16,6 +17,7 @@ import javax.swing.JLabel;
 
 import controleur.Controleur;
 import modele.Plan;
+import modele.Tournee;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.JSlider;
@@ -48,6 +50,7 @@ public class Fenetre {
 	private final Dimension MINIMUM_SIZE = new Dimension(800, 600);
 	private JSlider zoom;
 	private JLabel lblZoom;
+	private Tournee tournee;
 
 	/**
 	 * Create the application.
@@ -57,6 +60,7 @@ public class Fenetre {
 		ajouterView(p);
 		initializeListeners(c);
 	}
+
 	
 	private void initializeListeners(Controleur c) {
 		this.ecouteurBoutons = new EcouteurDeBoutons(c);
@@ -106,7 +110,7 @@ public class Fenetre {
 		labelPointList = new JList<String>();
 		frame.getContentPane().add(labelPointList, "cell 0 1 1 10,grow");
 
-		labelTour = new JLabel("Créer une tournée");
+		labelTour = new JLabel("Crï¿½er une tournï¿½e");
 		labelTour.setHorizontalAlignment(SwingConstants.CENTER);
 		frame.getContentPane().add(labelTour, "cell 2 0 2 1,growx");
 
@@ -116,10 +120,10 @@ public class Fenetre {
 		loadDeliveries = new JButton("Charger des livraisons");
 		frame.getContentPane().add(loadDeliveries, "cell 2 2 2 1,growx");
 
-		computeTour = new JButton("Calculer une tournée");
+		computeTour = new JButton("Calculer une tournï¿½e");
 		frame.getContentPane().add(computeTour, "cell 2 3 2 1,growx");
 
-		labelDelivery = new JLabel("Modifier une tournée");
+		labelDelivery = new JLabel("Modifier une tournï¿½e");
 		labelDelivery.setHorizontalAlignment(SwingConstants.CENTER);
 		frame.getContentPane().add(labelDelivery, "cell 2 5 2 1,growx");
 
@@ -180,5 +184,14 @@ public class Fenetre {
 	public void ecrireInfos(String texte) {
 		infoPoint.setText(texte);
 	}
+
+
+	public void setTournee(Tournee tournee) {
+		this.tournee = tournee;
+		this.view.setTournee(tournee);
+		
+	}
+
+
 
 }

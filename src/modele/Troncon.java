@@ -18,7 +18,7 @@ public class Troncon {
 			this.duree=0 ; 
 		this.arrivee = arrivee;
 		this.depart = depart;
-		this.nomRue = nomRue;
+		this.nomRue = depart.getId()+"->"+arrivee.getId();//nomRue;
 	}
 	
 	public String getNomRue(){
