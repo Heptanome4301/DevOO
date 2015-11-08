@@ -3,6 +3,7 @@ package controleur;
 import modele.Adresse;
 import modele.Plan;
 import modele.Tournee;
+import vue.Fenetre;
 
 public class EtatEchanger1 extends EtatIni {
 	
@@ -12,7 +13,7 @@ public class EtatEchanger1 extends EtatIni {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public void clicNoeud(Adresse adresse,Tournee tournee, ListeDeCmd listeCmd) {
+	public void clicNoeud(Fenetre fenetre, Adresse adresse, Tournee tournee, ListeDeCmd listeCmd) {
 		Controleur.etatEchanger2.setAdresse(adresse);
 		Controleur.setEtatCourant(Controleur.etatEchanger2);
 	}

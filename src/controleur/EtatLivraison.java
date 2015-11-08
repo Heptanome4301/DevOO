@@ -5,6 +5,7 @@ import java.io.File;
 import modele.Plan;
 import modele.Tournee;
 import tsp.Graphe;
+import vue.Fenetre;
 
 public class EtatLivraison extends EtatIni {
 
@@ -12,14 +13,14 @@ public class EtatLivraison extends EtatIni {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Graphe calculerTournee(Tournee tournee) {
+	public Graphe calculerTournee(Fenetre fenetre, Tournee tournee) {
 		// TODO Auto-generated method stub
 		tournee.calculerTournee();
 		Controleur.setEtatCourant(Controleur.etatTournee);
 		return null;
 	}
 	
-	public Tournee chargerLivraisons(Plan plan,File file) throws Exception {
+	public Tournee chargerLivraisons(Fenetre fenetre, Plan plan,File file){
 		// TODO Auto-generated method stub
 		//plan.chargerLivraison();
 		// plan.chargerLivraison(file);

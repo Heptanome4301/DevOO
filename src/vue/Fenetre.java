@@ -4,21 +4,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Insets;
 
-import javax.swing.JFrame;
-import javax.swing.JList;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
-import javax.swing.JTextArea;
-import javax.swing.JTextPane;
-import javax.swing.SwingConstants;
-import javax.swing.JButton;
-import javax.swing.JLabel;
+import javax.swing.*;
 
 import controleur.Controleur;
 import modele.Plan;
 import net.miginfocom.swing.MigLayout;
-
-import javax.swing.JSlider;
 
 import util.Constants;
 
@@ -46,6 +36,7 @@ public class Fenetre {
 
 	private final String TITLE = "Livraison Simulator 2015";
 	private final Dimension MINIMUM_SIZE = new Dimension(800, 600);
+	private final Color ERROR_COLOR = Color.RED;
 	private JSlider zoom;
 	private JLabel lblZoom;
 
@@ -179,6 +170,14 @@ public class Fenetre {
 	
 	public void ecrireInfos(String texte) {
 		infoPoint.setText(texte);
+	}
+
+	public void signalerErreur(String texteErreur){
+		this.ecrireLog(texteErreur, ERROR_COLOR);
+		JOptionPane.showMessageDialog(null,
+				texteErreur,
+				"Erreur",
+				JOptionPane.ERROR_MESSAGE);
 	}
 
 }
