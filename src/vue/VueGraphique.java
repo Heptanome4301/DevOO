@@ -132,4 +132,13 @@ public class VueGraphique extends JPanel implements Observer, Visiteur {
 	public int changerRepere(int x) {
         return (int) ((x - Constants.MARGIN_VUE_GRAPHE) / echelle);
 	}
+
+	public void deselection() {
+		this.idAdresseSelectionne = null;
+	}
+	
+	public void selection(int idAdresseSelectionne) {
+		this.idAdresseSelectionne = idAdresseSelectionne;
+		this.repaint();
+	}
 }

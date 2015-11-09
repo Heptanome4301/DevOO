@@ -5,6 +5,7 @@ import modele.Plan;
 import modele.Tournee;
 import util.Constants;
 import vue.Fenetre;
+import vue.VueGraphique;
 import xml.OuvreurDeFichiersXML;
 
 import java.io.File;
@@ -30,6 +31,13 @@ public class EtatPlan extends EtatIni {
 	//TODO implémenter clicNoeuds : la mise à jour de l'affichage doit passer par le controlleur
 	
 	public void clicNoeud(Fenetre fenetre, Adresse adresse,Plan plan, Tournee tournee, ListeDeCmd listeCmd){
-		
+		VueGraphique vue = fenetre.getVue();
+		if (adresse == null) {
+			vue.deselection();
+		} else {
+			vue.selection(adresse.getId());
+			fenetre.ecrireInfos(adresse.toString());
+		}
+
 	}
 }
