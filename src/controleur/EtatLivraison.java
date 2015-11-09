@@ -20,7 +20,7 @@ public class EtatLivraison extends EtatPlan {
 	@Override
 	public void clicListLivraisons(Fenetre fenetre, Livraison livraison) {
 		fenetre.getVue().selection(livraison.getAdresse().getId());
-		fenetre.ecrireInfos(livraison.toString());
+		fenetre.ecrireInfos(livraison.getAdresse().toString());
 	}
 	
 
