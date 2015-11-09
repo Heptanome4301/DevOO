@@ -47,7 +47,7 @@ public class EtatIni implements Etat {
 			xml = OuvreurDeFichiersXML.getInstance().ouvre();
 			plan.chargerPlan(xml);
 			Controleur.setEtatCourant(Controleur.etatPlan);
-			fenetre.ecrireLog(Constants.LOGS_PLAN);
+                        fenetre.ecrireLog(Constants.LOGS_PLAN);
 		} catch (Exception e){
 			fenetre.signalerErreur(e.getMessage());
 			Controleur.setEtatCourant(Controleur.etatIni);
@@ -55,9 +55,8 @@ public class EtatIni implements Etat {
 	}
 
 	@Override
-	public Tournee chargerLivraisons(Fenetre fenetre, Plan plan){
+	public void chargerLivraisons(Fenetre fenetre, Plan plan){
 		fenetre.signalerErreur("Il faut charger un plan avant de pouvoir charger des livraisons.");
-		return null; //fixme pourquoi renvoyer une tournée?
 	}
 
 	@Override

@@ -11,7 +11,7 @@ public interface Etat {
 	void redo(Fenetre fenetre, ListeDeCmd listeCmd);
 	void clicNoeud(Fenetre fenetre, Adresse adresse,Plan plan,Tournee tournee, ListeDeCmd listeCmd);
 	void chargerPlan(Fenetre fenetre, Plan plan);
-	Tournee chargerLivraisons(Fenetre fenetre, Plan plan);
+	void chargerLivraisons(Fenetre fenetre, Plan plan);
 	void calculerTournee(Fenetre fenetre, Tournee tournee);
 	void genererFeuilleDeRoute(Fenetre fenetre, String fichier,Tournee tournee);
 	void clicDroit(Fenetre fenetre);

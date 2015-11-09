@@ -1,13 +1,10 @@
 package controleur;
 
 import modele.Adresse;
-import modele.Livraison;
 import modele.Plan;
 import modele.Tournee;
-import tsp.Graphe;
 import util.Constants;
 import vue.Fenetre;
-
 import javax.swing.*;
 
 public class Controleur {
@@ -15,7 +12,6 @@ public class Controleur {
 	private ListeDeCmd historique;
 	private static Etat etatCourant;
 	private Plan plan;
-	private Tournee tournee;
 	private Fenetre fenetre;
 	
 	protected static final EtatIni etatIni = new EtatIni();
@@ -28,7 +24,9 @@ public class Controleur {
 	protected static final EtatEchanger1 etatEchanger1 = new EtatEchanger1();
 	protected static final EtatEchanger2 etatEchanger2 = new EtatEchanger2();
 	
-	protected static void setEtatCourant(Etat etat) { etatCourant = etat; }
+	protected static void setEtatCourant(Etat etat) { 
+            etatCourant = etat;
+        }
 	
 
 	public Controleur() {
@@ -36,7 +34,6 @@ public class Controleur {
 		Controleur.etatCourant = etatIni;
 		this.plan = new Plan();
 		this.fenetre = new Fenetre(this, plan);
-		this.tournee = null;
 	}
 	
 	/**
@@ -55,7 +52,6 @@ public class Controleur {
 	
 	public void chargerPlan()  {
 		plan.clear();
-		tournee = null;
 		etatCourant.chargerPlan(fenetre, plan);
 		this.calculEchelle();
 	}
@@ -74,17 +70,16 @@ public class Controleur {
 
 
 	public void chargerLivraisons() {
-	    tournee = null;
-            tournee = etatCourant.chargerLivraisons(fenetre, plan);
+            etatCourant.chargerLivraisons(fenetre, plan);
 	}
 	
 	public void calculerTournee() {
-		etatCourant.calculerTournee(fenetre, tournee);
+		etatCourant.calculerTournee(fenetre, plan.getTournee());
 	}
 	
 	public void clicNoeud(int idAdresse) {
-			afficheInfos(idAdresse);
-			etatCourant.clicNoeud(fenetre, plan.getAdresse(idAdresse),plan,tournee, historique);
+            afficheInfos(idAdresse);
+            etatCourant.clicNoeud(fenetre, plan.getAdresse(idAdresse),plan, plan.getTournee(), historique);
 	}
 	
 	public void clicDroit() {
@@ -114,15 +109,15 @@ public class Controleur {
 		//todo v�rifier si on apelle le filechooser dans le controlleur ou la vue
 	}
 
-    public void genererFeuilleDeRoute(){
+        public void genererFeuilleDeRoute(){
 		String fichier;
                 fichier = obtenirFichier();
 		if(!fichier.equals("")) // si un fichir a �t� selectionn�
-                    etatCourant.genererFeuilleDeRoute(fenetre, fichier, tournee);
+                    etatCourant.genererFeuilleDeRoute(fenetre, fichier, plan.getTournee());
         }
 
 	public Tournee getTournee() {
-		return tournee;
+		return plan.getTournee();
 	}
 
 
