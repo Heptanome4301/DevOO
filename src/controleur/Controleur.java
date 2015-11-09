@@ -24,7 +24,9 @@ public class Controleur {
 	protected static final EtatEchanger1 etatEchanger1 = new EtatEchanger1();
 	protected static final EtatEchanger2 etatEchanger2 = new EtatEchanger2();
 	
-	protected static void setEtatCourant(Etat etat) { etatCourant = etat; }
+	protected static void setEtatCourant(Etat etat) { 
+            etatCourant = etat;
+        }
 	
 
 	public Controleur() {
@@ -107,7 +109,7 @@ public class Controleur {
 		//todo v�rifier si on apelle le filechooser dans le controlleur ou la vue
 	}
 
-    public void genererFeuilleDeRoute(){
+        public void genererFeuilleDeRoute(){
 		String fichier;
                 fichier = obtenirFichier();
 		if(!fichier.equals("")) // si un fichir a �t� selectionn�
