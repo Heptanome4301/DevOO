@@ -14,19 +14,17 @@ public class EtatPlan extends EtatIni {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Tournee chargerLivraisons(Fenetre fenetre, Plan plan){
+	public void chargerLivraisons(Fenetre fenetre, Plan plan){
 		File xml;
-		Tournee resultat = null;
 		try {
 			xml = OuvreurDeFichiersXML.getInstance().ouvre();
-			resultat = plan.chargerLivraison(xml);
+			plan.chargerLivraison(xml);
 			Controleur.setEtatCourant(Controleur.etatLivraison);
 			fenetre.ecrireLog(Constants.LOGS_LIVRAISON);
 		} catch (Exception e){
 			fenetre.signalerErreur(e.getMessage());
 			Controleur.setEtatCourant(Controleur.etatPlan);
 		}
-		return resultat; //TODO pourquoi avoir une tournée dans le controlleur vu qu'on en a déjà une dans le plan?
 	}
 	//TODO implémenter clicNoeuds : la mise à jour de l'affichage doit passer par le controlleur
 }
