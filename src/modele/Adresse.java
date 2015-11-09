@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Observable;
 
+/**
+ * Cette classe représente un croisement de rue dans une ville, et une potentielle adresse de livraison
+ */
 public class Adresse extends Observable {
         
         /**
