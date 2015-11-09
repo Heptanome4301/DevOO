@@ -1,5 +1,6 @@
 package controleur;
 
+import modele.Adresse;
 import modele.Plan;
 import modele.Tournee;
 import util.Constants;
@@ -27,4 +28,8 @@ public class EtatPlan extends EtatIni {
 		}
 	}
 	//TODO implémenter clicNoeuds : la mise à jour de l'affichage doit passer par le controlleur
+	
+	public void clicNoeud(Fenetre fenetre, Adresse adresse,Plan plan, Tournee tournee, ListeDeCmd listeCmd){
+		
+	}
 }

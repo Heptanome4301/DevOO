@@ -1,7 +1,6 @@
 package controleur;
 
 import modele.Adresse;
-import modele.Livraison;
 import modele.Plan;
 import modele.Tournee;
 import util.Constants;
@@ -77,7 +76,8 @@ public class Controleur {
 	}
 	
 	public void clicNoeud(int idAdresse) {
-			etatCourant.clicNoeud(fenetre, plan.getAdresse(idAdresse), plan, plan.getTournee(), historique);
+            afficheInfos(idAdresse);
+            etatCourant.clicNoeud(fenetre, plan.getAdresse(idAdresse),plan, plan.getTournee(), historique);
 	}
 	
 	public void clicDroit() {
