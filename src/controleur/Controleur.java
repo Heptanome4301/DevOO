@@ -99,7 +99,7 @@ public class Controleur {
 	    try {
 	            xml = OuvreurDeFichiersXML.getInstance().ouvre();
 	            tournee = etatCourant.chargerLivraisons(fenetre,plan,xml);
-	            fenetre.setTournee(tournee);
+	            
 	    } catch (ExceptionXML exceptionXML) {
 	            //TODO signaler erreur a la vue
 	    		exceptionXML.printStackTrace();

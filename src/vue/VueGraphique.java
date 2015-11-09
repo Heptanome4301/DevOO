@@ -13,13 +13,15 @@ import java.util.Observer;
 import javax.swing.JPanel;
 
 import modele.Adresse;
+import modele.Chemin;
 import modele.Livraison;
 import modele.Plan;
 import modele.Tournee;
 import modele.Troncon;
+import modele.Visiteur;
 import util.Constants;
 
-public class VueGraphique extends JPanel implements Observer {
+public class VueGraphique extends JPanel implements Observer, Visiteur {
 	/**
 	 * 
 	 */
@@ -32,7 +34,8 @@ public class VueGraphique extends JPanel implements Observer {
 	private AdresseVue adresseSelectionne;
 
 	private Plan plan;
-	private Tournee tournee;
+
+	private Graphics g;
 
 	public VueGraphique(Plan plan, Fenetre fenetre) {
 		super();
@@ -45,70 +48,31 @@ public class VueGraphique extends JPanel implements Observer {
 	public void update(Observable o, Object arg) {
 
 		if (o instanceof Plan) {
-			this.repaint();
+			if (arg != null && arg instanceof Tournee) {
+				Tournee t = (Tournee) arg;
+				t.addObserver(this);
+			}
 		}
 
-		if (o instanceof Tournee) {
-			this.repaint();
-		}
+		this.repaint();
+
 	}
 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		Graphics2D g2D = (Graphics2D) g;
+		this.g = g;
 
 		for (Adresse a : this.plan.getAdresses()) {
-			g2D.setColor(Color.gray);
 			for (Troncon t : a.getTroncons()) {
-				g2D.drawLine(
-						(int) (t.getDepart().getX() * echelle + Constants.MARGIN_VUE_GRAPHE),
-						(int) (t.getDepart().getY() * echelle + Constants.MARGIN_VUE_GRAPHE),
-						(int) (t.getArrivee().getX() * echelle + Constants.MARGIN_VUE_GRAPHE),
-						(int) (t.getArrivee().getY() * echelle + Constants.MARGIN_VUE_GRAPHE));
-
+				t.accept(this);
 			}
-
-			AdresseVue adresse = new AdresseVue(
-					(int) ((a.getX() - Constants.RAYON_NOEUD) * echelle + Constants.MARGIN_VUE_GRAPHE),
-					(int) ((a.getY() - Constants.RAYON_NOEUD) * echelle + Constants.MARGIN_VUE_GRAPHE),
-					(int) (Constants.RAYON_NOEUD * 2 * echelle),
-					(int) (Constants.RAYON_NOEUD * 2 * echelle), a.getId());
-
-			adressesVue.add(adresse);
-
-			g2D.fill(adresse);
-			g2D.setColor(Color.black);
-			g2D.draw(adresse);
-
-			if (adresseSelectionne != null) {
-				g2D.setColor(Color.yellow);
-				g2D.fill(adresseSelectionne);
-			}
-
-			if (a.estAssocierAvecLivraison()) {
-				g2D.setColor(Color.blue);
-				g2D.fill(adresse);
-
-			}
-			if (tournee != null && a.equals(tournee.getEntrepot())) {
-				g2D.setColor(Color.red);
-				g2D.fill(adresse);
-			}
+			a.accept(this);
 		}
-		for (Adresse a : this.plan.getAdresses()) {
-			if (tournee != null) { // afficher l'itenéraire s'il est calculé
-				g2D.setColor(Color.gray);
-				for (Troncon t : a.getTroncons()) {
-					if (tournee.isDansTrournee(t)) {
-						g2D.setColor(Color.blue);
-						g2D.drawLine(
-								(int) (t.getDepart().getX() * echelle + Constants.MARGIN_VUE_GRAPHE),
-								(int) (t.getDepart().getY() * echelle + Constants.MARGIN_VUE_GRAPHE),
-								(int) (t.getArrivee().getX() * echelle + Constants.MARGIN_VUE_GRAPHE),
-								(int) (t.getArrivee().getY() * echelle + Constants.MARGIN_VUE_GRAPHE));
-					}
-				}
+		if (plan.getTournee() != null) {
+			for (Chemin ch : plan.getTournee().getItineraire()) {
+				ch.accept(this);
 			}
+			plan.getTournee().getEntrepot().accept(this);
 		}
 
 		// this.getParent().setPreferredSize(new Dimension(this.maxLargeur,
@@ -137,9 +101,52 @@ public class VueGraphique extends JPanel implements Observer {
 		this.echelle = value;
 	}
 
-	protected void setTournee(Tournee tournee) {
-		this.tournee = tournee;
-		tournee.addObserver(this);
 
+
+	@Override
+	public void visite(Adresse a, boolean estEntrepot) {
+		Graphics2D g2D = (Graphics2D) g;
+
+		AdresseVue adresse = new AdresseVue(
+				(int) ((a.getX() - Constants.RAYON_NOEUD) * echelle + Constants.MARGIN_VUE_GRAPHE),
+				(int) ((a.getY() - Constants.RAYON_NOEUD) * echelle + Constants.MARGIN_VUE_GRAPHE),
+				(int) (Constants.RAYON_NOEUD * 2 * echelle),
+				(int) (Constants.RAYON_NOEUD * 2 * echelle), a.getId());
+		g2D.fill(adresse);
+		g2D.setColor(Color.black);
+		g2D.draw(adresse);
+
+		adressesVue.add(adresse);
+
+		if (adresseSelectionne != null) {
+			g2D.setColor(Color.yellow);
+			g2D.fill(adresseSelectionne);
+		}
+
+		if (a.estAssocierAvecLivraison()) {
+			g2D.setColor(Color.blue);
+			g2D.fill(adresse);
+
+		}
+		if (estEntrepot) {
+			g2D.setColor(Color.red);
+			g2D.fill(adresse);
+		}
+
+	}
+
+	@Override
+	public void visite(Troncon t, boolean isDansTouree) {
+		Graphics2D g2D = (Graphics2D) g;
+		if (isDansTouree) {
+			g2D.setColor(Color.blue);
+		} else {
+			g2D.setColor(Color.gray);
+		}
+		g2D.drawLine(
+				(int) (t.getDepart().getX() * echelle + Constants.MARGIN_VUE_GRAPHE),
+				(int) (t.getDepart().getY() * echelle + Constants.MARGIN_VUE_GRAPHE),
+				(int) (t.getArrivee().getX() * echelle + Constants.MARGIN_VUE_GRAPHE),
+				(int) (t.getArrivee().getY() * echelle + Constants.MARGIN_VUE_GRAPHE));
 	}
 }

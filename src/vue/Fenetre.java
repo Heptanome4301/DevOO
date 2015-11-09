@@ -175,10 +175,6 @@ public class Fenetre {
 		infoPoint.setText(texte);
 	}
 
-	public void setTournee(Tournee tournee) {
-		this.view.setTournee(tournee);
-		
-	}
 
 	public void signalerErreur(String texteErreur){
 		this.ecrireLog(texteErreur, ERROR_COLOR);
