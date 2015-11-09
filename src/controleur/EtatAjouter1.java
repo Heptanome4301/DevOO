@@ -16,7 +16,7 @@ public class EtatAjouter1 extends EtatTournee {
 	@Override
 	public void clicNoeud(Fenetre fenetre, Adresse adresse, Plan plan, Tournee tournee, ListeDeCmd listeCmd) {
 		if(adresse.estAssocierAvecLivraison()){
-			fenetre.signalerErreur("L'adresse selectionnée est déjà associée avec une livraison");
+			fenetre.signalerErreur(Constants.ERR_ADRESSE_LIVRAISON);
 			Controleur.setEtatCourant(Controleur.etatTournee);
 		}
 		Controleur.etatAjouter2.setAdresse(adresse);

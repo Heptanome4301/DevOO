@@ -22,7 +22,8 @@ public class Constants {
         public static final String ERR_GENERE_FEUILLE = "Veuillez calculer la tournÈe afin de pouvoir gÈnÈrer la feuille de route.";
         public static final String ERR_CHARGEMENT_LIVRAISON = "Il faut charger un plan avant de pouvoir charger des livraisons.";
         public static final String ERR_CALCUL_TOURNEE = "Il faut d'abord charger un plan et des livraisons avant de pouvoir calculer la tourn√©e";
-
+        public static final String ERR_ADRESSE_LIVRAISON = "L'adresse selectionn√©e est d√©j√† associ√©e avec une livraison";
+        
         /*Constantes pour les textes des boutons*/
         public static final String CHARGER_PLAN = "Charger un plan";
         public static final String CHARGER_LIVRAISONS = "Charger des livraisons";
