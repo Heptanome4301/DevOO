@@ -22,5 +22,9 @@ public class AdresseVue extends Ellipse2D.Double {
 	public int getId() {
 		return id;
 	}
+	
+	public boolean equals(Object obj){
+		return (obj instanceof AdresseVue) && ((AdresseVue)obj).getId() == getId();
+	}
 
 }

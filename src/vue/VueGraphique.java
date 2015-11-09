@@ -6,9 +6,11 @@ import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Set;
 
 import javax.swing.JPanel;
 
@@ -30,7 +32,6 @@ public class VueGraphique extends JPanel implements Observer, Visiteur {
 	private int maxLargeur;
 	private int maxHauteur;
 
-	private ArrayList<AdresseVue> adressesVue;
 	private AdresseVue adresseSelectionne;
 
 	private Plan plan;
@@ -41,7 +42,6 @@ public class VueGraphique extends JPanel implements Observer, Visiteur {
 		super();
 		this.plan = plan;
 		plan.addObserver(this);
-		adressesVue = new ArrayList<AdresseVue>();
 	}
 
 	@Override
@@ -79,9 +79,15 @@ public class VueGraphique extends JPanel implements Observer, Visiteur {
 
 	public int getAdresseByXY(int x, int y) {
 		int res = -1;
-		for (AdresseVue adresse : adressesVue) {
-			if (adresse.containsClick(x, y)) {
-				if (adresse == adresseSelectionne)
+		AdresseVue adresse ;
+		for(Adresse a : plan.getAdresses()){
+			adresse = new AdresseVue(
+					(int) ((a.getX() - Constants.RAYON_NOEUD) * echelle + Constants.MARGIN_VUE_GRAPHE),
+					(int) ((a.getY() - Constants.RAYON_NOEUD) * echelle + Constants.MARGIN_VUE_GRAPHE),
+					(int) (Constants.RAYON_NOEUD * 2 * echelle),
+					(int) (Constants.RAYON_NOEUD * 2 * echelle), a.getId());
+			if(adresse.containsClick(x, y)){
+				if (adresse .equals(adresseSelectionne))
 					adresseSelectionne = null;
 				else {
 					adresseSelectionne = adresse;
@@ -91,6 +97,7 @@ public class VueGraphique extends JPanel implements Observer, Visiteur {
 				break;
 			}
 		}
+		
 		return res;
 	}
 
@@ -112,8 +119,6 @@ public class VueGraphique extends JPanel implements Observer, Visiteur {
 		g2D.fill(adresse);
 		g2D.setColor(Color.black);
 		g2D.draw(adresse);
-
-		adressesVue.add(adresse);
 
 
 		if (a.estAssocierAvecLivraison()) {
