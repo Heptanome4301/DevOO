@@ -4,7 +4,9 @@ import modele.Adresse;
 import modele.Livraison;
 import modele.Plan;
 import modele.Tournee;
+
 import util.Constants;
+
 import vue.Fenetre;
 
 public class EtatAjouter2 extends EtatTournee {

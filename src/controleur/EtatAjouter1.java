@@ -15,8 +15,9 @@ public class EtatAjouter1 extends EtatTournee {
 
 	@Override
 	public void clicNoeud(Fenetre fenetre, Adresse adresse, Plan plan, Tournee tournee, ListeDeCmd listeCmd) {
-		if(!adresse.estAssocierAvecLivraison()){
-			fenetre.signalerErreur("L'adresse selectionnée n'est pas associée avec une livraison");
+
+		if(adresse.estAssocierAvecLivraison()){
+			fenetre.signalerErreur(Constants.ERR_ADRESSE_LIVRAISON);
 			Controleur.setEtatCourant(Controleur.etatTournee);
 			return;
 		}

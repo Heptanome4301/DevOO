@@ -1,14 +1,16 @@
 package controleur;
 
+import java.io.File;
+
 import modele.Adresse;
 import modele.Plan;
 import modele.Tournee;
-import tsp.Graphe;
-import util.Constants;
-import vue.Fenetre;
-import xml.OuvreurDeFichiersXML;
 
-import java.io.File;
+import util.Constants;
+
+import vue.Fenetre;
+
+import xml.OuvreurDeFichiersXML;
 
 public class EtatIni implements Etat {
 
@@ -24,10 +26,10 @@ public class EtatIni implements Etat {
 	public void redo(Fenetre fenetre, ListeDeCmd listeCmd){
 		// Does nothing (or return exception?)
 	}
-
-	@Override
-	public void genererFeuilleDeRoute(Fenetre fenetre, String fichier,Tournee tournee){
-		throw new UnsupportedOperationException();
+        
+	
+	public void genererFeuilleDeRoute(Fenetre fenetre,Tournee tournee){
+		fenetre.signalerErreur(Constants.ERR_GENERE_FEUILLE);
 	}
 
 	@Override
@@ -56,12 +58,12 @@ public class EtatIni implements Etat {
 
 	@Override
 	public void chargerLivraisons(Fenetre fenetre, Plan plan){
-		fenetre.signalerErreur("Il faut charger un plan avant de pouvoir charger des livraisons.");
+		fenetre.signalerErreur(Constants.ERR_CHARGEMENT_LIVRAISON);
 	}
 
 	@Override
 	public void calculerTournee(Fenetre fenetre, Tournee tournee) {
-		fenetre.signalerErreur("Il faut d'abord charger un plan et des livraisons avant de pouvoir calculer la tournée");
+		fenetre.signalerErreur(Constants.ERR_CALCUL_TOURNEE);
 	}
 
 	@Override
