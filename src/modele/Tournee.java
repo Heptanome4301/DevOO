@@ -268,7 +268,6 @@ public class Tournee extends Observable{
 		for(int i=indiceDepart; i < chemins.size()-1 ; i++ ){
 			Chemin chemin = chemins.get(i);
 			Livraison l = getLivraison(chemin.getArrivee());
-
 			horaire =  addSecondsHoraire(horaire,chemin.getDuree());
  
 	        if (horaire.before(l.getFenetreLivraison().getHeureDebut()))  {
@@ -355,8 +354,8 @@ public class Tournee extends Observable{
 	}
 
 /**
- * Modification de la tournée en lui ajoutant une nouvelle livraison.
- * Si les deux livraisons sont égales, ajoute la livraison à ajouter à la fin de la tournée 
+ * Modification de la tournée en lui ajoutant une nouvelle livraison telle quelle précède lFollow
+ * Si les deux livraisons sont égales, ajoute la livraison en fin de tournée
  * @param lAdd
  * @param lFollow
  */
@@ -377,16 +376,22 @@ public class Tournee extends Observable{
 			}
 			chemins.remove(cheminToRemove);
 			livraisons.add(lAdd);
-			calculerLesDurees( i ); // recalcule les durées à partir de ce chmin
-			//TODO calculer nouvelles dates
+			calculerLesDurees(i); // recalcule les durées à partir de ce chmin
 		}
 		else {
-			Adresse lastAdresse = chemins.get(chemins.size()).getArrivee();
-			Chemin chemin = plan.calculerChemin(lastAdresse, lAdd.getAdresse());
+
+			Adresse entrepot = (chemins.get(chemins.size()-1)).getArrivee();
+			Adresse lastAdresse = (chemins.get(chemins.size()-2)).getArrivee();
+			Chemin chemin = plan.calculerChemin(lastAdresse,lAdd.getAdresse());
+			Chemin cheminVersEntrepot = plan.calculerChemin(lAdd.getAdresse(),entrepot);
+			chemins.remove(chemins.size()-1);
 			chemins.add(chemins.size(),chemin);
-			livraisons.add(lAdd);
-			//TODO nouvelles dates
+			chemins.add(chemins.size(),cheminVersEntrepot);
+			livraisons.add(lAdd);		
+			calculerLesDurees(chemins.size()-2);
+			
 		}
+		this.notifyObservers(this);
 				
 	}
 	
@@ -395,7 +400,6 @@ public class Tournee extends Observable{
 	 * @param L
 	 */
 	public void supprimerLivraison(Livraison L)  {
-		this.notifyObservers(this);
 		if(livraisons.contains(L)) {
 			Chemin chemin1 = getCheminFromArrivee(L.getAdresse());
 			Chemin chemin2 = getCheminFromDepart(L.getAdresse());
@@ -405,13 +409,14 @@ public class Tournee extends Observable{
 				for(i=0;i<chemins.size();i++) {
 					if((chemins.get(i)).equals(chemin2)) {
 						chemins.add(i, newChemin);
+						break;
 					}
 				}
 				chemins.remove(chemin1);
 				chemins.remove(chemin2);
 				livraisons.remove(L);
-				calculerLesDurees( i ); // recalcule les durées à partir de ce chmin
-				//TODO nouvelles dates
+				calculerLesDurees(i-1); // recalcule les durées à partir de ce chmin
+				this.notifyObservers(this);
 			}
 			
 		}
@@ -427,7 +432,6 @@ public class Tournee extends Observable{
  * @param l2
  */
 	public void echangerLivraison(Livraison l1,Livraison l2) {
-		this.notifyObservers(this);
 		if(livraisons.contains(l1) && livraisons.contains(l2) && !l1.equals(l2)) {
 			Chemin cheminRm1A = getCheminFromArrivee(l1.getAdresse());
 			Chemin cheminRm1D = getCheminFromDepart(l1.getAdresse());
@@ -435,27 +439,34 @@ public class Tournee extends Observable{
 			Chemin cheminRm2D = getCheminFromDepart(l2.getAdresse());
 			
 			Chemin cheminAdd1A = plan.calculerChemin(cheminRm1A.getDepart(),l2.getAdresse());
-			Chemin cheminAdd1D = plan.calculerChemin(l2.getAdresse(),cheminRm1D.getDepart());
+			Chemin cheminAdd1D = plan.calculerChemin(l2.getAdresse(),cheminRm1D.getArrivee());
 			Chemin cheminAdd2A = plan.calculerChemin(cheminRm2A.getDepart(),l1.getAdresse());
-			Chemin cheminAdd2D = plan.calculerChemin(l1.getAdresse(),cheminRm2D.getDepart());
-			int indice_premier_chemin_ajoute = 0;
+			Chemin cheminAdd2D = plan.calculerChemin(l1.getAdresse(),cheminRm2D.getArrivee());
+			int indiceModif = 0;
+			for(int i=0;i<chemins.size();i++) {
+				if(chemins.get(i).equals(cheminRm2A)) {
+					chemins.add(i, cheminAdd2A);
+					chemins.add(i+1, cheminAdd2D);
+					if(indiceModif == 0)
+						indiceModif = i;
+					break;
+				}
+			}
 			for(int i=0;i<chemins.size();i++) {
 				if(chemins.get(i).equals(cheminRm1A)) {
 					chemins.add(i, cheminAdd1A);
 					chemins.add(i+1, cheminAdd1D);
+					if(i<indiceModif)
+						indiceModif = i;
+					break;
 				}
-				if(chemins.get(i).equals(cheminRm2A)) {
-					chemins.add(i, cheminAdd2A);
-					chemins.add(i+1, cheminAdd2D);
-					indice_premier_chemin_ajoute = i;
-				}
-			}
+			}				
 			chemins.remove(cheminRm1A);
 			chemins.remove(cheminRm1D);
 			chemins.remove(cheminRm2A);
 			chemins.remove(cheminRm2D);
-			calculerLesDurees( indice_premier_chemin_ajoute );
-			//TODO nouvelles dates
+			calculerLesDurees(indiceModif);
+			this.notifyObservers(this);
 		}
 		
 		

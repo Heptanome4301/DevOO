@@ -262,6 +262,7 @@ public class Plan extends Observable {
 	}
 
 	private void verifierTroncon() throws ExceptionXML{
+
 		boolean tronconVersNull = false;
 		for(Adresse a : adresses){
 			for (Troncon t : a.getTroncons()){
