@@ -34,13 +34,15 @@ public class TourneeTest {
 			tournee.calculerTournee();
 			Adresse adresse = p.getAdresse(1);
 			Adresse adresseF = p.getAdresse(73);
-			Livraison livraisonF = tournee.getLivraison(adresseF);
+			//Livraison livraisonF = tournee.getLivraison(adresseF);
+			Livraison livraisonF = adresseF.getLivraison();
 			int annee = 2015,mois = 1, jour = 1;
 			Date dateDebut = new Date(annee, mois, jour, 8, 0, 0);
 			Date dateFin = new Date(annee, mois, jour, 12, 0, 0);
 			Livraison livraison = new Livraison(1565, adresse, new FenetreLivraison(dateDebut,dateFin));
 			tournee.ajouterLivraison(livraison, livraisonF);
-			assertTrue(tournee.getLivraison(adresse)!=null);
+			//assertTrue(tournee.getLivraison(adresse)!=null);
+			assertTrue(adresse.getLivraison()!=null);
 		} catch (ParserConfigurationException | SAXException | IOException | ExceptionXML e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -61,10 +63,12 @@ public class TourneeTest {
 			tournee = p.chargerLivraison(lXml);
 			tournee.calculerTournee();
 			Adresse adresse = p.getAdresse(43);
-			Livraison livraison = tournee.getLivraison(adresse);
+			//Livraison livraison = tournee.getLivraison(adresse);
+			Livraison livraison = adresse.getLivraison();
 			tournee.supprimerLivraison(livraison);
 			
-			assertTrue(tournee.getLivraison(adresse)==null);
+			//assertTrue(tournee.getLivraison(adresse)==null);
+			assertTrue(adresse.getLivraison()==null);
 		} catch (ParserConfigurationException | SAXException | IOException | ExceptionXML e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -84,9 +88,11 @@ public class TourneeTest {
 			tournee = p.chargerLivraison(lXml);
 			tournee.calculerTournee();
 			Adresse adresse = p.getAdresse(73);
-			Livraison livraison = tournee.getLivraison(adresse);
+			//Livraison livraison = tournee.getLivraison(adresse);
+			Livraison livraison = adresse.getLivraison();
 			Adresse adresse2 = p.getAdresse(13);
-			Livraison livraison2 = tournee.getLivraison(adresse2);
+			//Livraison livraison2 = tournee.getLivraison(adresse2);
+			Livraison livraison2 = adresse2.getLivraison();
 			
 			tournee.echangerLivraison(livraison, livraison2);
 			

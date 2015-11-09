@@ -193,7 +193,8 @@ public class Tournee extends Observable{
 	}
 	
 	private Chemin[][] construireAllChemin(FenetreLivraison fenetreLivraison,Adresse adrssDepart){
-		Livraison premiere =getLivraison(adrssDepart);
+		//Livraison premiere =getLivraison(adrssDepart);
+		Livraison premiere =adrssDepart.getLivraison();
 		if(premiere == null){
 			//System.err.println(adrssDepart.equals(entrepot));
 			//System.err.println("Livraison associer a l'adresse "+adrssDepart.getId()+" de la fenetre"+fenetreLivraison.getHeureDebut()+" est null");
@@ -265,13 +266,15 @@ public class Tournee extends Observable{
 		if(PremierChemin.getDepart() .equals(entrepot)){
 			horaire = fenetresLivraison.get(0).getHeureDebut();
 		} else {
-			horaire = getLivraison(PremierChemin.getDepart()).getHoraire();
+			//horaire = getLivraison(PremierChemin.getDepart()).getHoraire();
+			horaire = PremierChemin.getDepart().getLivraison().getHoraire();
 		}
 		
 		
 		for(int i=indiceDepart; i < chemins.size()-1 ; i++ ){
 			Chemin chemin = chemins.get(i);
-			Livraison l = getLivraison(chemin.getArrivee());
+			//Livraison l = getLivraison(chemin.getArrivee());
+			Livraison l = chemin.getArrivee().getLivraison();
 			horaire =  addSecondsHoraire(horaire,chemin.getDuree());
  
 	        if (horaire.before(l.getFenetreLivraison().getHeureDebut()))  {
@@ -419,6 +422,7 @@ public class Tournee extends Observable{
 				chemins.remove(chemin1);
 				chemins.remove(chemin2);
 				livraisons.remove(L);
+				L.getAdresse().setLivraison(null);
 				calculerLesDurees(i-1); // recalcule les durées à partir de ce chmin
 				this.notifyObservers(this);
 			}
@@ -469,6 +473,8 @@ public class Tournee extends Observable{
 			chemins.remove(cheminRm1D);
 			chemins.remove(cheminRm2A);
 			chemins.remove(cheminRm2D);
+			l1.getAdresse().setLivraison(l2);
+			l2.getAdresse().setLivraison(l1);
 			calculerLesDurees(indiceModif);
 			this.notifyObservers(this);
 		}
@@ -493,14 +499,14 @@ public class Tournee extends Observable{
 
 	}
 	
-	public Livraison getLivraison(Adresse a){
+	/*public Livraison getLivraison(Adresse a){
 		for(Livraison l:livraisons){
 			if(l.getAdresse().getId() == a.getId() ){
 				return l;
 			}
 		}
 		return null;
-	}
+	}*/
 	
 	public boolean isDansTrournee(Troncon t){
 		if(chemins != null){
