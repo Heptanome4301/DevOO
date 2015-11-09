@@ -1,6 +1,7 @@
 package controleur;
 
 import modele.Adresse;
+import modele.Livraison;
 import modele.Plan;
 import modele.Tournee;
 import util.Constants;
@@ -22,6 +23,7 @@ public class EtatPlan extends EtatIni {
 			xml = OuvreurDeFichiersXML.getInstance().ouvre();
 			plan.chargerLivraison(xml);
 			Controleur.setEtatCourant(Controleur.etatLivraison);
+			fenetre.ecrireList(plan.getTournee().getLivraisons().toArray(new Livraison[0]));
 			fenetre.ecrireLog(Constants.LOGS_LIVRAISON);
 		} catch (Exception e){
 			fenetre.signalerErreur(e.getMessage());
@@ -36,6 +38,7 @@ public class EtatPlan extends EtatIni {
 			vue.deselection();
 		} else {
 			vue.selection(adresse.getId());
+			fenetre.selectionList(adresse.getLivraison());
 			fenetre.ecrireInfos(adresse.toString());
 		}
 

@@ -33,6 +33,7 @@ public class VueGraphique extends JPanel implements Observer, Visiteur {
 
 	public VueGraphique(Plan plan, Fenetre fenetre) {
 		super();
+		this.setBackground(Color.white);
 		this.plan = plan;
 		plan.addObserver(this);
 	}
@@ -115,9 +116,9 @@ public class VueGraphique extends JPanel implements Observer, Visiteur {
 	}
 
 	@Override
-	public void visite(Troncon t, boolean isDansTouree) {
+	public void visite(Troncon t, boolean isDansTournee) {
 		Graphics2D g2D = (Graphics2D) g;
-		if (isDansTouree) {
+		if (isDansTournee) {
 			g2D.setColor(Color.blue);
 		} else {
 			g2D.setColor(Color.gray);
@@ -141,4 +142,5 @@ public class VueGraphique extends JPanel implements Observer, Visiteur {
 		this.idAdresseSelectionne = idAdresseSelectionne;
 		this.repaint();
 	}
+
 }

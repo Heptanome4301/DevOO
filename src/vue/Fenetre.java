@@ -8,33 +8,35 @@ import java.util.Observer;
 import javax.swing.*;
 
 import controleur.Controleur;
+import modele.Adresse;
+import modele.Livraison;
 import modele.Plan;
 import modele.Tournee;
 import net.miginfocom.swing.MigLayout;
-
 import util.Constants;
 
 public class Fenetre {
 
 	public JFrame frame;
 	private JTextArea infoPoint;
-	private JButton loadPlan;
-	private JButton loadDeliveries;
-	private JButton computeTour;
-	private JButton addDelivery;
-	private JButton removeDelivery;
-	private JButton swapDelivery;
-	private JButton saveRoadMap;
-	private JLabel labelDelivery;
-	private JLabel labelTour;
-	private JList<?> labelPointList;
+	private JButton chargerPlan;
+	private JButton chargerLivraisons;
+	private JButton calculerTournee;
+	private JButton ajouterLivraison;
+	private JButton supprimerLivraison;
+	private JButton echangerLivraisons;
+	private JButton sauvegardeFeuilleRoute;
+	private JLabel etiquetteLivraisons;
+	private JLabel etiquetteTournee;
+	private JList<Livraison> listAdressesLivraisons;
 	private VueGraphique vue;
 	private JScrollPane scrollPanel;
 	private JTextField log;
-	private JLabel lblListeDesPoints;
+	private JLabel etiquetteListePoints;
 	
 	private EcouteurDeBoutons ecouteurBoutons;
 	private EcouteurDeSouris ecouteurSouris;
+	private EcouteurDeListe ecouteurListe;
 
 	private final String TITLE = "Livraison Simulator 2015";
 	private final Dimension MINIMUM_SIZE = new Dimension(800, 600);
@@ -56,14 +58,16 @@ public class Fenetre {
 	private void initializeListeners(Controleur c) {
 		this.ecouteurBoutons = new EcouteurDeBoutons(c);
 		this.ecouteurSouris = new EcouteurDeSouris(c, vue, this);
+		this.ecouteurListe = new EcouteurDeListe(c, listAdressesLivraisons);
 				
-		loadPlan.addActionListener(ecouteurBoutons);
-		loadDeliveries.addActionListener(ecouteurBoutons);
-		computeTour.addActionListener(ecouteurBoutons);
-		addDelivery.addActionListener(ecouteurBoutons);
-		removeDelivery.addActionListener(ecouteurBoutons);
-		swapDelivery.addActionListener(ecouteurBoutons);
-		saveRoadMap.addActionListener(ecouteurBoutons);
+		chargerPlan.addActionListener(ecouteurBoutons);
+		chargerLivraisons.addActionListener(ecouteurBoutons);
+		calculerTournee.addActionListener(ecouteurBoutons);
+		ajouterLivraison.addActionListener(ecouteurBoutons);
+		supprimerLivraison.addActionListener(ecouteurBoutons);
+		echangerLivraisons.addActionListener(ecouteurBoutons);
+		sauvegardeFeuilleRoute.addActionListener(ecouteurBoutons);
+		listAdressesLivraisons.addListSelectionListener(ecouteurListe);
 
 		vue.addMouseListener(ecouteurSouris);
 		
@@ -83,8 +87,8 @@ public class Fenetre {
 				new MigLayout("", "[20%,grow][60%,grow][20%][10%]",
 						"[22.00][][][][][][][][][][grow][15%][]"));
 		
-		lblListeDesPoints = new JLabel("Liste des points de livraison");
-		frame.getContentPane().add(lblListeDesPoints,
+		etiquetteListePoints = new JLabel("Liste des points de livraison");
+		frame.getContentPane().add(etiquetteListePoints,
 				"cell 0 0,alignx center,aligny center");
 		
 //		lblZoom = new JLabel("Zoom");
@@ -98,41 +102,41 @@ public class Fenetre {
 //		
 //		frame.getContentPane().add(zoom, "cell 1 0,alignx right");
 
-		labelPointList = new JList<String>();
-		frame.getContentPane().add(labelPointList, "cell 0 1 1 10,grow");
+		listAdressesLivraisons = new JList<Livraison>();
+		frame.getContentPane().add(listAdressesLivraisons, "cell 0 1 1 10,grow");
 
-		labelTour = new JLabel("Cr�er une tourn�e");
-		labelTour.setHorizontalAlignment(SwingConstants.CENTER);
-		frame.getContentPane().add(labelTour, "cell 2 0 2 1,growx");
+		etiquetteTournee = new JLabel("Cr�er une tourn�e");
+		etiquetteTournee.setHorizontalAlignment(SwingConstants.CENTER);
+		frame.getContentPane().add(etiquetteTournee, "cell 2 0 2 1,growx");
 
-		loadPlan = new JButton(Constants.CHARGER_PLAN);
-		frame.getContentPane().add(loadPlan, "cell 2 1 2 1,growx");
+		chargerPlan = new JButton(Constants.CHARGER_PLAN);
+		frame.getContentPane().add(chargerPlan, "cell 2 1 2 1,growx");
 
-		loadDeliveries = new JButton(Constants.CHARGER_LIVRAISONS);
-		frame.getContentPane().add(loadDeliveries, "cell 2 2 2 1,growx");
+		chargerLivraisons = new JButton(Constants.CHARGER_LIVRAISONS);
+		frame.getContentPane().add(chargerLivraisons, "cell 2 2 2 1,growx");
 
-		computeTour = new JButton(Constants.CALCULER_TOURNEE);
-		frame.getContentPane().add(computeTour, "cell 2 3 2 1,growx");
+		calculerTournee = new JButton(Constants.CALCULER_TOURNEE);
+		frame.getContentPane().add(calculerTournee, "cell 2 3 2 1,growx");
 
-		labelDelivery = new JLabel("Modifier une tourn�e");
-		labelDelivery.setHorizontalAlignment(SwingConstants.CENTER);
-		frame.getContentPane().add(labelDelivery, "cell 2 5 2 1,growx");
+		etiquetteLivraisons = new JLabel("Modifier une tourn�e");
+		etiquetteLivraisons.setHorizontalAlignment(SwingConstants.CENTER);
+		frame.getContentPane().add(etiquetteLivraisons, "cell 2 5 2 1,growx");
 
-		addDelivery = new JButton(Constants.AJOUTER_LIVRAISONS);
-		frame.getContentPane().add(addDelivery, "cell 2 6 2 1,growx");
+		ajouterLivraison = new JButton(Constants.AJOUTER_LIVRAISONS);
+		frame.getContentPane().add(ajouterLivraison, "cell 2 6 2 1,growx");
 
-		removeDelivery = new JButton(Constants.SUPPRIMER_LIVRAISON);
-		frame.getContentPane().add(removeDelivery, "cell 2 7 2 1,growx");
+		supprimerLivraison = new JButton(Constants.SUPPRIMER_LIVRAISON);
+		frame.getContentPane().add(supprimerLivraison, "cell 2 7 2 1,growx");
 
-		swapDelivery = new JButton(Constants.INVERSER_LIVRAISONS);
-		frame.getContentPane().add(swapDelivery, "cell 2 8 2 1,growx");
+		echangerLivraisons = new JButton(Constants.INVERSER_LIVRAISONS);
+		frame.getContentPane().add(echangerLivraisons, "cell 2 8 2 1,growx");
 
 		infoPoint = new JTextArea();
 		infoPoint.setMargin(new Insets(Constants.MARGIN_TEXTE_PANEL, Constants.MARGIN_TEXTE_PANEL, Constants.MARGIN_TEXTE_PANEL, Constants.MARGIN_TEXTE_PANEL));
 		frame.getContentPane().add(infoPoint, "cell 0 11,grow");
 
-		saveRoadMap = new JButton(Constants.SAUVEGARDER_FEUILLE_DE_ROUTE);
-		frame.getContentPane().add(saveRoadMap, "cell 2 11 2 1,growx");
+		sauvegardeFeuilleRoute = new JButton(Constants.SAUVEGARDER_FEUILLE_DE_ROUTE);
+		frame.getContentPane().add(sauvegardeFeuilleRoute, "cell 2 11 2 1,growx");
 
 		log = new JTextField();
 		log.setEditable(false);
@@ -144,7 +148,6 @@ public class Fenetre {
 
 	private void ajouterView(Plan plan) {
 		this.vue = new VueGraphique(plan, this);
-		this.vue.setBackground(Color.white);
 		
 //		view.setPreferredSize(new Dimension(1000,1000));
 		
@@ -192,6 +195,14 @@ public class Fenetre {
 				"Supprimer?",
 				JOptionPane.CANCEL_OPTION);
 		return result == 0;
+	}
+
+	public void ecrireList(Livraison [] listData) {
+		listAdressesLivraisons.setListData(listData);
+	}
+	
+	public void selectionList(Livraison livraison) {
+		listAdressesLivraisons.setSelectedValue(livraison, true);
 	}
 
 }

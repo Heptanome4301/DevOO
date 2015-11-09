@@ -1,9 +1,9 @@
 package controleur;
 
 import modele.Adresse;
+import modele.Livraison;
 import modele.Plan;
 import modele.Tournee;
-
 import vue.Fenetre;
 
 public interface Etat {
@@ -18,4 +18,5 @@ public interface Etat {
 	void ajouter(Fenetre fenetre);
 	void supprimer(Fenetre fenetre);
 	void echanger(Fenetre fenetre);
+	void clicListLivraisons(Fenetre fenetre, Livraison livraison);
 }

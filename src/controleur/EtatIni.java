@@ -3,13 +3,11 @@ package controleur;
 import java.io.File;
 
 import modele.Adresse;
+import modele.Livraison;
 import modele.Plan;
 import modele.Tournee;
-
 import util.Constants;
-
 import vue.Fenetre;
-
 import xml.OuvreurDeFichiersXML;
 
 public class EtatIni implements Etat {
@@ -80,4 +78,10 @@ public class EtatIni implements Etat {
 	public void echanger(Fenetre fenetre) {
 		//Does nothing
 	}
+
+	@Override
+	public void clicListLivraisons(Fenetre fenetre, Livraison livraison) {
+		throw new UnsupportedOperationException();		
+	}
+
 }

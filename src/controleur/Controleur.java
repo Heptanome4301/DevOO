@@ -1,12 +1,12 @@
 package controleur;
 
 import java.awt.Point;
+
 import modele.Adresse;
+import modele.Livraison;
 import modele.Plan;
 import modele.Tournee;
-
 import util.Constants;
-
 import vue.Fenetre;
 
 public class Controleur {
@@ -80,11 +80,6 @@ public class Controleur {
             etatCourant.calculerTournee(fenetre, plan.getTournee());
 	}
 	
-	public void clicNoeud(int idAdresse) {
-            afficheInfos(idAdresse);
-            etatCourant.clicNoeud(fenetre, plan.getAdresse(idAdresse),plan, plan.getTournee(), historique);
-	}
-
 	public void clicNoeud(Point p) {
 		Adresse adresse = plan.getAdresseByCoord(p);
 		etatCourant.clicNoeud(fenetre, adresse, plan, plan.getTournee(), historique);
@@ -92,6 +87,10 @@ public class Controleur {
 	
 	public void clicDroit() {
 		etatCourant.clicDroit(fenetre);
+	}
+	
+	public void clicListLivraisons(Livraison livraison) {
+		etatCourant.clicListLivraisons(fenetre, livraison);
 	}
 	
 	public void ajouter() {
