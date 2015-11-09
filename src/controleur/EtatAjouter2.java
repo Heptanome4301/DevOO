@@ -1,6 +1,7 @@
 package controleur;
 
 import modele.Adresse;
+import modele.Livraison;
 import modele.Plan;
 import modele.Tournee;
 
@@ -10,8 +11,8 @@ import vue.Fenetre;
 
 public class EtatAjouter2 extends EtatTournee {
 
-	// l'adresse selectionnée lors de l'état 1 
 	private Adresse adresse;
+        private static int generatedId = 100;
 	
 	public EtatAjouter2() {
 		adresse=null;
@@ -21,20 +22,23 @@ public class EtatAjouter2 extends EtatTournee {
 		this.adresse=adresse;
 	}
 	
-	public void clicNoeud(Fenetre fenetre, Adresse followAdresse, Plan plan, Tournee tournee, ListeDeCmd listeCmd) {
-		//TODO la, on a pas trop compris ce qui a été tenté. Comment on transforme ces adresses en livraisons?
-		// -> Bah faut deja creer la nouvelle livraison à ajouter
-		//Livraison followLivraison = tournee.getLivraison(followAdresse);
-		//Livraison newLivraison = new Livraison(??, followAdresse, fenetreLivraison);
-		//tournee.ajouterLivraison(newLivraison, followLivraison);
-		/*CmdAjouter cmd = new CmdAjouter(tournee, adresse, followAdresse);
-		listeCmd.ajoute(cmd);
-		cmd.doCmd();*/
-		Controleur.setEtatCourant(Controleur.etatTournee);
-		fenetre.ecrireLog(Constants.LOGS_DEFAULT);
+	public void clicNoeud(Fenetre fenetre, Adresse followingAdresse, Plan plan, Tournee tournee, ListeDeCmd listeCmd) {
+                if(!followingAdresse.estAssocierAvecLivraison()){
+                    fenetre.ecrireLog(Constants.LOGS_DEFAULT);
+                    Controleur.setEtatCourant(Controleur.etatTournee);
+                }
+                else{
+                    Livraison followingLivraison = followingAdresse.getLivraison();
+                    Livraison newLivraison  = new Livraison(generatedId++, adresse, followingLivraison.getFenetreLivraison());
+                    tournee.ajouterLivraison(newLivraison,followingLivraison);
+                   
+                    Controleur.setEtatCourant(Controleur.etatTournee);
+                    fenetre.ecrireLog(Constants.LOGS_DEFAULT);
+                }
+                
+		
 	}
 	
-	// annuler l'ajout
 	public void clicDroit(Fenetre fenetre) {
 		adresse=null;
 		Controleur.setEtatCourant(Controleur.etatTournee);

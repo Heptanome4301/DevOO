@@ -8,9 +8,9 @@ public class Constants {
 
 	/*Messages de Log*/
 	public static final String LOGS_DEFAULT = "";
-	public static final String LOGS_AJOUTER1 = "Cliquez sur la livraison qui précédera celle que vous souhaitez ajouter." +
+	public static final String LOGS_AJOUTER2 = "Cliquez sur la livraison qui précédera celle que vous souhaitez ajouter." +
 			" Clic droit pour annuler.";
-	public static final String LOGS_AJOUTER2 = "Cliquez sur l'adresse de la nouvelle livraison. Clic droit pour annuler.";
+	public static final String LOGS_AJOUTER1 = "Cliquez sur l'adresse de la nouvelle livraison. Clic droit pour annuler.";
 	public static final String LOGS_SUPPRIMER = "Cliquez sur la livraison que vous souhaitez supprimer. Clic droit pour annuler.";
 	public static final String LOGS_ECHANGER1 = "Cliquez sur la première livraison à échanger. Clic droit pour annuler";
 	public static final String LOGS_ECHANGER2 = "Cliquez sur la livraison avec laquelle il faut échanger. Clic droit pour annuler";
@@ -18,11 +18,13 @@ public class Constants {
 	public static final String LOGS_LIVRAISON = "Livraisons chargées avec succès.";
 	public static final String LOGS_PLAN = "Plan chargé avec succès.";
         
-        /*Messages d'erreur � l'attention de l'utilisateur*/
-        public static final String ERR_GENERE_FEUILLE = "Veuillez calculer la tourn�e afin de pouvoir g�n�rer la feuille de route.";
+        /*Messages d'erreur � l'attention de l'utilisateur*/
+        public static final String ERR_GENERE_FEUILLE = "Veuillez calculer la tourn�e afin de pouvoir g�n�rer la feuille de route.";
         public static final String ERR_CHARGEMENT_LIVRAISON = "Il faut charger un plan avant de pouvoir charger des livraisons.";
         public static final String ERR_CALCUL_TOURNEE = "Il faut d'abord charger un plan et des livraisons avant de pouvoir calculer la tournée";
-        public static final String ERR_ADRESSE_LIVRAISON = "L'adresse selectionnée est déjà associée avec une livraison";
+        public static final String ERR_PAS_ADRESSE_LIVRAISON = "L'adresse selectionnée n'est associée àaucune livraison";
+        public static final String ERR_ADRESSE_LIVRAISON = "L'adresse selectionnée est d�j� associée àune livraison";
+
         
         /*Constantes pour les textes des boutons*/
         public static final String CHARGER_PLAN = "Charger un plan";
