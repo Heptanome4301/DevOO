@@ -28,7 +28,7 @@ public class Fenetre {
 	private JLabel labelDelivery;
 	private JLabel labelTour;
 	private JList<?> labelPointList;
-	private VueGraphique view;
+	private VueGraphique vue;
 	private JScrollPane scrollPanel;
 	private JTextField log;
 	private JLabel lblListeDesPoints;
@@ -54,7 +54,7 @@ public class Fenetre {
 	
 	private void initializeListeners(Controleur c) {
 		this.ecouteurBoutons = new EcouteurDeBoutons(c);
-		this.ecouteurSouris = new EcouteurDeSouris(c, view, this);
+		this.ecouteurSouris = new EcouteurDeSouris(c, vue, this);
 				
 		loadPlan.addActionListener(ecouteurBoutons);
 		loadDeliveries.addActionListener(ecouteurBoutons);
@@ -64,7 +64,7 @@ public class Fenetre {
 		swapDelivery.addActionListener(ecouteurBoutons);
 		saveRoadMap.addActionListener(ecouteurBoutons);
 
-		view.addMouseListener(ecouteurSouris);
+		vue.addMouseListener(ecouteurSouris);
 		
 //		zoom.addChangeListener(new ZoomListener(view));
 	}
@@ -86,16 +86,16 @@ public class Fenetre {
 		frame.getContentPane().add(lblListeDesPoints,
 				"cell 0 0,alignx center,aligny center");
 		
-		lblZoom = new JLabel("Zoom");
-		frame.getContentPane().add(lblZoom, "flowx,cell 1 0,alignx right");
-		
-		zoom = new JSlider();
-		zoom.setValue(100);
-		zoom.setMinimum(10);
-		zoom.setMaximum(200);
-		zoom.setPaintLabels(true);
-		
-		frame.getContentPane().add(zoom, "cell 1 0,alignx right");
+//		lblZoom = new JLabel("Zoom");
+//		frame.getContentPane().add(lblZoom, "flowx,cell 1 0,alignx right");
+//		
+//		zoom = new JSlider();
+//		zoom.setValue(100);
+//		zoom.setMinimum(10);
+//		zoom.setMaximum(200);
+//		zoom.setPaintLabels(true);
+//		
+//		frame.getContentPane().add(zoom, "cell 1 0,alignx right");
 
 		labelPointList = new JList<String>();
 		frame.getContentPane().add(labelPointList, "cell 0 1 1 10,grow");
@@ -142,24 +142,24 @@ public class Fenetre {
 	}
 
 	private void ajouterView(Plan plan) {
-		this.view = new VueGraphique(plan, this);
-		this.view.setBackground(Color.white);
+		this.vue = new VueGraphique(plan, this);
+		this.vue.setBackground(Color.white);
 		
 //		view.setPreferredSize(new Dimension(1000,1000));
 		
-		scrollPanel = new JScrollPane(view); 
+		scrollPanel = new JScrollPane(vue); 
 
 //		scrollPanel.setViewportView(view);
 		
 		frame.getContentPane().add(scrollPanel, "cell 1 1 1 11,grow");
 	}
 	
-	public Dimension getSizeView() {
-		return this.view.getSize();
+	public VueGraphique getVue() {
+		return vue;
 	}
 
 	public void setEchelle(double echelle) {
-		this.view.setEchelle(echelle);	
+		this.vue.setEchelle(echelle);	
 	}
 	
 	public void ecrireLog(String texte) {
