@@ -1,5 +1,6 @@
 package vue;
 
+import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -7,12 +8,12 @@ import controleur.Controleur;
 
 public class EcouteurDeSouris extends MouseAdapter {
 	private Controleur controleur;
-	private VueGraphique view;
+	private VueGraphique vue;
 	private Fenetre fenetre;
 
 	public EcouteurDeSouris(Controleur c, VueGraphique v, Fenetre f) {
 		this.controleur = c;
-		this.view = v;
+		this.vue = v;
 		this.fenetre = f;
 		System.out.println(v);
 	}
@@ -22,9 +23,10 @@ public class EcouteurDeSouris extends MouseAdapter {
 		super.mouseClicked(e);
 		
 		switch (e.getButton()) {
-		case MouseEvent.BUTTON1:
-			int idAdresse = view.getAdresseByXY(e.getX(), e.getY());
-			controleur.clicNoeud(idAdresse); 
+		case MouseEvent.BUTTON1: 
+			Point p = new Point(vue.changerRepere(e.getX()),
+					vue.changerRepere(e.getY()));
+			controleur.clicNoeud(p); // le mettre là
 			break;
 		case MouseEvent.BUTTON2:
 			controleur.clicDroit();

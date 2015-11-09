@@ -1,5 +1,6 @@
 package controleur;
 
+import java.awt.Point;
 import modele.Adresse;
 import modele.Plan;
 import modele.Tournee;
@@ -57,12 +58,13 @@ public class Controleur {
 		this.calculEchelle();
 	}
 	
-	private void calculEchelle() {
-		double echelle1 = ( (double) fenetre.getSizeView().getWidth() - 2 * Constants.MARGIN_VUE_GRAPHE ) / (plan.getXMax() + Constants.RAYON_NOEUD);
-		double echelle2 = ( (double) fenetre.getSizeView().getHeight() - 2 * Constants.MARGIN_VUE_GRAPHE ) / (plan.getYMax() + Constants.RAYON_NOEUD);
-		if ( echelle1 < echelle2)
-		{
-			fenetre.setEchelle(echelle1);	
+	private void calculEchelle() {	
+		double echelle1 = ((double) fenetre.getVue().getWidth() - 2 * Constants.MARGIN_VUE_GRAPHE)
+				/ (plan.getXMax() + Constants.RAYON_NOEUD);
+		double echelle2 = ((double) fenetre.getVue().getHeight() - 2 * Constants.MARGIN_VUE_GRAPHE)
+				/ (plan.getYMax() + Constants.RAYON_NOEUD);
+		if (echelle1 < echelle2) {
+			fenetre.setEchelle(echelle1);
 		} else {
 			fenetre.setEchelle(echelle2);
 		}
@@ -81,6 +83,11 @@ public class Controleur {
 	public void clicNoeud(int idAdresse) {
             afficheInfos(idAdresse);
             etatCourant.clicNoeud(fenetre, plan.getAdresse(idAdresse),plan, plan.getTournee(), historique);
+	}
+
+	public void clicNoeud(Point p) {
+		Adresse adresse = plan.getAdresseByCoord(p);
+		etatCourant.clicNoeud(fenetre, adresse, plan, plan.getTournee(), historique);
 	}
 	
 	public void clicDroit() {

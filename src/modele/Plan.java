@@ -1,5 +1,6 @@
 package modele;
 
+import java.awt.Point;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
@@ -8,6 +9,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.xml.sax.SAXException;
 
+import util.Constants;
 import xml.ExceptionXML;
 import xml.XMLParser;
 
@@ -289,6 +291,15 @@ public class Plan extends Observable {
 		return tournee;
 	}
 
+	public Adresse getAdresseByCoord(Point p) {
+		for (Adresse adresse : adresses) {
+			if (p.distance(adresse.getX(), adresse.getY()) <= 2 * Constants.RAYON_NOEUD + Constants.AREA_CLICK_NOEUD)
+			{
+				return adresse;
+			}
+		}
+		return null;
+	}
 
 
 }
