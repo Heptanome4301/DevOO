@@ -41,7 +41,6 @@ public class Fenetre {
 	private final Color ERROR_COLOR = Color.RED;
 	private JSlider zoom;
 	private JLabel lblZoom;
-	private Tournee tournee;
 
 	/**
 	 * Create the application.
@@ -177,7 +176,6 @@ public class Fenetre {
 	}
 
 	public void setTournee(Tournee tournee) {
-		this.tournee = tournee;
 		this.view.setTournee(tournee);
 		
 	}
