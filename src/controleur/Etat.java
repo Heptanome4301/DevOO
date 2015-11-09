@@ -3,7 +3,7 @@ package controleur;
 import modele.Adresse;
 import modele.Plan;
 import modele.Tournee;
-import tsp.Graphe;
+
 import vue.Fenetre;
 
 public interface Etat {
@@ -13,7 +13,7 @@ public interface Etat {
 	void chargerPlan(Fenetre fenetre, Plan plan);
 	void chargerLivraisons(Fenetre fenetre, Plan plan);
 	void calculerTournee(Fenetre fenetre, Tournee tournee);
-	void genererFeuilleDeRoute(Fenetre fenetre, String fichier,Tournee tournee);
+	void genererFeuilleDeRoute(Fenetre fenetre, Tournee tournee);
 	void clicDroit(Fenetre fenetre);
 	void ajouter(Fenetre fenetre);
 	void supprimer(Fenetre fenetre);

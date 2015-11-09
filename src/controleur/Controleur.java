@@ -3,9 +3,10 @@ package controleur;
 import modele.Adresse;
 import modele.Plan;
 import modele.Tournee;
+
 import util.Constants;
+
 import vue.Fenetre;
-import javax.swing.*;
 
 public class Controleur {
 	
@@ -74,7 +75,7 @@ public class Controleur {
 	}
 	
 	public void calculerTournee() {
-		etatCourant.calculerTournee(fenetre, plan.getTournee());
+            etatCourant.calculerTournee(fenetre, plan.getTournee());
 	}
 	
 	public void clicNoeud(int idAdresse) {
@@ -98,22 +99,8 @@ public class Controleur {
 		etatCourant.echanger(fenetre);
 	}
 
-	private String obtenirFichier(){
-		JFileChooser fc = new JFileChooser();
-		int result = fc.showSaveDialog(null);
-		String fichier = "";
-		if(result == JFileChooser.APPROVE_OPTION){
-			fichier = fc.getSelectedFile().getAbsolutePath();
-		}
-		return fichier;
-		//todo v�rifier si on apelle le filechooser dans le controlleur ou la vue
-	}
-
         public void genererFeuilleDeRoute(){
-		String fichier;
-                fichier = obtenirFichier();
-		if(!fichier.equals("")) // si un fichir a �t� selectionn�
-                    etatCourant.genererFeuilleDeRoute(fenetre, fichier, plan.getTournee());
+            etatCourant.genererFeuilleDeRoute(fenetre, plan.getTournee());
         }
 
 	public Tournee getTournee() {

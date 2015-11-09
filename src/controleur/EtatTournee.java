@@ -1,5 +1,7 @@
 package controleur;
 
+import javax.swing.JFileChooser;
+
 import modele.Tournee;
 import util.Constants;
 import vue.Fenetre;
@@ -12,11 +14,12 @@ public class EtatTournee extends EtatLivraison {
 
 
 	@Override
-	public void genererFeuilleDeRoute(Fenetre fenetre, String fichier,Tournee tournee){
+	public void genererFeuilleDeRoute(Fenetre fenetre, Tournee tournee){
 		try {
-			tournee.feuilleDeRoute(fichier);
+                    String fichier = obtenirFichier();
+                    tournee.feuilleDeRoute(fichier);
 		} catch (Exception e) {
-			e.printStackTrace();
+                    e.printStackTrace();
 		}
 	}
 
@@ -55,5 +58,15 @@ public class EtatTournee extends EtatLivraison {
 		Controleur.setEtatCourant(Controleur.etatEchanger1);
 		fenetre.ecrireLog(Constants.LOGS_ECHANGER1);
 	}
+        
+        private String obtenirFichier(){
+            JFileChooser fc = new JFileChooser();
+            int result = fc.showSaveDialog(null);
+            String fichier = "";
+            if(result == JFileChooser.APPROVE_OPTION){
+                    fichier = fc.getSelectedFile().getAbsolutePath();
+            }
+            return fichier;
+        }
 	
 }
