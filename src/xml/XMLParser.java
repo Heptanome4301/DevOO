@@ -126,11 +126,11 @@ public class XMLParser {
 	
 	private static Tournee construireTournee(Element root, Plan p) throws ExceptionXML {
 		int idEntropot = parseEntrepot(root); 
-		Adresse entropot = p.getAdresse(idEntropot);
-		if(entropot == null) 
+		Adresse entrepot = p.getAdresse(idEntropot);
+		if(entrepot == null) 
 			throw new ExceptionXML(ExceptionXML.ID_ENTREPOT_INVALIDE);
 		else
-			System.out.println("Entrepot := " + entropot.getId() );
+			System.out.println("Entrepot := " + entrepot.getId() );
 		
 		NodeList nodes = root.getElementsByTagName("Plage");
 		ArrayList<FenetreLivraison> fenetresLivraison = new ArrayList<FenetreLivraison>(); 
@@ -141,12 +141,12 @@ public class XMLParser {
 		NodeList sections = root.getElementsByTagName("Livraison");
 		ArrayList<Livraison> livraisons = new ArrayList<Livraison>();
 		for (int i = 0; i < sections.getLength(); i++) {
-			Livraison l = parseLivraison((Element)sections.item(i), p,fenetresLivraison );
+			Livraison l = parseLivraison((Element)sections.item(i), p);
 			if(livraisons.contains(l)) throw new ExceptionXML(ExceptionXML.ID_IDENTIQUES);
 			livraisons.add(l);
 		}
 		
-		return new Tournee(p,livraisons,fenetresLivraison,entropot);
+		return new Tournee(p,livraisons,fenetresLivraison,entrepot);
 	}
 	
 	private static int parseEntrepot(Element root) throws ExceptionXML{
@@ -197,7 +197,7 @@ public class XMLParser {
 		
 	}
 
-	private static Livraison parseLivraison(Element elt, Plan p, ArrayList<FenetreLivraison> fenetresLivraison) throws ExceptionXML {
+	private static Livraison parseLivraison(Element elt, Plan p) throws ExceptionXML {
 		int idAdresse ,id;
 		idAdresse = Integer.parseInt(elt.getAttribute("adresse"));
 		id = Integer.parseInt(elt.getAttribute("id"));

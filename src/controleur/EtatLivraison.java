@@ -11,11 +11,10 @@ public class EtatLivraison extends EtatPlan {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Graphe calculerTournee(Fenetre fenetre, Tournee tournee) {
+	public void calculerTournee(Fenetre fenetre, Tournee tournee) {
 		tournee.calculerTournee();
 		Controleur.setEtatCourant(Controleur.etatTournee);
 		fenetre.ecrireLog(Constants.LOGS_TOURNEE);
-		return null;
 	}
 
 }
