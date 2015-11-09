@@ -107,7 +107,7 @@ public class Plan extends Observable {
 			ExceptionXML {
 		tournee = XMLParser.chargerLivraison(this, xml);
 		this.setChanged();
-		this.notifyObservers();
+		this.notifyObservers(tournee);
 		return tournee;
 	}
 

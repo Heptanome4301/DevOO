@@ -55,4 +55,11 @@ public class Chemin {
 	public boolean contient(Troncon t) {
 		return troncons.contains(t);
 	}
+
+	public void accept(Visiteur visiteur) {
+		for(Troncon t:troncons){
+			visiteur.visite(t, true);
+		}
+		
+	}
 }

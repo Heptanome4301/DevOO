@@ -90,4 +90,9 @@ public class Adresse extends Observable {
 	public Collection<Troncon> getTroncons() {
 		return tronconsSortants;
 	}
+
+	public void accept(Visiteur visiteur) {
+		visiteur.visite(this, false);
+		
+	}
 }

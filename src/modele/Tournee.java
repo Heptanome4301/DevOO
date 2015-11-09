@@ -41,7 +41,7 @@ public class Tournee extends Observable{
 		this.plan = plan;
 		this.livraisons = livraisons;
 		this.entrepot = entrepot;
-		this.chemins = null;
+		this.chemins = new ArrayList<>();
 		this.Duree = 0;
 		this.fenetresLivraison = sortFenetreLivraison(fenetresLivraison);
 	

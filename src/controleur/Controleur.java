@@ -80,7 +80,9 @@ public class Controleur {
 
 	public Graphe chargerLivraisons() {
 	    tournee = null;
+
 		tournee = etatCourant.chargerLivraisons(fenetre, plan);
+
 	    return null;
 	    //TODO why?
 	}
