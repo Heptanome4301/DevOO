@@ -2,25 +2,38 @@ package modele;
 
 import java.util.Date;
 
+/**
+ * Cette classe représente un intervalle de temps souhaité pour une livraison. Deux fenêtres de livraison ne doivent
+ * pas se chavaucher (effets de bord non prévus), mais plusieurs livraisons peuvent recquérir une fenêtre de livraison
+ * identique.
+ */
 public class FenetreLivraison {
-	@Override
-	public String toString() {
-		return "FenetreLivraison [heureDebut=" + heureDebut + ", heureFin="
-				+ heureFin + "]";
-	}
-
-	//private Collection<Livraison> livraisons;
+	
+        /**
+         * L'heure de début de la fenêtre.
+         */
 	private Date heureDebut;
+        /**
+         * L'heure de fin de la fenêtre.
+         */
 	private Date heureFin;
 	
+        /**
+         * Le constructeur de la classe FenetreLivraison.
+         * @param heureDebut l'heure de début.
+         * @param heureFin l'heure de fin.
+         */
 	public FenetreLivraison(Date heureDebut,Date heureFin){
 		this.heureDebut = heureDebut;
 		this.heureFin = heureFin;
-		//this.livraisons = new ArrayList<Livraison>();
 		
 	}
 
-
+        
+        /**
+        * Surcharge du calcul de l'index de hachage afin de pouvoir utiliser un HashSet.
+        * @return l'index de hachage.
+        */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -32,7 +45,12 @@ public class FenetreLivraison {
 		return result;
 	}
 
-
+        
+        /**
+         * Surcharge de la méthode d'égalité.
+         * @param obj l'objet à comparer à cette fenêtre de livraison.
+         * @return true si l'heure de début et l'heure de fin correspondent.
+         */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -56,26 +74,29 @@ public class FenetreLivraison {
 	}
 
 
-	/**
-	 * ajouter une livraison a la fenetre 
-	 * @param livraison
-	 * @throws Exception si livraison deja existante
-	 */
-	//void ajouterLivraison(Livraison livraison) throws Exception{
-		//this.livraisons.add(livraison);
-	//}
-
-	//public Collection<Livraison> getLivraisons() {
-	//	return livraisons;
-	//}
-
+        /**
+         * Accesseur de l'attribut heureDebut.
+         * @return l'heure de debut de la fenêtre.
+         */
 	public Date getHeureDebut() {
 		return heureDebut;
 	}
-
+        
+        /**
+         * Accesseur de l'attribut heureFin.
+         * @return l'heure de fin de la fenêtre.
+         */
 	public Date getHeureFin() {
 		return heureFin;
 	}
 	
-	
+        /**
+         * Surcharge de la méthode d'affichage.
+         * @return une chaîne de caractère décrivant la fenêtre.
+         */
+        @Override
+        public String toString() {
+                return "FenetreLivraison [heureDebut=" + heureDebut + ", heureFin="
+                                + heureFin + "]";
+        }
 }

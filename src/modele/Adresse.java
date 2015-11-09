@@ -47,7 +47,7 @@ public class Adresse extends Observable {
 	
 	/**
          * Surcharge de la méthode d'afficahge.
-         * @return une chaîne de caractère décrivant l'adresse
+         * @return une chaîne de caractère décrivant l'adresse.
          */
 	@Override
 	public String toString() {
@@ -61,7 +61,7 @@ public class Adresse extends Observable {
         
         /**
          * Surcharge du calcul de l'index de hachage afin de pouvoir utiliser un HashSet.
-         * @return l'index de hachage
+         * @return l'index de hachage.
          */
 	@Override
 	public int hashCode() {
@@ -72,9 +72,9 @@ public class Adresse extends Observable {
 	}
         
         /**
-         * Surcharge de la méthode d'égalité
-         * @param obj la deuxième adresse à laquelle comparer la première
-         * @return true si les id sont identiques, false sinon
+         * Surcharge de la méthode d'égalité.
+         * @param obj la deuxième adresse à laquelle comparer la première.
+         * @return true si les id sont identiques, false sinon.
          */
 	@Override
 	public boolean equals(Object obj) {
