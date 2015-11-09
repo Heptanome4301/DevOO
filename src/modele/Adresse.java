@@ -14,11 +14,11 @@ public class Adresse extends Observable {
          */
 	private int id;
         /**
-         * Sa coordonnée suivant l'axe x. Utile pour la représentation graphique de cette adresse dans un plan.
+         * Sa coordonnée suivant l'axe Est/Ouest. Utile pour la représentation graphique de cette adresse dans un plan.
          */
 	private int x;
         /**
-         * Sa coordonnée suivant l'axe y. Utile pour la représentation graphique de cette adresse dans un plan.
+         * Sa coordonnée suivant l'axe Nord/Sud. Utile pour la représentation graphique de cette adresse dans un plan.
          */
 	private int y;
         /**

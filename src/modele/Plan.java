@@ -13,19 +13,30 @@ import util.Constants;
 import xml.ExceptionXML;
 import xml.XMLParser;
 
+/**
+ * Cette classe représente le plan d'une ville sous forme d'adresses et de tronçons entre ces adresses. Elle peut
+ * être apparentée à un graphe.
+ */
 public class Plan extends Observable {
 	/**
-	 * La liste des adresses qui composent le plan
+	 * La liste des adresses qui composent le plan.
 	 */
 	private Collection<Adresse> adresses;
-
+        /**
+         * La tournée qui passent par toutes les livraisons commandées.
+         */
 	private Tournee tournee;
-
+        /**
+         * Cordonnée extrême des adresses sur l'axe Est/Ouest.
+         */
 	private int XMax;
+        /**
+         * Coordonnée extrême des adresses sur l'axe Nord/Sud
+         */
 	private int YMax;
 
 	/**
-	 * Le constructeur de la classe Plan ne prend pas de paramï¿½tres. Appelï¿½ par
+	 * Le constructeur de la classe Plan. Il ne prend pas de paramètres. Il est appelé par
 	 * le controleur
 	 */
 	public Plan() {
@@ -34,23 +45,22 @@ public class Plan extends Observable {
 	}
 
 	/**
-	 * Ajoute une adresse ï¿½ la liste d'adresse
+	 * Ajoute une adresse à la liste d'adresse
 	 * 
-	 * @param a
-	 *            l'adresse ï¿½ ajouter
+	 * @param a l'adresse à ajouter
 	 */
 	public void ajouterAdresse(Adresse a) {
 		adresses.add(a);
+                //TODO Appliquer le pattern obervable avec la vue
 		//this.setChanged();
 		//this.notifyObservers(a); // Pour l'instant on n'utilise pas "a"
 	}
 
 	/**
-	 * Appelï¿½e par le controleur le nom du fichier ï¿½ charger est dï¿½ja connu par
-	 * la classe PlanXMLParser (OuvreurDeFichier qui le fait)
+	 * Appelé par le controleur. Le nom du fichier à charger est déjà déterminé par l'OuvreurDeFichier dans le
+         * controleur. C'est suite à cet appel que la liste d'adresses (et donc de tronçons) va être rempli.
 	 * 
-	 * @throws Exception
-	 *             En cas d'erreur dans le fichier XML
+	 * @throws Exception En cas d'erreur dans ou lors de la lecture du fichier XML.
 	 */
 	public void chargerPlan(File xml) throws ParserConfigurationException,
 			SAXException, IOException, ExceptionXML {
@@ -62,65 +72,28 @@ public class Plan extends Observable {
 	}
 
 
-	private void afficherPlan() {
-		// for (Adresse a : adresses) {
-		// System.out.print(a.getId()+" :");
-		// Collection<Troncon> tronconsSortantDeA = a.getTroncons();
-		// for (Troncon t : tronconsSortantDeA) {
-		// System.out.print(" "+t.getArrivee().getId());
-		//
-		// }
-		// System.out.println();
-		// }
-
-	}
-
-	private void completerTronconsManquants() {
-		for (Adresse a : adresses) {
-			Collection<Troncon> tronconsSortantDeA = a.getTroncons();
-			for (Adresse b : adresses) {
-				if (a == b)
-					continue;
-				boolean trouve = false;
-				for (Troncon t : tronconsSortantDeA) {
-					if (t.getArrivee() == b) {
-						trouve = true;
-						break;
-					}
-				}
-				if (trouve == false) {
-					a.ajouterTroncon(new Troncon(a.getId() + "->" + b.getId(),
-							a.getId() * b.getId(), 1, a, b));
-				}
-			}
-		}
-	}
-
 	/**
-	 * Appelï¿½e par le controleur le nom du fichier ï¿½ charger est dï¿½ja connu par
-	 * la classe PlanXMLParser (OuvreurDeFichier qui le fait)
+	 * Appelïée par le controleur.Le nom du fichier à charger est déjà déterminé par l'OuvreurDeFichier dans le
+         * controleur. C'est suite à cet appel que les livraisons vont être renseignées.
 	 * 
-	 * @throws Exception
-	 *             En cas d'erreur dans le fichier XML
-	 * @return la tournee correspendante, et initialise l'attribut tourne
+	 * @throws Exception En cas d'erreur dans ou lors de la lecture du fichier XML
 	 */
-	public Tournee chargerLivraison(File xml)
+	public void chargerLivraison(File xml)
 			throws ParserConfigurationException, SAXException, IOException,
 			ExceptionXML {
 		tournee = XMLParser.chargerLivraison(this, xml);
 		this.setChanged();
 		this.notifyObservers(tournee);
-		return tournee;
 	}
 
 	/**
-	 * Appelï¿½e sourtout par la classe Tournee Calculer le plus court chemin
+	 * Appelée sourtout par la classe Tournee. Cette méthode calcule le plus court chemin
 	 * entre deux adresses
 	 * 
 	 * @param a1
-	 *            l'adresse de dï¿½part
+	 *            l'adresse de départ
 	 * @param a2
-	 *            l'adresse d'arrivï¿½e
+	 *            l'adresse d'arrivïée
 	 * @return chemin le plus court chemin entre les deux adresses
 	 */
 	public Chemin calculerChemin(Adresse a1, Adresse a2) {
@@ -195,17 +168,19 @@ public class Plan extends Observable {
 	}
 
 	/**
-	 * Accesseurs de la liste d'adresse
+	 * Accesseur de la liste d'adresses.
 	 * 
-	 * @return adresses la liste d'adresses
+	 * @return adresses la liste d'adresses.
 	 */
 	public Collection<Adresse> getAdresses() {
 		return adresses;
 	}
 
 	/**
-	 * retourn la adresse du plan dont le id est donne
-	 */
+         * Permet de récupérer une adresse dans la liste d'adresses.
+         * @param id l'id de l'adresse recherchée.
+         * @return l'adresse recherchée.
+         */
 	public Adresse getAdresse(int id) {
 		for (Adresse a : adresses) {
 			if (a.getId() == id)
@@ -214,10 +189,16 @@ public class Plan extends Observable {
 		return null;
 	}
 	
+        /**
+         * Vide le plan de toutes ses adresses.
+         */
 	public void clear() {
 		adresses.clear();
 	}
 	
+        /**
+         * Initialise les coordonées extrêmes à partir des adresses cahrgées.
+         */
 	private void initXMaxYMax() {
 		XMax = -1 ;
 		YMax = -1 ;
@@ -227,20 +208,36 @@ public class Plan extends Observable {
 		}
 	}
 	
-	
+	/**
+         * Accesseur de l'attribut XMax.
+         * @return XMax la coordonée x extrême.
+         */
 	public int getXMax() {
 		return XMax;
 	}
-
+        
+        /**
+         *Accesseur de l'attribut YMax.
+         * @return YMax la coordonée y extrême.
+         */
 	public int getYMax() {
 		return YMax;
 	}
 
+        /**
+         * Cette méthode à pour but de retiré du plan toutes les adresses et les tronçons inutiles (adresses isolées,
+         * tronçons qui n'aboutissent nulle part,...).
+         * @throws ExceptionXML lorsqu'une erreur est rencontrée.
+         */
 	private void verifierPlan() throws ExceptionXML{
 		verifierAdresses();
 		verifierTroncon();
 	}
-
+        
+        /**
+         * Vérifie la validité de toutes les adresses chargées dans le plan.
+         * @throws ExceptionXML lorsqu'une adresse invalide est détectée.
+         */
 	private void verifierAdresses() throws ExceptionXML{
 		boolean adresseIsolee = false;
 		for(Adresse a : adresses){
@@ -252,7 +249,12 @@ public class Plan extends Observable {
 			throw new ExceptionXML(ExceptionXML.ADRESSE_INACCESSIBLE);
 		}
 	}
-
+        
+        /**
+         * Vérifie que l'adresse passée en paramètre permet de rejoindre d'autres adresses
+         * @param a l'adresse à vérifier
+         * @return true si l'adresse comporte au moins un tronçon sortant.
+         */
 	private boolean aTronconEntrant(Adresse a){
 		ArrayList<Troncon> listeTroncons = getTroncons();
 		for(Troncon t : listeTroncons){
@@ -263,6 +265,10 @@ public class Plan extends Observable {
 		return false;
 	}
 
+        /**
+         * Vérifie la validité de tous les tronçons chargés dans le plan.
+         * @throws ExceptionXML lorsuq'un tronçon invalide est rencontré.
+         */
 	private void verifierTroncon() throws ExceptionXML{
 
 		boolean tronconVersNull = false;
@@ -277,6 +283,11 @@ public class Plan extends Observable {
 			throw new ExceptionXML(ExceptionXML.ARRIVEE_TRONCON_INEXISTANTE);
 		}
 	}
+        
+        /**
+         * Permet de récupérer la liste de tous les tronçons chargés dans le plan.
+         * @return la liste de tronçons.
+         */
 	private ArrayList<Troncon> getTroncons(){
 		ArrayList<Troncon> listeTroncons = new ArrayList<>();
 		for(Adresse a : adresses){
@@ -287,10 +298,19 @@ public class Plan extends Observable {
 		return listeTroncons;
 	}
 
+        /**
+         * L'accesseur de l'attribut tournee.
+         * @return la tournee en cours de modification.
+         */
 	public Tournee getTournee() {
 		return tournee;
 	}
 
+        /**
+         * Permet de récupérer une adresse à partir de ses coordonées. 
+         * @param p Un point contenant les coordonées de l'adresse recherchée.
+         * @return adresse l'adressse recherchée si elle existe, null sinon.
+         */
 	public Adresse getAdresseByCoord(Point p) {
 		for (Adresse adresse : adresses) {
 			if (p.distance(adresse.getX(), adresse.getY()) <= 2 * Constants.RAYON_NOEUD + Constants.AREA_CLICK_NOEUD)
