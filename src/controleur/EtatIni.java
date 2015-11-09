@@ -41,7 +41,7 @@ public class EtatIni implements Etat {
 	}
 
 	@Override
-	public Graphe chargerPlan(Fenetre fenetre, Plan plan){
+	public void chargerPlan(Fenetre fenetre, Plan plan){
 		File xml;
 		try {
 			xml = OuvreurDeFichiersXML.getInstance().ouvre();
@@ -52,8 +52,6 @@ public class EtatIni implements Etat {
 			fenetre.signalerErreur(e.getMessage());
 			Controleur.setEtatCourant(Controleur.etatIni);
 		}
-		return null;
-		//TODO pourquoi ?
 	}
 
 	@Override
@@ -63,9 +61,8 @@ public class EtatIni implements Etat {
 	}
 
 	@Override
-	public Graphe calculerTournee(Fenetre fenetre, Tournee tournee) {
+	public void calculerTournee(Fenetre fenetre, Tournee tournee) {
 		fenetre.signalerErreur("Il faut d'abord charger un plan et des livraisons avant de pouvoir calculer la tournée");
-		return null; //fixme pourquoi renvoyer un Graphe
 	}
 
 	@Override

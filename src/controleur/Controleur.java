@@ -53,16 +53,11 @@ public class Controleur {
 	}
 	
 	
-	public Graphe chargerPlan()  {
+	public void chargerPlan()  {
 		plan.clear();
 		tournee = null;
-
 		etatCourant.chargerPlan(fenetre, plan);
-
 		this.calculEchelle();
-
-		return null;
-		//fixme pourquoi ça doit renvoyer un graphe??
 	}
 	
 	private void calculEchelle() {
@@ -78,18 +73,13 @@ public class Controleur {
 	}
 
 
-	public Graphe chargerLivraisons() {
+	public void chargerLivraisons() {
 	    tournee = null;
-
-		tournee = etatCourant.chargerLivraisons(fenetre, plan);
-
-	    return null;
-	    //TODO why?
+            tournee = etatCourant.chargerLivraisons(fenetre, plan);
 	}
 	
-	public Graphe calculerTournee() {
+	public void calculerTournee() {
 		etatCourant.calculerTournee(fenetre, tournee);
-		return null;
 	}
 	
 	public void clicNoeud(int idAdresse) {
