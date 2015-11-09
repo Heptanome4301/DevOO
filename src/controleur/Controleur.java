@@ -83,6 +83,7 @@ public class Controleur {
 	}
 	
 	public void clicNoeud(int idAdresse) {
+			afficheInfos(idAdresse);
 			etatCourant.clicNoeud(fenetre, plan.getAdresse(idAdresse),plan,tournee, historique);
 	}
 	
