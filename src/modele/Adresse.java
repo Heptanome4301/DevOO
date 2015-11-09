@@ -16,6 +16,10 @@ public class Adresse extends Observable {
 		this.livraison = l;
 	}
 	
+	public Livraison getLivraison(){
+		return livraison;
+	}
+	
 	public boolean estAssocierAvecLivraison(){
 		return livraison != null;
 	}
