@@ -63,16 +63,13 @@ public class VueGraphique extends JPanel implements Observer, Visiteur {
 		this.g = g;
 
 		for (Adresse a : this.plan.getAdresses()) {
-			for (Troncon t : a.getTroncons()) {
-				t.accept(this);
-			}
-			a.accept(this);
+			a.accept(this,false);
 		}
 		if (plan.getTournee() != null) {
+			plan.getTournee().getEntrepot().accept(this,true);
 			for (Chemin ch : plan.getTournee().getItineraire()) {
 				ch.accept(this);
 			}
-			plan.getTournee().getEntrepot().accept(this);
 		}
 
 		// this.getParent().setPreferredSize(new Dimension(this.maxLargeur,
@@ -118,10 +115,6 @@ public class VueGraphique extends JPanel implements Observer, Visiteur {
 
 		adressesVue.add(adresse);
 
-		if (adresseSelectionne != null) {
-			g2D.setColor(Color.yellow);
-			g2D.fill(adresseSelectionne);
-		}
 
 		if (a.estAssocierAvecLivraison()) {
 			g2D.setColor(Color.blue);
@@ -133,6 +126,11 @@ public class VueGraphique extends JPanel implements Observer, Visiteur {
 			g2D.fill(adresse);
 		}
 
+		if (adresseSelectionne != null) {
+			g2D.setColor(Color.yellow);
+			g2D.fill(adresseSelectionne);
+		}
+		
 	}
 
 	@Override
