@@ -91,8 +91,11 @@ public class Adresse extends Observable {
 		return tronconsSortants;
 	}
 
-	public void accept(Visiteur visiteur) {
-		visiteur.visite(this, false);
+	public void accept(Visiteur visiteur,boolean estEntrepot) {
+		for (Troncon t : getTroncons()) {
+			t.accept(visiteur);
+		}
+		visiteur.visite(this, estEntrepot);
 		
 	}
 }
