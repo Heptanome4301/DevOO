@@ -15,9 +15,10 @@ public class EtatAjouter1 extends EtatTournee {
 
 	@Override
 	public void clicNoeud(Fenetre fenetre, Adresse adresse, Plan plan, Tournee tournee, ListeDeCmd listeCmd) {
-		if(!adresse.estAssocierAvecLivraison()){
+		if(adresse.estAssocierAvecLivraison()){
 			fenetre.signalerErreur(Constants.ERR_ADRESSE_LIVRAISON);
 			Controleur.setEtatCourant(Controleur.etatTournee);
+                        fenetre.ecrireLog(Constants.LOGS_DEFAULT);
 			return;
 		}
 		Controleur.etatAjouter2.setAdresse(adresse);
@@ -27,7 +28,6 @@ public class EtatAjouter1 extends EtatTournee {
 
 	@Override
 	public void clicDroit(Fenetre fenetre) {
-		// action = annuler
 		Controleur.setEtatCourant(Controleur.etatTournee);
 		fenetre.ecrireLog(Constants.LOGS_DEFAULT);
 	}

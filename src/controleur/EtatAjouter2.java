@@ -11,8 +11,8 @@ import vue.Fenetre;
 
 public class EtatAjouter2 extends EtatTournee {
 
-	// l'adresse selectionnée lors de l'état 1 
 	private Adresse adresse;
+        private static int generatedId = 100;
 	
 	public EtatAjouter2() {
 		adresse=null;
@@ -22,23 +22,23 @@ public class EtatAjouter2 extends EtatTournee {
 		this.adresse=adresse;
 	}
 	
-	public void clicNoeud(Fenetre fenetre, Adresse followAdresse, Plan plan, Tournee tournee, ListeDeCmd listeCmd) {
-
-		Livraison followLivraison = adresse.getLivraison();
-		Livraison newLivraison  = new Livraison(100, followAdresse,followLivraison.getFenetreLivraison());
-		tournee.ajouterLivraison(newLivraison,followLivraison);
-		// TODO l'algo fait l'inverse : la premiere Livraison séléction
-		// sera celle qui vas suivre la nouvelle Livraison
+	public void clicNoeud(Fenetre fenetre, Adresse followingAdresse, Plan plan, Tournee tournee, ListeDeCmd listeCmd) {
+                if(!followingAdresse.estAssocierAvecLivraison()){
+                    fenetre.ecrireLog(Constants.LOGS_DEFAULT);
+                    Controleur.setEtatCourant(Controleur.etatTournee);
+                }
+                else{
+                    Livraison followingLivraison = followingAdresse.getLivraison();
+                    Livraison newLivraison  = new Livraison(generatedId++, adresse, followingLivraison.getFenetreLivraison());
+                    tournee.ajouterLivraison(newLivraison,followingLivraison);
+                   
+                    Controleur.setEtatCourant(Controleur.etatTournee);
+                    fenetre.ecrireLog(Constants.LOGS_DEFAULT);
+                }
+                
 		
-		/*CmdAjouter cmd = new CmdAjouter(tournee, adresse, followAdresse);
-		listeCmd.ajoute(cmd);
-		cmd.doCmd();*/
-		
-		Controleur.setEtatCourant(Controleur.etatTournee);
-		fenetre.ecrireLog(Constants.LOGS_DEFAULT);
 	}
 	
-	// annuler l'ajout
 	public void clicDroit(Fenetre fenetre) {
 		adresse=null;
 		Controleur.setEtatCourant(Controleur.etatTournee);
