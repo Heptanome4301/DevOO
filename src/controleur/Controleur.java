@@ -122,10 +122,12 @@ public class Controleur {
 		return fichier;
 		//todo v�rifier si on apelle le filechooser dans le controlleur ou la vue
 	}
-	public void genererFeuilleDeRoute(){
+
+    public void genererFeuilleDeRoute(){
 		String fichier;
-		if(!(fichier = obtenirFichier()).equals("")) // si un fichir a �t� selectionn�
-                etatCourant.genererFeuilleDeRoute(fenetre, fichier, tournee);
+                fichier = obtenirFichier();
+		if(!fichier.equals("")) // si un fichir a �t� selectionn�
+                    etatCourant.genererFeuilleDeRoute(fenetre, fichier, tournee);
         }
 
 	public Tournee getTournee() {

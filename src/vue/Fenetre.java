@@ -104,33 +104,33 @@ public class Fenetre {
 		labelTour.setHorizontalAlignment(SwingConstants.CENTER);
 		frame.getContentPane().add(labelTour, "cell 2 0 2 1,growx");
 
-		loadPlan = new JButton("Charger un plan");
+		loadPlan = new JButton(Constants.CHARGER_PLAN);
 		frame.getContentPane().add(loadPlan, "cell 2 1 2 1,growx");
 
-		loadDeliveries = new JButton("Charger des livraisons");
+		loadDeliveries = new JButton(Constants.CHARGER_LIVRAISONS);
 		frame.getContentPane().add(loadDeliveries, "cell 2 2 2 1,growx");
 
-		computeTour = new JButton("Calculer une tourn�e");
+		computeTour = new JButton(Constants.CALCULER_TOURNEE);
 		frame.getContentPane().add(computeTour, "cell 2 3 2 1,growx");
 
 		labelDelivery = new JLabel("Modifier une tourn�e");
 		labelDelivery.setHorizontalAlignment(SwingConstants.CENTER);
 		frame.getContentPane().add(labelDelivery, "cell 2 5 2 1,growx");
 
-		addDelivery = new JButton("Ajouter une livraison");
+		addDelivery = new JButton(Constants.AJOUTER_LIVRAISONS);
 		frame.getContentPane().add(addDelivery, "cell 2 6 2 1,growx");
 
-		removeDelivery = new JButton("Supprimer une livraison");
+		removeDelivery = new JButton(Constants.SUPPRIMER_LIVRAISON);
 		frame.getContentPane().add(removeDelivery, "cell 2 7 2 1,growx");
 
-		swapDelivery = new JButton("Inverser deux livraisons");
+		swapDelivery = new JButton(Constants.INVERSER_LIVRAISONS);
 		frame.getContentPane().add(swapDelivery, "cell 2 8 2 1,growx");
 
 		infoPoint = new JTextArea();
 		infoPoint.setMargin(new Insets(Constants.MARGIN_TEXTE_PANEL, Constants.MARGIN_TEXTE_PANEL, Constants.MARGIN_TEXTE_PANEL, Constants.MARGIN_TEXTE_PANEL));
 		frame.getContentPane().add(infoPoint, "cell 0 11,grow");
 
-		saveRoadMap = new JButton("Sauvegarder la feuille de route");
+		saveRoadMap = new JButton(Constants.SAUVEGARDER_FEUILLE_DE_ROUTE);
 		frame.getContentPane().add(saveRoadMap, "cell 2 11 2 1,growx");
 
 		log = new JTextField();

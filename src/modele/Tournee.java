@@ -109,11 +109,15 @@ public class Tournee extends Observable{
                     stack.push(Integer.toString(t.getDepart().getId()));
                 }
                 
+                
                 while(!stack.isEmpty()){
+                    int deb = Integer.parseInt(stack.pop());
+                    int arr = Integer.parseInt(stack.pop());
+                    
                     pw.print(" De : ");
-                    pw.print(stack.pop());
+                    pw.print(deb);
                     pw.print(" A : ");
-                    pw.print(stack.pop());
+                    pw.print(arr);
                     pw.print(" Par : ");
                     pw.println(stack.pop());
                 }

@@ -17,4 +17,13 @@ public class Constants {
 	public static final String LOGS_TOURNEE = "Tournée calculée avec succès";
 	public static final String LOGS_LIVRAISON = "Livraisons chargées avec succès.";
 	public static final String LOGS_PLAN = "Plan chargé avec succès.";
+        
+        /*Constantes pour les textes des boutons*/
+        public static final String CHARGER_PLAN = "Charger un plan";
+        public static final String CHARGER_LIVRAISONS = "Charger des livraisons";
+        public static final String CALCULER_TOURNEE = "Calculer une tourn�e";
+        public static final String AJOUTER_LIVRAISONS = "Ajouter une livraison";
+        public static final String SUPPRIMER_LIVRAISON = "Supprimer une livraison";
+        public static final String INVERSER_LIVRAISONS = "Inverser deux livraisons";
+        public static final String SAUVEGARDER_FEUILLE_DE_ROUTE = "Sauvegarder le feuille de route";
 }
