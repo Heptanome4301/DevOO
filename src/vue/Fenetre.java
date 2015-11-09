@@ -184,4 +184,12 @@ public class Fenetre {
 				JOptionPane.ERROR_MESSAGE);
 	}
 
+	public boolean confirmerSuppression(){
+		int result = JOptionPane.showConfirmDialog(null,
+				"Etes vous sur de vouloir supprimer cette livraison",
+				"Supprimer?",
+				JOptionPane.CANCEL_OPTION);
+		return result == 0;
+	}
+
 }

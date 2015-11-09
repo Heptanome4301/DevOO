@@ -24,10 +24,12 @@ public class EcouteurDeSouris extends MouseAdapter {
 		switch (e.getButton()) {
 		case MouseEvent.BUTTON1:
 			int idAdresse = view.getAdresseByXY(e.getX(), e.getY());
-			//if(idAdresse>0)
-				controleur.afficheInfos(idAdresse);
+			//controleur.afficheInfos(idAdresse); //Todo c'est pas ouf ça
+			controleur.clicNoeud(idAdresse); //le mettre là
 			break;
-
+		case MouseEvent.BUTTON2:
+			controleur.clicDroit();
+			break;
 		case MouseEvent.BUTTON3:
 			break;
 		}

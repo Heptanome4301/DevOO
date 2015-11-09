@@ -1,23 +1,14 @@
 package controleur;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.StreamCorruptedException;
-
-import javax.swing.*;
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.xml.sax.SAXException;
-
-import tsp.Graphe;
-import util.Constants;
-import vue.Fenetre;
-import xml.ExceptionXML;
-import xml.OuvreurDeFichiersXML;
 import modele.Adresse;
 import modele.Livraison;
 import modele.Plan;
 import modele.Tournee;
+import tsp.Graphe;
+import util.Constants;
+import vue.Fenetre;
+
+import javax.swing.*;
 
 public class Controleur {
 	
@@ -40,10 +31,10 @@ public class Controleur {
 	protected static void setEtatCourant(Etat etat) { etatCourant = etat; }
 	
 
-	public Controleur(Plan plan) {
+	public Controleur() {
 		this.historique = new ListeDeCmd();
-		this.etatCourant = etatIni;
-		this.plan = plan;
+		Controleur.etatCourant = etatIni;
+		this.plan = new Plan();
 		this.fenetre = new Fenetre(this, plan);
 		this.tournee = null;
 	}
@@ -64,19 +55,14 @@ public class Controleur {
 	
 	public Graphe chargerPlan()  {
 		plan.clear();
-		File xml ;
 		tournee = null;
-		try {
-			xml = OuvreurDeFichiersXML.getInstance().ouvre();
-			etatCourant.chargerPlan(fenetre, plan,xml);
-		} catch (Exception e) {
-			//TODO signaler erreur a la vue
-			e.printStackTrace();
-		} finally {
-			this.calculEchelle();
-		}
+
+		etatCourant.chargerPlan(fenetre, plan);
+
+		this.calculEchelle();
+
 		return null;
-		//TODO
+		//fixme pourquoi ça doit renvoyer un graphe??
 	}
 	
 	private void calculEchelle() {
@@ -93,20 +79,12 @@ public class Controleur {
 
 
 	public Graphe chargerLivraisons() {
-	    File xml ;
 	    tournee = null;
 
-	    try {
-	            xml = OuvreurDeFichiersXML.getInstance().ouvre();
-	            tournee = etatCourant.chargerLivraisons(fenetre,plan,xml);
-	            
-	    } catch (ExceptionXML exceptionXML) {
-	            //TODO signaler erreur a la vue
-	    		exceptionXML.printStackTrace();
-	    }
+		tournee = etatCourant.chargerLivraisons(fenetre, plan);
 
 	    return null;
-	    //TODO
+	    //TODO why?
 	}
 	
 	public Graphe calculerTournee() {
@@ -114,31 +92,24 @@ public class Controleur {
 		return null;
 	}
 	
-	public void clicNoeud(Adresse adresse, Plan plan,Tournee tournee, ListeDeCmd listeCmd) {
-			etatCourant.clicNoeud(fenetre, adresse,plan,tournee, listeCmd);
+	public void clicNoeud(int idAdresse) {
+			etatCourant.clicNoeud(fenetre, plan.getAdresse(idAdresse),plan,tournee, historique);
 	}
 	
 	public void clicDroit() {
-		etatCourant.clicDroit();
+		etatCourant.clicDroit(fenetre);
 	}
 	
 	public void ajouter() {
-		if(etatCourant == etatTournee) {
-			etatCourant = etatAjouter1;
-		}
-		
+		etatCourant.ajouter(fenetre);
 	}
 	
 	public void supprimer() {
-		if(etatCourant == etatTournee) {
-			etatCourant = etatSupprimer;	
-		}
+		etatCourant.supprimer(fenetre);
 	}
 	
 	public void echanger() {
-		if(etatCourant == etatTournee) {
-			//etatCourant = etatEchanger;
-		}
+		etatCourant.echanger(fenetre);
 	}
 
 	private String obtenirFichier(){

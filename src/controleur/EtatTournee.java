@@ -1,25 +1,17 @@
 package controleur;
 
-import java.io.File;
-
-import modele.Plan;
 import modele.Tournee;
+import util.Constants;
 import vue.Fenetre;
 
-public class EtatTournee extends EtatIni {
+public class EtatTournee extends EtatLivraison {
 
 	public EtatTournee() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Tournee chargerLivraisons(Fenetre fenetre, Plan plan, File file){
-		// TODO Auto-generated method stub
-//		plan.chargerLivraison();
-		// plan.chargerLivraison(file);
-		Controleur.setEtatCourant(Controleur.etatLivraison);
-		return null;
-	}
-	
+
+	@Override
 	public void genererFeuilleDeRoute(Fenetre fenetre, String fichier,Tournee tournee){
 		try {
 			tournee.feuilleDeRoute(fichier);
@@ -27,7 +19,8 @@ public class EtatTournee extends EtatIni {
 			e.printStackTrace();
 		}
 	}
-	
+
+	@Override
 	public void undo(Fenetre fenetre, ListeDeCmd listeCmd){
 		try {
 			listeCmd.undo();
@@ -36,12 +29,31 @@ public class EtatTournee extends EtatIni {
 		}
 	}
 
+	@Override
 	public void redo(Fenetre fenetre, ListeDeCmd listeCmd){
 		try {
 			listeCmd.redo();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void ajouter(Fenetre fenetre){
+		Controleur.setEtatCourant(Controleur.etatAjouter1);
+		fenetre.ecrireLog(Constants.LOGS_AJOUTER1);
+	}
+
+	@Override
+	public void supprimer(Fenetre fenetre){
+		Controleur.setEtatCourant(Controleur.etatSupprimer);
+		fenetre.ecrireLog(Constants.LOGS_SUPPRIMER);
+	}
+
+	@Override
+	public void echanger(Fenetre fenetre){
+		Controleur.setEtatCourant(Controleur.etatEchanger1);
+		fenetre.ecrireLog(Constants.LOGS_ECHANGER1);
 	}
 	
 }

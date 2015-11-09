@@ -1,19 +1,14 @@
 package controleur;
 
-import org.xml.sax.SAXException;
-import tsp.Graphe;
-
-import java.io.File;
-import java.io.IOException;
-
 import modele.Adresse;
 import modele.Plan;
 import modele.Tournee;
+import tsp.Graphe;
+import util.Constants;
 import vue.Fenetre;
-import xml.ExceptionXML;
+import xml.OuvreurDeFichiersXML;
 
-import javax.swing.*;
-import javax.xml.parsers.ParserConfigurationException;
+import java.io.File;
 
 public class EtatIni implements Etat {
 
@@ -36,45 +31,55 @@ public class EtatIni implements Etat {
 	}
 
 	@Override
-	public void clicDroit() {
+	public void clicDroit(Fenetre fenetre) {
 		// Does nothing	
 	}
 
 	@Override
 	public void clicNoeud(Fenetre fenetre, Adresse adresse,Plan plan, Tournee tournee, ListeDeCmd listeCmd){
-		throw new UnsupportedOperationException();
+		throw new UnsupportedOperationException();  //todo pourquoi tous ces arguments?
 	}
 
 	@Override
-	public Graphe chargerPlan(Fenetre fenetre, Plan plan, File file){
+	public Graphe chargerPlan(Fenetre fenetre, Plan plan){
+		File xml;
 		try {
-			plan.chargerPlan(file);
+			xml = OuvreurDeFichiersXML.getInstance().ouvre();
+			plan.chargerPlan(xml);
 			Controleur.setEtatCourant(Controleur.etatPlan);
-		} catch (ParserConfigurationException e) {
-			e.printStackTrace();
-		} catch (SAXException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (ExceptionXML exceptionXML) {
-			exceptionXML.printStackTrace();
-			String message = exceptionXML.getMessage();
-			fenetre.signalerErreur(message);
+			fenetre.ecrireLog(Constants.LOGS_PLAN);
+		} catch (Exception e){
+			fenetre.signalerErreur(e.getMessage());
+			Controleur.setEtatCourant(Controleur.etatIni);
 		}
 		return null;
-		//TODO
+		//TODO pourquoi ?
 	}
 
 	@Override
-	public Tournee chargerLivraisons(Fenetre fenetre, Plan plan,File file){
-		fenetre.signalerErreur("Il faut charger un plan avant de pouvoir charger des livraisons");
-		return null;
+	public Tournee chargerLivraisons(Fenetre fenetre, Plan plan){
+		fenetre.signalerErreur("Il faut charger un plan avant de pouvoir charger des livraisons.");
+		return null; //fixme pourquoi renvoyer une tournée?
 	}
 
 	@Override
 	public Graphe calculerTournee(Fenetre fenetre, Tournee tournee) {
 		fenetre.signalerErreur("Il faut d'abord charger un plan et des livraisons avant de pouvoir calculer la tournée");
-		return null;
+		return null; //fixme pourquoi renvoyer un Graphe
 	}
 
+	@Override
+	public void ajouter(Fenetre fenetre) {
+		//Does nothing
+	}
+
+	@Override
+	public void supprimer(Fenetre fenetre) {
+		//Does nothing
+	}
+
+	@Override
+	public void echanger(Fenetre fenetre) {
+		//Does nothing
+	}
 }

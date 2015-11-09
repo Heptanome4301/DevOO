@@ -7,7 +7,7 @@ public class ListeDeCmd {
 	private int position;
 	
 	public ListeDeCmd() {
-		listeCmd = new ArrayList<Commande>();
+		listeCmd = new ArrayList<>();
 		position = listeCmd.size();
 	}
 	

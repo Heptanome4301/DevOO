@@ -1,15 +1,12 @@
 package controleur;
 
-import java.io.File;
-import java.io.IOException;
-
 import modele.Plan;
 import modele.Tournee;
-import org.xml.sax.SAXException;
+import util.Constants;
 import vue.Fenetre;
-import xml.ExceptionXML;
+import xml.OuvreurDeFichiersXML;
 
-import javax.xml.parsers.ParserConfigurationException;
+import java.io.File;
 
 public class EtatPlan extends EtatIni {
 
@@ -17,21 +14,19 @@ public class EtatPlan extends EtatIni {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Tournee chargerLivraisons(Fenetre fenetre, Plan plan, File file){
+	public Tournee chargerLivraisons(Fenetre fenetre, Plan plan){
+		File xml;
 		Tournee resultat = null;
 		try {
-			resultat = plan.chargerLivraison(file);
+			xml = OuvreurDeFichiersXML.getInstance().ouvre();
+			resultat = plan.chargerLivraison(xml);
 			Controleur.setEtatCourant(Controleur.etatLivraison);
-		} catch (ParserConfigurationException e) {
-			e.printStackTrace();
-		} catch (SAXException e) {
-			fenetre.signalerErreur("Fichier xml mal formé.");
-		} catch (IOException e) {
-			fenetre.signalerErreur("Erreur à la lecture du fichier");
-		} catch (ExceptionXML exceptionXML) {
-			fenetre.signalerErreur(exceptionXML.getMessage());
+			fenetre.ecrireLog(Constants.LOGS_LIVRAISON);
+		} catch (Exception e){
+			fenetre.signalerErreur(e.getMessage());
+			Controleur.setEtatCourant(Controleur.etatPlan);
 		}
-		return resultat;
+		return resultat; //TODO pourquoi avoir une tournée dans le controlleur vu qu'on en a déjà une dans le plan?
 	}
-	
+	//TODO implémenter clicNoeuds : la mise à jour de l'affichage doit passer par le controlleur
 }
