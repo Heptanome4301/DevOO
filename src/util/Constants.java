@@ -18,11 +18,11 @@ public class Constants {
 	public static final String LOGS_LIVRAISON = "Livraisons chargées avec succès.";
 	public static final String LOGS_PLAN = "Plan chargé avec succès.";
         
-        /*Messages d'erreur � l'attention de l'utilisateur*/
-        public static final String ERR_GENERE_FEUILLE = "Veuillez calculer la tourn�e afin de pouvoir g�n�rer la feuille de route.";
+        /*Messages d'erreur � l'attention de l'utilisateur*/
+        public static final String ERR_GENERE_FEUILLE = "Veuillez calculer la tourn�e afin de pouvoir g�n�rer la feuille de route.";
         public static final String ERR_CHARGEMENT_LIVRAISON = "Il faut charger un plan avant de pouvoir charger des livraisons.";
         public static final String ERR_CALCUL_TOURNEE = "Il faut d'abord charger un plan et des livraisons avant de pouvoir calculer la tournée";
-        public static final String ERR_ADRESSE_LIVRAISON = "L'adresse selectionnée est déjà associée avec une livraison";
+        public static final String ERR_ADRESSE_LIVRAISON = "L'adresse selectionnée n'est pas associée à aucune livraison";
         
         /*Constantes pour les textes des boutons*/
         public static final String CHARGER_PLAN = "Charger un plan";

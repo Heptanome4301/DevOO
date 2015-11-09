@@ -1,6 +1,7 @@
 package controleur;
 
 import modele.Adresse;
+import modele.Livraison;
 import modele.Plan;
 import modele.Tournee;
 
@@ -22,14 +23,17 @@ public class EtatAjouter2 extends EtatTournee {
 	}
 	
 	public void clicNoeud(Fenetre fenetre, Adresse followAdresse, Plan plan, Tournee tournee, ListeDeCmd listeCmd) {
-		//TODO la, on a pas trop compris ce qui a été tenté. Comment on transforme ces adresses en livraisons?
-		// -> Bah faut deja creer la nouvelle livraison à ajouter
-		//Livraison followLivraison = tournee.getLivraison(followAdresse);
-		//Livraison newLivraison = new Livraison(??, followAdresse, fenetreLivraison);
-		//tournee.ajouterLivraison(newLivraison, followLivraison);
+
+		Livraison followLivraison = adresse.getLivraison();
+		Livraison newLivraison  = new Livraison(100, followAdresse,followLivraison.getFenetreLivraison());
+		tournee.ajouterLivraison(newLivraison,followLivraison);
+		// TODO l'algo fait l'inverse : la premiere Livraison séléction
+		// sera celle qui vas suivre la nouvelle Livraison
+		
 		/*CmdAjouter cmd = new CmdAjouter(tournee, adresse, followAdresse);
 		listeCmd.ajoute(cmd);
 		cmd.doCmd();*/
+		
 		Controleur.setEtatCourant(Controleur.etatTournee);
 		fenetre.ecrireLog(Constants.LOGS_DEFAULT);
 	}

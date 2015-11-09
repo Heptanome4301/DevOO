@@ -499,14 +499,6 @@ public class Tournee extends Observable{
 
 	}
 	
-	/*public Livraison getLivraison(Adresse a){
-		for(Livraison l:livraisons){
-			if(l.getAdresse().getId() == a.getId() ){
-				return l;
-			}
-		}
-		return null;
-	}*/
 	
 	public boolean isDansTrournee(Troncon t){
 		if(chemins != null){

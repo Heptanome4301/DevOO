@@ -39,6 +39,7 @@ public class Fenetre {
 	private final String TITLE = "Livraison Simulator 2015";
 	private final Dimension MINIMUM_SIZE = new Dimension(800, 600);
 	private final Color ERROR_COLOR = Color.RED;
+	private final Color INFO_COLOR = Color.BLACK;
 	private JSlider zoom;
 	private JLabel lblZoom;
 
@@ -163,6 +164,7 @@ public class Fenetre {
 	}
 	
 	public void ecrireLog(String texte) {
+		log.setForeground(INFO_COLOR);
 		log.setText(texte);
 	}
 	

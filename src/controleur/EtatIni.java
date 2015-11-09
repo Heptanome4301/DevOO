@@ -27,7 +27,7 @@ public class EtatIni implements Etat {
 		// Does nothing (or return exception?)
 	}
         
-	@Override
+	
 	public void genererFeuilleDeRoute(Fenetre fenetre,Tournee tournee){
 		fenetre.signalerErreur(Constants.ERR_GENERE_FEUILLE);
 	}
