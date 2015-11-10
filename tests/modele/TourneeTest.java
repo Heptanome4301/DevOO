@@ -30,8 +30,8 @@ public class TourneeTest {
 		Tournee tournee;
 		try {
 			p.chargerPlan(pXml);
-			tournee = p.chargerLivraison(lXml);
-			tournee.calculerTournee();
+			p.chargerLivraison(lXml);
+			p.getTournee().calculerTournee();
 			Adresse adresse = p.getAdresse(1);
 			Adresse adresseF = p.getAdresse(73);
 			//Livraison livraisonF = tournee.getLivraison(adresseF);
@@ -40,7 +40,7 @@ public class TourneeTest {
 			Date dateDebut = new Date(annee, mois, jour, 8, 0, 0);
 			Date dateFin = new Date(annee, mois, jour, 12, 0, 0);
 			Livraison livraison = new Livraison(1565, adresse, new FenetreLivraison(dateDebut,dateFin));
-			tournee.ajouterLivraison(livraison, livraisonF);
+			p.getTournee().ajouterLivraison(livraison, livraisonF);
 			//assertTrue(tournee.getLivraison(adresse)!=null);
 			assertTrue(adresse.getLivraison()!=null);
 		} catch (ParserConfigurationException | SAXException | IOException | ExceptionXML e) {
@@ -60,12 +60,12 @@ public class TourneeTest {
 		Tournee tournee;
 		try {
 			p.chargerPlan(pXml);
-			tournee = p.chargerLivraison(lXml);
-			tournee.calculerTournee();
+			p.chargerLivraison(lXml);
+			p.getTournee().calculerTournee();
 			Adresse adresse = p.getAdresse(43);
 			//Livraison livraison = tournee.getLivraison(adresse);
 			Livraison livraison = adresse.getLivraison();
-			tournee.supprimerLivraison(livraison);
+			p.getTournee().supprimerLivraison(livraison);
 			
 			//assertTrue(tournee.getLivraison(adresse)==null);
 			assertTrue(adresse.getLivraison()==null);
@@ -85,8 +85,8 @@ public class TourneeTest {
 		Tournee tournee;
 		try {
 			p.chargerPlan(pXml);
-			tournee = p.chargerLivraison(lXml);
-			tournee.calculerTournee();
+			p.chargerLivraison(lXml);
+			p.getTournee().calculerTournee();
 			Adresse adresse = p.getAdresse(73);
 			//Livraison livraison = tournee.getLivraison(adresse);
 			Livraison livraison = adresse.getLivraison();
@@ -94,7 +94,7 @@ public class TourneeTest {
 			//Livraison livraison2 = tournee.getLivraison(adresse2);
 			Livraison livraison2 = adresse2.getLivraison();
 			
-			tournee.echangerLivraison(livraison, livraison2);
+			p.getTournee().echangerLivraison(livraison, livraison2);
 			
 			assertTrue(true);
 		} catch (ParserConfigurationException | SAXException | IOException | ExceptionXML e) {
