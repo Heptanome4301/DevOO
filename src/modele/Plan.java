@@ -64,6 +64,7 @@ public class Plan extends Observable {
 	 */
 	public void chargerPlan(File xml) throws ParserConfigurationException,
 			SAXException, IOException, ExceptionXML {
+                viderTournee();
 		XMLParser.chargerPlan(this, xml);
 		verifierPlan();
 		initXMaxYMax();
@@ -81,6 +82,7 @@ public class Plan extends Observable {
 	public void chargerLivraison(File xml)
 			throws ParserConfigurationException, SAXException, IOException,
 			ExceptionXML {
+                viderTournee();
 		tournee = XMLParser.chargerLivraison(this, xml);
 		this.setChanged();
 		this.notifyObservers(tournee);
@@ -320,6 +322,13 @@ public class Plan extends Observable {
 		}
 		return null;
 	}
+        
+        /**
+         * Réinitialise la tournée.
+         */
+        private void viderTournee(){
+            tournee = null;
+        }
 
 
 }
