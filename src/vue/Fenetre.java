@@ -5,7 +5,7 @@ import java.awt.Dimension;
 import java.awt.Insets;
 import java.util.Observer;
 
-import javax.swing.*; 
+import javax.swing.*;
 
 import controleur.Controleur;
 import modele.Adresse;
@@ -33,7 +33,7 @@ public class Fenetre {
 	private JScrollPane scrollPanel;
 	private JTextField log;
 	private JLabel etiquetteListePoints;
-	
+
 	private EcouteurDeBoutons ecouteurBoutons;
 	private EcouteurDeSouris ecouteurSouris;
 	private EcouteurDeListe ecouteurListe;
@@ -54,12 +54,11 @@ public class Fenetre {
 		initializeListeners(c);
 	}
 
-	
 	private void initializeListeners(Controleur c) {
 		this.ecouteurBoutons = new EcouteurDeBoutons(c);
 		this.ecouteurSouris = new EcouteurDeSouris(c, vue, this);
 		this.ecouteurListe = new EcouteurDeListe(c, listAdressesLivraisons);
-				
+
 		chargerPlan.addActionListener(ecouteurBoutons);
 		chargerLivraisons.addActionListener(ecouteurBoutons);
 		calculerTournee.addActionListener(ecouteurBoutons);
@@ -70,8 +69,8 @@ public class Fenetre {
 		listAdressesLivraisons.addListSelectionListener(ecouteurListe);
 
 		vue.addMouseListener(ecouteurSouris);
-		
-//		zoom.addChangeListener(new ZoomListener(view));
+
+		// zoom.addChangeListener(new ZoomListener(view));
 	}
 
 	/**
@@ -86,24 +85,25 @@ public class Fenetre {
 		frame.getContentPane().setLayout(
 				new MigLayout("", "[20%,grow][60%,grow][20%][10%]",
 						"[22.00][][][][][][][][][][grow][15%][]"));
-		
+
 		etiquetteListePoints = new JLabel("Liste des points de livraison");
 		frame.getContentPane().add(etiquetteListePoints,
 				"cell 0 0,alignx center,aligny center");
-		
-//		lblZoom = new JLabel("Zoom");
-//		frame.getContentPane().add(lblZoom, "flowx,cell 1 0,alignx right");
-//		
-//		zoom = new JSlider();
-//		zoom.setValue(100);
-//		zoom.setMinimum(10);
-//		zoom.setMaximum(200);
-//		zoom.setPaintLabels(true);
-//		
-//		frame.getContentPane().add(zoom, "cell 1 0,alignx right");
+
+		// lblZoom = new JLabel("Zoom");
+		// frame.getContentPane().add(lblZoom, "flowx,cell 1 0,alignx right");
+		//
+		// zoom = new JSlider();
+		// zoom.setValue(100);
+		// zoom.setMinimum(10);
+		// zoom.setMaximum(200);
+		// zoom.setPaintLabels(true);
+		//
+		// frame.getContentPane().add(zoom, "cell 1 0,alignx right");
 
 		listAdressesLivraisons = new JList<Livraison>();
-		frame.getContentPane().add(listAdressesLivraisons, "cell 0 1 1 10,grow");
+		frame.getContentPane()
+				.add(listAdressesLivraisons, "cell 0 1 1 10,grow");
 
 		etiquetteTournee = new JLabel("Cr�er une tourn�e");
 		etiquetteTournee.setHorizontalAlignment(SwingConstants.CENTER);
@@ -132,77 +132,93 @@ public class Fenetre {
 		frame.getContentPane().add(echangerLivraisons, "cell 2 8 2 1,growx");
 
 		infoPoint = new JTextArea();
-		infoPoint.setMargin(new Insets(Constants.MARGIN_TEXTE_PANEL, Constants.MARGIN_TEXTE_PANEL, Constants.MARGIN_TEXTE_PANEL, Constants.MARGIN_TEXTE_PANEL));
+		infoPoint.setMargin(new Insets(Constants.MARGIN_TEXTE_PANEL,
+				Constants.MARGIN_TEXTE_PANEL, Constants.MARGIN_TEXTE_PANEL,
+				Constants.MARGIN_TEXTE_PANEL));
 		frame.getContentPane().add(infoPoint, "cell 0 11,grow");
 
-		sauvegardeFeuilleRoute = new JButton(Constants.SAUVEGARDER_FEUILLE_DE_ROUTE);
-		frame.getContentPane().add(sauvegardeFeuilleRoute, "cell 2 11 2 1,growx");
+		sauvegardeFeuilleRoute = new JButton(
+				Constants.SAUVEGARDER_FEUILLE_DE_ROUTE);
+		frame.getContentPane().add(sauvegardeFeuilleRoute,
+				"cell 2 11 2 1,growx");
 
 		log = new JTextField();
 		log.setEditable(false);
 		frame.getContentPane().add(log, "cell 0 12 4 1,growx");
 		log.setColumns(10);
-		
+
 		frame.setVisible(true);
 	}
 
 	private void ajouterView(Plan plan) {
 		this.vue = new VueGraphique(plan, this);
-		
-//		view.setPreferredSize(new Dimension(1000,1000));
-		
-		scrollPanel = new JScrollPane(vue); 
 
-//		scrollPanel.setViewportView(view);
-		
+		// view.setPreferredSize(new Dimension(1000,1000));
+
+		scrollPanel = new JScrollPane(vue);
+
+		// scrollPanel.setViewportView(view);
+
 		frame.getContentPane().add(scrollPanel, "cell 1 1 1 11,grow");
 	}
-	
+
 	public VueGraphique getVue() {
 		return vue;
 	}
 
 	public void setEchelle(double echelle) {
-		this.vue.setEchelle(echelle);	
+		this.vue.setEchelle(echelle);
 	}
-	
+
 	public void ecrireLog(String texte) {
 		log.setForeground(INFO_COLOR);
 		log.setText(texte);
 	}
-	
+
 	public void ecrireLog(String texte, Color color) {
 		log.setForeground(color);
 		log.setText(texte);
 	}
-	
+
 	public void ecrireInfos(String texte) {
 		infoPoint.setText(texte);
 	}
 
-
-	public void signalerErreur(String texteErreur){
+	public void signalerErreur(String texteErreur) {
 		this.ecrireLog(texteErreur, ERROR_COLOR);
-		JOptionPane.showMessageDialog(null,
-				texteErreur,
-				"Erreur",
+		JOptionPane.showMessageDialog(null, texteErreur, "Erreur",
 				JOptionPane.ERROR_MESSAGE);
 	}
 
-	public boolean confirmerSuppression(){
+	public boolean confirmerSuppression() {
 		int result = JOptionPane.showConfirmDialog(null,
 				"Etes vous sur de vouloir supprimer cette livraison",
-				"Supprimer?",
-				JOptionPane.CANCEL_OPTION);
+				"Supprimer?", JOptionPane.CANCEL_OPTION);
 		return result == 0;
 	}
 
-	public void ecrireList(Livraison [] listData) {
+	public void ecrireList(Livraison[] listData) {
 		listAdressesLivraisons.setListData(listData);
 	}
-	
-	public void selectionList(Livraison livraison) {
-		listAdressesLivraisons.setSelectedValue(livraison, true);
+
+	private void selectionList(Livraison livraison) {
+		if (livraison == null) {
+			listAdressesLivraisons.clearSelection();
+		} else {
+			listAdressesLivraisons.setSelectedValue(livraison, true);
+		}
+	}
+
+	public void updateSelection(Adresse adresse) {
+		if (adresse == null) {
+			vue.deselection();
+			ecrireInfos("");
+		} else {
+			vue.selection(adresse.getId());
+			ecrireInfos(adresse.toString());
+		}
+		selectionList(adresse.getLivraison());
+
 	}
 
 }

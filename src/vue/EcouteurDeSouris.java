@@ -25,7 +25,7 @@ public class EcouteurDeSouris extends MouseAdapter {
 		switch (e.getButton()) {
 		case MouseEvent.BUTTON1: 
 			Point p = new Point(vue.changerRepere(e.getX()),
-					vue.changerRepere(e.getY()));
+			vue.changerRepere(e.getY()));
 			controleur.clicNoeud(p); // le mettre là
 			break;
 		case MouseEvent.BUTTON2:
