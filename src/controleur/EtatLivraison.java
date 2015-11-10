@@ -10,7 +10,7 @@ public class EtatLivraison extends EtatPlan {
 	public EtatLivraison() {
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	public void calculerTournee(Fenetre fenetre, Tournee tournee) {
 		tournee.calculerTournee();
 		Controleur.setEtatCourant(Controleur.etatTournee);
@@ -19,9 +19,10 @@ public class EtatLivraison extends EtatPlan {
 
 	@Override
 	public void clicListLivraisons(Fenetre fenetre, Livraison livraison) {
-		fenetre.getVue().selection(livraison.getAdresse().getId());
-		fenetre.ecrireInfos(livraison.getAdresse().toString());
+		if (livraison != null) {
+			fenetre.getVue().selection(livraison.getAdresse().getId());
+			fenetre.ecrireInfos(livraison.getAdresse().toString());
+		}
 	}
-	
 
 }

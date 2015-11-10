@@ -213,11 +213,12 @@ public class Fenetre {
 		if (adresse == null) {
 			vue.deselection();
 			ecrireInfos("");
+			selectionList(null);
 		} else {
 			vue.selection(adresse.getId());
 			ecrireInfos(adresse.toString());
+			selectionList(adresse.getLivraison());
 		}
-		selectionList(adresse.getLivraison());
 
 	}
 
