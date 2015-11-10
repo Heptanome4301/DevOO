@@ -136,6 +136,7 @@ public class VueGraphique extends JPanel implements Observer, Visiteur {
 
 	public void deselection() {
 		this.idAdresseSelectionne = null;
+		this.repaint();
 	}
 	
 	public void selection(int idAdresseSelectionne) {

@@ -461,7 +461,8 @@ public class Tournee extends Observable{
 			calculerLesDurees(chemins.size()-2);
 			
 		}
-		this.notifyObservers(this);
+		this.setChanged();
+		this.notifyObservers();
 				
 	}
 	
@@ -487,7 +488,8 @@ public class Tournee extends Observable{
 				livraisons.remove(L);
 				L.getAdresse().setLivraison(null);
 				calculerLesDurees(i-1); // recalcule les durées à partir de ce chmin
-				this.notifyObservers(this);
+				this.setChanged();
+				this.notifyObservers();
 			}
 			
 		}
@@ -539,7 +541,8 @@ public class Tournee extends Observable{
 			l1.getAdresse().setLivraison(l2);
 			l2.getAdresse().setLivraison(l1);
 			calculerLesDurees(indiceModif);
-			this.notifyObservers(this);
+			this.setChanged();
+			this.notifyObservers();
 		}
 		
 		
