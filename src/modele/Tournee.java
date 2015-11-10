@@ -482,6 +482,12 @@ public class Tournee extends Observable{
 		
 		
 	}
+
+	public Livraison getFollowingLivraison(Livraison livraison) {
+		Chemin chemin = getCheminFromDepart(livraison.getAdresse());
+		Adresse  adresseF = chemin.getArrivee();
+		return adresseF.getLivraison();
+	}
 	
 	
 	public int getDuree() {

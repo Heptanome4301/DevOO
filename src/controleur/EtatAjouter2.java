@@ -24,19 +24,18 @@ public class EtatAjouter2 extends EtatTournee {
 	
 	public void clicNoeud(Fenetre fenetre, Adresse followingAdresse, Plan plan, Tournee tournee, ListeDeCmd listeCmd) {
                 if(!followingAdresse.estAssocierAvecLivraison()){
-                    fenetre.ecrireLog(Constants.LOGS_DEFAULT);
+                    fenetre.ecrireLog(Constants.LOGS_DEFAULT);                   
                     Controleur.setEtatCourant(Controleur.etatTournee);
                 }
                 else{
                     Livraison followingLivraison = followingAdresse.getLivraison();
                     Livraison newLivraison  = new Livraison(generatedId++, adresse, followingLivraison.getFenetreLivraison());
-                    tournee.ajouterLivraison(newLivraison,followingLivraison);
-                   
+                    CmdAjouter cmd = new CmdAjouter(tournee, newLivraison, followingLivraison);
+                    listeCmd.ajoute(cmd);
+                    cmd.doCmd();                   
                     Controleur.setEtatCourant(Controleur.etatTournee);
                     fenetre.ecrireLog(Constants.LOGS_DEFAULT);
-                }
-                
-		
+                }		
 	}
 	
 	public void clicDroit(Fenetre fenetre) {

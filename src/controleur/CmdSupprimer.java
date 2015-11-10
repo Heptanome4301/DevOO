@@ -1,28 +1,28 @@
 package controleur;
 
 import modele.Livraison;
-import modele.Tournee
-;
+import modele.Tournee;
+
 public class CmdSupprimer implements Commande {
 	
 	private Tournee tournee;
-	private Livraison livraisonAdd;
+	private Livraison livraison;
 	private Livraison livraisonFollow;
 
-	public CmdSupprimer(Livraison livraisonAdd, Livraison livraisonFollow, Tournee tournee) {
+	public CmdSupprimer(Livraison livraison,  Tournee tournee) {
 		this.tournee=tournee;
-		this.livraisonAdd=livraisonAdd;
-		this.livraisonFollow=livraisonFollow;
+		this.livraison=livraison;
+		this.livraisonFollow=tournee.getFollowingLivraison(livraison);
 	}
 
 	@Override
 	public void doCmd() {
-		tournee.supprimerLivraison(livraisonAdd);
+		tournee.supprimerLivraison(livraison);
 	}
 
 	@Override
 	public void undoCmd() {
-		tournee.ajouterLivraison(livraisonAdd, livraisonFollow);
+		tournee.ajouterLivraison(livraison, livraisonFollow);
 	}
 
 }
