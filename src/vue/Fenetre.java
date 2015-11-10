@@ -5,7 +5,7 @@ import java.awt.Dimension;
 import java.awt.Insets;
 import java.util.Observer;
 
-import javax.swing.*;
+import javax.swing.*; 
 
 import controleur.Controleur;
 import modele.Adresse;
