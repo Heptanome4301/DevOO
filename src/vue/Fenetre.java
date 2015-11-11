@@ -22,6 +22,7 @@ public class Fenetre {
 	private JButton ajouterLivraison;
 	private JButton supprimerLivraison;
 	private JButton echangerLivraisons;
+        private JButton deplacerLivraison;
 	private JButton sauvegardeFeuilleRoute;
 	private JLabel etiquetteLivraisons;
 	private JLabel etiquetteTournee;
@@ -72,6 +73,7 @@ public class Fenetre {
 		ajouterLivraison.addActionListener(ecouteurBoutons);
 		supprimerLivraison.addActionListener(ecouteurBoutons);
 		echangerLivraisons.addActionListener(ecouteurBoutons);
+                deplacerLivraison.addActionListener(ecouteurBoutons);
 		sauvegardeFeuilleRoute.addActionListener(ecouteurBoutons);
 
 		vue.addMouseListener(ecouteurSouris);
@@ -136,6 +138,9 @@ public class Fenetre {
 
 		echangerLivraisons = new JButton(Constants.INVERSER_LIVRAISONS);
 		frame.getContentPane().add(echangerLivraisons, "cell 2 8 2 1,growx");
+                
+                deplacerLivraison = new JButton(Constants.DEPLACER_LIVRAISON);
+                frame.getContentPane().add(deplacerLivraison, "cell 2 9 2 1,growx");
 
 		infoPoint = new JTextArea();
 		infoPoint.setMargin(new Insets(Constants.MARGIN_TEXTE_PANEL,
@@ -233,6 +238,7 @@ public class Fenetre {
 		supprimerLivraison.setEnabled(enable);
 		echangerLivraisons.setEnabled(enable);
 		ajouterLivraison.setEnabled(enable);
+                deplacerLivraison.setEnabled(enable);
 		sauvegardeFeuilleRoute.setEnabled(enable);
 	}
 

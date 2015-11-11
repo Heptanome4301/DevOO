@@ -88,6 +88,7 @@ public class EtatTournee extends EtatLivraison {
         @Override
         public void deplacer(Fenetre fenetre){
             Controleur.setEtatCourant(Controleur.etatDeplacer1);
+            fenetre.ecrireLog(Constants.LOGS_DEPLACER1);
         }
 
 }

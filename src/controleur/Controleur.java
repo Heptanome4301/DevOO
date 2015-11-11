@@ -127,6 +127,10 @@ public class Controleur {
 	public void echanger() {
 		etatCourant.echanger(fenetre);
 	}
+        
+        public void deplacer() {
+                etatCourant.deplacer(fenetre);
+        }
 
 	public void genererFeuilleDeRoute() {
 		etatCourant.genererFeuilleDeRoute(fenetre, plan.getTournee());

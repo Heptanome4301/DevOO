@@ -1,93 +1,34 @@
 package controleur;
 
-import java.io.File;
-
 import modele.Adresse;
-import modele.Livraison;
 import modele.Plan;
-import modele.Tournee;
+
+import util.Constants;
+
 import vue.Fenetre;
 
-public class EtatDeplacer1 implements Etat {
+public class EtatDeplacer1 extends EtatTournee {
+    public EtatDeplacer1() {
+    }
 
-	@Override
-	public void undo(Fenetre fenetre, ListeDeCmd listeCmd) {
-		// TODO Auto-generated method stub
-		
-	}
 
-	@Override
-	public void redo(Fenetre fenetre, ListeDeCmd listeCmd) {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void clicDroit(Fenetre fenetre) {
+        Controleur.setEtatCourant(Controleur.etatTournee);
+        fenetre.ecrireLog(Constants.LOGS_DEFAULT);
+    }
 
-	@Override
-	public void clicNoeud(Fenetre fenetre, Adresse adresse, Plan plan,
-			ListeDeCmd listeCmd) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void chargerPlan(Fenetre fenetre, Plan plan, File xml) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void chargerLivraisons(Fenetre fenetre, Plan plan,
-			Controleur controleur) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void calculerTournee(Fenetre fenetre, Tournee tournee) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void genererFeuilleDeRoute(Fenetre fenetre, Tournee tournee) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void clicDroit(Fenetre fenetre) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void ajouter(Fenetre fenetre) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void supprimer(Fenetre fenetre) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void echanger(Fenetre fenetre) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void deplacer(Fenetre fenetre) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void clicListLivraisons(Fenetre fenetre, Livraison livraison) {
-		// TODO Auto-generated method stub
-		
-	}
-
+    @Override
+    public void clicNoeud(Fenetre fenetre, Adresse adresse, Plan plan, ListeDeCmd historique) {
+        if(adresse.estAssocierAvecLivraison()) {
+            Controleur.etatDeplacer2.setLivraison(adresse.getLivraison());
+            Controleur.setEtatCourant(Controleur.etatDeplacer2);
+            fenetre.ecrireLog(Constants.LOGS_DEPLACER2);
+        }
+        else{
+            Controleur.setEtatCourant(Controleur.etatTournee);
+            fenetre.ecrireLog(Constants.LOGS_DEFAULT);            
+            fenetre.signalerErreur(Constants.ERR_PAS_ADRESSE_LIVRAISON);
+        }
+    }
 }
