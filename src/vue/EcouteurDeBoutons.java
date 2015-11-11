@@ -7,17 +7,16 @@ import util.Constants;
 
 public class EcouteurDeBoutons implements ActionListener {
 	private Controleur controleur;
-	
-	public EcouteurDeBoutons(Controleur c)
-	{
+
+	public EcouteurDeBoutons(Controleur c) {
 		this.controleur = c;
 	}
-	
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
-				
+
 		switch (e.getActionCommand()) {
-		
+
 		case Constants.CHARGER_PLAN:
 			controleur.chargerPlan();
 			break;
@@ -36,14 +35,14 @@ public class EcouteurDeBoutons implements ActionListener {
 		case Constants.INVERSER_LIVRAISONS:
 			controleur.echanger();
 			break;
-                case Constants.DEPLACER_LIVRAISON:
-                        controleur.deplacer();
-                        break;
+		case Constants.DEPLACER_LIVRAISON:
+			controleur.deplacer();
+			break;
 		case Constants.SAUVEGARDER_FEUILLE_DE_ROUTE:
 			controleur.genererFeuilleDeRoute();
 			break;
 		}
-		
+
 	}
 
 }

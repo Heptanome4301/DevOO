@@ -238,7 +238,7 @@ public class Fenetre {
 		supprimerLivraison.setEnabled(enable);
 		echangerLivraisons.setEnabled(enable);
 		ajouterLivraison.setEnabled(enable);
-                deplacerLivraison.setEnabled(enable);
+        deplacerLivraison.setEnabled(enable);
 		sauvegardeFeuilleRoute.setEnabled(enable);
 	}
 

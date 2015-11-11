@@ -28,8 +28,8 @@ public class Controleur {
 	protected static final EtatSupprimer etatSupprimer = new EtatSupprimer();
 	protected static final EtatEchanger1 etatEchanger1 = new EtatEchanger1();
 	protected static final EtatEchanger2 etatEchanger2 = new EtatEchanger2();
-        protected static final EtatDeplacer1 etatDeplacer1 = new EtatDeplacer1();
-        protected static final EtatDeplacer2 etatDeplacer2 = new EtatDeplacer2();
+	protected static final EtatDeplacer1 etatDeplacer1 = new EtatDeplacer1();
+	protected static final EtatDeplacer2 etatDeplacer2 = new EtatDeplacer2();
 
 	protected static void setEtatCourant(Etat etat) {
 		etatCourant = etat;
@@ -69,9 +69,8 @@ public class Controleur {
 		}
 
 	}
-	
-	
-	protected File getFile(){
+
+	protected File getFile() {
 		File xml = null;
 		try {
 			xml = OuvreurDeFichiersXML.getInstance().ouvre();
@@ -83,24 +82,23 @@ public class Controleur {
 
 	public void chargerPlan() {
 		File xml = getFile();
-		etatCourant.chargerPlan(fenetre, plan,xml);
+		etatCourant.chargerPlan(fenetre, plan, xml);
 		this.calculEchelle();
 	}
-	
-	
+
 	public void chargerLivraisons() {
-		etatCourant.chargerLivraisons(fenetre, plan,this);
+		etatCourant.chargerLivraisons(fenetre, plan, this);
 	}
 
-	
 	public void calculerTournee() {
 		etatCourant.calculerTournee(fenetre, plan.getTournee());
 	}
 
 	public void clicNoeud(Point p) {
 		Adresse adresse = plan.getAdresseByCoord(p);
-		fenetre.updateSelection(adresse,true);
-		etatCourant.clicNoeud(fenetre, adresse, plan,historique);
+		fenetre.updateSelection(adresse, true);
+		if(adresse!=null)
+			etatCourant.clicNoeud(fenetre, adresse, plan, historique);
 
 	}
 
@@ -110,10 +108,11 @@ public class Controleur {
 
 	public void clicListLivraisons(Livraison livraison) {
 
-		fenetre.updateSelection(livraison.getAdresse(),false);
-		etatCourant.clicNoeud(fenetre, livraison.getAdresse(), plan, historique);
+		fenetre.updateSelection(livraison.getAdresse(), false);
+		etatCourant
+				.clicNoeud(fenetre, livraison.getAdresse(), plan, historique);
 
-		//etatCourant.clicListLivraisons(fenetre, livraison);
+		// etatCourant.clicListLivraisons(fenetre, livraison);
 	}
 
 	public void ajouter() {
@@ -127,10 +126,10 @@ public class Controleur {
 	public void echanger() {
 		etatCourant.echanger(fenetre);
 	}
-        
-        public void deplacer() {
-                etatCourant.deplacer(fenetre);
-        }
+
+	public void deplacer() {
+		etatCourant.deplacer(fenetre);
+	}
 
 	public void genererFeuilleDeRoute() {
 		etatCourant.genererFeuilleDeRoute(fenetre, plan.getTournee());
