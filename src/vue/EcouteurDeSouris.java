@@ -28,10 +28,10 @@ public class EcouteurDeSouris extends MouseAdapter {
 			vue.changerRepere(e.getY()));
 			controleur.clicNoeud(p); // le mettre là
 			break;
-		case MouseEvent.BUTTON2:
-			controleur.clicDroit();
+		case MouseEvent.BUTTON2:			
 			break;
 		case MouseEvent.BUTTON3:
+                        controleur.clicDroit();
 			break;
 		}
 		

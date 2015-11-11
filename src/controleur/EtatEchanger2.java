@@ -28,6 +28,7 @@ public class EtatEchanger2 extends EtatTournee {
 				listeCmd.ajoute(cmd);
 				cmd.doCmd();
 				//tournee.echangerLivraison(adresse1.getLivraison(), adresse2.getLivraison());
+
 				Controleur.setEtatCourant(Controleur.etatTournee);
 				fenetre.ecrireLog(Constants.LOGS_DEFAULT);
 			}

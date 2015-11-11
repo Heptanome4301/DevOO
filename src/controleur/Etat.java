@@ -83,9 +83,9 @@ public interface Etat {
          */
 	void echanger(Fenetre fenetre);
         /**
-         * 
-         * @param fenetre
-         * @param livraison
+         * Cette méthode est déclenchée lors de la sélection d'une livraison dans la liste.
+         * @param fenetre la fenêtre d'afficahge des résultats
+         * @param livraison la livraison sélectionnée
          */
 	void clicListLivraisons(Fenetre fenetre, Livraison livraison);
 }

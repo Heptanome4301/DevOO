@@ -22,6 +22,7 @@ public class EtatAjouter2 extends EtatTournee {
 		this.adresse=adresse;
 	}
 	
+
 	@Override
 	public void clicNoeud(Fenetre fenetre, Adresse followingAdresse, Plan plan, ListeDeCmd listeCmd) {
                 if(!followingAdresse.estAssocierAvecLivraison()){
@@ -39,6 +40,7 @@ public class EtatAjouter2 extends EtatTournee {
                 }		
 	}
 	
+        @Override
 	public void clicDroit(Fenetre fenetre) {
 		adresse=null;
 		Controleur.setEtatCourant(Controleur.etatTournee);
