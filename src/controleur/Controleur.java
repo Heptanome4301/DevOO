@@ -28,6 +28,8 @@ public class Controleur {
 	protected static final EtatSupprimer etatSupprimer = new EtatSupprimer();
 	protected static final EtatEchanger1 etatEchanger1 = new EtatEchanger1();
 	protected static final EtatEchanger2 etatEchanger2 = new EtatEchanger2();
+        protected static final EtatDeplacer1 etatDeplacer1 = new EtatDeplacer1();
+        protected static final EtatDeplacer2 etatDeplacer2 = new EtatDeplacer2();
 
 	protected static void setEtatCourant(Etat etat) {
 		etatCourant = etat;
@@ -41,15 +43,15 @@ public class Controleur {
 	}
 
 	/**
-	 * Annule la derni�re modification effectu�e sur la tourn�e (ajout,
-	 * suppression ou �change de livraisons)
+	 * Annule la derniï¿½re modification effectuï¿½e sur la tournï¿½e (ajout,
+	 * suppression ou ï¿½change de livraisons)
 	 */
 	public void undo() {
 		etatCourant.undo(fenetre, historique);
 	}
 
 	/**
-	 * R�effectue la derni�re action annul�e
+	 * Rï¿½effectue la derniï¿½re action annulï¿½e
 	 */
 	public void redo() {
 		etatCourant.redo(fenetre, historique);
@@ -96,9 +98,7 @@ public class Controleur {
 	}
 
 	public void clicNoeud(Point p) {
-	    System.out.println("j'ai recu un clic, et actuellement je suis dans l'etat " + etatCourant.getClass());
-
-	    Adresse adresse = plan.getAdresseByCoord(p);
+		Adresse adresse = plan.getAdresseByCoord(p);
 		fenetre.updateSelection(adresse,true);
 		etatCourant.clicNoeud(fenetre, adresse, plan,historique);
 

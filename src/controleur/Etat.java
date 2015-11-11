@@ -9,87 +9,98 @@ import modele.Tournee;
 import vue.Fenetre;
 
 /**
+<<<<<<< HEAD
  * Interface Etat n�cessaire � la mise en place du design pattern Etat. Elle d�crit les fonctionnalit�s accessibles �
+=======
+ * Interface Etat nécessaire à la mise en place du design pattern Etat. Elle décrit les fonctionnalités accessibles à
+>>>>>>> fa4ae2fcb78e76b8526715ba9805348ee77b9d75
  * l'utilisateur depuis la vue.
  */
 public interface Etat {
         /**
-         * Annuler la derni�re modification effectu�e.
-         * @param fenetre la fen�tre d'affichage des r�sultats.
-         * @param listeCmd la liste contenant les commandes effectu�es pr�c�demment.
+         * Annuler la dernière modification effectuée.
+         * @param fenetre la fenêtre d'affichage des résultats.
+         * @param listeCmd la liste contenant les commandes effectuées précédemment.
          */
 	void undo(Fenetre fenetre, ListeDeCmd listeCmd);
         /**
-         * Refaire la derni�re commande annul�e.
-         * @param fenetre la fen�tre d'afficahge des r�sultats.
-         * @param listeCmd la liste contenant les commandes effectu�es pr�c�demment.
+         * Refaire la dernière commande annulée.
+         * @param fenetre la fenêtre d'afficahge des résultats.
+         * @param listeCmd la liste contenant les commandes effectuées précédemment.
          */
 	void redo(Fenetre fenetre, ListeDeCmd listeCmd);
         /**
-         * M�thode invoqu�e lorsque l'utilisateur clique sur un noeud du graphe ou s�lectionne un noeud dans la liste.
-         * @param fenetre la fen�tre d'affichage des r�sultats.
-         * @param adresse l'Adresse s�lectinn�e par l'utilisateur.
-         * @param plan le plan auquel appartient l'Adresse s�lectionn�e.
-         * @param listeCmd la liste contenant les commandes effectu�es pr�c�demment.
+         * Méthode invoquée lorsque l'utilisateur clique sur un noeud du graphe ou sélectionne un noeud dans la liste.
+         * @param fenetre la fenêtre d'affichage des résultats.
+         * @param adresse l'Adresse sélectinnée par l'utilisateur.
+         * @param plan le plan auquel appartient l'Adresse sélectionnée.
+         * @param listeCmd la liste contenant les commandes effectuées précédemment.
          */
 	void clicNoeud(Fenetre fenetre, Adresse adresse,Plan plan, ListeDeCmd listeCmd);
         /**
-         * Remplit un plan � partir des adresses d�crites dans un fichier xml. Cette m�thode demande �
-         * l'utilisateur de naviguer dans son arborescence de fichiers (� l'aide d'un JFileChooser) pour trouver 
-         * le fichier xml � lire.
-         * @param fenetre la fen�tre d'affichage des r�sultats.
-         * @param plan le plan � remplir.
-         * @param xml 
+         * Remplit un plan à partir des adresses décrites dans un fichier xml. Cette méthode demande à
+         * l'utilisateur de naviguer dans son arborescence de fichiers (à l'aide d'un JFileChooser) pour trouver 
+         * le fichier xml à lire.
+         * @param fenetre la fenêtre d'affichage des résultats.
+         * @param plan le plan à remplir.
          */
 	void chargerPlan(Fenetre fenetre, Plan plan, File xml);
         /**
-         * Remplit une tournee � partir des livraisons d�crites dans un fichier xml. Cette m�thode demande �
-         * l'utilisateur de naviguer dans sn arborescence de fichiers (� l'aide d'un JFileChooser) pour trouver 
-         * le fichier xml � lire.
-         * @param fenetre la fen�tre d'affichage des r�sultats.
-         * @param plan le plan contenant la tourn�e � remplir.
-         * @param controleur 
+
+         * Remplit une tournee à partir des livraisons décrites dans un fichier xml. Cette méthode demande à
+         * l'utilisateur de naviguer dans sn arborescence de fichiers (à l'aide d'un JFileChooser) pour trouver 
+         * le fichier xml à lire.
+         * @param fenetre la fenêtre d'affichage des résultats.
+         * @param plan le plan contenant la tournée à remplir.
          */
 	void chargerLivraisons(Fenetre fenetre, Plan plan, Controleur controleur);
         /**
-         * Cette m�thode calcule l'ordre de passage pour une tourn�e pass�e en param�tre.
-         * @param fenetre la fen�tre d'affichage des r�sultats.
-         * @param tournee la tourn�e pour laquelle on doit calculer l'ordre de passage.
+         * Cette méthode calcule l'ordre de passage pour une tournée passée en paramètre.
+         * @param fenetre la fenêtre d'affichage des résultats.
+         * @param tournee la tournée pour laquelle on doit calculer l'ordre de passage.
          */
 	void calculerTournee(Fenetre fenetre, Tournee tournee);
         /**
-         * G�n�re la feuille de route d�crviant l'ordre de passage calcul� pour la tourn�e pass�e en param�tre.
-         * Cette m�thode demande � l'utilisateur de choisir le fichier dans lequel �crire la feuille de route � 
+         * Génère la feuille de route décrviant l'ordre de passage calculé pour la tournée passée en paramètre.
+         * Cette méthode demande à l'utilisateur de choisir le fichier dans lequel écrire la feuille de route à 
          * l'aide d'un JFileChooser.
-         * @param fenetre la fen�tre d'afficahge des r�sultats.
-         * @param tournee la tourn�e pour laquelle il faut g�n�rer les instructions.
+         * @param fenetre la fenêtre d'afficahge des résultats.
+         * @param tournee la tournée pour laquelle il faut générer les instructions.
          */
 	void genererFeuilleDeRoute(Fenetre fenetre, Tournee tournee);
         /**
-         * M�thode pour annuler l'action en cours d'ex�cution (ajout ou �change de livraisons).
-         * @param fenetre la fen�tre d'affichage des r�sultats.
+         * Méthode pour annuler l'action en cours d'exécution (ajout ou échange de livraisons).
+         * @param fenetre la fenêtre d'affichage des résultats.
          */
 	void clicDroit(Fenetre fenetre);
         /**
-         * Permet de d�clencher le processus d'ajout d'une livraison � la tourn�e une fois celle-ci calcul�e.
-         * @param fenetre la fen�tre d'affichage des r�sultats.
+         * Permet de déclencher le processus d'ajout d'une livraison à la tournée une fois celle-ci calculée.
+         * @param fenetre la fenêtre d'affichage des résultats.
          */
 	void ajouter(Fenetre fenetre);
         /**
-         * Permet de d�clencher le processus de suppression d'une livraison de la tourn�e une fois celle-ci calcul�e
-         * @param fenetre la fen�tre d'affichage des r�sultats.
+         * Permet de déclencher le processus de suppression d'une livraison de la tournée une fois celle-ci calculée
+         * @param fenetre la fenêtre d'affichage des résultats.
          */
 	void supprimer(Fenetre fenetre);
         /**
-         * Permet de d�clencher le processus d'�change de l'ordre de deux livraisons de la tourn�e une fois celle-ci
-         * calcul�e.
-         * @param fenetre la fen�tre d'affichage des r�sultats.
+         * Permet de déclencher le processus d'échange de l'ordre de deux livraisons de la tournée une fois celle-ci
+         * calculée.
+         * @param fenetre la fenêtre d'affichage des résultats.
          */
 	void echanger(Fenetre fenetre);
+        
         /**
-         * Cette m�thode est d�clench�e lors de la s�lection d'une livraison dans la liste.
-         * @param fenetre la fen�tre d'afficahge des r�sultats
-         * @param livraison la livraison s�lectionn�e
+
+         * Permet de déclencher le processus de déplacement d'une livraison dans la tournée une fois celle-ci calculée
+         * @param fenetre la fenêtre d'affichage des résultats.
+         */
+        void deplacer (Fenetre fenetre);
+        
+        /**
+         * Cette méthode est déclenchée lors de la sélection d'une livraison dans la liste.
+         * @param fenetre la fenêtre d'afficahge des résultats
+         * @param livraison la livraison sélectionnée
          */
 	void clicListLivraisons(Fenetre fenetre, Livraison livraison);
 }

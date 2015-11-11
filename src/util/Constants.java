@@ -17,6 +17,8 @@ public class Constants {
 	public static final String LOGS_TOURNEE = "Tournée calculée avec succès";
 	public static final String LOGS_LIVRAISON = "Livraisons chargées avec succès.";
 	public static final String LOGS_PLAN = "Plan chargé avec succès.";
+        public static final String LOGS_DEPLACER1 = "Choississez la livraison que vous souhaitez déplacer.";
+        public static final String LOGS_DEPLACER2 = "Choississez la livraison qui suivra celle déplacée.";
         
         /*Messages d'erreur � l'attention de l'utilisateur*/
         public static final String ERR_GENERE_FEUILLE = "Veuillez calculer la tourn�e afin de pouvoir g�n�rer la feuille de route.";
