@@ -31,6 +31,7 @@ public class EtatAjouter1 extends EtatTournee {
 	
 	@Override
 	public void clicDroit(Fenetre fenetre) {
+                System.out.println("J'annule");
 		Controleur.setEtatCourant(Controleur.etatTournee);
 		fenetre.ecrireLog(Constants.LOGS_DEFAULT);
 	}
