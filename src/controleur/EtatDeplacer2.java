@@ -34,6 +34,8 @@ public class EtatDeplacer2 extends EtatTournee {
             
             Controleur.setEtatCourant(Controleur.etatTournee);
             fenetre.ecrireLog(Constants.LOGS_DEFAULT);
+            
+            livraison1 = null;
         }
         else{
             Controleur.setEtatCourant(Controleur.etatTournee);
