@@ -15,10 +15,10 @@ import modele.Livraison;
 import modele.Plan;
 import modele.Tournee;
 import modele.Troncon;
-import modele.Visiteur;
+import modele.VisiteurPlan;
 import util.Constants;
 
-public class VueGraphique extends JPanel implements Observer, Visiteur {
+public class VueGraphique extends JPanel implements Observer, VisiteurPlan {
 	/**
 	 * 
 	 */

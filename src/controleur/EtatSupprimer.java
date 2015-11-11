@@ -18,9 +18,10 @@ public class EtatSupprimer extends EtatTournee {
 				//TODO message de confirmation?
 			}
 			Controleur.setEtatCourant(Controleur.etatTournee);
+			fenetre.ecrireLog(Constants.LOGS_DEFAULT);
 		}
 		else {
-			//TODO msg erreur ou pas
+			fenetre.signalerErreur(Constants.ERR_PAS_ADRESSE_LIVRAISON);
 		}
 		
 

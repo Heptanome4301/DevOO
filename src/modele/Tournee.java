@@ -1,6 +1,5 @@
 package modele;
 
-
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -50,7 +49,7 @@ public class Tournee extends Observable{
          * La liste des fenêtres horaire pour chaque livraison.
          */
 	private ArrayList<FenetreLivraison> fenetresLivraison;
-	
+
 	/**
          * Le constructeur de la tournée. La durée et les chemins seront calculés par la suite.
          * @param plan Le plan de la ville.
@@ -58,45 +57,48 @@ public class Tournee extends Observable{
          * @param fenetresLivraison La liste des fenêtres associées à chaque livraison.
          * @param entrepot l'adresse de l'entrepot.
          */
-	public Tournee(Plan plan,Collection<Livraison> livraisons,ArrayList<FenetreLivraison> fenetresLivraison,Adresse entrepot){
+	public Tournee(Plan plan, Collection<Livraison> livraisons,
+			ArrayList<FenetreLivraison> fenetresLivraison, Adresse entrepot) {
 		this.plan = plan;
 		this.livraisons = livraisons;
 		this.entrepot = entrepot;
 		this.chemins = new ArrayList<>();
 		this.Duree = 0;
 		this.fenetresLivraison = sortFenetreLivraison(fenetresLivraison);
-	
+
 	}
+
 	
 	/**
-         * Trie la liste des fenêtres de de manière croissante.
+         * Trie la liste des fenêtres de livraison de manière croissante.
          * @param fenetresLivraison la liste des fenêtres à trier.
          * @return la liste triée.
          */
-	private ArrayList<FenetreLivraison>sortFenetreLivraison(ArrayList<FenetreLivraison> fenetresLivraison){
-		int size = fenetresLivraison.size();
-		for(int i=0;i<size;i++){
+	private ArrayList<FenetreLivraison> sortFenetreLivraison(ArrayList<FenetreLivraison> collection) {
+		int size = collection.size();
+		for (int i = 0; i < size; i++) {
 			int min_fenetre = i;
-			for(int j=i+1;j<size;j++){
-				if(fenetresLivraison.get(j).getHeureDebut().before(fenetresLivraison.get(min_fenetre).getHeureDebut())){
+			for (int j = i + 1; j < size; j++) {
+				if (collection.get(j).getHeureDebut()
+						.before(collection.get(min_fenetre).getHeureDebut())) {
 					min_fenetre = j;
 				}
 			}
-			if(min_fenetre!=i){
-				FenetreLivraison min = fenetresLivraison.get(min_fenetre);
-				fenetresLivraison.set(min_fenetre, fenetresLivraison.get(i));
-				fenetresLivraison.set(i, min);
+			if (min_fenetre != i) {
+				FenetreLivraison min = collection.get(min_fenetre);
+				collection.set(min_fenetre, collection.get(i));
+				collection.set(i, min);
 			}
-			
+
 		}
-		return fenetresLivraison;
+		return collection;
 	}
-	
+
 	/**
 	 * Accesseur de l'attribut chemins
 	 * @return la liste des chemins qui composent la tournée, null si le calcul n'a pas encore été réalisé.
 	 */
-	public Collection<Chemin> getItineraire(){
+	public Collection<Chemin> getItineraire() {
 		return chemins;
 	} 
 	
@@ -163,17 +165,18 @@ public class Tournee extends Observable{
          */
 	private Graphe construireGraphe(Chemin[][] cheminsDuGraphe){
 		int nb_sommet = cheminsDuGraphe.length;
-		//double [][] res = new double[nb_sommet][nb_sommet];
-		int [][] res = new int[nb_sommet][nb_sommet];
-		for(int i=0;i<nb_sommet;i++){
-			for(int j=0;j<nb_sommet;j++){
-				if(cheminsDuGraphe[i][j]!=null)
-					res[i][j] = new Double(cheminsDuGraphe[i][j].getDuree()).intValue();
-				else 
+		// double [][] res = new double[nb_sommet][nb_sommet];
+		int[][] res = new int[nb_sommet][nb_sommet];
+		for (int i = 0; i < nb_sommet; i++) {
+			for (int j = 0; j < nb_sommet; j++) {
+				if (cheminsDuGraphe[i][j] != null)
+					res[i][j] = new Double(cheminsDuGraphe[i][j].getDuree())
+							.intValue();
+				else
 					res[i][j] = -1;
 			}
 		}
-		
+
 		return new GrapheComplet(res);
 	}
 	
@@ -183,9 +186,9 @@ public class Tournee extends Observable{
          * @return le chemin s'il esxiste, null sinon.
          */
 	private Chemin getCheminFromArrivee(Adresse arrivee) {
-		if(arrivee!=null){
-			for(Chemin chemin : chemins) {
-				if(chemin.getArrivee().equals(arrivee)) {
+		if (arrivee != null) {
+			for (Chemin chemin : chemins) {
+				if (chemin.getArrivee().equals(arrivee)) {
 					return chemin;
 				}
 			}
@@ -199,9 +202,9 @@ public class Tournee extends Observable{
          * @return le chein s'il existe, null sinon.
          */
 	private Chemin getCheminFromDepart(Adresse depart) {
-		if(depart!=null){
-			for(Chemin chemin : chemins) {
-				if(chemin.getDepart().equals(depart)) {
+		if (depart != null) {
+			for (Chemin chemin : chemins) {
+				if (chemin.getDepart().equals(depart)) {
 					return chemin;
 				}
 			}
@@ -216,9 +219,8 @@ public class Tournee extends Observable{
          */
 	private Set<Livraison> getLivraison(FenetreLivraison fenetreLivraison){
 		Set<Livraison> livraisonF = new HashSet<Livraison>();
-		for(Livraison l: this.livraisons)
-		{
-			if((l.getFenetreLivraison()).equals(fenetreLivraison)){
+		for (Livraison l : this.livraisons) {
+			if ((l.getFenetreLivraison()).equals(fenetreLivraison)) {
 				livraisonF.add(l);
 			}
 		}
@@ -243,34 +245,37 @@ public class Tournee extends Observable{
 			premiere =new Livraison(-1, adrssDepart, fenetreLivraison);
 		}
 		Set<Livraison> livraisons = getLivraison(fenetreLivraison);
-		if(livraisons.contains(premiere)) livraisons.remove(premiere);
-		
-		int nb_sommet = livraisons.size();nb_sommet++; 
+		if (livraisons.contains(premiere))
+			livraisons.remove(premiere);
+
+		int nb_sommet = livraisons.size();
+		nb_sommet++;
 		Chemin[][] chemins = new Chemin[nb_sommet][nb_sommet];
-		
-		int i=1,j=1;
-		for(Livraison l : livraisons)
-		{	
+
+		int i = 1, j = 1;
+		for (Livraison l : livraisons) {
 			j = 1;
-			for(Livraison ll : livraisons)
-			{
-				if (l==ll){
+			for (Livraison ll : livraisons) {
+				if (l == ll) {
 					chemins[i][j] = null;
-				}else{
-					chemins[i][j] = plan.calculerChemin(l.getAdresse(),ll.getAdresse() );
+				} else {
+					chemins[i][j] = plan.calculerChemin(l.getAdresse(),
+							ll.getAdresse());
 				}
-				j++;	
+				j++;
 			}
 			i++;
 		}
 		chemins[0][0] = null;
 		j = 1;
-		for(Livraison ll:livraisons){
-			chemins[0][j] = plan.calculerChemin(premiere.getAdresse(),ll.getAdresse() );
-			chemins[j][0] = plan.calculerChemin(ll.getAdresse(),premiere.getAdresse() );
+		for (Livraison ll : livraisons) {
+			chemins[0][j] = plan.calculerChemin(premiere.getAdresse(),
+					ll.getAdresse());
+			chemins[j][0] = plan.calculerChemin(ll.getAdresse(),
+					premiere.getAdresse());
 			j++;
 		}
-		if(premiere.getId()<0) {
+		if (premiere.getId() < 0) {
 			premiere.getAdresse().setLivraison(null);
 			livraisons.remove(premiere);
 		}
@@ -285,26 +290,31 @@ public class Tournee extends Observable{
 	public void calculerTournee(){ //todo prÃ©voir que les profs peuvent Ãªtre des trolls : cul de sac
 		System.out.println("Cacul de la tournï¿½e...");
 		this.chemins = new ArrayList<Chemin>();
-		
-		for(FenetreLivraison fl : fenetresLivraison){
+
+		for (FenetreLivraison fl : fenetresLivraison) {
 			Adresse debutTournee = entrepot;
-			if( ! chemins.isEmpty()){//donc c'est pas la premiere fenetre
-				debutTournee = ((ArrayList<Chemin>)chemins).get(chemins.size()-1).getArrivee();
+			if (!chemins.isEmpty()) {// donc c'est pas la premiere fenetre
+				debutTournee = ((ArrayList<Chemin>) chemins).get(
+						chemins.size() - 1).getArrivee();
 			}
-			ArrayList<Chemin> tmp = calculerTourneeFenetre(debutTournee,fl);
-			
+			ArrayList<Chemin> tmp = calculerTourneeFenetre(debutTournee, fl);
+
 			chemins.addAll(tmp);
 
 		}
-		
-		chemins.add(plan.calculerChemin(((ArrayList<Chemin>)chemins).get(chemins.size()-1).getArrivee(),this.entrepot));
-                
-		calculerLesDurees( 0 ); 
+
+		chemins.add(plan.calculerChemin(
+				((ArrayList<Chemin>) chemins).get(chemins.size() - 1)
+						.getArrivee(), this.entrepot));
+
+		calculerLesDurees(0);
 		this.setChanged();
 		this.notifyObservers();
+
+		this.livraisons = sortLivraison((ArrayList<Livraison>) this.livraisons);
 		System.out.println("Tournee calculÃ©e : DurÃ©e totale " + getDuree());
 	}
-	
+
 	// indice dans chemins du premier chemin Ã  partir dulequel
 	// il faut calculer/recalculer les durees
         /**
@@ -316,33 +326,37 @@ public class Tournee extends Observable{
 	private void calculerLesDurees(int indiceDepart){
 		Date horaire = null ;
 		Chemin PremierChemin = chemins.get(indiceDepart);
-		if(PremierChemin.getDepart() .equals(entrepot)){
+		if (PremierChemin.getDepart().equals(entrepot)) {
 			horaire = fenetresLivraison.get(0).getHeureDebut();
 		} else {
-			//horaire = getLivraison(PremierChemin.getDepart()).getHoraire();
+			// horaire = getLivraison(PremierChemin.getDepart()).getHoraire();
 			horaire = PremierChemin.getDepart().getLivraison().getHoraire();
 		}
-		
-		
-		for(int i=indiceDepart; i < chemins.size()-1 ; i++ ){
+
+		for (int i = indiceDepart; i < chemins.size() - 1; i++) {
 			Chemin chemin = chemins.get(i);
-			//Livraison l = getLivraison(chemin.getArrivee());
+			// Livraison l = getLivraison(chemin.getArrivee());
 			Livraison l = chemin.getArrivee().getLivraison();
-			horaire =  addSecondsHoraire(horaire,chemin.getDuree());
- 
-	        if (horaire.before(l.getFenetreLivraison().getHeureDebut()))  {
-	        	horaire = l.getFenetreLivraison().getHeureDebut();
-	        }
-	        	
-			l.setHoraire(horaire); 
-			
-			l.positionnerRetard() ; // positionner le retard s'il existe
+			horaire = addSecondsHoraire(horaire, chemin.getDuree());
+
+			if (horaire.before(l.getFenetreLivraison().getHeureDebut())) {
+				horaire = l.getFenetreLivraison().getHeureDebut();
+			}
+
+			l.setHoraire(horaire);
+
+			l.positionnerRetard(); // positionner le retard s'il existe
 		}
-		
-		this.Duree =  (int) (addSecondsHoraire(horaire , chemins.get(chemins.size()-1).getDuree()).getTime()/ 1000 - fenetresLivraison.get(0).getHeureDebut().getTime()/1000);
-		System.out.println("verif "+ addSecondsHoraire(fenetresLivraison.get(0).getHeureDebut() , Duree)) ;
-		System.out.println("duree retour Ã  la base (min) "+ chemins.get(chemins.size()-1).getDuree()/60);
-		
+
+		this.Duree = (int) (addSecondsHoraire(horaire,
+				chemins.get(chemins.size() - 1).getDuree()).getTime() / 1000 - fenetresLivraison
+				.get(0).getHeureDebut().getTime() / 1000);
+		System.out.println("verif "
+				+ addSecondsHoraire(fenetresLivraison.get(0).getHeureDebut(),
+						Duree));
+		System.out.println("duree retour Ã  la base (min) "
+				+ chemins.get(chemins.size() - 1).getDuree() / 60);
+
 	}
 	
 	/**
@@ -354,41 +368,40 @@ public class Tournee extends Observable{
          */
 	private Date addSecondsHoraire(Date horaire,int seconds ){
 		Calendar cal = Calendar.getInstance();
-        cal.setTime(horaire);
-        cal.add(Calendar.SECOND, seconds);
-        return cal.getTime();
+		cal.setTime(horaire);
+		cal.add(Calendar.SECOND, seconds);
+		return cal.getTime();
 	}
 	
-	
 	/** 
-         * Cette méthode calcule un morceau de la tournée associé à une plage horaire. 
+         * Cette méthode calcule un morceau de la tournée associé à une fenêtre de livraison. 
 	 * @return la liste des chemins qui composent ce morceau de la tournée.
 	 */
-	
-	public ArrayList<Chemin> calculerTourneeFenetre(Adresse addssDepart,FenetreLivraison fenetreLivraison){ 
+
+	public ArrayList<Chemin> calculerTourneeFenetre(Adresse addssDepart,
+			FenetreLivraison fenetreLivraison) {
 		int tpsLimite = 3000;
-		
-		Chemin[][] AllCheminsGraphe = construireAllChemin(fenetreLivraison,addssDepart) ;
+
+		Chemin[][] AllCheminsGraphe = construireAllChemin(fenetreLivraison,
+				addssDepart);
 		Graphe graphe = construireGraphe(AllCheminsGraphe);
-		
-		TSP tsp = new TSP1();
+
+		TSP tsp = new TSP2();
 		tsp.chercheSolution(tpsLimite, graphe);
-		
-		//this.Duree +=tsp.getCoutSolution();
+
+		// this.Duree +=tsp.getCoutSolution();
 		ArrayList<Chemin> res = new ArrayList<Chemin>();
-		
-		int i,j,I,J;
-		for(j=1;j<graphe.getNbSommets();j++)
-		{
-			i = j-1;
+
+		int i, j, I, J;
+		for (j = 1; j < graphe.getNbSommets(); j++) {
+			i = j - 1;
 			I = tsp.getSolution(i);
 			J = tsp.getSolution(j);
-			//this.chemins.add(AllCheminsGraphe[I][J]);
+			// this.chemins.add(AllCheminsGraphe[I][J]);
 			res.add(AllCheminsGraphe[I][J]);
 		}
 		return res;
 	}
-	
 	
 	/**
          * Accesseur de l'attribut livraisons.
@@ -422,7 +435,6 @@ public class Tournee extends Observable{
 		return entrepot;
 	}
 
-
         /**
          * Ajoute la livraison lAdd à la tournéee, juste avant la livraison lFollow. Si lFollow n'est pas dans la liste,
          * lAdd est ajouté à la fin de la tournée. La liste des chemins est mis à jour.
@@ -434,51 +446,54 @@ public class Tournee extends Observable{
 			Adresse adresseAdd = lAdd.getAdresse();
 			Adresse adresseFollow = lFollow.getAdresse();
 			Chemin cheminToRemove = getCheminFromArrivee(adresseFollow);
-			Chemin chemin1 = plan.calculerChemin(cheminToRemove.getDepart(),adresseAdd);
+			Chemin chemin1 = plan.calculerChemin(cheminToRemove.getDepart(),
+					adresseAdd);
 			Chemin chemin2 = plan.calculerChemin(adresseAdd, adresseFollow);
 			int i;
-			for(i=0;i<chemins.size();i++) {
-				if((chemins.get(i)).equals(cheminToRemove)) {
+			for (i = 0; i < chemins.size(); i++) {
+				if ((chemins.get(i)).equals(cheminToRemove)) {
 					chemins.add(i, chemin1);
-					chemins.add(i+1, chemin2);
+					chemins.add(i + 1, chemin2);
 					break;
 				}
 			}
 			chemins.remove(cheminToRemove);
 			livraisons.add(lAdd);
 			calculerLesDurees(i); // recalcule les durÃ©es Ã  partir de ce chmin
-		}
-		else {
+		} else {
 
-			Adresse entrepot = (chemins.get(chemins.size()-1)).getArrivee();
-			Adresse lastAdresse = (chemins.get(chemins.size()-2)).getArrivee();
-			Chemin chemin = plan.calculerChemin(lastAdresse,lAdd.getAdresse());
-			Chemin cheminVersEntrepot = plan.calculerChemin(lAdd.getAdresse(),entrepot);
-			chemins.remove(chemins.size()-1);
-			chemins.add(chemins.size(),chemin);
-			chemins.add(chemins.size(),cheminVersEntrepot);
-			livraisons.add(lAdd);		
-			calculerLesDurees(chemins.size()-2);
-			
+			Adresse entrepot = (chemins.get(chemins.size() - 1)).getArrivee();
+			Adresse lastAdresse = (chemins.get(chemins.size() - 2))
+					.getArrivee();
+			Chemin chemin = plan.calculerChemin(lastAdresse, lAdd.getAdresse());
+			Chemin cheminVersEntrepot = plan.calculerChemin(lAdd.getAdresse(),
+					entrepot);
+			chemins.remove(chemins.size() - 1);
+			chemins.add(chemins.size(), chemin);
+			chemins.add(chemins.size(), cheminVersEntrepot);
+			livraisons.add(lAdd);
+			calculerLesDurees(chemins.size() - 2);
+
 		}
 		this.setChanged();
 		this.notifyObservers();
-				
+
 	}
-	
+
 	/**
 	 * Supprime la livraison de la tournee et recalcule les heures de passage
 	 * @param L
 	 */
-	public void supprimerLivraison(Livraison L)  {
-		if(livraisons.contains(L)) {
+	public void supprimerLivraison(Livraison L) {
+		if (livraisons.contains(L)) {
 			Chemin chemin1 = getCheminFromArrivee(L.getAdresse());
 			Chemin chemin2 = getCheminFromDepart(L.getAdresse());
-			if(chemin1 != null && chemin2 != null) {
-				Chemin newChemin = plan.calculerChemin(chemin1.getDepart(), chemin2.getArrivee());
+			if (chemin1 != null && chemin2 != null) {
+				Chemin newChemin = plan.calculerChemin(chemin1.getDepart(),
+						chemin2.getArrivee());
 				int i;
-				for(i=0;i<chemins.size();i++) {
-					if((chemins.get(i)).equals(chemin2)) {
+				for (i = 0; i < chemins.size(); i++) {
+					if ((chemins.get(i)).equals(chemin2)) {
 						chemins.add(i, newChemin);
 						break;
 					}
@@ -487,16 +502,14 @@ public class Tournee extends Observable{
 				chemins.remove(chemin2);
 				livraisons.remove(L);
 				L.getAdresse().setLivraison(null);
-				calculerLesDurees(i-1); // recalcule les durÃ©es Ã  partir de ce chmin
+				calculerLesDurees(i - 1); // recalcule les durÃ©es Ã  partir de ce
+											// chmin
 				this.setChanged();
 				this.notifyObservers();
 			}
-			
+
 		}
-	}
-	
-	
-	
+	}	
 
         /**
          * Echange l'ordre de passage de deux livraisons et recalcule les heures de passage
@@ -510,30 +523,34 @@ public class Tournee extends Observable{
 			Chemin cheminRm1D = getCheminFromDepart(l1.getAdresse());
 			Chemin cheminRm2A = getCheminFromArrivee(l2.getAdresse());
 			Chemin cheminRm2D = getCheminFromDepart(l2.getAdresse());
-			
-			Chemin cheminAdd1A = plan.calculerChemin(cheminRm1A.getDepart(),l2.getAdresse());
-			Chemin cheminAdd1D = plan.calculerChemin(l2.getAdresse(),cheminRm1D.getArrivee());
-			Chemin cheminAdd2A = plan.calculerChemin(cheminRm2A.getDepart(),l1.getAdresse());
-			Chemin cheminAdd2D = plan.calculerChemin(l1.getAdresse(),cheminRm2D.getArrivee());
+
+			Chemin cheminAdd1A = plan.calculerChemin(cheminRm1A.getDepart(),
+					l2.getAdresse());
+			Chemin cheminAdd1D = plan.calculerChemin(l2.getAdresse(),
+					cheminRm1D.getArrivee());
+			Chemin cheminAdd2A = plan.calculerChemin(cheminRm2A.getDepart(),
+					l1.getAdresse());
+			Chemin cheminAdd2D = plan.calculerChemin(l1.getAdresse(),
+					cheminRm2D.getArrivee());
 			int indiceModif = 0;
-			for(int i=0;i<chemins.size();i++) {
-				if(chemins.get(i).equals(cheminRm2A)) {
+			for (int i = 0; i < chemins.size(); i++) {
+				if (chemins.get(i).equals(cheminRm2A)) {
 					chemins.add(i, cheminAdd2A);
-					chemins.add(i+1, cheminAdd2D);
-					if(indiceModif == 0)
+					chemins.add(i + 1, cheminAdd2D);
+					if (indiceModif == 0)
 						indiceModif = i;
 					break;
 				}
 			}
-			for(int i=0;i<chemins.size();i++) {
-				if(chemins.get(i).equals(cheminRm1A)) {
+			for (int i = 0; i < chemins.size(); i++) {
+				if (chemins.get(i).equals(cheminRm1A)) {
 					chemins.add(i, cheminAdd1A);
-					chemins.add(i+1, cheminAdd1D);
-					if(i<indiceModif)
+					chemins.add(i + 1, cheminAdd1D);
+					if (i < indiceModif)
 						indiceModif = i;
 					break;
 				}
-			}				
+			}
 			chemins.remove(cheminRm1A);
 			chemins.remove(cheminRm1D);
 			chemins.remove(cheminRm2A);
@@ -544,20 +561,18 @@ public class Tournee extends Observable{
 			this.setChanged();
 			this.notifyObservers();
 		}
-		
-		
-		
+
 	}
         
         /**
-         * cette méthode récupère la livraison suivant celle passée en paramètre dans la liste des livraisons
+         * Cette méthode récupère la livraison suivant celle passée en paramètre dans la liste des livraisons
          * qui composent la tournée.
          * @param livraison
          * @return la livraison suivante.
          */
 	public Livraison getFollowingLivraison(Livraison livraison) {
 		Chemin chemin = getCheminFromDepart(livraison.getAdresse());
-		Adresse  adresseF = chemin.getArrivee();
+		Adresse adresseF = chemin.getArrivee();
 		return adresseF.getLivraison();
 	}
 	
@@ -577,14 +592,13 @@ public class Tournee extends Observable{
 		return fenetresLivraison;
 	}
 
-
 	/**
          * Cette méthode permet de récupérer la i-ème fenêtre de livraison de l'attribut fenetreLivraison.
          * @param index
          * @return la i-ème fenêre de livraison.
          */
 	public FenetreLivraison getFenetreLivraisonIndx(int index) {
-		return ((ArrayList<FenetreLivraison>)fenetresLivraison).get(index);
+		return ((ArrayList<FenetreLivraison>) fenetresLivraison).get(index);
 
 	}
 	
@@ -593,12 +607,47 @@ public class Tournee extends Observable{
          * @param t
          * @return vrai s'il est emprunté, false sinon.
          */
-	public boolean isDansTrournee(Troncon t){
-		if(chemins != null){
-			for(Chemin ch : chemins){
-				if(ch.contient(t)) return true;
+	public boolean isDansTrournee(Troncon t) {
+		if (chemins != null) {
+			for (Chemin ch : chemins) {
+				if (ch.contient(t))
+					return true;
 			}
 		}
 		return false;
+	}
+        
+        /**
+         * Trie les livraisons en fonction de leur fenêtre respectives.
+         * @param collection la liste de livraisons à trier.
+         * @return la liste de livraisons triées.
+         */
+	private ArrayList<Livraison> sortLivraison(ArrayList<Livraison> collection) {
+		int size = collection.size();
+		for (int i = 0; i < size; i++) {
+			int max_fenetre = i;
+			for (int j = i + 1; j < size; j++) {
+				if (collection.get(j).getHoraire()
+						.after(collection.get(max_fenetre).getHoraire())) {
+					max_fenetre = j;
+				}
+			}
+			if (max_fenetre != i) {
+				Livraison max = collection.get(max_fenetre);
+				collection.set(max_fenetre, collection.get(i));
+				collection.set(i, max);
+			}
+
+		}
+		return collection;
+	}
+        
+        /**
+         * Accesseur de l'attribut livraisons qui les trie avant de les renvoyer.
+         * @return l'attribut livraisons trié.
+         */
+	public Collection<Livraison> getSortedLivraisons() {
+		this.livraisons = sortLivraison((ArrayList<Livraison>) this.livraisons);
+		return this.livraisons;
 	}
 }

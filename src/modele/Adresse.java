@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.Observable;
 
 /**
- * Cette classe représente un croisement de rue dans une ville, et une potentielle adresse de livraison
+ * Cette classe reprï¿½sente un croisement de rue dans une ville, et une potentielle adresse de livraison
  */
 public class Adresse extends Observable {
         
@@ -14,19 +14,19 @@ public class Adresse extends Observable {
          */
 	private int id;
         /**
-         * Sa coordonnée suivant l'axe Est/Ouest. Utile pour la représentation graphique de cette adresse dans un plan.
+         * Sa coordonnï¿½e suivant l'axe Est/Ouest. Utile pour la reprï¿½sentation graphique de cette adresse dans un plan.
          */
 	private int x;
         /**
-         * Sa coordonnée suivant l'axe Nord/Sud. Utile pour la représentation graphique de cette adresse dans un plan.
+         * Sa coordonnï¿½e suivant l'axe Nord/Sud. Utile pour la reprï¿½sentation graphique de cette adresse dans un plan.
          */
 	private int y;
         /**
-         * La livraison associée à cette adresse, null si aucune livraison n'est prévue.
+         * La livraison associï¿½e ï¿½ cette adresse, null si aucune livraison n'est prï¿½vue.
          */
 	private Livraison livraison;
         /**
-         * La liste des rues empruntables depuis cette adresse (représentées par des instances de la classe Troncon).
+         * La liste des rues empruntables depuis cette adresse (reprï¿½sentï¿½es par des instances de la classe Troncon).
          */
 	private Collection<Troncon> tronconsSortants;
 	
@@ -46,8 +46,8 @@ public class Adresse extends Observable {
 	}
 	
 	/**
-         * Surcharge de la méthode d'afficahge.
-         * @return une chaîne de caractère décrivant l'adresse.
+         * Surcharge de la mï¿½thode d'afficahge.
+         * @return une chaï¿½ne de caractï¿½re dï¿½crivant l'adresse.
          */
 	@Override
 	public String toString() {
@@ -72,8 +72,8 @@ public class Adresse extends Observable {
 	}
         
         /**
-         * Surcharge de la méthode d'égalité.
-         * @param obj la deuxième adresse à laquelle comparer la première.
+         * Surcharge de la mï¿½thode d'ï¿½galitï¿½.
+         * @param obj la deuxiï¿½me adresse ï¿½ laquelle comparer la premiï¿½re.
          * @return true si les id sont identiques, false sinon.
          */
 	@Override
@@ -91,8 +91,8 @@ public class Adresse extends Observable {
 	}
         
         /**
-         * Ajouter un tronçpn à la liste des tronçons.
-         * @param t le tronçon à ajouter.
+         * Ajouter un tronï¿½pn ï¿½ la liste des tronï¿½ons.
+         * @param t le tronï¿½on ï¿½ ajouter.
          */
 	public void ajouterTroncon(Troncon t) {
 		tronconsSortants.add(t);
@@ -100,8 +100,8 @@ public class Adresse extends Observable {
 	}
 
         /**
-         * Retirer un tronçon de la liste des tronçons.
-         * @param t le tronçon à retirer.
+         * Retirer un tronï¿½on de la liste des tronï¿½ons.
+         * @param t le tronï¿½on ï¿½ retirer.
          */
 	protected void retirerTroncon(Troncon t) {
 		tronconsSortants.remove(t);
@@ -134,18 +134,18 @@ public class Adresse extends Observable {
 
         /**
          * Accesseur de l'attribut troncons.
-         * @return la liste de tronçons sortants de l'adresse.
+         * @return la liste de tronï¿½ons sortants de l'adresse.
          */
 	public Collection<Troncon> getTroncons() {
 		return tronconsSortants;
 	}
 
         /**
-         * Méthode nécessaire à la mise en place du pattern visiteur.
+         * Mï¿½thode nï¿½cessaire ï¿½ la mise en place du pattern visiteur.
          * @param visiteur le visiteur.
          * @param estEntrepot
          */
-	public void accept(Visiteur visiteur,boolean estEntrepot) {
+	public void accept(VisiteurPlan visiteur,boolean estEntrepot) {
 		for (Troncon t : getTroncons()) {
 			t.accept(visiteur);
 		}
@@ -155,7 +155,7 @@ public class Adresse extends Observable {
         
         /**
          * Mutateur de l'attribut livraison.
-         * @param l la livraison à cette adresse.
+         * @param l la livraison ï¿½ cette adresse.
          */
         protected void setLivraison(Livraison l){
                 this.livraison = l;
@@ -163,15 +163,15 @@ public class Adresse extends Observable {
         
         /**
          * Accesseur de l'attribut livraison.
-         * @return la livraison prévue à cette adresse, null sinon.
+         * @return la livraison prï¿½vue ï¿½ cette adresse, null sinon.
          */
         public Livraison getLivraison(){
                 return livraison;
         }
         
         /**
-         * Renvoie un booléen traduisant le fait qu'une livraison soit prévue à cette adresse.
-         * @return true si une livraison est prévue, false sinon.
+         * Renvoie un boolï¿½en traduisant le fait qu'une livraison soit prï¿½vue ï¿½ cette adresse.
+         * @return true si une livraison est prï¿½vue, false sinon.
          */
         public boolean estAssocierAvecLivraison(){
                 return livraison != null;

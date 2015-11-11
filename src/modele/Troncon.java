@@ -138,9 +138,8 @@ public class Troncon {
          * Méthode nécessaire à la mise en place du pattern Visiteur.
          * @param visiteur le visiteur.
          */
-	public void accept(Visiteur visiteur) {
+	public void accept(VisiteurPlan visiteur) {
 		visiteur.visite(this, false);
 		
 	}
-
 }

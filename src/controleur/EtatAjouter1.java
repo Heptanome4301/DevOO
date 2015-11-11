@@ -18,7 +18,7 @@ public class EtatAjouter1 extends EtatTournee {
 		if(adresse.estAssocierAvecLivraison()){
 			fenetre.signalerErreur(Constants.ERR_ADRESSE_LIVRAISON);
 			Controleur.setEtatCourant(Controleur.etatTournee);
-                        fenetre.ecrireLog(Constants.LOGS_DEFAULT);
+            fenetre.ecrireLog(Constants.LOGS_DEFAULT);
 			return;
 		}
 		Controleur.etatAjouter2.setAdresse(adresse);
@@ -26,6 +26,9 @@ public class EtatAjouter1 extends EtatTournee {
 		fenetre.ecrireLog(Constants.LOGS_AJOUTER2);
 	}
 
+	
+	
+	
 	@Override
 	public void clicDroit(Fenetre fenetre) {
 		Controleur.setEtatCourant(Controleur.etatTournee);

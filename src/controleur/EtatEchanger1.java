@@ -1,6 +1,7 @@
 package controleur;
 
 import modele.Adresse;
+import modele.Livraison;
 import modele.Plan;
 import modele.Tournee;
 import util.Constants;
@@ -19,10 +20,12 @@ public class EtatEchanger1 extends EtatTournee {
 			fenetre.ecrireLog(Constants.LOGS_ECHANGER2);
 		}
 		else {
-			//TODO msg erreur et on reste dans le meme etat
+			fenetre.signalerErreur(Constants.ERR_PAS_ADRESSE_LIVRAISON);
+			fenetre.ecrireLog(Constants.LOGS_ECHANGER1);
 		}
 		
 	}
+	
 	
 	public void clicDroit(Fenetre fenetre) {
 		// action = annuler
