@@ -1,6 +1,7 @@
 package controleur;
 
 import java.awt.Point;
+import java.io.File;
 
 import modele.Adresse;
 import modele.Livraison;
@@ -8,6 +9,8 @@ import modele.Plan;
 import modele.Tournee;
 import util.Constants;
 import vue.Fenetre;
+import xml.ExceptionXML;
+import xml.OuvreurDeFichiersXML;
 
 public class Controleur {
 
@@ -54,13 +57,6 @@ public class Controleur {
 		etatCourant.redo(fenetre, historique);
 	}
 
-	public void chargerPlan() {
-		plan.clear();
-		fenetre.desactiverBuotonsModification();
-		etatCourant.chargerPlan(fenetre, plan);
-		this.calculEchelle();
-	}
-
 	private void calculEchelle() {
 		double echelle1 = ((double) fenetre.getVue().getWidth() - 2 * Constants.MARGIN_VUE_GRAPHE)
 				/ (plan.getXMax() + Constants.RAYON_NOEUD);
@@ -73,12 +69,30 @@ public class Controleur {
 		}
 
 	}
-
-	public void chargerLivraisons() {
-		fenetre.desactiverBuotonsModification();
-		etatCourant.chargerLivraisons(fenetre, plan);
+	
+	
+	protected File getFile(){
+		File xml = null;
+		try {
+			xml = OuvreurDeFichiersXML.getInstance().ouvre();
+		} catch (ExceptionXML e) {
+			fenetre.signalerErreur(e.getMessage());
+		}
+		return xml;
 	}
 
+	public void chargerPlan() {
+		File xml = getFile();
+		etatCourant.chargerPlan(fenetre, plan,xml);
+		this.calculEchelle();
+	}
+	
+	
+	public void chargerLivraisons() {
+		etatCourant.chargerLivraisons(fenetre, plan,this);
+	}
+
+	
 	public void calculerTournee() {
 		etatCourant.calculerTournee(fenetre, plan.getTournee());
 	}

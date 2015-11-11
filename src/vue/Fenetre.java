@@ -64,7 +64,7 @@ public class Fenetre {
 
 	private void initializeListeners(Controleur c) {
 		this.ecouteurBoutons = new EcouteurDeBoutons(c);
-		this.ecouteurSouris = new EcouteurDeSouris(c, vue, this);
+		this.ecouteurSouris = new EcouteurDeSouris(c, vue);
 		this.ecouteurListe = new EcouteurDeListe(vueTextuelle);
 
 		chargerPlan.addActionListener(ecouteurBoutons);

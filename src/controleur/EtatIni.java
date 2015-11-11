@@ -37,14 +37,18 @@ public class EtatIni implements Etat {
 
 	@Override
 	public void clicNoeud(Fenetre fenetre, Adresse adresse,Plan plan, ListeDeCmd listeCmd){
-		throw new UnsupportedOperationException();  //todo pourquoi tous ces arguments?
+		//throw new UnsupportedOperationException();  //todo pourquoi tous ces arguments?
 	}
 
+	
+
+	
+	
 	@Override
-	public void chargerPlan(Fenetre fenetre, Plan plan){
-		File xml;
+	public void chargerPlan(Fenetre fenetre, Plan plan,File xml){
+		if(xml == null) return;
 		try {
-			xml = OuvreurDeFichiersXML.getInstance().ouvre();
+			fenetre.desactiverBuotonsModification();
 			plan.chargerPlan(xml);
 			Controleur.setEtatCourant(Controleur.etatPlan);
             fenetre.ecrireLog(Constants.LOGS_PLAN);
@@ -55,7 +59,7 @@ public class EtatIni implements Etat {
 	}
 
 	@Override
-	public void chargerLivraisons(Fenetre fenetre, Plan plan){
+	public void chargerLivraisons(Fenetre fenetre, Plan plan,Controleur c){
 		fenetre.signalerErreur(Constants.ERR_CHARGEMENT_LIVRAISON);
 	}
 
@@ -81,7 +85,7 @@ public class EtatIni implements Etat {
 
 	@Override
 	public void clicListLivraisons(Fenetre fenetre, Livraison livraison) {
-		throw new UnsupportedOperationException();		
+		//throw new UnsupportedOperationException();		
 	}
 
         @Override

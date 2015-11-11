@@ -1,7 +1,6 @@
 package controleur;
 
 import modele.Adresse;
-import modele.Livraison;
 import modele.Plan;
 
 import util.Constants;

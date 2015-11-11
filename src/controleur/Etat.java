@@ -1,5 +1,7 @@
 package controleur;
 
+import java.io.File;
+
 import modele.Adresse;
 import modele.Livraison;
 import modele.Plan;
@@ -7,7 +9,11 @@ import modele.Tournee;
 import vue.Fenetre;
 
 /**
+<<<<<<< HEAD
+ * Interface Etat n�cessaire � la mise en place du design pattern Etat. Elle d�crit les fonctionnalit�s accessibles �
+=======
  * Interface Etat nécessaire à la mise en place du design pattern Etat. Elle décrit les fonctionnalités accessibles à
+>>>>>>> fa4ae2fcb78e76b8526715ba9805348ee77b9d75
  * l'utilisateur depuis la vue.
  */
 public interface Etat {
@@ -38,15 +44,16 @@ public interface Etat {
          * @param fenetre la fenêtre d'affichage des résultats.
          * @param plan le plan à remplir.
          */
-	void chargerPlan(Fenetre fenetre, Plan plan);
+	void chargerPlan(Fenetre fenetre, Plan plan, File xml);
         /**
+
          * Remplit une tournee à partir des livraisons décrites dans un fichier xml. Cette méthode demande à
          * l'utilisateur de naviguer dans sn arborescence de fichiers (à l'aide d'un JFileChooser) pour trouver 
          * le fichier xml à lire.
          * @param fenetre la fenêtre d'affichage des résultats.
          * @param plan le plan contenant la tournée à remplir.
          */
-	void chargerLivraisons(Fenetre fenetre, Plan plan);
+	void chargerLivraisons(Fenetre fenetre, Plan plan, Controleur controleur);
         /**
          * Cette méthode calcule l'ordre de passage pour une tournée passée en paramètre.
          * @param fenetre la fenêtre d'affichage des résultats.
@@ -84,6 +91,7 @@ public interface Etat {
 	void echanger(Fenetre fenetre);
         
         /**
+
          * Permet de déclencher le processus de déplacement d'une livraison dans la tournée une fois celle-ci calculée
          * @param fenetre la fenêtre d'affichage des résultats.
          */
