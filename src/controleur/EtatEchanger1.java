@@ -1,6 +1,7 @@
 package controleur;
 
 import modele.Adresse;
+import modele.Livraison;
 import modele.Plan;
 import modele.Tournee;
 import util.Constants;
@@ -24,6 +25,7 @@ public class EtatEchanger1 extends EtatTournee {
 		}
 		
 	}
+	
 	
 	public void clicDroit(Fenetre fenetre) {
 		// action = annuler

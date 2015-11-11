@@ -21,12 +21,12 @@ public class EtatEchanger2 extends EtatTournee {
 		
 		public void clicNoeud(Fenetre fenetre, Adresse adresse2, Plan plan, Tournee tournee, ListeDeCmd listeCmd) {
 			if(adresse2.estAssocierAvecLivraison()) {
-				CmdEchanger cmd= new CmdEchanger(adresse1.getLivraison(), adresse2.getLivraison(), tournee);
-				listeCmd.ajoute(cmd);
-				cmd.doCmd();
+				//CmdEchanger cmd= new CmdEchanger(adresse1.getLivraison(), adresse2.getLivraison(), tournee);
+				//listeCmd.ajoute(cmd);
+				//cmd.doCmd();
 				tournee.echangerLivraison(adresse1.getLivraison(), adresse2.getLivraison());
 				Controleur.setEtatCourant(Controleur.etatTournee);
-				fenetre.ecrireLog(Constants.LOGS_DEFAULT);
+				fenetre.ecrireLog(/*Constants.LOGS_DEFAULT*/"done!");
 			}
 			else {
 				//TODO message d'erreur -> on reste dans l'état dans etatTournee2

@@ -19,16 +19,18 @@ public class VueTextuelle implements Observer {
 	private JList<Livraison> listLivraisons;
 	private Controleur controleur;
 	
+	
 	public VueTextuelle(Controleur c, JList<Livraison> listAdressesLivraisons){
 		this.listLivraisons = listAdressesLivraisons;
 		this.controleur = c ;
 		this.controleur.getPlan().addObserver(this);
 		
+		
 	}
 
 	public void changed() {
 		Livraison livraison = listLivraisons.getSelectedValue();
-		if(livraison != null){
+		if(livraison != null ){
 			controleur.clicListLivraisons(livraison);
 		}				
 	}

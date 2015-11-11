@@ -330,7 +330,7 @@ public class Tournee extends Observable {
 				addssDepart);
 		Graphe graphe = construireGraphe(AllCheminsGraphe);
 
-		TSP tsp = new TSP1();
+		TSP tsp = new TSP2();
 		tsp.chercheSolution(tpsLimite, graphe);
 
 		// this.Duree +=tsp.getCoutSolution();

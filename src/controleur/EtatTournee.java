@@ -2,7 +2,9 @@ package controleur;
 
 import javax.swing.JFileChooser;
 
+import modele.Adresse;
 import modele.Livraison;
+import modele.Plan;
 import modele.Tournee;
 import util.Constants;
 import vue.Fenetre;
@@ -12,6 +14,9 @@ public class EtatTournee extends EtatLivraison {
 	public EtatTournee() {
 		// TODO Auto-generated constructor stub
 	}
+	
+	
+	
 
 	@Override
 	public void genererFeuilleDeRoute(Fenetre fenetre, Tournee tournee) {
@@ -71,9 +76,15 @@ public class EtatTournee extends EtatLivraison {
 
 	@Override
 	public void clicListLivraisons(Fenetre fenetre, Livraison livraison) {
-		if (livraison != null) {
-			fenetre.updateSelection(livraison.getAdresse());
-		}
+	
+		//fenetre.updateSelection(livraison.getAdresse(),false);
+	
+	}
+	
+	public void clicNoeud(Fenetre fenetre, Adresse adresse, Plan plan,Tournee tournee,
+			ListeDeCmd historiqe)
+	{
+		//fenetre.updateSelection(adresse,true);
 	}
 
 }

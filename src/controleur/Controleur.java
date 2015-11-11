@@ -10,12 +10,12 @@ import util.Constants;
 import vue.Fenetre;
 
 public class Controleur {
-	
+
 	private ListeDeCmd historique;
 	private static Etat etatCourant;
 	private Plan plan;
 	private Fenetre fenetre;
-	
+
 	protected static final EtatIni etatIni = new EtatIni();
 	protected static final EtatAjouter1 etatAjouter1 = new EtatAjouter1();
 	protected static final EtatAjouter2 etatAjouter2 = new EtatAjouter2();
@@ -25,11 +25,10 @@ public class Controleur {
 	protected static final EtatSupprimer etatSupprimer = new EtatSupprimer();
 	protected static final EtatEchanger1 etatEchanger1 = new EtatEchanger1();
 	protected static final EtatEchanger2 etatEchanger2 = new EtatEchanger2();
-	
-	protected static void setEtatCourant(Etat etat) { 
-            etatCourant = etat;
-        }
-	
+
+	protected static void setEtatCourant(Etat etat) {
+		etatCourant = etat;
+	}
 
 	public Controleur() {
 		this.historique = new ListeDeCmd();
@@ -37,29 +36,30 @@ public class Controleur {
 		this.plan = new Plan();
 		this.fenetre = new Fenetre(this, plan);
 	}
-	
+
 	/**
-	 * Annule la derni�re modification effectu�e sur la tourn�e (ajout, suppression ou �change de livraisons)
+	 * Annule la derni�re modification effectu�e sur la tourn�e (ajout,
+	 * suppression ou �change de livraisons)
 	 */
 	public void undo() {
-			etatCourant.undo(fenetre, historique);
+		etatCourant.undo(fenetre, historique);
 	}
+
 	/**
 	 * R�effectue la derni�re action annul�e
 	 */
 	public void redo() {
-			etatCourant.redo(fenetre, historique);
+		etatCourant.redo(fenetre, historique);
 	}
-	
-	
-	public void chargerPlan()  {
+
+	public void chargerPlan() {
 		plan.clear();
 		fenetre.desactiverBuotonsModification();
 		etatCourant.chargerPlan(fenetre, plan);
 		this.calculEchelle();
 	}
-	
-	private void calculEchelle() {	
+
+	private void calculEchelle() {
 		double echelle1 = ((double) fenetre.getVue().getWidth() - 2 * Constants.MARGIN_VUE_GRAPHE)
 				/ (plan.getXMax() + Constants.RAYON_NOEUD);
 		double echelle2 = ((double) fenetre.getVue().getHeight() - 2 * Constants.MARGIN_VUE_GRAPHE)
@@ -69,62 +69,62 @@ public class Controleur {
 		} else {
 			fenetre.setEchelle(echelle2);
 		}
-				
-	}
 
+	}
 
 	public void chargerLivraisons() {
-			fenetre.desactiverBuotonsModification();
-            etatCourant.chargerLivraisons(fenetre, plan);
+		fenetre.desactiverBuotonsModification();
+		etatCourant.chargerLivraisons(fenetre, plan);
 	}
-	
+
 	public void calculerTournee() {
-            etatCourant.calculerTournee(fenetre, plan.getTournee());
+		etatCourant.calculerTournee(fenetre, plan.getTournee());
 	}
-	
+
 	public void clicNoeud(Point p) {
 		Adresse adresse = plan.getAdresseByCoord(p);
-		fenetre.updateSelection(adresse);
-		etatCourant.clicNoeud(fenetre, adresse, plan, plan.getTournee(), historique);
+		fenetre.updateSelection(adresse,true);
+		etatCourant.clicNoeud(fenetre, adresse, plan, plan.getTournee(),
+				historique);
 	}
-	
+
 	public void clicDroit() {
 		etatCourant.clicDroit(fenetre);
 	}
-	
+
 	public void clicListLivraisons(Livraison livraison) {
-		
-		fenetre.updateSelection(livraison.getAdresse());
-		etatCourant.clicNoeud(fenetre, livraison.getAdresse(), plan, plan.getTournee(), historique);
-		
+
+		fenetre.updateSelection(livraison.getAdresse(),false);
+		etatCourant.clicNoeud(fenetre, livraison.getAdresse(), plan,
+				plan.getTournee(), historique);
+
 		//etatCourant.clicListLivraisons(fenetre, livraison);
 	}
-	
+
 	public void ajouter() {
 		etatCourant.ajouter(fenetre);
 	}
-	
+
 	public void supprimer() {
 		etatCourant.supprimer(fenetre);
 	}
-	
+
 	public void echanger() {
 		etatCourant.echanger(fenetre);
 	}
 
-        public void genererFeuilleDeRoute(){
-            etatCourant.genererFeuilleDeRoute(fenetre, plan.getTournee());
-        }
+	public void genererFeuilleDeRoute() {
+		etatCourant.genererFeuilleDeRoute(fenetre, plan.getTournee());
+	}
 
 	public Tournee getTournee() {
 		return plan.getTournee();
 	}
 
-
 	public Plan getPlan() {
 		// TODO Auto-generated method stub
 		return this.plan;
-		
+
 	}
 
 	public void afficheInfos(int idAdresse) {
