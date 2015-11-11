@@ -57,6 +57,9 @@ public class VueTextuelle implements Observer {
 			Livraison[] listData = new Livraison[size];
 			for(Livraison l : livraisons) listData[--size] = l;  
 			setList( listData);
+		}else {
+			Livraison[] listData = new Livraison[0];
+			setList(listData);
 		}
 	}
 
