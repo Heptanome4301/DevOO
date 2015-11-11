@@ -67,7 +67,7 @@ public class Plan extends Observable {
 	 */
 	public void chargerPlan(File xml) throws ParserConfigurationException,
 			SAXException, IOException, ExceptionXML {
-		viderTournee();
+		clear();
 		XMLParser.chargerPlan(this, xml);
 		verifierPlan();
 		initXMaxYMax();
@@ -202,6 +202,9 @@ public class Plan extends Observable {
 	 */
 	public void clear() {
 		adresses.clear();
+		viderTournee();
+		setChanged();
+		notifyObservers(tournee);
 	}
 
 	/**
@@ -357,6 +360,8 @@ public class Plan extends Observable {
 			if (adresse.estAssocierAvecLivraison())
 				adresse.setLivraison(null);
 		}
+		this.setChanged();
+		this.notifyObservers(tournee);
 	}
 
 }

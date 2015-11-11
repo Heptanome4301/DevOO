@@ -9,12 +9,9 @@ import controleur.Controleur;
 public class EcouteurDeSouris extends MouseAdapter {
 	private Controleur controleur;
 	private VueGraphique vue;
-	private Fenetre fenetre;
-
-	public EcouteurDeSouris(Controleur c, VueGraphique v, Fenetre f) {
+	public EcouteurDeSouris(Controleur c, VueGraphique v) {
 		this.controleur = c;
 		this.vue = v;
-		this.fenetre = f;
 		System.out.println(v);
 	}
 
