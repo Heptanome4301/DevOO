@@ -84,4 +84,8 @@ public class EtatIni implements Etat {
 		throw new UnsupportedOperationException();		
 	}
 
+        @Override
+        public void deplacer(Fenetre fenetre) {
+            //Does nothing
+        }
 }

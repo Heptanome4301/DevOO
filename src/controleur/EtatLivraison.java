@@ -28,7 +28,7 @@ public class EtatLivraison extends EtatPlan {
 	}
 	
 	 @Override
-		public void clicNoeud(Fenetre fenetre, Adresse adresse, Plan plan,ListeDeCmd historiqe)
+		public void clicNoeud(Fenetre fenetre, Adresse adresse, Plan plan,ListeDeCmd historique)
 	 {
 	 
 	 }

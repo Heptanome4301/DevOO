@@ -14,9 +14,7 @@ public class EtatTournee extends EtatLivraison {
 	public EtatTournee() {
 		// TODO Auto-generated constructor stub
 	}
-	
-	
-	
+		
 
 	@Override
 	public void genererFeuilleDeRoute(Fenetre fenetre, Tournee tournee) {
@@ -81,10 +79,15 @@ public class EtatTournee extends EtatLivraison {
 	
 	}
 	
-    @Override
-	public void clicNoeud(Fenetre fenetre, Adresse adresse, Plan plan,ListeDeCmd historiqe)
+        @Override
+	public void clicNoeud(Fenetre fenetre, Adresse adresse, Plan plan,ListeDeCmd historique)
 	{
 		//fenetre.updateSelection(adresse,true);
 	}
+        
+        @Override
+        public void deplacer(Fenetre fenetre){
+            Controleur.setEtatCourant(Controleur.etatDeplacer1);
+        }
 
 }

@@ -7,85 +7,92 @@ import modele.Tournee;
 import vue.Fenetre;
 
 /**
- * Interface Etat nécessaire à la mise en place du design pattern Etat. Elle décrit les fonctionnalités accessibles à
+ * Interface Etat nÃ©cessaire Ã  la mise en place du design pattern Etat. Elle dÃ©crit les fonctionnalitÃ©s accessibles Ã 
  * l'utilisateur depuis la vue.
  */
 public interface Etat {
         /**
-         * Annuler la dernière modification effectuée.
-         * @param fenetre la fenêtre d'affichage des résultats.
-         * @param listeCmd la liste contenant les commandes effectuées précédemment.
+         * Annuler la derniÃ¨re modification effectuÃ©e.
+         * @param fenetre la fenÃªtre d'affichage des rÃ©sultats.
+         * @param listeCmd la liste contenant les commandes effectuÃ©es prÃ©cÃ©demment.
          */
 	void undo(Fenetre fenetre, ListeDeCmd listeCmd);
         /**
-         * Refaire la dernière commande annulée.
-         * @param fenetre la fenêtre d'afficahge des résultats.
-         * @param listeCmd la liste contenant les commandes effectuées précédemment.
+         * Refaire la derniÃ¨re commande annulÃ©e.
+         * @param fenetre la fenÃªtre d'afficahge des rÃ©sultats.
+         * @param listeCmd la liste contenant les commandes effectuÃ©es prÃ©cÃ©demment.
          */
 	void redo(Fenetre fenetre, ListeDeCmd listeCmd);
         /**
-         * Méthode invoquée lorsque l'utilisateur clique sur un noeud du graphe ou sélectionne un noeud dans la liste.
-         * @param fenetre la fenêtre d'affichage des résultats.
-         * @param adresse l'Adresse sélectinnée par l'utilisateur.
-         * @param plan le plan auquel appartient l'Adresse sélectionnée.
-         * @param listeCmd la liste contenant les commandes effectuées précédemment.
+         * MÃ©thode invoquÃ©e lorsque l'utilisateur clique sur un noeud du graphe ou sÃ©lectionne un noeud dans la liste.
+         * @param fenetre la fenÃªtre d'affichage des rÃ©sultats.
+         * @param adresse l'Adresse sÃ©lectinnÃ©e par l'utilisateur.
+         * @param plan le plan auquel appartient l'Adresse sÃ©lectionnÃ©e.
+         * @param listeCmd la liste contenant les commandes effectuÃ©es prÃ©cÃ©demment.
          */
 	void clicNoeud(Fenetre fenetre, Adresse adresse,Plan plan, ListeDeCmd listeCmd);
         /**
-         * Remplit un plan à partir des adresses décrites dans un fichier xml. Cette méthode demande à
-         * l'utilisateur de naviguer dans son arborescence de fichiers (à l'aide d'un JFileChooser) pour trouver 
-         * le fichier xml à lire.
-         * @param fenetre la fenêtre d'affichage des résultats.
-         * @param plan le plan à remplir.
+         * Remplit un plan Ã  partir des adresses dÃ©crites dans un fichier xml. Cette mÃ©thode demande Ã 
+         * l'utilisateur de naviguer dans son arborescence de fichiers (Ã  l'aide d'un JFileChooser) pour trouver 
+         * le fichier xml Ã  lire.
+         * @param fenetre la fenÃªtre d'affichage des rÃ©sultats.
+         * @param plan le plan Ã  remplir.
          */
 	void chargerPlan(Fenetre fenetre, Plan plan);
         /**
-         * Remplit une tournee à partir des livraisons décrites dans un fichier xml. Cette méthode demande à
-         * l'utilisateur de naviguer dans sn arborescence de fichiers (à l'aide d'un JFileChooser) pour trouver 
-         * le fichier xml à lire.
-         * @param fenetre la fenêtre d'affichage des résultats.
-         * @param plan le plan contenant la tournée à remplir.
+         * Remplit une tournee Ã  partir des livraisons dÃ©crites dans un fichier xml. Cette mÃ©thode demande Ã 
+         * l'utilisateur de naviguer dans sn arborescence de fichiers (Ã  l'aide d'un JFileChooser) pour trouver 
+         * le fichier xml Ã  lire.
+         * @param fenetre la fenÃªtre d'affichage des rÃ©sultats.
+         * @param plan le plan contenant la tournÃ©e Ã  remplir.
          */
 	void chargerLivraisons(Fenetre fenetre, Plan plan);
         /**
-         * Cette méthode calcule l'ordre de passage pour une tournée passée en paramètre.
-         * @param fenetre la fenêtre d'affichage des résultats.
-         * @param tournee la tournée pour laquelle on doit calculer l'ordre de passage.
+         * Cette mÃ©thode calcule l'ordre de passage pour une tournÃ©e passÃ©e en paramÃ¨tre.
+         * @param fenetre la fenÃªtre d'affichage des rÃ©sultats.
+         * @param tournee la tournÃ©e pour laquelle on doit calculer l'ordre de passage.
          */
 	void calculerTournee(Fenetre fenetre, Tournee tournee);
         /**
-         * Génère la feuille de route décrviant l'ordre de passage calculé pour la tournée passée en paramètre.
-         * Cette méthode demande à l'utilisateur de choisir le fichier dans lequel écrire la feuille de route à 
+         * GÃ©nÃ¨re la feuille de route dÃ©crviant l'ordre de passage calculÃ© pour la tournÃ©e passÃ©e en paramÃ¨tre.
+         * Cette mÃ©thode demande Ã  l'utilisateur de choisir le fichier dans lequel Ã©crire la feuille de route Ã  
          * l'aide d'un JFileChooser.
-         * @param fenetre la fenêtre d'afficahge des résultats.
-         * @param tournee la tournée pour laquelle il faut générer les instructions.
+         * @param fenetre la fenÃªtre d'afficahge des rÃ©sultats.
+         * @param tournee la tournÃ©e pour laquelle il faut gÃ©nÃ©rer les instructions.
          */
 	void genererFeuilleDeRoute(Fenetre fenetre, Tournee tournee);
         /**
-         * Méthode pour annuler l'action en cours d'exécution (ajout ou échange de livraisons).
-         * @param fenetre la fenêtre d'affichage des résultats.
+         * MÃ©thode pour annuler l'action en cours d'exÃ©cution (ajout ou Ã©change de livraisons).
+         * @param fenetre la fenÃªtre d'affichage des rÃ©sultats.
          */
 	void clicDroit(Fenetre fenetre);
         /**
-         * Permet de déclencher le processus d'ajout d'une livraison à la tournée une fois celle-ci calculée.
-         * @param fenetre la fenêtre d'affichage des résultats.
+         * Permet de dÃ©clencher le processus d'ajout d'une livraison Ã  la tournÃ©e une fois celle-ci calculÃ©e.
+         * @param fenetre la fenÃªtre d'affichage des rÃ©sultats.
          */
 	void ajouter(Fenetre fenetre);
         /**
-         * Permet de déclencher le processus de suppression d'une livraison de la tournée une fois celle-ci calculée
-         * @param fenetre la fenêtre d'affichage des résultats.
+         * Permet de dÃ©clencher le processus de suppression d'une livraison de la tournÃ©e une fois celle-ci calculÃ©e
+         * @param fenetre la fenÃªtre d'affichage des rÃ©sultats.
          */
 	void supprimer(Fenetre fenetre);
         /**
-         * Permet de déclencher le processus d'échange de l'ordre de deux livraisons de la tournée une fois celle-ci
-         * calculée.
-         * @param fenetre la fenêtre d'affichage des résultats.
+         * Permet de dÃ©clencher le processus d'Ã©change de l'ordre de deux livraisons de la tournÃ©e une fois celle-ci
+         * calculÃ©e.
+         * @param fenetre la fenÃªtre d'affichage des rÃ©sultats.
          */
 	void echanger(Fenetre fenetre);
+        
         /**
-         * Cette méthode est déclenchée lors de la sélection d'une livraison dans la liste.
-         * @param fenetre la fenêtre d'afficahge des résultats
-         * @param livraison la livraison sélectionnée
+         * Permet de dÃ©clencher le processus de dÃ©placement d'une livraison dans la tournÃ©e une fois celle-ci calculÃ©e
+         * @param fenetre la fenÃªtre d'affichage des rÃ©sultats.
+         */
+        void deplacer (Fenetre fenetre);
+        
+        /**
+         * Cette mÃ©thode est dÃ©clenchÃ©e lors de la sÃ©lection d'une livraison dans la liste.
+         * @param fenetre la fenÃªtre d'afficahge des rÃ©sultats
+         * @param livraison la livraison sÃ©lectionnÃ©e
          */
 	void clicListLivraisons(Fenetre fenetre, Livraison livraison);
 }

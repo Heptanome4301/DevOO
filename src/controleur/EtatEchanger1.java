@@ -14,8 +14,7 @@ public class EtatEchanger1 extends EtatTournee {
 	}
 	
 	@Override
-	public void clicNoeud(Fenetre fenetre, Adresse adresse, Plan plan,	ListeDeCmd historiqe)
-		{
+	public void clicNoeud(Fenetre fenetre, Adresse adresse, Plan plan, ListeDeCmd historique){
 		if(adresse.estAssocierAvecLivraison()) {
 			Controleur.etatEchanger2.setAdresse(adresse);
 			Controleur.setEtatCourant(Controleur.etatEchanger2);
