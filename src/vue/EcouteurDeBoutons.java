@@ -36,6 +36,9 @@ public class EcouteurDeBoutons implements ActionListener {
 		case Constants.INVERSER_LIVRAISONS:
 			controleur.echanger();
 			break;
+                case Constants.DEPLACER_LIVRAISON:
+                        controleur.deplacer();
+                        break;
 		case Constants.SAUVEGARDER_FEUILLE_DE_ROUTE:
 			controleur.genererFeuilleDeRoute();
 			break;
