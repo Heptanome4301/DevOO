@@ -11,17 +11,16 @@ import modele.Livraison;
 import controleur.Controleur;
 
 public class EcouteurDeListe implements ListSelectionListener {
-	private Controleur controleur;
-	private JList<Livraison> liste;
+	private VueTextuelle vueTextuelle;
 	
-	public EcouteurDeListe(Controleur c, JList<Livraison> liste) {
-		this.controleur = c;
-		this.liste = liste;
+	public EcouteurDeListe(VueTextuelle vueText) {
+		this.vueTextuelle = vueText;
+		vueTextuelle.getListLivraisons().addListSelectionListener(this);
 	}
 
 	@Override
 	public void valueChanged(ListSelectionEvent e) {
-		controleur.clicListLivraisons(liste.getSelectedValue());
+		vueTextuelle.changed();
 	}
 
 }

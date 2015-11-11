@@ -4,29 +4,29 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 /**
- * Cette classe représente le chemin à emprunter pour se rendre de l'Adresse depart à l'adresse Arrivee. Les chemins
- * sont construits à l'aide d'une implémentation de l'algorithme de Dijkstra et sont donc les plus courts chemins 
- * reliant les deux Adresses cités précédemment.
+ * Cette classe reprï¿½sente le chemin ï¿½ emprunter pour se rendre de l'Adresse depart ï¿½ l'adresse Arrivee. Les chemins
+ * sont construits ï¿½ l'aide d'une implï¿½mentation de l'algorithme de Dijkstra et sont donc les plus courts chemins 
+ * reliant les deux Adresses citï¿½s prï¿½cï¿½demment.
  */
 public class Chemin {
 	
         /**
-         * La liste des tronçons à emprunter.
+         * La liste des tronï¿½ons ï¿½ emprunter.
          */
 	private Collection<Troncon> troncons;
         /**
-         * La durée nécessaire pour se rendre du départ à l'arrivée.
+         * La durï¿½e nï¿½cessaire pour se rendre du dï¿½part ï¿½ l'arrivï¿½e.
          */
 	private int duree;
         /**
-         * Les adresses de départ et d'arrivée du chemin.
+         * Les adresses de dï¿½part et d'arrivï¿½e du chemin.
          */
 	private Adresse depart,arrivee;
 	
         /**
-         * Constructeur de la classe chemin. La liste de tronçons sera calculée plus tard.
-         * @param depart l'Adresse de départ.
-         * @param arrivee l'Adresse d'arrivée.
+         * Constructeur de la classe chemin. La liste de tronï¿½ons sera calculï¿½e plus tard.
+         * @param depart l'Adresse de dï¿½part.
+         * @param arrivee l'Adresse d'arrivï¿½e.
          */
 	public Chemin(Adresse depart, Adresse arrivee){
 		troncons = new ArrayList<Troncon>();
@@ -35,8 +35,8 @@ public class Chemin {
 	}
 	
 	/**
-	 * Ajouter un tronçon à la liste.
-	 * @param t le tronçon à ajouter.
+	 * Ajouter un tronï¿½on ï¿½ la liste.
+	 * @param t le tronï¿½on ï¿½ ajouter.
 	 */
 	public void ajouterTroncon(Troncon t){
 		troncons.add(t);
@@ -44,8 +44,8 @@ public class Chemin {
 	}
 	
         /**
-         * Surcharge de la méthode d'affichage.
-         * @return la chaîne de caratère décrivant le chemin.
+         * Surcharge de la mï¿½thode d'affichage.
+         * @return la chaï¿½ne de caratï¿½re dï¿½crivant le chemin.
          */
 	public String toString(){
 		String res = new String();
@@ -60,39 +60,39 @@ public class Chemin {
 	
         /**
          * L'accesseur de l'attribut duree.
-         * @return la durée nécessaire à emprunter le chemin.
+         * @return la durï¿½e nï¿½cessaire ï¿½ emprunter le chemin.
          */
 	public int getDuree(){
 		return duree;
 	}
 	
         /**
-         * Accesseur de l'attribut tronçons (la liste de tronçons composant le chemin).
-         * @return la liste de tronçons.
+         * Accesseur de l'attribut tronï¿½ons (la liste de tronï¿½ons composant le chemin).
+         * @return la liste de tronï¿½ons.
          */
 	public Collection<Troncon> getTroncons() {
 		return troncons;
 	}
 
         /**
-         * Accesseur de l'attribut départ.
-         * @return l'Adresse e départ du chemin.
+         * Accesseur de l'attribut dï¿½part.
+         * @return l'Adresse e dï¿½part du chemin.
          */
 	public Adresse getDepart() {
 		return depart;
 	}
 
         /**
-         * L'accesseur de l'attribut arrivée.
-         * @return l'Adresse d'arrivée du chemin.
+         * L'accesseur de l'attribut arrivï¿½e.
+         * @return l'Adresse d'arrivï¿½e du chemin.
          */
 	public Adresse getArrivee() {
 		return arrivee;
 	}
         
         /**
-         * Méthoe permettant de déterminer si le chemin contient un tronçon passé en paramètre.
-         * @param t le tronçon en question.
+         * Mï¿½thoe permettant de dï¿½terminer si le chemin contient un tronï¿½on passï¿½ en paramï¿½tre.
+         * @param t le tronï¿½on en question.
          * @return true s'il est contenu, false sinon.
          */
 	public boolean contient(Troncon t) {
@@ -100,10 +100,10 @@ public class Chemin {
 	}
 
         /**
-         * Méthode nécessaire à la mise en place du design pattern Visiteur.
+         * Mï¿½thode nï¿½cessaire ï¿½ la mise en place du design pattern Visiteur.
          * @param visiteur le visiteur.
          */
-	public void accept(Visiteur visiteur) {
+	public void accept(VisiteurPlan visiteur) {
 		for(Troncon t:troncons){
 			visiteur.visite(t, true);
 		}

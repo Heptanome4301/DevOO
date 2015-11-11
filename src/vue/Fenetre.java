@@ -28,8 +28,9 @@ public class Fenetre {
 	private JButton sauvegardeFeuilleRoute;
 	private JLabel etiquetteLivraisons;
 	private JLabel etiquetteTournee;
-	private JList<Livraison> listAdressesLivraisons;
+	//private JList<Livraison> listAdressesLivraisons;
 	private VueGraphique vue;
+	private VueTextuelle vueTextuelle;
 	private JScrollPane scrollPanel;
 	private JTextField log;
 	private JLabel etiquetteListePoints;
@@ -51,13 +52,23 @@ public class Fenetre {
 	public Fenetre(Controleur c, Plan p) {
 		initialize();
 		ajouterView(p);
+		ajouterViewTextuelle(c);
 		initializeListeners(c);
+		
+	}
+
+	private void ajouterViewTextuelle(Controleur c) {
+		JList<Livraison> listAdressesLivraisons = new JList<Livraison>();
+		vueTextuelle = new VueTextuelle(c, listAdressesLivraisons);
+		//listAdressesLivraisons.addListSelectionListener(ecouteurListe);
+		frame.getContentPane()
+						.add(listAdressesLivraisons, "cell 0 1 1 10,grow");
 	}
 
 	private void initializeListeners(Controleur c) {
 		this.ecouteurBoutons = new EcouteurDeBoutons(c);
 		this.ecouteurSouris = new EcouteurDeSouris(c, vue, this);
-		this.ecouteurListe = new EcouteurDeListe(c, listAdressesLivraisons);
+		this.ecouteurListe = new EcouteurDeListe(vueTextuelle);
 
 		chargerPlan.addActionListener(ecouteurBoutons);
 		chargerLivraisons.addActionListener(ecouteurBoutons);
@@ -66,7 +77,6 @@ public class Fenetre {
 		supprimerLivraison.addActionListener(ecouteurBoutons);
 		echangerLivraisons.addActionListener(ecouteurBoutons);
 		sauvegardeFeuilleRoute.addActionListener(ecouteurBoutons);
-		listAdressesLivraisons.addListSelectionListener(ecouteurListe);
 
 		vue.addMouseListener(ecouteurSouris);
 
@@ -101,9 +111,9 @@ public class Fenetre {
 		//
 		// frame.getContentPane().add(zoom, "cell 1 0,alignx right");
 
-		listAdressesLivraisons = new JList<Livraison>();
-		frame.getContentPane()
-				.add(listAdressesLivraisons, "cell 0 1 1 10,grow");
+		//listAdressesLivraisons = new JList<Livraison>();
+		//frame.getContentPane()
+		//		.add(listAdressesLivraisons, "cell 0 1 1 10,grow");
 
 		etiquetteTournee = new JLabel("Cr�er une tourn�e");
 		etiquetteTournee.setHorizontalAlignment(SwingConstants.CENTER);
@@ -197,7 +207,7 @@ public class Fenetre {
 		return result == 0;
 	}
 
-	public void ecrireList(Livraison[] listData) {
+	/*public void ecrireList(Livraison[] listData) {
 		listAdressesLivraisons.setListData(listData);
 	}
 
@@ -207,17 +217,23 @@ public class Fenetre {
 		} else {
 			listAdressesLivraisons.setSelectedValue(livraison, true);
 		}
-	}
+	}*/
 
 	public void updateSelection(Adresse adresse) {
 		if (adresse == null) {
 			vue.deselection();
 			ecrireInfos("");
-			selectionList(null);
+			vueTextuelle.deSelectionList();
 		} else {
 			vue.selection(adresse.getId());
 			ecrireInfos(adresse.toString());
-			selectionList(adresse.getLivraison());
+			if(adresse.estAssocierAvecLivraison()){
+				vueTextuelle.selectionnerList(adresse.getLivraison());
+			}
+			else{
+				vueTextuelle.deSelectionList();
+			}
+			//selectionList(adresse.getLivraison());
 		}
 
 	}

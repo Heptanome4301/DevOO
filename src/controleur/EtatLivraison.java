@@ -19,9 +19,8 @@ public class EtatLivraison extends EtatPlan {
 
 	@Override
 	public void clicListLivraisons(Fenetre fenetre, Livraison livraison) {
-		if (livraison != null) {
-			fenetre.getVue().selection(livraison.getAdresse().getId());
-			fenetre.ecrireInfos(livraison.getAdresse().toString());
+		if (livraison != null) {		
+			fenetre.updateSelection(livraison.getAdresse());
 		}
 	}
 

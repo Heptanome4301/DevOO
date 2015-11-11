@@ -70,7 +70,7 @@ public class Troncon {
 		return depart;
 	}
 
-	public void accept(Visiteur visiteur) {
+	public void accept(VisiteurPlan visiteur) {
 		visiteur.visite(this, false);
 		
 	}
