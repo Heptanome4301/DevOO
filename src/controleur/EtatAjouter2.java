@@ -25,8 +25,8 @@ public class EtatAjouter2 extends EtatTournee {
 
 	@Override
 	public void clicNoeud(Fenetre fenetre, Adresse followingAdresse, Plan plan, ListeDeCmd listeCmd) {
-                if(!followingAdresse.estAssocierAvecLivraison()){
-                    fenetre.ecrireLog(Constants.LOGS_DEFAULT);                   
+                if( followingAdresse == null || !followingAdresse.estAssocierAvecLivraison()){
+                    fenetre.signalerErreur(Constants.ERR_PAS_ADRESSE_LIVRAISON);                   
                     Controleur.setEtatCourant(Controleur.etatTournee);
                 }
                 else{
