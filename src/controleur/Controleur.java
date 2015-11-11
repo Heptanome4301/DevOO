@@ -82,8 +82,12 @@ public class Controleur {
 	}
 
 	public void clicNoeud(Point p) {
+	    System.out.println("j'ai recu un clic, et actuellement je suis dans l'etat " + etatCourant.getClass());
 		Adresse adresse = plan.getAdresseByCoord(p);
+	    System.out.println(etatCourant.getClass());
+
 		fenetre.updateSelection(adresse,true);
+	    System.out.println(etatCourant.getClass());
 		etatCourant.clicNoeud(fenetre, adresse, plan,
 				historique);
 	}
