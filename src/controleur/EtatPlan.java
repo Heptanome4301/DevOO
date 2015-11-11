@@ -25,7 +25,7 @@ public class EtatPlan extends EtatIni {
 			fenetre.ecrireLog(Constants.LOGS_LIVRAISON);
 		} catch (Exception e){
 			fenetre.signalerErreur(e.getMessage());
-			Controleur.setEtatCourant(Controleur.etatPlan);
+			//Controleur.setEtatCourant(Controleur.etatPlan);
 		}
 	}
 	//TODO implémenter clicNoeuds : la mise à jour de l'affichage doit passer par le controlleur

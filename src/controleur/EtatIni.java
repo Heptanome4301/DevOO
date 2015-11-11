@@ -50,7 +50,7 @@ public class EtatIni implements Etat {
                         fenetre.ecrireLog(Constants.LOGS_PLAN);
 		} catch (Exception e){
 			fenetre.signalerErreur(e.getMessage());
-			Controleur.setEtatCourant(Controleur.etatIni);
+			//Controleur.setEtatCourant(Controleur.etatIni);
 		}
 	}
 
