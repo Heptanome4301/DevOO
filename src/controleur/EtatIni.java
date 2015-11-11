@@ -8,7 +8,6 @@ import modele.Plan;
 import modele.Tournee;
 import util.Constants;
 import vue.Fenetre;
-import xml.OuvreurDeFichiersXML;
 
 public class EtatIni implements Etat {
 

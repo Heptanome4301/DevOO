@@ -5,22 +5,27 @@ import modele.Plan;
 
 public class CmdDeplacer implements Commande {
     private Plan plan;
-    private Livraison livraison1;
-    private Livraison livraison2;
+    private Livraison livraisonDeplacee;
+    private Livraison livraisonSuivantOrigine;
+    private Livraison livraisonCible;
                                                    
     public CmdDeplacer(Plan p, Livraison l1, Livraison l2) {
         this.plan = p;
-        this.livraison1 = l1;
-        this.livraison2 = l2;
+        this.livraisonDeplacee = l1;
+        this.livraisonCible = l2;
+        this.livraisonSuivantOrigine = plan.getTournee().getFollowingLivraison(livraisonDeplacee);
     }
 
     @Override
     public void doCmd() {
-        plan.getTournee().deplacerLivraison(livraison1, livraison2);
+        plan.getTournee().supprimerLivraison(livraisonDeplacee);
+        plan.getTournee().ajouterLivraison(livraisonDeplacee, livraisonCible);
+
     }
 
     @Override
     public void undoCmd() {
-        // TODO Implement this method
+        plan.getTournee().supprimerLivraison(livraisonDeplacee);
+        plan.getTournee().ajouterLivraison(livraisonDeplacee, livraisonSuivantOrigine);
     }
 }

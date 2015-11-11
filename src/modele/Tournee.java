@@ -442,6 +442,7 @@ public class Tournee extends Observable{
          * @param lFollow la livraison avant laquelle ajouter lAdd.
          */
 	public void ajouterLivraison(Livraison lAdd,Livraison lFollow) {
+                lAdd.getAdresse().setLivraison(lAdd);
 		if(!lAdd.equals(lFollow)) {
 			Adresse adresseAdd = lAdd.getAdresse();
 			Adresse adresseFollow = lFollow.getAdresse();
@@ -563,17 +564,6 @@ public class Tournee extends Observable{
 		}
 
 	}
-
-    /**
-     * Déplace livraison1 pour la placer avant livraison2 dans la tournée.
-     * @param livraison1 la livraison à déplacer.
-     * @param livraison2 la livraison avant laquelle placer livraison.
-     */
-    public void deplacerLivraison (Livraison livraison1, Livraison livraison2) {
-        supprimerLivraison(livraison1);
-        livraison1.getAdresse().setLivraison(livraison1);
-        ajouterLivraison(livraison1,livraison2);
-    }
         
         /**
          * Cette m�thode r�cup�re la livraison suivant celle pass�e en param�tre dans la liste des livraisons

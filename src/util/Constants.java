@@ -37,4 +37,6 @@ public class Constants {
         public static final String INVERSER_LIVRAISONS = "Inverser deux livraisons";
         public static final String SAUVEGARDER_FEUILLE_DE_ROUTE = "Sauvegarder le feuille de route";
         public static final String DEPLACER_LIVRAISON = "Déplacer une livraison";
+        public static final String ANNULER = "Annuler";
+        public static final String REFAIRE = "Refaire";
 }

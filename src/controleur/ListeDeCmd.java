@@ -11,14 +11,14 @@ public class ListeDeCmd {
 		position = listeCmd.size();
 	}
 	
-	public void	ajoute(Commande cmd) {
+	public void ajoute(Commande cmd) {
 		listeCmd.add(cmd);
 		position = listeCmd.size();
 	}
 	
 	public void undo() throws Exception {
 		if(position>0)	{
-			listeCmd.get(position).undoCmd();
+			listeCmd.get(position-1).undoCmd();
 			position--;
 		}
 	}

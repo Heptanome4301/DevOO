@@ -41,6 +41,12 @@ public class EcouteurDeBoutons implements ActionListener {
 		case Constants.SAUVEGARDER_FEUILLE_DE_ROUTE:
 			controleur.genererFeuilleDeRoute();
 			break;
+                case Constants.ANNULER:
+                        controleur.undo();
+                        break;
+                case Constants.REFAIRE:
+                        controleur.redo();
+                        break;
 		}
 
 	}

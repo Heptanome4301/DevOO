@@ -23,6 +23,8 @@ public class Fenetre {
 	private JButton supprimerLivraison;
 	private JButton echangerLivraisons;
         private JButton deplacerLivraison;
+        private JButton annuler;
+        private JButton refaire;
 	private JButton sauvegardeFeuilleRoute;
 	private JLabel etiquetteLivraisons;
 	private JLabel etiquetteTournee;
@@ -75,6 +77,8 @@ public class Fenetre {
 		echangerLivraisons.addActionListener(ecouteurBoutons);
                 deplacerLivraison.addActionListener(ecouteurBoutons);
 		sauvegardeFeuilleRoute.addActionListener(ecouteurBoutons);
+                annuler.addActionListener(ecouteurBoutons);
+                refaire.addActionListener(ecouteurBoutons);
 
 		vue.addMouseListener(ecouteurSouris);
 
@@ -141,6 +145,12 @@ public class Fenetre {
                 
                 deplacerLivraison = new JButton(Constants.DEPLACER_LIVRAISON);
                 frame.getContentPane().add(deplacerLivraison, "cell 2 9 2 1,growx");
+                
+                annuler = new JButton(Constants.ANNULER);
+                frame.getContentPane().add(annuler, "cell 2 10 2 1,growx");
+                
+                refaire = new JButton(Constants.REFAIRE);
+                frame.getContentPane().add(refaire, "cell 2 10 2 1,growx");
 
 		infoPoint = new JTextArea();
 		infoPoint.setMargin(new Insets(Constants.MARGIN_TEXTE_PANEL,
@@ -238,8 +248,10 @@ public class Fenetre {
 		supprimerLivraison.setEnabled(enable);
 		echangerLivraisons.setEnabled(enable);
 		ajouterLivraison.setEnabled(enable);
-        deplacerLivraison.setEnabled(enable);
+                deplacerLivraison.setEnabled(enable);
 		sauvegardeFeuilleRoute.setEnabled(enable);
+                annuler.setEnabled(enable);
+                refaire.setEnabled(enable);
 	}
 
 	public void activerBuotonsModification() {
