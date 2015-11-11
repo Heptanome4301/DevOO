@@ -22,14 +22,13 @@ public class EtatLivraison extends EtatPlan {
 
 	@Override
 	public void clicListLivraisons(Fenetre fenetre, Livraison livraison) {
-		if (livraison != null) {		
-			fenetre.updateSelection(livraison.getAdresse(),false);
-		}
+		//if (livraison != null) {		
+		//	fenetre.updateSelection(livraison.getAdresse(),false);
+		//}
 	}
 	
 	 @Override
-		public void clicNoeud(Fenetre fenetre, Adresse adresse, Plan plan,
-				ListeDeCmd historiqe)
+		public void clicNoeud(Fenetre fenetre, Adresse adresse, Plan plan,ListeDeCmd historiqe)
 	 {
 	 
 	 }

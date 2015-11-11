@@ -1,6 +1,5 @@
 package vue;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Observable;
 import java.util.Observer;
@@ -19,19 +18,22 @@ public class VueTextuelle implements Observer {
 	private JList<Livraison> listLivraisons;
 	private Controleur controleur;
 	
+	private Livraison selectedValue;
 	
 	public VueTextuelle(Controleur c, JList<Livraison> listAdressesLivraisons){
 		this.listLivraisons = listAdressesLivraisons;
 		this.controleur = c ;
 		this.controleur.getPlan().addObserver(this);
-		
+		this.selectedValue = null;  
 		
 	}
 
 	public void changed() {
 		Livraison livraison = listLivraisons.getSelectedValue();
-		if(livraison != null ){
+		if(livraison != null && ! livraison.equals(selectedValue) ){
+			selectedValue = livraison;
 			controleur.clicListLivraisons(livraison);
+			// System.err.println("List changed");
 		}				
 	}
 
@@ -63,8 +65,10 @@ public class VueTextuelle implements Observer {
 	}
 	
 	protected void selectionnerList(Livraison livraison) {
-		listLivraisons.setSelectedValue(livraison, true);
-		
+		if(!livraison.equals(selectedValue)){
+			selectedValue = livraison;
+			listLivraisons.setSelectedValue(livraison, true);
+		}
 	}
 
 	protected void deSelectionList() {
@@ -73,8 +77,7 @@ public class VueTextuelle implements Observer {
 
 
 	protected void addListListener(EcouteurDeListe ecouteurDeListe) {
-		listLivraisons.addListSelectionListener(ecouteurDeListe);
-		
+		listLivraisons.addListSelectionListener(ecouteurDeListe);	
 	}
 
 	

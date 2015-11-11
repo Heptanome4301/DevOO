@@ -14,7 +14,6 @@ public class EcouteurDeListe implements ListSelectionListener {
 	@Override
 	public void valueChanged(ListSelectionEvent e) {
 		vueTextuelle.changed();
-		
 	}
 
 	

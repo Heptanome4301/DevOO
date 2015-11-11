@@ -25,7 +25,6 @@ public class Fenetre {
 	private JButton sauvegardeFeuilleRoute;
 	private JLabel etiquetteLivraisons;
 	private JLabel etiquetteTournee;
-	// private JList<Livraison> listAdressesLivraisons;
 	private VueGraphique vue;
 	private VueTextuelle vueTextuelle;
 	private JScrollPane scrollPanel;
@@ -205,14 +204,6 @@ public class Fenetre {
 		return result == 0;
 	}
 
-	/*
-	 * public void ecrireList(Livraison[] listData) {
-	 * listAdressesLivraisons.setListData(listData); }
-	 * 
-	 * private void selectionList(Livraison livraison) { if (livraison == null)
-	 * { listAdressesLivraisons.clearSelection(); } else {
-	 * listAdressesLivraisons.setSelectedValue(livraison, true); } }
-	 */
 
 	private void updateSelectionGraphique(Adresse adresse) {
 		if (adresse == null) {

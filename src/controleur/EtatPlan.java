@@ -40,6 +40,5 @@ public class EtatPlan extends EtatIni {
 			fenetre.selectionList(adresse.getLivraison());
 			fenetre.ecrireInfos(adresse.toString());
 		}*/
-
 	}
 }

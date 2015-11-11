@@ -84,8 +84,7 @@ public class Controleur {
 	public void clicNoeud(Point p) {
 		Adresse adresse = plan.getAdresseByCoord(p);
 		fenetre.updateSelection(adresse,true);
-		etatCourant.clicNoeud(fenetre, adresse, plan,
-				historique);
+		etatCourant.clicNoeud(fenetre, adresse, plan,historique);
 	}
 
 	public void clicDroit() {

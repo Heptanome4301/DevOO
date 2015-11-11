@@ -82,8 +82,7 @@ public class EtatTournee extends EtatLivraison {
 	}
 	
     @Override
-	public void clicNoeud(Fenetre fenetre, Adresse adresse, Plan plan,
-			ListeDeCmd historiqe)
+	public void clicNoeud(Fenetre fenetre, Adresse adresse, Plan plan,ListeDeCmd historiqe)
 	{
 		//fenetre.updateSelection(adresse,true);
 	}

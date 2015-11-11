@@ -14,7 +14,6 @@ public class EtatEchanger1 extends EtatTournee {
 	}
 	
 	@Override
-	
 	public void clicNoeud(Fenetre fenetre, Adresse adresse, Plan plan,	ListeDeCmd historiqe)
 		{
 		if(adresse.estAssocierAvecLivraison()) {
