@@ -3,15 +3,12 @@ package vue;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Insets;
-import java.util.Observer;
-
 import javax.swing.*;
 
 import controleur.Controleur;
 import modele.Adresse;
 import modele.Livraison;
 import modele.Plan;
-import modele.Tournee;
 import net.miginfocom.swing.MigLayout;
 import util.Constants;
 
@@ -134,29 +131,32 @@ public class Fenetre {
 
 		ajouterLivraison = new JButton(Constants.AJOUTER_LIVRAISONS);
 		frame.getContentPane().add(ajouterLivraison, "cell 2 6 2 1,growx");
-
+		
+		
 		supprimerLivraison = new JButton(Constants.SUPPRIMER_LIVRAISON);
 		frame.getContentPane().add(supprimerLivraison, "cell 2 7 2 1,growx");
-
+		
+		
 		echangerLivraisons = new JButton(Constants.INVERSER_LIVRAISONS);
 		frame.getContentPane().add(echangerLivraisons, "cell 2 8 2 1,growx");
-
+		
+		
 		infoPoint = new JTextArea();
 		infoPoint.setMargin(new Insets(Constants.MARGIN_TEXTE_PANEL,
 				Constants.MARGIN_TEXTE_PANEL, Constants.MARGIN_TEXTE_PANEL,
 				Constants.MARGIN_TEXTE_PANEL));
 		frame.getContentPane().add(infoPoint, "cell 0 11,grow");
 
-		sauvegardeFeuilleRoute = new JButton(
-				Constants.SAUVEGARDER_FEUILLE_DE_ROUTE);
-		frame.getContentPane().add(sauvegardeFeuilleRoute,
-				"cell 2 11 2 1,growx");
-
+		sauvegardeFeuilleRoute = new JButton( Constants.SAUVEGARDER_FEUILLE_DE_ROUTE);
+		frame.getContentPane().add(sauvegardeFeuilleRoute,	"cell 2 11 2 1,growx");
+		
+		
 		log = new JTextField();
 		log.setEditable(false);
 		frame.getContentPane().add(log, "cell 0 12 4 1,growx");
 		log.setColumns(10);
 
+		desactiverBuotonsModification();
 		frame.setVisible(true);
 	}
 
@@ -185,7 +185,7 @@ public class Fenetre {
 		log.setText(texte);
 	}
 
-	public void ecrireLog(String texte, Color color) {
+	private void ecrireLog(String texte, Color color) {
 		log.setForeground(color);
 		log.setText(texte);
 	}
@@ -238,4 +238,19 @@ public class Fenetre {
 
 	}
 
+	private void setActiverBuotonsModification(boolean enable) {
+		supprimerLivraison.setEnabled(enable);
+		echangerLivraisons.setEnabled(enable);
+		ajouterLivraison.setEnabled(enable);
+		sauvegardeFeuilleRoute.setEnabled(enable);
+	}
+	
+	public void activerBuotonsModification() {
+		setActiverBuotonsModification(true);
+	}
+
+	public void desactiverBuotonsModification() {
+		setActiverBuotonsModification(false);
+	}
+	
 }

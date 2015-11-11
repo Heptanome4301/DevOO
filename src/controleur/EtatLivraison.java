@@ -15,6 +15,7 @@ public class EtatLivraison extends EtatPlan {
 		tournee.calculerTournee();
 		Controleur.setEtatCourant(Controleur.etatTournee);
 		fenetre.ecrireLog(Constants.LOGS_TOURNEE);
+		fenetre.activerBuotonsModification();
 	}
 
 	@Override

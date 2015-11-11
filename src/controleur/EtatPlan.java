@@ -1,12 +1,10 @@
 package controleur;
 
 import modele.Adresse;
-import modele.Livraison;
 import modele.Plan;
 import modele.Tournee;
 import util.Constants;
 import vue.Fenetre;
-import vue.VueGraphique;
 import xml.OuvreurDeFichiersXML;
 
 import java.io.File;

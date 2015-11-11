@@ -28,8 +28,9 @@ public class VueTextuelle implements Observer {
 
 	public void changed() {
 		Livraison livraison = listLivraisons.getSelectedValue();
-		controleur.clicListLivraisons(livraison);
-				
+		if(livraison != null){
+			controleur.clicListLivraisons(livraison);
+		}				
 	}
 
 	@Override
@@ -69,8 +70,10 @@ public class VueTextuelle implements Observer {
 		listLivraisons.clearSelection();
 	}
 
-	protected JList<Livraison> getListLivraisons() {
-		return listLivraisons;
+
+	protected void addListListener(EcouteurDeListe ecouteurDeListe) {
+		listLivraisons.addListSelectionListener(ecouteurDeListe);
+		
 	}
 
 	

@@ -54,6 +54,7 @@ public class Controleur {
 	
 	public void chargerPlan()  {
 		plan.clear();
+		fenetre.desactiverBuotonsModification();
 		etatCourant.chargerPlan(fenetre, plan);
 		this.calculEchelle();
 	}
@@ -73,6 +74,7 @@ public class Controleur {
 
 
 	public void chargerLivraisons() {
+			fenetre.desactiverBuotonsModification();
             etatCourant.chargerLivraisons(fenetre, plan);
 	}
 	
@@ -91,7 +93,11 @@ public class Controleur {
 	}
 	
 	public void clicListLivraisons(Livraison livraison) {
-		etatCourant.clicListLivraisons(fenetre, livraison);
+		
+		fenetre.updateSelection(livraison.getAdresse());
+		etatCourant.clicNoeud(fenetre, livraison.getAdresse(), plan, plan.getTournee(), historique);
+		
+		//etatCourant.clicListLivraisons(fenetre, livraison);
 	}
 	
 	public void ajouter() {
