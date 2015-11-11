@@ -25,12 +25,13 @@ public class EtatPlan extends EtatIni {
 			fenetre.ecrireLog(Constants.LOGS_LIVRAISON);
 		} catch (Exception e){
 			fenetre.signalerErreur(e.getMessage());
-			//Controleur.setEtatCourant(Controleur.etatPlan);
+			Controleur.setEtatCourant(Controleur.etatPlan);
 		}
 	}
 	//TODO implémenter clicNoeuds : la mise à jour de l'affichage doit passer par le controlleur
 	
-	public void clicNoeud(Fenetre fenetre, Adresse adresse,Plan plan, Tournee tournee, ListeDeCmd listeCmd){
+        @Override
+	public void clicNoeud(Fenetre fenetre, Adresse adresse,Plan plan, ListeDeCmd listeCmd){
 		/*VueGraphique vue = fenetre.getVue();
 		if (adresse == null) {
 			vue.deselection();

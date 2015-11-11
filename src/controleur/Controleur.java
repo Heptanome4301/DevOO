@@ -84,7 +84,7 @@ public class Controleur {
 	public void clicNoeud(Point p) {
 		Adresse adresse = plan.getAdresseByCoord(p);
 		fenetre.updateSelection(adresse,true);
-		etatCourant.clicNoeud(fenetre, adresse, plan, plan.getTournee(),
+		etatCourant.clicNoeud(fenetre, adresse, plan,
 				historique);
 	}
 
@@ -95,8 +95,7 @@ public class Controleur {
 	public void clicListLivraisons(Livraison livraison) {
 
 		fenetre.updateSelection(livraison.getAdresse(),false);
-		etatCourant.clicNoeud(fenetre, livraison.getAdresse(), plan,
-				plan.getTournee(), historique);
+		etatCourant.clicNoeud(fenetre, livraison.getAdresse(), plan, historique);
 
 		//etatCourant.clicListLivraisons(fenetre, livraison);
 	}

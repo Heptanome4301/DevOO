@@ -2,17 +2,16 @@ package controleur;
 
 import modele.Adresse;
 import modele.Plan;
-import modele.Tournee;
 import util.Constants;
 import vue.Fenetre;
 
 public class EtatSupprimer extends EtatTournee {
 
 	@Override
-	public void clicNoeud(Fenetre fenetre, Adresse adresse, Plan plan, Tournee tournee, ListeDeCmd listeCmd) {
+	public void clicNoeud(Fenetre fenetre, Adresse adresse, Plan plan, ListeDeCmd listeCmd) {
 		if(adresse.estAssocierAvecLivraison()) {
 			if(fenetre.confirmerSuppression()) {
-				CmdSupprimer cmd = new CmdSupprimer(adresse.getLivraison(), tournee);
+				CmdSupprimer cmd = new CmdSupprimer(adresse.getLivraison(), plan.getTournee());
 				listeCmd.ajoute(cmd);
 				cmd.doCmd();
 				//TODO message de confirmation?

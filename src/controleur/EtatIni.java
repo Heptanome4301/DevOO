@@ -36,7 +36,7 @@ public class EtatIni implements Etat {
 	}
 
 	@Override
-	public void clicNoeud(Fenetre fenetre, Adresse adresse,Plan plan, Tournee tournee, ListeDeCmd listeCmd){
+	public void clicNoeud(Fenetre fenetre, Adresse adresse,Plan plan, ListeDeCmd listeCmd){
 		throw new UnsupportedOperationException();  //todo pourquoi tous ces arguments?
 	}
 
@@ -50,7 +50,7 @@ public class EtatIni implements Etat {
                         fenetre.ecrireLog(Constants.LOGS_PLAN);
 		} catch (Exception e){
 			fenetre.signalerErreur(e.getMessage());
-			//Controleur.setEtatCourant(Controleur.etatIni);
+			Controleur.setEtatCourant(Controleur.etatIni);
 		}
 	}
 
