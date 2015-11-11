@@ -16,8 +16,7 @@ public class CmdDeplacer implements Commande {
 
     @Override
     public void doCmd() {
-        plan.getTournee().supprimerLivraison(livraison1);
-        plan.getTournee().ajouterLivraison(livraison1, livraison2);
+        plan.getTournee().deplacerLivraison(livraison1, livraison2);
     }
 
     @Override

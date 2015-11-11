@@ -31,17 +31,13 @@ public class EtatDeplacer2 extends EtatTournee {
             CmdDeplacer cmd = new CmdDeplacer(plan, livraison1, livraison2);
             cmd.doCmd();
             historique.ajoute(cmd);
-            
-            Controleur.setEtatCourant(Controleur.etatTournee);
-            fenetre.ecrireLog(Constants.LOGS_DEFAULT);
-            
-            livraison1 = null;
         }
-        else{
-            Controleur.setEtatCourant(Controleur.etatTournee);
-            fenetre.ecrireLog(Constants.LOGS_DEFAULT);            
+        else{            
             fenetre.signalerErreur(Constants.ERR_PAS_ADRESSE_LIVRAISON);
         }
+
+        Controleur.setEtatCourant(Controleur.etatTournee);
+        fenetre.ecrireLog(Constants.LOGS_DEFAULT);
     }
     
     public void setLivraison(Livraison livraison1) {

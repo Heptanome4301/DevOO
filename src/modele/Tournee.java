@@ -22,39 +22,39 @@ import tsp.GrapheComplet;
 import tsp.TSP2;
 
 /**
- * Cette classe reprèsente un ensemble de livraison et le chemin qui les relie
+ * Cette classe reprï¿½sente un ensemble de livraison et le chemin qui les relie
  */
 public class Tournee extends Observable{
         /**
-         * Le plan de la ville nécessaire au calcul des chemins entre les différentes livraisons.
+         * Le plan de la ville nï¿½cessaire au calcul des chemins entre les diffï¿½rentes livraisons.
          */
 	private Plan plan;
         /**
-         * La liste des chemins qui relient les différentes livraisons.
+         * La liste des chemins qui relient les diffï¿½rentes livraisons.
          */
 	private ArrayList<Chemin> chemins;
         /**
-         * La liste des livraisons qui composent la tournée.
+         * La liste des livraisons qui composent la tournï¿½e.
          */
 	private Collection<Livraison> livraisons;
         /**
-         * L'adresse de l'entrepot d'où part et où doit revenir la tournée.
+         * L'adresse de l'entrepot d'oï¿½ part et oï¿½ doit revenir la tournï¿½e.
          */
 	private Adresse entrepot;
         /**
-         * La durée nécessaire à effectuer la tournée.
+         * La durï¿½e nï¿½cessaire ï¿½ effectuer la tournï¿½e.
          */
 	private int Duree;
         /**
-         * La liste des fenêtres horaire pour chaque livraison.
+         * La liste des fenï¿½tres horaire pour chaque livraison.
          */
 	private ArrayList<FenetreLivraison> fenetresLivraison;
 
 	/**
-         * Le constructeur de la tournée. La durée et les chemins seront calculés par la suite.
+         * Le constructeur de la tournï¿½e. La durï¿½e et les chemins seront calculï¿½s par la suite.
          * @param plan Le plan de la ville.
-         * @param livraisons La liste des livraisons à traiter.
-         * @param fenetresLivraison La liste des fenêtres associées à chaque livraison.
+         * @param livraisons La liste des livraisons ï¿½ traiter.
+         * @param fenetresLivraison La liste des fenï¿½tres associï¿½es ï¿½ chaque livraison.
          * @param entrepot l'adresse de l'entrepot.
          */
 	public Tournee(Plan plan, Collection<Livraison> livraisons,
@@ -70,9 +70,9 @@ public class Tournee extends Observable{
 
 	
 	/**
-         * Trie la liste des fenêtres de livraison de manière croissante.
-         * @param fenetresLivraison la liste des fenêtres à trier.
-         * @return la liste triée.
+         * Trie la liste des fenï¿½tres de livraison de maniï¿½re croissante.
+         * @param fenetresLivraison la liste des fenï¿½tres ï¿½ trier.
+         * @return la liste triï¿½e.
          */
 	private ArrayList<FenetreLivraison> sortFenetreLivraison(ArrayList<FenetreLivraison> collection) {
 		int size = collection.size();
@@ -96,7 +96,7 @@ public class Tournee extends Observable{
 
 	/**
 	 * Accesseur de l'attribut chemins
-	 * @return la liste des chemins qui composent la tournée, null si le calcul n'a pas encore été réalisé.
+	 * @return la liste des chemins qui composent la tournï¿½e, null si le calcul n'a pas encore ï¿½tï¿½ rï¿½alisï¿½.
 	 */
 	public Collection<Chemin> getItineraire() {
 		return chemins;
@@ -104,10 +104,10 @@ public class Tournee extends Observable{
 	
 	
         /**
-         * Génère les instructions de circulation à fournir au livreur pour qu'il effectue la tournée en empruntant
+         * Gï¿½nï¿½re les instructions de circulation ï¿½ fournir au livreur pour qu'il effectue la tournï¿½e en empruntant
          * les plus courts chemins.
-         * @param fichier le fichier dans lequel écrire ces instructions.
-         * @throws Exception Si un problème survient à l'ouverture ou à l'écriture du fichier.
+         * @param fichier le fichier dans lequel ï¿½crire ces instructions.
+         * @throws Exception Si un problï¿½me survient ï¿½ l'ouverture ou ï¿½ l'ï¿½criture du fichier.
          */
         public void feuilleDeRoute(String fichier) throws Exception{
             try
@@ -160,7 +160,7 @@ public class Tournee extends Observable{
 	
 	/**
          * Construit le graphe des plus courts chemins entre chaque adresse de livraison. 
-         * @param cheminsDuGraphe une matrice des chemins à ajouter au graphe.
+         * @param cheminsDuGraphe une matrice des chemins ï¿½ ajouter au graphe.
          * @return le graphe construit.
          */
 	private Graphe construireGraphe(Chemin[][] cheminsDuGraphe){
@@ -181,8 +181,8 @@ public class Tournee extends Observable{
 	}
 	
         /**
-         * Recupère un chemin dans la liste dont l'adresse d'arrivée est celle passée en paramètre de cette méthode.
-         * @param arrivee l'adresse d'arrivée du chemin recherché.
+         * Recupï¿½re un chemin dans la liste dont l'adresse d'arrivï¿½e est celle passï¿½e en paramï¿½tre de cette mï¿½thode.
+         * @param arrivee l'adresse d'arrivï¿½e du chemin recherchï¿½.
          * @return le chemin s'il esxiste, null sinon.
          */
 	private Chemin getCheminFromArrivee(Adresse arrivee) {
@@ -197,8 +197,8 @@ public class Tournee extends Observable{
 	}
 	
         /**
-         * Recupère un chemin dans la listedont l'adresse de départ est celle passée en paramètre de cette méthode
-         * @param depart l'adresse de départ du chemin recherché.
+         * Recupï¿½re un chemin dans la listedont l'adresse de dï¿½part est celle passï¿½e en paramï¿½tre de cette mï¿½thode
+         * @param depart l'adresse de dï¿½part du chemin recherchï¿½.
          * @return le chein s'il existe, null sinon.
          */
 	private Chemin getCheminFromDepart(Adresse depart) {
@@ -213,9 +213,9 @@ public class Tournee extends Observable{
 	}
         
         /**
-         * Récupère les livraisons associées à une fenêtre de livraison passée en paramètre.
-         * @param fenetreLivraison la fenêtre de livraison.
-         * @return les livraisons associées à cette fenêtre.
+         * Rï¿½cupï¿½re les livraisons associï¿½es ï¿½ une fenï¿½tre de livraison passï¿½e en paramï¿½tre.
+         * @param fenetreLivraison la fenï¿½tre de livraison.
+         * @return les livraisons associï¿½es ï¿½ cette fenï¿½tre.
          */
 	private Set<Livraison> getLivraison(FenetreLivraison fenetreLivraison){
 		Set<Livraison> livraisonF = new HashSet<Livraison>();
@@ -228,13 +228,13 @@ public class Tournee extends Observable{
 	}
 	
         /**
-         * Construit une matrice de Chemins (les plus courts chemins) entre chaque adresse associées à la fenêtre
-         * de livraison passée en paramètre.
-         * @param fenetreLivraison la fenêtre de livraison que l'on souhaite traiter.
-         * @param adrssDepart une adresse supplémentaire (soit l'entrepot pour la première fenêtre soit la dernière
-         * livraison effectuée lors de la fenêtre précédente.
-         * @return mat la matrice des plus courts chemins. mat[i][j] est le plus court chemin reliant la i-ème adresse
-         * de livraison à la j-éme.
+         * Construit une matrice de Chemins (les plus courts chemins) entre chaque adresse associï¿½es ï¿½ la fenï¿½tre
+         * de livraison passï¿½e en paramï¿½tre.
+         * @param fenetreLivraison la fenï¿½tre de livraison que l'on souhaite traiter.
+         * @param adrssDepart une adresse supplï¿½mentaire (soit l'entrepot pour la premiï¿½re fenï¿½tre soit la derniï¿½re
+         * livraison effectuï¿½e lors de la fenï¿½tre prï¿½cï¿½dente.
+         * @return mat la matrice des plus courts chemins. mat[i][j] est le plus court chemin reliant la i-ï¿½me adresse
+         * de livraison ï¿½ la j-ï¿½me.
          */
 	private Chemin[][] construireAllChemin(FenetreLivraison fenetreLivraison,Adresse adrssDepart){
 		//Livraison premiere =getLivraison(adrssDepart);
@@ -283,9 +283,9 @@ public class Tournee extends Observable{
 	}
 	
         /**
-         * Calcule la tournée, c'est à dire le moyen le plus rapide d'effectuer toutes les livraisons en respectant 
-         * au maximum les contraintes horaires des fenêtres de livraison. Cette méthode stock le résultat (la liste
-         * des chemins) dans l'attribut chemin, et met à jour l'attribut durée en conséquence.
+         * Calcule la tournï¿½e, c'est ï¿½ dire le moyen le plus rapide d'effectuer toutes les livraisons en respectant 
+         * au maximum les contraintes horaires des fenï¿½tres de livraison. Cette mï¿½thode stock le rï¿½sultat (la liste
+         * des chemins) dans l'attribut chemin, et met ï¿½ jour l'attribut durï¿½e en consï¿½quence.
          */
 	public void calculerTournee(){ //todo prÃ©voir que les profs peuvent Ãªtre des trolls : cul de sac
 		System.out.println("Cacul de la tournï¿½e...");
@@ -318,9 +318,9 @@ public class Tournee extends Observable{
 	// indice dans chemins du premier chemin Ã  partir dulequel
 	// il faut calculer/recalculer les durees
         /**
-         * Cette méthode met à jour les heures de livraisons prévues pour toutes les livraisons suivant la i-ème 
-         * à partir du temps de parcours calculé.
-         * @param indiceDepart l'indice de la livraison à partir de laquelle on veut mettre à jour les horaires
+         * Cette mï¿½thode met ï¿½ jour les heures de livraisons prï¿½vues pour toutes les livraisons suivant la i-ï¿½me 
+         * ï¿½ partir du temps de parcours calculï¿½.
+         * @param indiceDepart l'indice de la livraison ï¿½ partir de laquelle on veut mettre ï¿½ jour les horaires
          * de livraison.
          */
 	private void calculerLesDurees(int indiceDepart){
@@ -337,7 +337,7 @@ public class Tournee extends Observable{
 			Chemin chemin = chemins.get(i);
 			// Livraison l = getLivraison(chemin.getArrivee());
 			Livraison l = chemin.getArrivee().getLivraison();
-			horaire = addSecondsHoraire(horaire, chemin.getDuree());
+                        horaire = addSecondsHoraire(horaire, chemin.getDuree());
 
 			if (horaire.before(l.getFenetreLivraison().getHeureDebut())) {
 				horaire = l.getFenetreLivraison().getHeureDebut();
@@ -360,10 +360,10 @@ public class Tournee extends Observable{
 	}
 	
 	/**
-         * Cette méthode calcule une nouvelle date à partir de celle passée en paramètre à laquelle elle ajoute un 
-         * nombre de secondes égal au deuxième paramètre.
+         * Cette mï¿½thode calcule une nouvelle date ï¿½ partir de celle passï¿½e en paramï¿½tre ï¿½ laquelle elle ajoute un 
+         * nombre de secondes ï¿½gal au deuxiï¿½me paramï¿½tre.
          * @param horaire la date originale.
-         * @param seconds le nombre de secondes à ajouter.
+         * @param seconds le nombre de secondes ï¿½ ajouter.
          * @return la nouvelle date.
          */
 	private Date addSecondsHoraire(Date horaire,int seconds ){
@@ -374,8 +374,8 @@ public class Tournee extends Observable{
 	}
 	
 	/** 
-         * Cette méthode calcule un morceau de la tournée associé à une fenêtre de livraison. 
-	 * @return la liste des chemins qui composent ce morceau de la tournée.
+         * Cette mï¿½thode calcule un morceau de la tournï¿½e associï¿½ ï¿½ une fenï¿½tre de livraison. 
+	 * @return la liste des chemins qui composent ce morceau de la tournï¿½e.
 	 */
 
 	public ArrayList<Chemin> calculerTourneeFenetre(Adresse addssDepart,
@@ -413,7 +413,7 @@ public class Tournee extends Observable{
         
         /**
          * Mutateur de l'attribut livraisons.
-         * @param livraisons la nouvelle liste de livraisons à traiter.
+         * @param livraisons la nouvelle liste de livraisons ï¿½ traiter.
          */
 	public void setLivraisons(Collection<Livraison> livraisons) {
 		this.livraisons = livraisons;
@@ -429,16 +429,16 @@ public class Tournee extends Observable{
         
         /**
          * Accesseur de l'attribut entrepot
-         * @return l'adresse de l'entrepot associé à cette tournée.
+         * @return l'adresse de l'entrepot associï¿½ ï¿½ cette tournï¿½e.
          */
 	public Adresse getEntrepot() {
 		return entrepot;
 	}
 
         /**
-         * Ajoute la livraison lAdd à la tournéee, juste avant la livraison lFollow. Si lFollow n'est pas dans la liste,
-         * lAdd est ajouté à la fin de la tournée. La liste des chemins est mis à jour.
-         * @param lAdd la livraison à ajouter.
+         * Ajoute la livraison lAdd ï¿½ la tournï¿½ee, juste avant la livraison lFollow. Si lFollow n'est pas dans la liste,
+         * lAdd est ajoutï¿½ ï¿½ la fin de la tournï¿½e. La liste des chemins est mis ï¿½ jour.
+         * @param lAdd la livraison ï¿½ ajouter.
          * @param lFollow la livraison avant laquelle ajouter lAdd.
          */
 	public void ajouterLivraison(Livraison lAdd,Livraison lFollow) {
@@ -513,8 +513,8 @@ public class Tournee extends Observable{
 
         /**
          * Echange l'ordre de passage de deux livraisons et recalcule les heures de passage
-         * Ne fait rien si les deux livraisons sont les mêmes
-         * @param l1 la première livraison.
+         * Ne fait rien si les deux livraisons sont les mï¿½mes
+         * @param l1 la premiï¿½re livraison.
          * @param l2 la seconde livraison.
          */
 	public void echangerLivraison(Livraison l1,Livraison l2) {
@@ -563,10 +563,21 @@ public class Tournee extends Observable{
 		}
 
 	}
+
+    /**
+     * DÃ©place livraison1 pour la placer avant livraison2 dans la tournÃ©e.
+     * @param livraison1 la livraison Ã  dÃ©placer.
+     * @param livraison2 la livraison avant laquelle placer livraison.
+     */
+    public void deplacerLivraison (Livraison livraison1, Livraison livraison2) {
+        supprimerLivraison(livraison1);
+        livraison1.getAdresse().setLivraison(livraison1);
+        ajouterLivraison(livraison1,livraison2);
+    }
         
         /**
-         * Cette méthode récupère la livraison suivant celle passée en paramètre dans la liste des livraisons
-         * qui composent la tournée.
+         * Cette mï¿½thode rï¿½cupï¿½re la livraison suivant celle passï¿½e en paramï¿½tre dans la liste des livraisons
+         * qui composent la tournï¿½e.
          * @param livraison
          * @return la livraison suivante.
          */
@@ -586,16 +597,16 @@ public class Tournee extends Observable{
         
         /**
          * Accesseur de l'attribut fenetreLivraison.
-         * @return la liste des fenêtres de livraison prévues pour cette tournée.
+         * @return la liste des fenï¿½tres de livraison prï¿½vues pour cette tournï¿½e.
          */
 	public Collection<FenetreLivraison> getFenetresLivraison() {
 		return fenetresLivraison;
 	}
 
 	/**
-         * Cette méthode permet de récupérer la i-ème fenêtre de livraison de l'attribut fenetreLivraison.
+         * Cette mï¿½thode permet de rï¿½cupï¿½rer la i-ï¿½me fenï¿½tre de livraison de l'attribut fenetreLivraison.
          * @param index
-         * @return la i-ème fenêre de livraison.
+         * @return la i-ï¿½me fenï¿½re de livraison.
          */
 	public FenetreLivraison getFenetreLivraisonIndx(int index) {
 		return ((ArrayList<FenetreLivraison>) fenetresLivraison).get(index);
@@ -603,9 +614,9 @@ public class Tournee extends Observable{
 	}
 	
 	/**
-         * Cette léthode vérifie si le tronçon t passé en paramètre est emprunté lors de la tournée.
+         * Cette lï¿½thode vï¿½rifie si le tronï¿½on t passï¿½ en paramï¿½tre est empruntï¿½ lors de la tournï¿½e.
          * @param t
-         * @return vrai s'il est emprunté, false sinon.
+         * @return vrai s'il est empruntï¿½, false sinon.
          */
 	public boolean isDansTrournee(Troncon t) {
 		if (chemins != null) {
@@ -618,9 +629,9 @@ public class Tournee extends Observable{
 	}
         
         /**
-         * Trie les livraisons en fonction de leur fenêtre respectives.
-         * @param collection la liste de livraisons à trier.
-         * @return la liste de livraisons triées.
+         * Trie les livraisons en fonction de leur fenï¿½tre respectives.
+         * @param collection la liste de livraisons ï¿½ trier.
+         * @return la liste de livraisons triï¿½es.
          */
 	private ArrayList<Livraison> sortLivraison(ArrayList<Livraison> collection) {
 		int size = collection.size();
@@ -644,7 +655,7 @@ public class Tournee extends Observable{
         
         /**
          * Accesseur de l'attribut livraisons qui les trie avant de les renvoyer.
-         * @return l'attribut livraisons trié.
+         * @return l'attribut livraisons triï¿½.
          */
 	public Collection<Livraison> getSortedLivraisons() {
 		this.livraisons = sortLivraison((ArrayList<Livraison>) this.livraisons);
