@@ -8,13 +8,19 @@ import vue.Fenetre;
 
 public class EtatEchanger2 extends EtatTournee {
 
-	// l'adresse selectionnée lors de l'état 1
+	/**
+         * L'adresse récupérée par l'EtatEchanger1, c'est à dire la première adresse à échanger.
+         */
 	private Adresse adresse1;
 
 	public EtatEchanger2() {
 		adresse1 = null;
 	}
-
+        
+        /**
+         * Mutateur de l'attribut adresse1
+         * @param adresse
+         */
 	public void setAdresse(Adresse adresse) {
 		this.adresse1 = adresse;
 	}
@@ -34,8 +40,8 @@ public class EtatEchanger2 extends EtatTournee {
 			fenetre.ecrireLog(Constants.LOGS_ECHANGER2);
 		}
 	}
-
-	// annuler l'ajout
+        
+        @Override
 	public void clicDroit(Fenetre fenetre) {
 		adresse1 = null;
 		Controleur.setEtatCourant(Controleur.etatTournee);

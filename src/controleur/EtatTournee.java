@@ -60,7 +60,11 @@ public class EtatTournee extends EtatLivraison {
 		Controleur.setEtatCourant(Controleur.etatEchanger1);
 		fenetre.ecrireLog(Constants.LOGS_ECHANGER1);
 	}
-
+        
+        /**
+         * Cette méthode ouvre un JFileCHooser pour récupérer un chemin vers un fichier.
+         * @return une chaîne de caractère contenant le chemin du fichier sélectionné.
+         */
 	private String obtenirFichier() {
 		JFileChooser fc = new JFileChooser();
 		int result = fc.showSaveDialog(null);
@@ -69,19 +73,6 @@ public class EtatTournee extends EtatLivraison {
 			fichier = fc.getSelectedFile().getAbsolutePath();
 		}
 		return fichier;
-	}
-
-	@Override
-	public void clicListLivraisons(Fenetre fenetre, Livraison livraison) {
-
-		// fenetre.updateSelection(livraison.getAdresse(),false);
-
-	}
-
-	@Override
-	public void clicNoeud(Fenetre fenetre, Adresse adresse, Plan plan,
-			ListeDeCmd historique) {
-		// fenetre.updateSelection(adresse,true);
 	}
 
 	@Override

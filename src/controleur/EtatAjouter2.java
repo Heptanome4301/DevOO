@@ -10,14 +10,24 @@ import util.Constants;
 import vue.Fenetre;
 
 public class EtatAjouter2 extends EtatTournee {
-
+        
+        /**
+         * l'adresse récupérée par l'EtatAjouter1, c'est à dire l'adresse qui recevra la nouvelle livraison
+         */
 	private Adresse adresse;
+        /**
+         * Attribut pour une génération automatique des id de livraison créées
+         */
         private static int generatedId = 100;
 	
 	public EtatAjouter2() {
 		adresse=null;
 	}
 	
+        /**
+         * Mutateur de l'attribut adresse
+         * @param adresse
+         */
 	public void setAdresse(Adresse adresse) {
 		this.adresse=adresse;
 	}
@@ -46,5 +56,4 @@ public class EtatAjouter2 extends EtatTournee {
 		Controleur.setEtatCourant(Controleur.etatTournee);
 		fenetre.ecrireLog(Constants.LOGS_DEFAULT);
 	}
-
 }

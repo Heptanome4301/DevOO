@@ -32,18 +32,4 @@ public class EtatPlan extends EtatIni {
 			Controleur.setEtatCourant(Controleur.etatPlan);
 		}
 	}
-
-	// TODO implémenter clicNoeuds : la mise à jour de l'affichage doit passer
-	// par le controlleur
-
-	@Override
-	public void clicNoeud(Fenetre fenetre, Adresse adresse, Plan plan,
-			ListeDeCmd listeCmd) {
-		/*
-		 * VueGraphique vue = fenetre.getVue(); if (adresse == null) {
-		 * vue.deselection(); } else { vue.selection(adresse.getId());
-		 * fenetre.selectionList(adresse.getLivraison());
-		 * fenetre.ecrireInfos(adresse.toString()); }
-		 */
-	}
 }

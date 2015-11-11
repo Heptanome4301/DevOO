@@ -10,7 +10,9 @@ import vue.Fenetre;
 
 public class EtatDeplacer2 extends EtatTournee {
     
-    
+    /**
+     * La livraison récupérée par l'EtatDeplacer1, c'est à dire la livraison que l'on souhaite déplacer.
+     */
     private Livraison livraison1;
 
     public EtatDeplacer2() {
@@ -40,6 +42,10 @@ public class EtatDeplacer2 extends EtatTournee {
         fenetre.ecrireLog(Constants.LOGS_DEFAULT);
     }
     
+    /**
+     * Mutateur de l'attribut livraison1
+     * @param livraison1
+     */
     public void setLivraison(Livraison livraison1) {
         this.livraison1 = livraison1;
     }

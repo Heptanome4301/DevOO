@@ -26,8 +26,8 @@ public class EtatSupprimer extends EtatTournee {
 
 	}
 	
+        @Override
 	public void clicDroit(Fenetre fenetre) {
-		// action = annuler
 		Controleur.setEtatCourant(Controleur.etatTournee);
 		fenetre.ecrireLog(Constants.LOGS_DEFAULT);
 	}
