@@ -24,11 +24,14 @@ public class EtatEchanger2 extends EtatTournee {
 				CmdEchanger cmd= new CmdEchanger(adresse1.getLivraison(), adresse2.getLivraison(), tournee);
 				listeCmd.ajoute(cmd);
 				cmd.doCmd();
+				tournee.echangerLivraison(adresse1.getLivraison(), adresse2.getLivraison());
 				Controleur.setEtatCourant(Controleur.etatTournee);
-				//TODO msg
+				fenetre.ecrireLog(Constants.LOGS_DEFAULT);
 			}
 			else {
 				//TODO message d'erreur -> on reste dans l'état dans etatTournee2
+				fenetre.signalerErreur(Constants.ERR_PAS_ADRESSE_LIVRAISON);
+				fenetre.ecrireLog(Constants.LOGS_ECHANGER2);
 			}
 		}
 		

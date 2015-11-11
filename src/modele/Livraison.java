@@ -3,7 +3,7 @@ package modele;
 import java.util.Date;
 
 /**
- * Cette classe représente à la fois une demande de livraison sur une adresse et la livraison qui sera effectuée.
+ * Cette classe reprï¿½sente ï¿½ la fois une demande de livraison sur une adresse et la livraison qui sera effectuï¿½e.
  */
 public class Livraison {
 
@@ -16,7 +16,7 @@ public class Livraison {
          */
 	private Adresse adresse;
         /**
-         * La fenêtre de livraison désirée pour cette demande de livraison.
+         * La fenï¿½tre de livraison dï¿½sirï¿½e pour cette demande de livraison.
          */
 	private FenetreLivraison fenetreLivraison;
         /**
@@ -24,20 +24,20 @@ public class Livraison {
          */
 	private int id;
         /**
-         * Booléen positionné lors du calcul de l'heure effective de passage : si true, l'horaire de livraison
-         * est en dehors de la fenêtre de livraison.
+         * Boolï¿½en positionnï¿½ lors du calcul de l'heure effective de passage : si true, l'horaire de livraison
+         * est en dehors de la fenï¿½tre de livraison.
          */
 	private boolean isRetard;
 
 	
 	
 	/**
-	 * Constructeur de la classe Livraison. L'horaire de livraison et le retard ne sont pas positionnés par
+	 * Constructeur de la classe Livraison. L'horaire de livraison et le retard ne sont pas positionnï¿½s par
          * le constructeur.
 	 * 
 	 * @param id l'id de la livraison.
 	 * @param adresse l'adresse de livraison.
-	 * @param fenetreLivraison la fenêtre de livraison désirée.
+	 * @param fenetreLivraison la fenï¿½tre de livraison dï¿½sirï¿½e.
 	 */
 	public Livraison(int id, Adresse adresse, FenetreLivraison fenetreLivraison) {
 		this.horaire = null;
@@ -66,9 +66,9 @@ public class Livraison {
         }
 
         /**
-         * Surcharge de la méthode d'égalité.
-         * @param obj l'objet à comparer.
-         * @return true si l'adresse de livraison, la fenêtre de livraison ainsi que l'id est identique.
+         * Surcharge de la mï¿½thode d'ï¿½galitï¿½.
+         * @param obj l'objet ï¿½ comparer.
+         * @return true si l'adresse de livraison, la fenï¿½tre de livraison ainsi que l'id est identique.
          */
 	@Override
 	public boolean equals(Object obj) {
@@ -117,16 +117,16 @@ public class Livraison {
         
         /**
          * Accesseur de l'attribut fenetreLivraison.
-         * @return la fenêtre de livraison.
+         * @return la fenï¿½tre de livraison.
          */
 	public FenetreLivraison getFenetreLivraison() {
 		return fenetreLivraison;
 	}
 
         /**
-         * Mutateur de l'attribut horaire. Cette méthode est appelée lors du calcul de la tournée et de la mise
-         * à jour de la tournée.
-         * @param horaire l'horaire à établir en tant qu'heure de passage.
+         * Mutateur de l'attribut horaire. Cette mï¿½thode est appelï¿½e lors du calcul de la tournï¿½e et de la mise
+         * ï¿½ jour de la tournï¿½e.
+         * @param horaire l'horaire ï¿½ ï¿½tablir en tant qu'heure de passage.
          */
 	public void setHoraire(Date horaire) {
 		this.horaire = horaire;
@@ -134,7 +134,7 @@ public class Livraison {
         
         /**
          * Accesseur de l'attribut isRetard.
-         * @return true si la livraison sera en retard par rapport à l'horaire désiré.
+         * @return true si la livraison sera en retard par rapport ï¿½ l'horaire dï¿½sirï¿½.
          */
 	public boolean isRetard() {
 		return isRetard;
@@ -149,18 +149,20 @@ public class Livraison {
         }
 
         /**
-         * Calcul du booléen isRetard : si l'horaire de livraison prévu est hors de la fenêtre de livraison
-         * alors ce boolen est établi à true.
+         * Calcul du boolï¿½en isRetard : si l'horaire de livraison prï¿½vu est hors de la fenï¿½tre de livraison
+         * alors ce boolen est ï¿½tabli ï¿½ true.
          */
-	public void positionnerRetard() {
+	protected void positionnerRetard() {
 		if (horaire.after(getFenetreLivraison().getHeureFin())) {
 			isRetard = true;
+		}else{
+			isRetard = false;
 		}
 	}
         
         /**
-         * Surcharge de la méthode d'affichage.
-         * @return une chaîne de caractère décrivant la livraison.
+         * Surcharge de la mï¿½thode d'affichage.
+         * @return une chaï¿½ne de caractï¿½re dï¿½crivant la livraison.
          */
 	@Override
 	public String toString() {

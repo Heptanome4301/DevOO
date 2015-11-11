@@ -19,7 +19,8 @@ public class EtatEchanger1 extends EtatTournee {
 			fenetre.ecrireLog(Constants.LOGS_ECHANGER2);
 		}
 		else {
-			//TODO msg erreur et on reste dans le meme etat
+			fenetre.signalerErreur(Constants.ERR_PAS_ADRESSE_LIVRAISON);
+			fenetre.ecrireLog(Constants.LOGS_ECHANGER1);
 		}
 		
 	}
