@@ -177,6 +177,12 @@ public class Livraison {
 			isRetard = false;
 		}
 	}
+	
+	private String getHoraireString(){
+		if (horaire != null)
+			return  FenetreLivraison.toStr(horaire);
+		return "(Pas encore calculé)";
+	}
 
 	/**
 	 * Surcharge de la m�thode d'affichage.
@@ -190,29 +196,16 @@ public class Livraison {
 		 * adresse.getId() + ", fenetreLivraison=" + fenetreLivraison + ", id="
 		 * + id + ", isRetard=" + isRetard + "]";
 		 */
-		String res = "Livraison id=" + id + "\nhoraire=";
-		String Strhoraire = "";
-		if (horaire == null)
-			Strhoraire= "(pas encore calculé)";
-		else{
-			int value = horaire.getHours();
-			if(value<10) Strhoraire+="0"+value;
-			else Strhoraire+=value+"";
-			
-			Strhoraire+=":";
-			
-			value = horaire.getMinutes();
-			if(value<10) Strhoraire+="0"+value;
-			else Strhoraire+=value+"";
-			
-			Strhoraire+=":";
-			
-			value = horaire.getSeconds();
-			if(value<10) Strhoraire+="0"+value;
-			else Strhoraire+=value+"";
-	
-		}
-		res += Strhoraire + "\nisRetard=" + isRetard;
+		String res = "Livraison(" + id + ") horaire(";
+		res +=  getHoraireString() + ") EnRetard(" + (isRetard?"Oui":"Non") +")";
+		
+		return res;
+	}
+
+	public String infos() {
+		String res = "Livraison id " + id ;
+		res+= "\nHoraire " + getHoraireString();
+		res+= "\n"+fenetreLivraison;
 		
 		return res;
 	}

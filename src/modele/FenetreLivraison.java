@@ -97,10 +97,32 @@ public class FenetreLivraison {
          */
         @Override
         public String toString() {
-                return "FenetreLivraison [heureDebut=" + heureDebut + ", heureFin="
-                                + heureFin + "]";
+                return "FenetreLivraison [ "+ toStr(heureDebut) + "-"+ toStr(heureFin) + "]";
         }
         
+        public static String toStr(Date horaire){
+        	String Strhoraire = "null";
+    		
+    		if(horaire!=null){
+    			int value = horaire.getHours();
+    			if(value<10) Strhoraire ="0"+value;
+    			else Strhoraire =value+"";
+    			
+    			Strhoraire+=":";
+    			
+    			value = horaire.getMinutes();
+    			if(value<10) Strhoraire+="0"+value;
+    			else Strhoraire+=value+"";
+    			
+    			Strhoraire+=":";
+    			
+    			value = horaire.getSeconds();
+    			if(value<10) Strhoraire+="0"+value;
+    			else Strhoraire+=value+"";
+    	
+    		}
+    		return  Strhoraire;
+    	}
 
 
 }
