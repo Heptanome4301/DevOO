@@ -8,6 +8,7 @@ import javax.swing.JList;
 
 import controleur.Controleur;
 
+import modele.FenetreLivraison;
 import modele.Livraison;
 import modele.Plan;
 import modele.Tournee;
@@ -50,6 +51,7 @@ public class VueTextuelle implements Observer {
 		
 	}
 
+	
 	private void actualiser() {
 		if(controleur.getTournee()!= null){
 			Collection<Livraison> livraisons =  controleur.getTournee().getLivraisons();

@@ -54,7 +54,7 @@ public class Adresse extends Observable {
 		String res = "Adresse " + id + "\r\n"
 				+ "x=" + x + ", y=" + y;
 		if(estAssocierAvecLivraison() ){
-			res += "\n"+livraison;
+			res += "\n"+livraison.infos();
 		}
 		return res;
 	}
