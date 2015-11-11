@@ -3,24 +3,25 @@ package modele;
 import java.util.Date;
 
 /**
- * Cette classe représente un intervalle de temps souhaité pour une livraison. Deux fenêtres de livraison ne doivent
- * pas se chavaucher (effets de bord non prévus), mais plusieurs livraisons peuvent recquérir une fenêtre de livraison
+ * Cette classe reprï¿½sente un intervalle de temps souhaitï¿½ pour une livraison. Deux fenï¿½tres de livraison ne doivent
+ * pas se chavaucher (effets de bord non prï¿½vus), mais plusieurs livraisons peuvent recquï¿½rir une fenï¿½tre de livraison
  * identique.
  */
+
 public class FenetreLivraison {
 	
         /**
-         * L'heure de début de la fenêtre.
+         * L'heure de dï¿½but de la fenï¿½tre.
          */
 	private Date heureDebut;
         /**
-         * L'heure de fin de la fenêtre.
+         * L'heure de fin de la fenï¿½tre.
          */
 	private Date heureFin;
 	
         /**
          * Le constructeur de la classe FenetreLivraison.
-         * @param heureDebut l'heure de début.
+         * @param heureDebut l'heure de dï¿½but.
          * @param heureFin l'heure de fin.
          */
 	public FenetreLivraison(Date heureDebut,Date heureFin){
@@ -47,9 +48,9 @@ public class FenetreLivraison {
 
         
         /**
-         * Surcharge de la méthode d'égalité.
-         * @param obj l'objet à comparer à cette fenêtre de livraison.
-         * @return true si l'heure de début et l'heure de fin correspondent.
+         * Surcharge de la mï¿½thode d'ï¿½galitï¿½.
+         * @param obj l'objet ï¿½ comparer ï¿½ cette fenï¿½tre de livraison.
+         * @return true si l'heure de dï¿½but et l'heure de fin correspondent.
          */
 	@Override
 	public boolean equals(Object obj) {
@@ -76,7 +77,7 @@ public class FenetreLivraison {
 
         /**
          * Accesseur de l'attribut heureDebut.
-         * @return l'heure de debut de la fenêtre.
+         * @return l'heure de debut de la fenï¿½tre.
          */
 	public Date getHeureDebut() {
 		return heureDebut;
@@ -84,19 +85,22 @@ public class FenetreLivraison {
         
         /**
          * Accesseur de l'attribut heureFin.
-         * @return l'heure de fin de la fenêtre.
+         * @return l'heure de fin de la fenï¿½tre.
          */
 	public Date getHeureFin() {
 		return heureFin;
 	}
 	
         /**
-         * Surcharge de la méthode d'affichage.
-         * @return une chaîne de caractère décrivant la fenêtre.
+         * Surcharge de la mï¿½thode d'affichage.
+         * @return une chaï¿½ne de caractï¿½re dï¿½crivant la fenï¿½tre.
          */
         @Override
         public String toString() {
                 return "FenetreLivraison [heureDebut=" + heureDebut + ", heureFin="
                                 + heureFin + "]";
         }
+        
+
+
 }

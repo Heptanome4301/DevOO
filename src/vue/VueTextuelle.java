@@ -49,10 +49,9 @@ public class VueTextuelle implements Observer {
 	private void actualiser() {
 		if(controleur.getTournee()!= null){
 			Collection<Livraison> livraisons =  controleur.getTournee().getLivraisons();
-			int i=0,size = livraisons.size();
+			int size = livraisons.size();
 			Livraison[] listData = new Livraison[size];
-			for(Livraison l : livraisons) listData[i++] = l;
-			//listData = (Livraison[]) controleur.getTournee().getLivraisons().toArray();
+			for(Livraison l : livraisons) listData[--size] = l;  
 			setList( listData);
 		}
 	}
