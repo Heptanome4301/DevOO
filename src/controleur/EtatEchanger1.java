@@ -13,7 +13,10 @@ public class EtatEchanger1 extends EtatTournee {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public void clicNoeud(Fenetre fenetre, Adresse adresse, Plan plan, Tournee tournee, ListeDeCmd listeCmd) {
+	@Override
+	
+	public void clicNoeud(Fenetre fenetre, Adresse adresse, Plan plan,	ListeDeCmd historiqe)
+		{
 		if(adresse.estAssocierAvecLivraison()) {
 			Controleur.etatEchanger2.setAdresse(adresse);
 			Controleur.setEtatCourant(Controleur.etatEchanger2);

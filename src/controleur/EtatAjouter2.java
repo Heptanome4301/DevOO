@@ -22,7 +22,8 @@ public class EtatAjouter2 extends EtatTournee {
 		this.adresse=adresse;
 	}
 	
-	public void clicNoeud(Fenetre fenetre, Adresse followingAdresse, Plan plan, Tournee tournee, ListeDeCmd listeCmd) {
+	@Override
+	public void clicNoeud(Fenetre fenetre, Adresse followingAdresse, Plan plan, ListeDeCmd listeCmd) {
                 if(!followingAdresse.estAssocierAvecLivraison()){
                     fenetre.ecrireLog(Constants.LOGS_DEFAULT);                   
                     Controleur.setEtatCourant(Controleur.etatTournee);
@@ -30,7 +31,7 @@ public class EtatAjouter2 extends EtatTournee {
                 else{
                     Livraison followingLivraison = followingAdresse.getLivraison();
                     Livraison newLivraison  = new Livraison(generatedId++, adresse, followingLivraison.getFenetreLivraison());
-                    CmdAjouter cmd = new CmdAjouter(tournee, newLivraison, followingLivraison);
+                    CmdAjouter cmd = new CmdAjouter(plan.getTournee(), newLivraison, followingLivraison);
                     listeCmd.ajoute(cmd);
                     cmd.doCmd();                   
                     Controleur.setEtatCourant(Controleur.etatTournee);

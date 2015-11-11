@@ -81,7 +81,7 @@ public class EtatTournee extends EtatLivraison {
 	
 	}
 	
-        @Override
+    @Override
 	public void clicNoeud(Fenetre fenetre, Adresse adresse, Plan plan,
 			ListeDeCmd historiqe)
 	{
