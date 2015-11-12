@@ -1,4 +1,4 @@
-package tests.modele;
+package modele;
 
 import modele.Adresse;
 import modele.Chemin;
