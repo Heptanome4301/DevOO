@@ -3,7 +3,9 @@ package vue;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Insets;
+
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 
 import controleur.Controleur;
 import modele.Adresse;
@@ -22,9 +24,9 @@ public class Fenetre {
 	private JButton ajouterLivraison;
 	private JButton supprimerLivraison;
 	private JButton echangerLivraisons;
-        private JButton deplacerLivraison;
-        private JButton annuler;
-        private JButton refaire;
+	private JButton deplacerLivraison;
+	private JButton annuler;
+	private JButton refaire;
 	private JButton sauvegardeFeuilleRoute;
 	private JLabel etiquetteLivraisons;
 	private JLabel etiquetteTournee;
@@ -75,10 +77,10 @@ public class Fenetre {
 		ajouterLivraison.addActionListener(ecouteurBoutons);
 		supprimerLivraison.addActionListener(ecouteurBoutons);
 		echangerLivraisons.addActionListener(ecouteurBoutons);
-                deplacerLivraison.addActionListener(ecouteurBoutons);
+		deplacerLivraison.addActionListener(ecouteurBoutons);
 		sauvegardeFeuilleRoute.addActionListener(ecouteurBoutons);
-                annuler.addActionListener(ecouteurBoutons);
-                refaire.addActionListener(ecouteurBoutons);
+		annuler.addActionListener(ecouteurBoutons);
+		refaire.addActionListener(ecouteurBoutons);
 
 		vue.addMouseListener(ecouteurSouris);
 
@@ -97,6 +99,12 @@ public class Fenetre {
 		frame.getContentPane().setLayout(
 				new MigLayout("", "[20%,grow][60%,grow][20%][10%]",
 						"[22.00][][][][][][][][][][grow][15%][]"));
+
+		scrollPanel = new JScrollPane(vue);
+		scrollPanel.setBorder(new EmptyBorder(Constants.MARGIN_VUE_GRAPHE,
+				Constants.MARGIN_VUE_GRAPHE, Constants.MARGIN_VUE_GRAPHE,
+				Constants.MARGIN_VUE_GRAPHE));
+		frame.getContentPane().add(scrollPanel, "cell 1 1 1 11,grow");
 
 		etiquetteListePoints = new JLabel("Liste des points de livraison");
 		frame.getContentPane().add(etiquetteListePoints,
@@ -142,15 +150,15 @@ public class Fenetre {
 
 		echangerLivraisons = new JButton(Constants.INVERSER_LIVRAISONS);
 		frame.getContentPane().add(echangerLivraisons, "cell 2 8 2 1,growx");
-                
-                deplacerLivraison = new JButton(Constants.DEPLACER_LIVRAISON);
-                frame.getContentPane().add(deplacerLivraison, "cell 2 9 2 1,growx");
-                
-                annuler = new JButton(Constants.ANNULER);
-                frame.getContentPane().add(annuler, "cell 2 10 2 1,growx");
-                
-                refaire = new JButton(Constants.REFAIRE);
-                frame.getContentPane().add(refaire, "cell 2 10 2 1,growx");
+
+		deplacerLivraison = new JButton(Constants.DEPLACER_LIVRAISON);
+		frame.getContentPane().add(deplacerLivraison, "cell 2 9 2 1,growx");
+
+		annuler = new JButton(Constants.ANNULER);
+		frame.getContentPane().add(annuler, "cell 2 10 2 1,growx");
+
+		refaire = new JButton(Constants.REFAIRE);
+		frame.getContentPane().add(refaire, "cell 2 10 2 1,growx");
 
 		infoPoint = new JTextArea();
 		infoPoint.setMargin(new Insets(Constants.MARGIN_TEXTE_PANEL,
@@ -177,11 +185,9 @@ public class Fenetre {
 
 		// view.setPreferredSize(new Dimension(1000,1000));
 
-		scrollPanel = new JScrollPane(vue);
+		scrollPanel.setViewportView(vue);
 
 		// scrollPanel.setViewportView(view);
-
-		frame.getContentPane().add(scrollPanel, "cell 1 1 1 11,grow");
 	}
 
 	public VueGraphique getVue() {
@@ -219,7 +225,6 @@ public class Fenetre {
 		return result == 0;
 	}
 
-
 	private void updateSelectionGraphique(Adresse adresse) {
 		if (adresse == null) {
 			vue.deselection();
@@ -228,6 +233,7 @@ public class Fenetre {
 			vue.selection(adresse.getId());
 			ecrireInfos(adresse.toString());
 		}
+		vue.repaint();
 	}
 
 	private void updateSelectionTextuelle(Adresse adresse) {
@@ -236,11 +242,11 @@ public class Fenetre {
 		} else {
 			vueTextuelle.deSelectionList();
 		}
-
 	}
 
 	public void updateSelection(Adresse adresse, boolean updateList) {
-		if( updateList) updateSelectionTextuelle(adresse);
+		if (updateList)
+			updateSelectionTextuelle(adresse);
 		updateSelectionGraphique(adresse);
 	}
 
@@ -248,10 +254,10 @@ public class Fenetre {
 		supprimerLivraison.setEnabled(enable);
 		echangerLivraisons.setEnabled(enable);
 		ajouterLivraison.setEnabled(enable);
-                deplacerLivraison.setEnabled(enable);
+		deplacerLivraison.setEnabled(enable);
 		sauvegardeFeuilleRoute.setEnabled(enable);
-                annuler.setEnabled(enable);
-                refaire.setEnabled(enable);
+		annuler.setEnabled(enable);
+		refaire.setEnabled(enable);
 	}
 
 	public void activerBuotonsModification() {
@@ -260,6 +266,25 @@ public class Fenetre {
 
 	public void desactiverBuotonsModification() {
 		setActiverBuotonsModification(false);
+	}
+
+	public void update() {
+		// System.out.println(vue.echelle);
+		// System.out.println("Vue x : " + vue.getSize().width + " et y : " +
+		// vue.getSize().height);
+		// System.out.println("ScrollPanel x : " + scrollPanel.getSize().width +
+		// " et y : " + scrollPanel.getSize().height);
+		vue.setPreferredSize(new Dimension(
+				(int) (vue.getSize().width * vue.echelle),
+				(int) (vue.getSize().height * vue.echelle)));
+		vue.repaint();
+		// vue.setVisible(true);
+		scrollPanel.revalidate();
+	}
+
+	public void moveEcran(int dx, int dy) {
+		vue.moveEcran(dx, dy);
+		update();
 	}
 
 }

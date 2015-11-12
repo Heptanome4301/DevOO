@@ -1,44 +1,44 @@
 package modele;
 
 /**
- * Cette classe représente à la fois une rue entre deux Adresse et une arrête du Plan de la ville (qui peut être
- * considéré comme un graphe). La classe tronçon comporte UN SENS DE CIRCULATION, une rue à double sens sera alors 
- * représentée par deux tronçons.
+ * Cette classe reprï¿½sente ï¿½ la fois une rue entre deux Adresse et une arrï¿½te du Plan de la ville (qui peut ï¿½tre
+ * considï¿½rï¿½ comme un graphe). La classe tronï¿½on comporte UN SENS DE CIRCULATION, une rue ï¿½ double sens sera alors 
+ * reprï¿½sentï¿½e par deux tronï¿½ons.
  */
 public class Troncon {
         
         /**
-         * Le nom du tronçon.
+         * Le nom du tronï¿½on.
          */
 	private String nomRue;
         /**
-         * La longueur du tronçon.
+         * La longueur du tronï¿½on.
          */
 	private double longueur;
         /**
-         * La vitesse moyenne des véhicules sur le tronçon.
+         * La vitesse moyenne des vï¿½hicules sur le tronï¿½on.
          */
 	private double vitesse;
         /**
-         * La durée moyenne nécessaire à emprunter le tronçon.
+         * La durï¿½e moyenne nï¿½cessaire ï¿½ emprunter le tronï¿½on.
          */
 	private int duree;
         /**
-         * L'Adresse d'arrivée du tronçon.
+         * L'Adresse d'arrivï¿½e du tronï¿½on.
          */
 	private Adresse arrivee;
         /**
-         * L'Adresse de départ du tronçon.
+         * L'Adresse de dï¿½part du tronï¿½on.
          */
 	private Adresse depart;
 	
         /**
-         * Le constructeur de la classe, la duree est calculée à partir de la longueur et de la vitesse.
-         * @param nomRue Le nom de la tronçon.
-         * @param longueur La longueur du tronçon.
-         * @param vitesse la vitesse moyenne sur le tronçon.
-         * @param depart L'adresse de départ.
-         * @param arrivee L'adresse d'arrivée du tronçon.
+         * Le constructeur de la classe, la duree est calculï¿½e ï¿½ partir de la longueur et de la vitesse.
+         * @param nomRue Le nom de la tronï¿½on.
+         * @param longueur La longueur du tronï¿½on.
+         * @param vitesse la vitesse moyenne sur le tronï¿½on.
+         * @param depart L'adresse de dï¿½part.
+         * @param arrivee L'adresse d'arrivï¿½e du tronï¿½on.
          */
 	public Troncon (String nomRue, double longueur, double vitesse, Adresse depart, Adresse arrivee){
 		this.longueur = longueur;
@@ -67,9 +67,9 @@ public class Troncon {
     }
     
     /**
-    * Surcharge de la méthode d'égalité.
-    * @param obj l'objet à comparer.
-    * @return true si les id des deux adresses de chaque tronçon concordent et que les noms de rues concordent.
+    * Surcharge de la mï¿½thode d'ï¿½galitï¿½.
+    * @param obj l'objet ï¿½ comparer.
+    * @return true si les id des deux adresses de chaque tronï¿½on concordent et que les noms de rues concordent.
     */
     @Override
     public boolean equals(Object obj) {
@@ -88,7 +88,7 @@ public class Troncon {
         
         /**
          * Accesseur de l'attribut nomRue.
-         * @return le nom du troçon.
+         * @return le nom du troï¿½on.
          */
 	public String getNomRue(){
 		return nomRue;
@@ -96,7 +96,7 @@ public class Troncon {
 	
         /**
          * Acesseur de l'attribut longueur.
-         * @return la longueur du tronçon.
+         * @return la longueur du tronï¿½on.
          */
 	public double getLongueur(){
 		return longueur;
@@ -104,7 +104,7 @@ public class Troncon {
 	
         /**
          * Accesseur de l'attribut vitesse.
-         * @return la vittese moyenne des céhicules sur le tronçon.
+         * @return la vittese moyenne des cï¿½hicules sur le tronï¿½on.
          */
 	public double getVitesse(){
 		return vitesse;
@@ -112,7 +112,7 @@ public class Troncon {
 	
         /**
          * Accesseur de l'attribut duree.
-         * @return la duree nécessaire à franchir le tronçon.
+         * @return la duree nï¿½cessaire ï¿½ franchir le tronï¿½on.
          */
 	public int getDuree(){
 		return duree;
@@ -120,22 +120,22 @@ public class Troncon {
 	
         /**
          * Accesseur de l'attribut arrivee.
-         * @return l'adresse d'arrivée du tronçon.
+         * @return l'adresse d'arrivï¿½e du tronï¿½on.
          */
 	public Adresse getArrivee(){
 		return arrivee;
 	}
 	
         /**
-         * Accesseur de l'attribut de départ.
-         * @return l'adresse de départ du tronçon.
+         * Accesseur de l'attribut de dï¿½part.
+         * @return l'adresse de dï¿½part du tronï¿½on.
          */
 	public Adresse getDepart(){
 		return depart;
 	}
         
         /**
-         * Méthode nécessaire à la mise en place du pattern Visiteur.
+         * Mï¿½thode nï¿½cessaire ï¿½ la mise en place du pattern Visiteur.
          * @param visiteur le visiteur.
          */
 	public void accept(VisiteurPlan visiteur) {

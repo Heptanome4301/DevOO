@@ -84,6 +84,7 @@ public class Controleur {
 		File xml = getFile();
 		etatCourant.chargerPlan(fenetre, plan, xml);
 		this.calculEchelle();
+		fenetre.update();
 	}
 
 	public void chargerLivraisons() {
@@ -152,6 +153,10 @@ public class Controleur {
 			Adresse a = plan.getAdresse(idAdresse);
 			fenetre.ecrireInfos(a.toString());
 		}
+	}
+
+	public void moveEcran(int dx, int dy) {
+		fenetre.moveEcran(dx, dy);
 	}
 
 }

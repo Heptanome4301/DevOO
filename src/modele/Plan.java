@@ -17,7 +17,7 @@ import xml.XMLParser;
  * Cette classe repr�sente le plan d'une ville sous forme d'adresses et de
  * tron�ons entre ces adresses. Elle peut �tre apparent�e � un graphe.
  */
-public class Plan extends Observable {
+public class Plan extends Observable implements Visitable {
 	/**
 	 * La liste des adresses qui composent le plan.
 	 */
@@ -53,8 +53,8 @@ public class Plan extends Observable {
 	public void ajouterAdresse(Adresse a) {
 		adresses.add(a);
 		// TODO Appliquer le pattern obervable avec la vue
-		// this.setChanged();
-		// this.notifyObservers(a); // Pour l'instant on n'utilise pas "a"
+//		 this.setChanged();
+//		 this.notifyObservers(a); // Pour l'instant on n'utilise pas "a"
 	}
 
 	/**
@@ -72,7 +72,7 @@ public class Plan extends Observable {
 		verifierPlan();
 		initXMaxYMax();
 		this.setChanged();
-		this.notifyObservers();
+		this.notifyObservers(this);
 	}
 
 	/**
@@ -88,7 +88,7 @@ public class Plan extends Observable {
 		viderTournee();
 		tournee = XMLParser.chargerLivraison(this, xml);
 		this.setChanged();
-		this.notifyObservers(tournee);
+		this.notifyObservers(this);
 	}
 
 	/**
@@ -169,7 +169,8 @@ public class Plan extends Observable {
 			arrivee = depart;
 			depart = precedence[arrivee.getId()];
 		}
-
+		setChanged();
+		notifyObservers(this);
 		return res;
 	}
 
@@ -204,7 +205,7 @@ public class Plan extends Observable {
 		adresses.clear();
 		viderTournee();
 		setChanged();
-		notifyObservers(tournee);
+		notifyObservers(this);
 	}
 
 	/**
@@ -361,7 +362,12 @@ public class Plan extends Observable {
 				adresse.setLivraison(null);
 		}
 		this.setChanged();
-		this.notifyObservers(tournee);
+		this.notifyObservers(this);
+	}
+
+	@Override
+	public void accepte(Visiteur v) {
+		v.visite(this);
 	}
 
 }
