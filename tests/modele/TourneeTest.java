@@ -76,7 +76,7 @@ public class TourneeTest {
 	}
 	
 	@Test
-	public void testDeplacerLivraison() {
+	public void testEchangerLivraison() {
 
 		
 		File pXml = new File("xmlTest/plan10x10.xml");
@@ -90,9 +90,18 @@ public class TourneeTest {
 			Livraison livraison = adresse.getLivraison();
 			Adresse adresse2 = p.getAdresse(13);
 			Livraison livraison2 = adresse2.getLivraison();
+			int min = livraison.getHoraire().compareTo(livraison2.getHoraire());
 			p.getTournee().echangerLivraison(livraison, livraison2);
-			assertTrue(livraison.getHoraire().compareTo(livraison2.getHoraire())<0);
-			assertTrue(true);
+			if(min<0) {
+				assertTrue(livraison.getHoraire().compareTo(livraison2.getHoraire())>0);
+			}
+			else if(min>0) {
+				assertTrue(livraison.getHoraire().compareTo(livraison2.getHoraire())<0);
+			}
+			else {
+				assertTrue(livraison.getHoraire().compareTo(livraison2.getHoraire())==0);
+			}
+						
 		} catch (ParserConfigurationException | SAXException | IOException | ExceptionXML e) {
 			fail("test failed - catched exception");
 			e.printStackTrace();
