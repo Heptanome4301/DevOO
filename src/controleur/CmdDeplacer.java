@@ -1,7 +1,6 @@
 package controleur;
 
 import modele.Livraison;
-import modele.Plan;
 import modele.Tournee;
 
 /**
