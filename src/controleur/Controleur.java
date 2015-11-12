@@ -74,6 +74,7 @@ public class Controleur {
 		etatCourant.chargerPlan(fenetre, plan, historique);
                 
 		this.calculEchelle();
+		fenetre.update();
 	}
 
 	public void chargerLivraisons() {
@@ -139,6 +140,15 @@ public class Controleur {
 			Adresse a = plan.getAdresse(idAdresse);
 			fenetre.ecrireInfos(a.toString());
 		}
+	}
+
+	public void moveEcran(int dx, int dy) {
+		fenetre.moveEcran(dx, dy);
+	}
+
+	public void zoom(float echelle, Point click) {
+		fenetre.setEchelle(echelle);
+		fenetre.moveEcran(-click.x, -click.y);
 	}
 
 }

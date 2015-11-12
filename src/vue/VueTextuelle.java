@@ -43,7 +43,7 @@ public class VueTextuelle implements Observer {
 		if (o instanceof Plan) {
 			if (arg != null && arg instanceof Tournee) {
 				Tournee t = (Tournee) arg;
-				t.addObserver(this);
+				// t.addObserver(this);
 			}
 		}
 

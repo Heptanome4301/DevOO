@@ -24,7 +24,7 @@ import tsp.TSP2;
 /**
  * Cette classe repr�sente un ensemble de livraison et le chemin qui les relie
  */
-public class Tournee extends Observable{
+public class Tournee extends Observable implements Visitable {
         /**
          * Le plan de la ville n�cessaire au calcul des chemins entre les diff�rentes livraisons.
          */
@@ -308,11 +308,12 @@ public class Tournee extends Observable{
 						.getArrivee(), this.entrepot));
 
 		calculerLesDurees(0);
-		this.setChanged();
-		this.notifyObservers();
 
 		this.livraisons = sortLivraison((ArrayList<Livraison>) this.livraisons);
 		System.out.println("Tournee calculée : Durée totale " + getDuree());
+		
+		this.setChanged();
+		this.notifyObservers(this);
 	}
 
 	// indice dans chemins du premier chemin à partir dulequel
@@ -477,7 +478,7 @@ public class Tournee extends Observable{
 
 		}
 		this.setChanged();
-		this.notifyObservers();
+		this.notifyObservers(this);
 
 	}
 
@@ -506,7 +507,7 @@ public class Tournee extends Observable{
 				calculerLesDurees(i - 1); // recalcule les durées à partir de ce
 											// chmin
 				this.setChanged();
-				this.notifyObservers();
+				this.notifyObservers(this);
 			}
 
 		}
@@ -564,7 +565,7 @@ public class Tournee extends Observable{
                         
     			calculerLesDurees(indiceModif);
 			this.setChanged();
-			this.notifyObservers();
+			this.notifyObservers(this);
 		}
 
 	}
@@ -655,4 +656,10 @@ public class Tournee extends Observable{
 		this.livraisons = sortLivraison((ArrayList<Livraison>) this.livraisons);
 		return this.livraisons;
 	}
+
+
+		@Override
+		public void accepte(Visiteur v) {
+			v.visite(this);
+		}
 }
