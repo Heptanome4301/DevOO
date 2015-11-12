@@ -159,4 +159,9 @@ public class Controleur {
 		fenetre.moveEcran(dx, dy);
 	}
 
+	public void zoom(float echelle, Point click) {
+		fenetre.setEchelle(echelle);
+		fenetre.moveEcran(-click.x, -click.y);
+	}
+
 }

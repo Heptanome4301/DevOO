@@ -16,9 +16,6 @@ import java.util.Observer;
 
 import javax.swing.JPanel;
 
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.ListMultimap;
-
 import modele.Adresse;
 import modele.Chemin;
 import modele.Livraison;

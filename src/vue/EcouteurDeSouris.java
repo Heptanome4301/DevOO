@@ -3,6 +3,7 @@ package vue;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
 
 import controleur.Controleur;
 
@@ -40,19 +41,34 @@ public class EcouteurDeSouris extends MouseAdapter {
 
 	@Override
 	public void mousePressed(MouseEvent e) {
+		super.mousePressed(e);
 		x = e.getX();
 		y = e.getY();
 	}
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
+		super.mouseDragged(e);
 		int dx = e.getX() - x;
 		int dy = e.getY() - y;
-		
+
 		controleur.moveEcran(dx, dy);
-		
+
 		x += dx;
 		y += dy;
+
+		System.out.println(" MouseDragged : " + x + " " + y);
+	}
+
+	@Override
+	public void mouseWheelMoved(MouseWheelEvent e) {
+		super.mouseWheelMoved(e);
+		Point click = new Point(vue.changerRepere(e.getX()),
+				vue.changerRepere(e.getY()));
+		float amount = e.getWheelRotation() * 5f;
+		controleur.zoom(amount, click);
+		System.out.println("Wheel : " + amount);
+		
 	}
 
 	@Override
