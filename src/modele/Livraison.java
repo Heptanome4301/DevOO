@@ -209,5 +209,9 @@ public class Livraison {
 		
 		return res;
 	}
+        
+    public void setAdresse(Adresse a){
+        this.adresse = a;
+    }
 
 }

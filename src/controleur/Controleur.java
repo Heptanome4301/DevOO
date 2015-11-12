@@ -70,24 +70,14 @@ public class Controleur {
 
 	}
 
-	protected File getFile() {
-		File xml = null;
-		try {
-			xml = OuvreurDeFichiersXML.getInstance().ouvre();
-		} catch (ExceptionXML e) {
-			fenetre.signalerErreur(e.getMessage());
-		}
-		return xml;
-	}
-
 	public void chargerPlan() {
-		File xml = getFile();
-		etatCourant.chargerPlan(fenetre, plan, xml);
+		etatCourant.chargerPlan(fenetre, plan, historique);
+                
 		this.calculEchelle();
 	}
 
 	public void chargerLivraisons() {
-		etatCourant.chargerLivraisons(fenetre, plan, this);
+		etatCourant.chargerLivraisons(fenetre, plan, historique);
 	}
 
 	public void calculerTournee() {
@@ -109,10 +99,7 @@ public class Controleur {
 	public void clicListLivraisons(Livraison livraison) {
 
 		fenetre.updateSelection(livraison.getAdresse(), false);
-		etatCourant
-				.clicNoeud(fenetre, livraison.getAdresse(), plan, historique);
-
-		// etatCourant.clicListLivraisons(fenetre, livraison);
+		etatCourant.clicNoeud(fenetre, livraison.getAdresse(), plan, historique);
 	}
 
 	public void ajouter() {

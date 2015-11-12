@@ -41,4 +41,9 @@ public class ListeDeCmd {
 			position++;
 		}
 	}
+        
+        public void clear() {
+            listeCmd.clear();
+            position = 0;
+        }
 }

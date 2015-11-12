@@ -8,12 +8,11 @@ import modele.Plan;
 import modele.Tournee;
 import vue.Fenetre;
 
+import xml.ExceptionXML;
+import xml.OuvreurDeFichiersXML;
+
 /**
-<<<<<<< HEAD
- * Interface Etat n�cessaire � la mise en place du design pattern Etat. Elle d�crit les fonctionnalit�s accessibles �
-=======
  * Interface Etat nécessaire à la mise en place du design pattern Etat. Elle décrit les fonctionnalités accessibles à
->>>>>>> fa4ae2fcb78e76b8526715ba9805348ee77b9d75
  * l'utilisateur depuis la vue.
  */
 public interface Etat {
@@ -43,8 +42,9 @@ public interface Etat {
          * le fichier xml à lire.
          * @param fenetre la fenêtre d'affichage des résultats.
          * @param plan le plan à remplir.
+         * @param
          */
-	void chargerPlan(Fenetre fenetre, Plan plan, File xml);
+	void chargerPlan(Fenetre fenetre, Plan plan, ListeDeCmd listeCmd);
         /**
 
          * Remplit une tournee à partir des livraisons décrites dans un fichier xml. Cette méthode demande à
@@ -53,7 +53,7 @@ public interface Etat {
          * @param fenetre la fenêtre d'affichage des résultats.
          * @param plan le plan contenant la tournée à remplir.
          */
-	void chargerLivraisons(Fenetre fenetre, Plan plan, Controleur controleur);
+	void chargerLivraisons(Fenetre fenetre, Plan plan, ListeDeCmd listeCmd);
         /**
          * Cette méthode calcule l'ordre de passage pour une tournée passée en paramètre.
          * @param fenetre la fenêtre d'affichage des résultats.
@@ -102,5 +102,5 @@ public interface Etat {
          * @param fenetre la fenêtre d'afficahge des résultats
          * @param livraison la livraison sélectionnée
          */
-	void clicListLivraisons(Fenetre fenetre, Livraison livraison);
+	void clicListLivraisons(Fenetre fenetre, Livraison livraison);      
 }

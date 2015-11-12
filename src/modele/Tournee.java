@@ -558,7 +558,11 @@ public class Tournee extends Observable{
 			chemins.remove(cheminRm2D);
 			l1.getAdresse().setLivraison(l2);
 			l2.getAdresse().setLivraison(l1);
-			calculerLesDurees(indiceModif);
+                        Adresse temp = l1.getAdresse();
+                        l1.setAdresse(l2.getAdresse());
+                        l2.setAdresse(temp);
+                        
+    			calculerLesDurees(indiceModif);
 			this.setChanged();
 			this.notifyObservers();
 		}

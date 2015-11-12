@@ -69,8 +69,8 @@ public class Plan extends Observable {
 			SAXException, IOException, ExceptionXML {
 		clear();
 		XMLParser.chargerPlan(this, xml);
-		verifierPlan();
-		initXMaxYMax();
+                verifierPlan();
+                initXMaxYMax();
 		this.setChanged();
 		this.notifyObservers();
 	}
@@ -354,7 +354,7 @@ public class Plan extends Observable {
 	/**
 	 * R�initialise la tourn�e.
 	 */
-	private void viderTournee() {
+	public void viderTournee() {
 		tournee = null;
 		for (Adresse adresse : adresses) {
 			if (adresse.estAssocierAvecLivraison())

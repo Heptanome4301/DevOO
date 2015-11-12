@@ -9,6 +9,9 @@ import modele.Tournee;
 import util.Constants;
 import vue.Fenetre;
 
+import xml.ExceptionXML;
+import xml.OuvreurDeFichiersXML;
+
 public class EtatIni implements Etat {
 
 	public EtatIni() {
@@ -44,21 +47,25 @@ public class EtatIni implements Etat {
 	
 	
 	@Override
-	public void chargerPlan(Fenetre fenetre, Plan plan,File xml){
-		if(xml == null) return;
+	public void chargerPlan(Fenetre fenetre, Plan plan, ListeDeCmd listeCmd){
+                File xml;
 		try {
+                        xml = OuvreurDeFichiersXML.getInstance().ouvre();
 			fenetre.desactiverBuotonsModification();
+                        fenetre.getVue().deselection();
 			plan.chargerPlan(xml);
+                        listeCmd.clear();
 			Controleur.setEtatCourant(Controleur.etatPlan);
             fenetre.ecrireLog(Constants.LOGS_PLAN);
 		} catch (Exception e){
+                        plan.clear();
 			fenetre.signalerErreur(e.getMessage());
 			Controleur.setEtatCourant(Controleur.etatIni);
 		}
 	}
 
 	@Override
-	public void chargerLivraisons(Fenetre fenetre, Plan plan,Controleur c){
+	public void chargerLivraisons(Fenetre fenetre, Plan plan, ListeDeCmd listeCmd){
 		fenetre.signalerErreur(Constants.ERR_CHARGEMENT_LIVRAISON);
 	}
 
