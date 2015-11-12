@@ -162,7 +162,40 @@ public class PlanTest {
 
 	@Test
 	public void testCalculerChemin() {
-		fail("Not yet implemented");
+		File Plan10x10 = new File("./xmlTest/plan10x10.xml");
+		Plan p = new Plan();
+		try {
+			p.chargerPlan(Plan10x10);
+		} catch (ParserConfigurationException | SAXException | IOException
+				| ExceptionXML e) {
+			fail("testCalculerChemin : echec ouverture fichier[./xmlTest/plan10x10.xml]");
+		}
+		
+		Adresse depart = p.getAdresse(0);
+		Adresse arrivee = p.getAdresse(5);
+		
+		Chemin chemin = p.calculerChemin(depart, arrivee);
+		
+		assertTrue("test CalculerChemin",depart.equals(chemin.getDepart()));
+		assertTrue("test CalculerChemin",arrivee.equals(chemin.getArrivee()));
+		
+
+		ArrayList<Troncon> troncons = (ArrayList<Troncon>) chemin.getTroncons();
+		int i,size = chemin.getTroncons().size();
+		
+		
+		Adresse a = chemin.getArrivee();
+		for( i = 0 ; i < size ; i++ ){
+			assertTrue("test CalculerChemin",troncons.get(i).getArrivee().equals(a));
+			for(Adresse tmp : p.getAdresses()){
+				if( tmp.getTroncons().contains(troncons.get(i))){
+					a = tmp;
+					break;
+				}
+			}
+		}
+		assertTrue("test CalculerChemin",depart.equals(a));
+		
 	}
 
 	@Test
