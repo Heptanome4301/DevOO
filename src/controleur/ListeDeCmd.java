@@ -12,10 +12,13 @@ public class ListeDeCmd {
          */
 	private ArrayList<Commande> listeCmd;
         /**
-         * La position actuelle du curseur
+         * La position actuelle du curseur.
          */
 	private int position;
 	
+        /**
+         * 
+         */
 	public ListeDeCmd() {
 		listeCmd = new ArrayList<>();
 		position = listeCmd.size();
