@@ -1,4 +1,4 @@
-package test;
+package tests.modele;
 
 import modele.Adresse;
 import modele.AdresseComparator;
