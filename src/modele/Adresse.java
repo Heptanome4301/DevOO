@@ -2,10 +2,9 @@ package modele;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Observable;
 
 /**
- * Cette classe repr�sente un croisement de rue dans une ville, et une
+ * Cette classe represente un croisement de rue dans une ville, et une
  * potentielle adresse de livraison
  */
 public class Adresse {
@@ -15,22 +14,22 @@ public class Adresse {
 	 */
 	private int id;
 	/**
-	 * Sa coordonn�e suivant l'axe Est/Ouest. Utile pour la repr�sentation
+	 * Sa coordonnee suivant l'axe Est/Ouest. Utile pour la representation
 	 * graphique de cette adresse dans un plan.
 	 */
 	private int x;
 	/**
-	 * Sa coordonn�e suivant l'axe Nord/Sud. Utile pour la repr�sentation
+	 * Sa coordonnee suivant l'axe Nord/Sud. Utile pour la representation
 	 * graphique de cette adresse dans un plan.
 	 */
 	private int y;
 	/**
-	 * La livraison associ�e � cette adresse, null si aucune livraison n'est
-	 * pr�vue.
+	 * La livraison associee a cette adresse, null si aucune livraison n'est
+	 * prevue.
 	 */
 	private Livraison livraison;
 	/**
-	 * La liste des rues empruntables depuis cette adresse (repr�sent�es par des
+	 * La liste des rues empruntables depuis cette adresse (representees par des
 	 * instances de la classe Troncon).
 	 */
 	private Collection<Troncon> tronconsSortants;
@@ -38,22 +37,22 @@ public class Adresse {
 	/**
 	 * Constructeur de la classe Adresse.
 	 * 
-	 * @param id
-	 * @param x
-	 * @param y
+	 * @param id L'identifiant associé à cette adresse
+	 * @param x La coordonée en abscisse de cette adresse
+	 * @param y La coordonnée en ordonnée de cette adresse
 	 */
 	public Adresse(int id, int x, int y) {
 		this.id = id;
 		this.x = x;
 		this.y = y;
-		tronconsSortants = new ArrayList<Troncon>();
+		tronconsSortants = new ArrayList<>();
 		livraison = null;
 	}
 
 	/**
-	 * Surcharge de la m�thode d'afficahge.
+	 * Surcharge de la methode d'afficahge.
 	 * 
-	 * @return une cha�ne de caract�re d�crivant l'adresse.
+	 * @return une chaine de caractere decrivant l'adresse.
 	 */
 	@Override
 	public String toString() {
@@ -79,10 +78,10 @@ public class Adresse {
 	}
 
 	/**
-	 * Surcharge de la m�thode d'�galit�.
+	 * Surcharge de la methode d'egalite.
 	 * 
 	 * @param obj
-	 *            la deuxi�me adresse � laquelle comparer la premi�re.
+	 *            la deuxieme adresse a laquelle comparer la premiere.
 	 * @return true si les id sont identiques, false sinon.
 	 */
 	@Override
@@ -94,29 +93,17 @@ public class Adresse {
 		if (getClass() != obj.getClass())
 			return false;
 		Adresse other = (Adresse) obj;
-		if (id != other.id)
-			return false;
-		return true;
+		return id == other.id;
 	}
 
 	/**
-	 * Ajouter un tron�pn � la liste des tron�ons.
+	 * Ajouter un troncon a la liste des troncons.
 	 * 
 	 * @param t
-	 *            le tron�on � ajouter.
+	 *            le troncon a ajouter.
 	 */
 	public void ajouterTroncon(Troncon t) {
 		tronconsSortants.add(t);
-	}
-
-	/**
-	 * Retirer un tron�on de la liste des tron�ons.
-	 * 
-	 * @param t
-	 *            le tron�on � retirer.
-	 */
-	protected void retirerTroncon(Troncon t) {
-		tronconsSortants.remove(t);
 	}
 
 	/**
@@ -149,51 +136,36 @@ public class Adresse {
 	/**
 	 * Accesseur de l'attribut troncons.
 	 * 
-	 * @return la liste de tron�ons sortants de l'adresse.
+	 * @return la liste de troncons sortants de l'adresse.
 	 */
 	public Collection<Troncon> getTroncons() {
 		return tronconsSortants;
 	}
 
 	/**
-	 * M�thode n�cessaire � la mise en place du pattern visiteur.
-	 * 
-	 * @param visiteur
-	 *            le visiteur.
-	 * @param estEntrepot
-	 */
-	// public void accept(VisiteurPlan visiteur,boolean estEntrepot) {
-	// for (Troncon t : getTroncons()) {
-	// t.accept(visiteur);
-	// }
-	// visiteur.visite(this, estEntrepot);
-	//
-	// }
-
-	/**
 	 * Mutateur de l'attribut livraison.
 	 * 
 	 * @param l
-	 *            la livraison � cette adresse.
+	 *            la livraison a cette adresse.
 	 */
-	protected void setLivraison(Livraison l) {
+	public void setLivraison(Livraison l) {
 		this.livraison = l;
 	}
 
 	/**
 	 * Accesseur de l'attribut livraison.
 	 * 
-	 * @return la livraison pr�vue � cette adresse, null sinon.
+	 * @return la livraison prevue a cette adresse, null sinon.
 	 */
 	public Livraison getLivraison() {
 		return livraison;
 	}
 
 	/**
-	 * Renvoie un bool�en traduisant le fait qu'une livraison soit pr�vue �
+	 * Renvoie un booleen traduisant le fait qu'une livraison soit prevue a
 	 * cette adresse.
 	 * 
-	 * @return true si une livraison est pr�vue, false sinon.
+	 * @return true si une livraison est prevue, false sinon.
 	 */
 	public boolean estAssocierAvecLivraison() {
 		return livraison != null;
