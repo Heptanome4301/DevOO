@@ -242,12 +242,14 @@ public class Fenetre {
 		} else {
 			vueTextuelle.deSelectionList();
 		}
+		vue.repaint();
 	}
 
 	public void updateSelection(Adresse adresse, boolean updateList) {
 		if (updateList)
 			updateSelectionTextuelle(adresse);
 		updateSelectionGraphique(adresse);
+		vue.repaint();
 	}
 
 	private void setActiverBuotonsModification(boolean enable) {
