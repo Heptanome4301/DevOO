@@ -30,7 +30,7 @@ public class EtatDeplacer2 extends EtatTournee {
         if(adresse.estAssocierAvecLivraison()) {
             Livraison livraison2 = adresse.getLivraison();
             
-            CmdDeplacer cmd = new CmdDeplacer(plan, livraison1, livraison2);
+            CmdDeplacer cmd = new CmdDeplacer(plan.getTournee(), livraison1, livraison2);
             cmd.doCmd();
             historique.ajoute(cmd);
         }
