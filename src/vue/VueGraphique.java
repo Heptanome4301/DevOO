@@ -205,6 +205,11 @@ public class VueGraphique extends JPanel implements Observer, Visiteur {
 		adresseEntrepot = adresse;
 	}
 	
+	protected void clear(){
+		clearPlan();
+		clearTournee();
+	}
+	
 	private void clearPlan() {
 		listeAdresses.clear();
 		listeTroncons.clear();
@@ -224,6 +229,7 @@ public class VueGraphique extends JPanel implements Observer, Visiteur {
 			((Visitable) arg).accepte(this);
 		}
 
+		this.repaint();
 	}
 
 	public void setEchelle(double value) {

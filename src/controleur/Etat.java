@@ -44,7 +44,8 @@ public interface Etat {
          * @param plan le plan à remplir.
          * @param
          */
-	void chargerPlan(Fenetre fenetre, Plan plan, ListeDeCmd listeCmd);
+	//void chargerPlan(Fenetre fenetre, Plan plan, ListeDeCmd listeCmd);
+	public void chargerPlan(Fenetre fenetre, Plan plan, ListeDeCmd listeCmd,File xml) ;
         /**
 
          * Remplit une tournee à partir des livraisons décrites dans un fichier xml. Cette méthode demande à
@@ -52,8 +53,9 @@ public interface Etat {
          * le fichier xml à lire.
          * @param fenetre la fenêtre d'affichage des résultats.
          * @param plan le plan contenant la tournée à remplir.
+         * @param controleur 
          */
-	void chargerLivraisons(Fenetre fenetre, Plan plan, ListeDeCmd listeCmd);
+	void chargerLivraisons(Fenetre fenetre, Plan plan, ListeDeCmd listeCmd, Controleur controleur);
         /**
          * Cette méthode calcule l'ordre de passage pour une tournée passée en paramètre.
          * @param fenetre la fenêtre d'affichage des résultats.

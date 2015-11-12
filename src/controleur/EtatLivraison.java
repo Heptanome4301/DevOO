@@ -1,15 +1,8 @@
 package controleur;
 
-import java.io.File;
-
-import modele.Adresse;
-import modele.Livraison;
-import modele.Plan;
 import modele.Tournee;
 import util.Constants;
 import vue.Fenetre;
-import xml.ExceptionXML;
-import xml.OuvreurDeFichiersXML;
 
 public class EtatLivraison extends EtatPlan {
 
