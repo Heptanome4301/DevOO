@@ -2,8 +2,18 @@ package controleur;
 
 import java.util.ArrayList;
 
+/**
+ * Cette classe représente la pile d'actions de modification effectuées pour pouvoir implémenter un système
+ * de undo/redo.
+ */
 public class ListeDeCmd {
+        /**
+         * La liste des commandes effectuées.
+         */
 	private ArrayList<Commande> listeCmd;
+        /**
+         * La position actuelle du curseur
+         */
 	private int position;
 	
 	public ListeDeCmd() {
@@ -12,6 +22,8 @@ public class ListeDeCmd {
 	}
 	
 	public void ajoute(Commande cmd) {
+                for(int i = position; i<listeCmd.size()-1 ;i++)
+                    listeCmd.remove(i);
 		listeCmd.add(cmd);
 		position = listeCmd.size();
 	}
