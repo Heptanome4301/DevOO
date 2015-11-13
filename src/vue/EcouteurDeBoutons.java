@@ -5,13 +5,27 @@ import java.awt.event.ActionListener;
 import controleur.Controleur;
 import util.Constants;
 
+/**
+ * L'ecouteur de boutons qui definit les actions a effectuer lors d'un clic sur un bouton.
+ */
 public class EcouteurDeBoutons implements ActionListener {
+	/**
+	 * Le controleur qui devra effectuer les actions associees aux boutons.
+	 */
 	private Controleur controleur;
-
+	
+	/**
+	 * Le constructeur de l'ecouteur.
+	 * @param c le controleur a notifier.
+	 */
 	public EcouteurDeBoutons(Controleur c) {
 		this.controleur = c;
 	}
 
+	/**
+	 * Surcharge de la méthode actionPerformed qui definit les actions a accomplir lors d'un clic sur un bouton.
+	 * @param e l'evenement declenche par un clic sur un bouton.
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 

@@ -27,27 +27,57 @@ import modele.Visiteur;
 import util.Constants;
 import vue.Fenetre;
 
+/**
+ * La vue graphique charge d'afficher le plan de la ville ainsi que les livraisons et les tournees chargees.
+ */
 public class VueGraphique extends JPanel implements Observer, Visiteur {
 
 	/**
-	 * 
+	 * Echelle du plan affiche.
 	 */
 	public double echelle = 1;
-
+	/**
+	 * Le plan a afficher.
+	 */
 	private Plan plan;
-
+	/**
+	 * la liste des adresses a afficher.
+	 */
 	private ArrayList<Shape> listeAdresses;
+	/**
+	 * La liste de troncons a afficher
+	 */
 	private ArrayList<Shape> listeTroncons;
+	/**
+	 * La representation graphique de l'adresse selectionnee.
+	 */
 	private Shape adresseSelectionne;
+	/**
+	 * La liste d'adresses composant la tournee a afficher.
+	 */
 	private ArrayList<Shape> listeAdressesTournee;
+	/**
+	 * La liste des troncons composant la tournee.
+	 */
 	private ArrayList<Shape> listeTronconsTournee;
-
+	/**
+	 * La representation graphique de l'entrepot.
+	 */
 	private Shape adresseEntrepot;
-
+	/**
+	 * Le decalage a effecteur sur l'affichage du plan sur l'axe x.
+	 */
 	private int translationX;
-
+	/**
+	 * Le decalage a effecteur sur l'affichage du plan sur l'axe y.
+	 */
 	private int translationY;
 
+	/**
+	 * Le constructeur de la vue graphique.
+	 * @param plan le plan a afficher.
+	 * @param fenetre la fenetre dans laquelle afficher.
+	 */
 	public VueGraphique(Plan plan, Fenetre fenetre) {
 		super();
 		this.setBackground(Color.white);
@@ -59,6 +89,10 @@ public class VueGraphique extends JPanel implements Observer, Visiteur {
 		plan.addObserver(this);
 	}
 
+	/**
+	 * Surcharge de la methode d'affichage.
+	 * @param g les Graphics a afficher.
+	 */
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -114,7 +148,11 @@ public class VueGraphique extends JPanel implements Observer, Visiteur {
 			g2D.fill(adresseSelectionne);
 		}
 	}
-
+	
+	/**
+	 * Dessine une adresse dans le plan.
+	 * @param a l'adresse a afficher.
+	 */
 	private void dessinPlan(Adresse a) {
 		Ellipse2D adresse = new Ellipse2D.Double(
 				(a.getX() - Constants.RAYON_NOEUD),
@@ -122,7 +160,11 @@ public class VueGraphique extends JPanel implements Observer, Visiteur {
 				Constants.RAYON_NOEUD * 2);
 		listeAdresses.add(adresse);
 	}
-
+	
+	/**
+	 * Dessine un troncon dans le plan.
+	 * @param t le troncon a afficher.
+	 */
 	private void dessinPlan(Troncon t) {
 		Point tete = new Point(t.getArrivee().getX(), t.getArrivee().getY());
 		Point queue = new Point(t.getDepart().getX(), t.getDepart().getY());
@@ -152,6 +194,10 @@ public class VueGraphique extends JPanel implements Observer, Visiteur {
 		listeTroncons.add(ligne3);
 	}
 
+	/**
+	 * Dessine une adresse et la definie comme adresse selectionnee.
+	 * @param a l'adresse a definir en tant qu'adresse selectionnee.
+	 */
 	private void dessinSelection(Adresse a) {
 		Ellipse2D adresse = new Ellipse2D.Double(
 				(a.getX() - Constants.RAYON_NOEUD),
@@ -160,6 +206,10 @@ public class VueGraphique extends JPanel implements Observer, Visiteur {
 		adresseSelectionne = adresse;
 	}
 
+	/**
+	 * Dessine un troncon appartenant a la tournee en cours de modification.
+	 * @param tr le troncon a dessiner.
+	 */
 	private void dessinTournee(Troncon tr) {
 		Point tete = new Point(tr.getArrivee().getX(), tr.getArrivee().getY());
 		Point queue = new Point(tr.getDepart().getX(), tr.getDepart().getY());
@@ -189,6 +239,10 @@ public class VueGraphique extends JPanel implements Observer, Visiteur {
 		listeTronconsTournee.add(ligne3);
 	}
 
+	/**
+	 * Dessine une adresse appartenant a la tournee en cours de livraison.
+	 * @param a l'adresse a dessiner.
+	 */
 	private void dessinTournee(Adresse a) {
 		Ellipse2D adresse = new Ellipse2D.Double(
 				(a.getX() - Constants.RAYON_NOEUD),
@@ -196,7 +250,11 @@ public class VueGraphique extends JPanel implements Observer, Visiteur {
 				Constants.RAYON_NOEUD * 2);
 		listeAdressesTournee.add(adresse);
 	}
-
+	
+	/**
+	 * Dessine l'entrepot de la tournee en cours de modification.
+	 * @param l'adresse de l'entrepot.
+	 */
 	private void dessinEntrepot(Adresse e) {
 		Ellipse2D adresse = new Ellipse2D.Double(
 				(e.getX() - Constants.RAYON_NOEUD),
@@ -205,18 +263,29 @@ public class VueGraphique extends JPanel implements Observer, Visiteur {
 		adresseEntrepot = adresse;
 	}
 	
+	/**
+	 * Efface l'affichage du plan en cours.
+	 */
 	private void clearPlan() {
 		listeAdresses.clear();
 		listeTroncons.clear();
 		adresseSelectionne = null;
 	}
 	
+	/**
+	 * Efface l'affichage de la tournee en cours de modification.
+	 */
 	private void clearTournee() {
 		listeAdressesTournee.clear();
 		listeTronconsTournee.clear();
 		adresseEntrepot = null;
 	}
 	
+	/**
+	 * Surcharge de la methode update necessaire au fonctionnement du design pattern observable.
+	 * @param o l'objet observe.
+	 * @param arg l'objet a l'origine de la modification.
+	 */
 	@Override
 	public void update(Observable o, Object arg) {
 
@@ -226,108 +295,45 @@ public class VueGraphique extends JPanel implements Observer, Visiteur {
 
 	}
 
+	/**
+	 * Mutateur de l'attribut echelle.
+	 * @param value la valeur a donner a echelle.
+	 */
 	public void setEchelle(double value) {
 		this.echelle = value;
 	}
 
-	// @Override
-	// public void visite(Adresse a, boolean estEntrepot) {
-	// Graphics2D g2D = (Graphics2D) g;
-	//
-	// Ellipse2D adresse = new Ellipse2D.Double(
-	// (a.getX() - Constants.RAYON_NOEUD) * echelle +
-	// Constants.MARGIN_VUE_GRAPHE,
-	// (a.getY() - Constants.RAYON_NOEUD) * echelle +
-	// Constants.MARGIN_VUE_GRAPHE,
-	// Constants.RAYON_NOEUD * 2 * echelle,
-	// Constants.RAYON_NOEUD * 2 * echelle);
-	// g2D.fill(adresse);
-	// g2D.setColor(Color.black);
-	// g2D.draw(adresse);
-	//
-	//
-	// if (a.estAssocierAvecLivraison()) {
-	// g2D.setColor(Color.blue);
-	// g2D.fill(adresse);
-	//
-	// }
-	// if (estEntrepot) {
-	// g2D.setColor(Color.red);
-	// g2D.fill(adresse);
-	// }
-	//
-	// if (idAdresseSelectionne != null) {
-	// a = plan.getAdresse(idAdresseSelectionne);
-	// Ellipse2D adresseSelectionne = new Ellipse2D.Double(
-	// (a.getX() - Constants.RAYON_NOEUD) * echelle +
-	// Constants.MARGIN_VUE_GRAPHE,
-	// (a.getY() - Constants.RAYON_NOEUD) * echelle +
-	// Constants.MARGIN_VUE_GRAPHE,
-	// Constants.RAYON_NOEUD * 2 * echelle,
-	// Constants.RAYON_NOEUD * 2 * echelle);
-	//
-	// g2D.setColor(Color.yellow);
-	// g2D.fill(adresseSelectionne);
-	// }
-	//
-	// }
-	//
-	// @Override
-	// public void visite(Troncon t, boolean isDansTournee) {
-	// Graphics2D g2D = (Graphics2D) g;
-	// if (isDansTournee) {
-	// g2D.setColor(Color.blue);
-	// } else {
-	// g2D.setColor(Color.gray);
-	// }
-	// g2D.drawLine(
-	// (int) (t.getDepart().getX() * echelle + Constants.MARGIN_VUE_GRAPHE),
-	// (int) (t.getDepart().getY() * echelle + Constants.MARGIN_VUE_GRAPHE),
-	// (int) (t.getArrivee().getX() * echelle + Constants.MARGIN_VUE_GRAPHE),
-	// (int) (t.getArrivee().getY() * echelle + Constants.MARGIN_VUE_GRAPHE));
-	//
-	// double dy = t.getArrivee().getY() - t.getDepart().getY();
-	// double dx = t.getArrivee().getX() - t.getDepart().getX();
-	// double theta = Math.atan2(dy, dx);
-	//
-	// double x, y;
-	// double phi = theta + Math.toRadians(40);
-	//
-	// for(int j = 0; j < 2; j++)
-	// {
-	// x = t.getArrivee().getX() - 10 * Math.cos(phi);
-	// y = t.getArrivee().getY() - 10 * Math.sin(phi);
-	// g2D.draw(new Line2D.Double(t.getArrivee().getX() * echelle +
-	// Constants.MARGIN_VUE_GRAPHE,
-	// t.getArrivee().getY() * echelle + Constants.MARGIN_VUE_GRAPHE,
-	// x * echelle + Constants.MARGIN_VUE_GRAPHE,
-	// y * echelle + Constants.MARGIN_VUE_GRAPHE));
-	// phi = theta - Math.toRadians(40);
-	// }
-	// }
-
+	/**
+	 * Met une valeur a l'echelle.
+	 * @param x la valeur a mettre a l'echelle.
+	 * @return la valeur mise a l'echelle.
+	 */
 	public int changerRepere(int x) {
 		return (int) (x / echelle);
 	}
-
+	
+	/**
+	 * Reinitialise l'adresse selectionnee.
+	 */
 	public void deselection() {
 		this.adresseSelectionne = null;
 
 	}
-
+	
+	/**
+	 * Modifie l'adresse selectionnee.
+	 * @param idAdresseSelectionne l'id de l'adresse a definir comme selectionnee.
+	 */
 	public void selection(int idAdresseSelectionne) {
 		Adresse adresseSelectionne = plan.getAdresse(idAdresseSelectionne);
 		dessinSelection(adresseSelectionne);
 	}
 
-//	@Override
-//	public void visite(Adresse a) {
-//		dessinPlan(a);
-//		for (Troncon t : a.getTroncons()) {
-//			dessinPlan(t);
-//		}
-//	}
 
+	/**
+	 * Surcharge de la methode necessaire au fonctionnement du design pattern visiteur pour le plan.
+	 * @param p le plan a visiter.
+	 */
 	@Override
 	public void visite(Plan p) {
 		clearPlan();
@@ -357,7 +363,11 @@ public class VueGraphique extends JPanel implements Observer, Visiteur {
 			}
 		}
 	}
-
+	
+	/**
+	 * Surcharge de la methode necessaire au fonctionnement du design pattern visiteur pour la tournee.
+	 * @param t la tournee a visiter.
+	 */
 	@Override
 	public void visite(Tournee t) {
 		clearTournee();
@@ -374,16 +384,14 @@ public class VueGraphique extends JPanel implements Observer, Visiteur {
 		}
 
 	}
-
+	
+	/**
+	 * Deplace l'affichage du plan.
+	 * @param dx la translation sur l'axe x.
+	 * @param dy la translation sur l'axe y.
+	 */
 	public void moveEcran(int dx, int dy) {
 		translationX = dx;
 		translationY = dy;
 	}
-
-//	@Override
-//	public void visite(Chemin c) {
-//		for (Troncon tr : c.getTroncons()) {
-//			dessinTournee(tr);
-//		}
-//	}
 }
