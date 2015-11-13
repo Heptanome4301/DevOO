@@ -75,7 +75,6 @@ public class Controleur {
 		try {
 			xml = OuvreurDeFichiersXML.getInstance().ouvre();
 		} catch (ExceptionXML e) {
-			fenetre.signalerErreur(e.getMessage());
 		}
 		return xml;
 	}
@@ -86,7 +85,6 @@ public class Controleur {
 			etatCourant.chargerPlan(fenetre, plan, historique,xml);
                 
 		this.calculEchelle();
-		//fenetre.update();
 	}
 
 	public void chargerLivraisons() {
