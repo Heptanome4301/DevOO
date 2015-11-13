@@ -294,7 +294,7 @@ public class Fenetre {
 
 	private void setActiverBuotonsModification(boolean enable) {
 		supprimerLivraison.setEnabled(enable);
-		//echangerLivraisons.setEnabled(enable); /*La fonction echanger ne fonctionne pas*/
+		echangerLivraisons.setEnabled(false); //fixme La fonction echanger ne fonctionne pas
 		ajouterLivraison.setEnabled(enable);
 		deplacerLivraison.setEnabled(enable);
 		sauvegardeFeuilleRoute.setEnabled(enable);
