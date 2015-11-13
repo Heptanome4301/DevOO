@@ -22,16 +22,16 @@ public class Constants {
 	public static final String LOGS_DEPLACER2 = "Choississez la livraison qui suivra celle déplacée. Clic droit pour annuler";
 
 	/* Messages d'erreur � l'attention de l'utilisateur */
-	public static final String ERR_GENERE_FEUILLE = "Veuillez calculer la tourn�e afin de pouvoir g�n�rer la feuille de route.";
+	public static final String ERR_GENERE_FEUILLE = "Veuillez calculer la tournée afin de pouvoir générer la feuille de route.";
 	public static final String ERR_CHARGEMENT_LIVRAISON = "Il faut charger un plan avant de pouvoir charger des livraisons.";
 	public static final String ERR_CALCUL_TOURNEE = "Il faut d'abord charger un plan et des livraisons avant de pouvoir calculer la tournée";
 	public static final String ERR_PAS_ADRESSE_LIVRAISON = "L'adresse selectionnée n'est associée à aucune livraison";
-	public static final String ERR_ADRESSE_LIVRAISON = "L'adresse selectionnée est d�j� associée àune livraison";
+	public static final String ERR_ADRESSE_LIVRAISON = "L'adresse selectionnée est déjà associée à une livraison";
 
 	/* Constantes pour les textes des boutons */
 	public static final String CHARGER_PLAN = "Charger un plan";
 	public static final String CHARGER_LIVRAISONS = "Charger des livraisons";
-	public static final String CALCULER_TOURNEE = "Calculer une tourn�e";
+	public static final String CALCULER_TOURNEE = "Calculer une tournée";
 	public static final String AJOUTER_LIVRAISONS = "Ajouter une livraison";
 	public static final String SUPPRIMER_LIVRAISON = "Supprimer une livraison";
 	public static final String INVERSER_LIVRAISONS = "Inverser deux livraisons";

@@ -44,11 +44,9 @@ public class Fenetre {
 	private final Dimension MINIMUM_SIZE = new Dimension(800, 600);
 	private final Color ERROR_COLOR = Color.RED;
 	private final Color INFO_COLOR = Color.BLACK;
-	private JSlider zoom;
-	private JLabel lblZoom;
 
 	/**
-	 * Create the application.
+	 * Constructeur de Fenetre.
 	 */
 	public Fenetre(Controleur c, Plan p) {
 		initialize();
@@ -58,6 +56,10 @@ public class Fenetre {
 
 	}
 
+	/**
+	 * Ajoute la vue textuelle à la fenetre
+	 * @param c le controleur qui fourni la vue textuelle
+     */
 	private void ajouterViewTextuelle(Controleur c) {
 		JList<Livraison> listAdressesLivraisons = new JList<Livraison>();
 		vueTextuelle = new VueTextuelle(c, listAdressesLivraisons);
@@ -88,7 +90,7 @@ public class Fenetre {
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * initialise le contenu de la fenêtre.
 	 */
 	private void initialize() {
 
@@ -125,7 +127,7 @@ public class Fenetre {
 		// frame.getContentPane()
 		// .add(listAdressesLivraisons, "cell 0 1 1 10,grow");
 
-		etiquetteTournee = new JLabel("Cr�er une tourn�e");
+		etiquetteTournee = new JLabel("Créer une tournée");
 		etiquetteTournee.setHorizontalAlignment(SwingConstants.CENTER);
 		frame.getContentPane().add(etiquetteTournee, "cell 2 0 2 1,growx");
 
@@ -138,7 +140,7 @@ public class Fenetre {
 		calculerTournee = new JButton(Constants.CALCULER_TOURNEE);
 		frame.getContentPane().add(calculerTournee, "cell 2 3 2 1,growx");
 
-		etiquetteLivraisons = new JLabel("Modifier une tourn�e");
+		etiquetteLivraisons = new JLabel("Modifier une tournée");
 		etiquetteLivraisons.setHorizontalAlignment(SwingConstants.CENTER);
 		frame.getContentPane().add(etiquetteLivraisons, "cell 2 5 2 1,growx");
 
@@ -180,6 +182,10 @@ public class Fenetre {
 		frame.setVisible(true);
 	}
 
+	/**
+	 * Ajoute le plan à la fenetre
+	 * @param plan le plan à visualiser
+     */
 	private void ajouterView(Plan plan) {
 		this.vue = new VueGraphique(plan, this);
 
@@ -190,34 +196,63 @@ public class Fenetre {
 		// scrollPanel.setViewportView(view);
 	}
 
+	/**
+	 * Getter de la vue Graphique
+	 * @return la vue graphique
+     */
 	public VueGraphique getVue() {
 		return vue;
 	}
 
+	/**
+	 * Setter du parametre de l'echelle du plan
+	 * @param echelle l'echelle appliquée au plan
+     */
 	public void setEchelle(double echelle) {
 		this.vue.setEchelle(echelle);
 	}
 
+	/**
+	 * Ecrit le texte dans la barre de log en bas de la fenêtre
+	 * @param texte le message à afficher
+     */
 	public void ecrireLog(String texte) {
 		log.setForeground(INFO_COLOR);
 		log.setText(texte);
 	}
 
+	/**
+	 * Ecrit le texte dans la barre de log en bas de la fenêtre
+	 * @param texte le message à afficher
+	 * @param color la couleur du texte
+     */
 	private void ecrireLog(String texte, Color color) {
 		log.setForeground(color);
 		log.setText(texte);
 	}
 
+	/**
+	 * Ecrit les infos concernant un noeud dans la zone dédiée
+	 * @param texte Le texte à afficher
+     */
 	public void ecrireInfos(String texte) {
 		infoPoint.setText(texte);
 	}
 
+	/**
+	 * Signale une erreur dans la vue
+	 * @param texteErreur le message d'erreur
+     */
 	public void signalerErreur(String texteErreur) {
 		this.ecrireLog(texteErreur, ERROR_COLOR);
 		JOptionPane.showMessageDialog(null, texteErreur, "Erreur",
 				JOptionPane.ERROR_MESSAGE);
 	}
 
+	/**
+	 * Demande à l'utilisateur de confirmer la suppression d'un noeud
+	 * @return le choix de l'utilisateur
+     */
 	public boolean confirmerSuppression() {
 		int result = JOptionPane.showConfirmDialog(null,
 				"Etes vous sur de vouloir supprimer cette livraison",
@@ -245,6 +280,11 @@ public class Fenetre {
 		vue.repaint();
 	}
 
+	/**
+	 * Met à jour l'adresse sélectionnée sur la carte
+	 * @param adresse L'adresse selectionnée
+	 * @param updateList précise si la selection dans la liste doit être mise à jour
+     */
 	public void updateSelection(Adresse adresse, boolean updateList) {
 		if (updateList)
 			updateSelectionTextuelle(adresse);
@@ -254,7 +294,7 @@ public class Fenetre {
 
 	private void setActiverBuotonsModification(boolean enable) {
 		supprimerLivraison.setEnabled(enable);
-		echangerLivraisons.setEnabled(enable);
+		//echangerLivraisons.setEnabled(enable); /*La fonction echanger ne fonctionne pas*/
 		ajouterLivraison.setEnabled(enable);
 		deplacerLivraison.setEnabled(enable);
 		sauvegardeFeuilleRoute.setEnabled(enable);
@@ -262,14 +302,24 @@ public class Fenetre {
 		refaire.setEnabled(enable);
 	}
 
+
+	/**
+	 * Active les boutons de modification de la tournée
+	 */
 	public void activerBuotonsModification() {
 		setActiverBuotonsModification(true);
 	}
 
+	/**
+	 * Desactive les boutons de modification de la tournée
+	 */
 	public void desactiverBuotonsModification() {
 		setActiverBuotonsModification(false);
 	}
 
+	/**
+	 * met à jour la vue
+	 */
 	public void update() {
 		// System.out.println(vue.echelle);
 		// System.out.println("Vue x : " + vue.getSize().width + " et y : " +
