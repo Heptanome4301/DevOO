@@ -23,7 +23,7 @@ public class EcouteurDeBoutons implements ActionListener {
 	}
 
 	/**
-	 * Surcharge de la méthode actionPerformed qui definit les actions a accomplir lors d'un clic sur un bouton.
+	 * Surcharge de la methode actionPerformed qui definit les actions a accomplir lors d'un clic sur un bouton.
 	 * @param e l'evenement declenche par un clic sur un bouton.
 	 */
 	@Override

@@ -8,7 +8,7 @@ import javax.swing.event.ListSelectionListener;
  */
 public class EcouteurDeListe implements ListSelectionListener {
 	/**
-	 * La vue textuelle qui gère l'affichage de la liste ectoutee.
+	 * La vue textuelle qui gere l'affichage de la liste ectoutee.
 	 */
 	private VueTextuelle vueTextuelle;
 	
