@@ -338,5 +338,9 @@ public class Fenetre {
 		vue.moveEcran(dx, dy);
 		update();
 	}
+	
+	public void clear(){
+		vue.clear();
+	}
 
 }

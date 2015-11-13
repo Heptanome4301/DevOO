@@ -16,20 +16,21 @@ public class EtatPlan extends EtatIni {
 		// TODO Auto-generated constructor stub
 	}
 
-	
-	
 	@Override
-	public void chargerLivraisons(Fenetre fenetre, Plan plan, ListeDeCmd listeCmd) {
-		File xml;
+	public void chargerLivraisons(Fenetre fenetre, Plan plan,
+			ListeDeCmd listeCmd, Controleur c) {
+		File xml = c.getFileFileChooser();
+		if(xml==null) return;
 		try {
-                        xml = OuvreurDeFichiersXML.getInstance().ouvre();
+			//xml = OuvreurDeFichiersXML.getInstance().ouvre();
 			fenetre.desactiverBuotonsModification();
+			fenetre.clear();
 			plan.chargerLivraison(xml);
-                        listeCmd.clear();
+			listeCmd.clear();
 			Controleur.setEtatCourant(Controleur.etatLivraison);
 			fenetre.ecrireLog(Constants.LOGS_LIVRAISON);
 		} catch (Exception e) {
-                        plan.viderTournee();
+			//plan.viderTournee();
 			fenetre.signalerErreur(e.getMessage());
 			Controleur.setEtatCourant(Controleur.etatPlan);
 		}

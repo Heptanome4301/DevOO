@@ -70,15 +70,25 @@ public class Controleur {
 
 	}
 
+	protected File getFileFileChooser(){
+		File xml = null; 
+		try {
+			xml = OuvreurDeFichiersXML.getInstance().ouvre();
+		} catch (ExceptionXML e) {
+		}
+		return xml;
+	}
+	
 	public void chargerPlan() {
-		etatCourant.chargerPlan(fenetre, plan, historique);
+		File xml = getFileFileChooser();
+		if(xml!=null)
+			etatCourant.chargerPlan(fenetre, plan, historique,xml);
                 
 		this.calculEchelle();
-		fenetre.update();
 	}
 
 	public void chargerLivraisons() {
-		etatCourant.chargerLivraisons(fenetre, plan, historique);
+		etatCourant.chargerLivraisons(fenetre, plan, historique,this);
 	}
 
 	public void calculerTournee() {
