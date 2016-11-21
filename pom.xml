@@ -7,7 +7,6 @@
     <groupId>devoo</groupId>
     <artifactId>devoo</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>jar</packaging>
 
     <dependencies>
         <!-- https://mvnrepository.com/artifact/com.miglayout/miglayout -->
@@ -39,6 +38,5 @@
 
 
     </build>
-
 
 </project>
