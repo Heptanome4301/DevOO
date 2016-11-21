@@ -1,0 +1,71 @@
+Votre tournee est la suivante : 
+Livraison 1 Depart : 40 Arrivee : 73 Itineraire : 
+ De : 40 A : 50 Par : h0
+ De : 50 A : 60 Par : h0
+ De : 60 A : 61 Par : v6
+ De : 61 A : 62 Par : v6
+ De : 62 A : 72 Par : h2
+ De : 72 A : 73 Par : v7
+
+Livraison 2 Depart : 73 Arrivee : 56 Itineraire : 
+ De : 73 A : 63 Par : h3
+ De : 63 A : 64 Par : v6
+ De : 64 A : 65 Par : v6
+ De : 65 A : 66 Par : v6
+ De : 66 A : 56 Par : h6
+
+Livraison 3 Depart : 56 Arrivee : 67 Itineraire : 
+ De : 56 A : 57 Par : v5
+ De : 57 A : 67 Par : h7
+
+Livraison 4 Depart : 67 Arrivee : 43 Itineraire : 
+ De : 67 A : 57 Par : h7
+ De : 57 A : 56 Par : v5
+ De : 56 A : 46 Par : h6
+ De : 46 A : 45 Par : v4
+ De : 45 A : 44 Par : v4
+ De : 44 A : 43 Par : v4
+
+Livraison 5 Depart : 43 Arrivee : 68 Itineraire : 
+ De : 43 A : 53 Par : h3
+ De : 53 A : 54 Par : v5
+ De : 54 A : 55 Par : v5
+ De : 55 A : 65 Par : h5
+ De : 65 A : 66 Par : v6
+ De : 66 A : 56 Par : h6
+ De : 56 A : 57 Par : v5
+ De : 57 A : 67 Par : h7
+ De : 67 A : 68 Par : v6
+
+Livraison 6 Depart : 68 Arrivee : 98 Itineraire : 
+ De : 68 A : 78 Par : h8
+ De : 78 A : 77 Par : v7
+ De : 77 A : 87 Par : h7
+ De : 87 A : 97 Par : h7
+ De : 97 A : 98 Par : v9
+
+Livraison 7 Depart : 98 Arrivee : 14 Itineraire : 
+ De : 98 A : 97 Par : v9
+ De : 97 A : 87 Par : h7
+ De : 87 A : 86 Par : v8
+ De : 86 A : 76 Par : h6
+ De : 76 A : 66 Par : h6
+ De : 66 A : 65 Par : v6
+ De : 65 A : 55 Par : h5
+ De : 55 A : 45 Par : h5
+ De : 45 A : 44 Par : v4
+ De : 44 A : 34 Par : h4
+ De : 34 A : 24 Par : h4
+ De : 24 A : 14 Par : h4
+
+Livraison 8 Depart : 14 Arrivee : 13 Itineraire : 
+ De : 14 A : 13 Par : v1
+
+Livraison 9 Depart : 13 Arrivee : 40 Itineraire : 
+ De : 13 A : 12 Par : v1
+ De : 12 A : 11 Par : v1
+ De : 11 A : 21 Par : h1
+ De : 21 A : 20 Par : v2
+ De : 20 A : 30 Par : h0
+ De : 30 A : 40 Par : h0
+
