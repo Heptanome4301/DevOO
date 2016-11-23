@@ -1,2 +1,2 @@
 mvn package
-java -cp target/devoo-1.0-SNAPSHOT.jar Simulator
+java -jar target/devoo-1.0-SNAPSHOT.jar
